@@ -14,9 +14,9 @@ public abstract class Piece {
     }
 
 // Constructor For the Pyramid pieces
-    public Piece(String shape, int value, int movement, String color) {
+    public Piece(String shape, ArrayList<Integer> listValue, int movement, String color) {
         this.shape = shape;
-        listValue = new ArrayList<>();
+        this.listValue = new ArrayList<>();
         this.movement = movement;
         this.color = color;
     }
