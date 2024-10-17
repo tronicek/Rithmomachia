@@ -1,27 +1,19 @@
-import java.util.Set;
+import java.util.Scanner;
 
 public class Game {
 
 	public static void main(String[] args) {
-		Board.startGame();
+		Scanner scanner = new Scanner(System.in);
+		
+		System.out.print("Enter number of rows: ");
+		int numRows = scanner.nextInt();
+		System.out.print("Enter number of columns: ");
+		int numCols = scanner.nextInt();
+		
+		Board.initBoard(numRows, numCols);
+		
+		
 		Board.printBoard();
-		
-		Triangle triangle = new Triangle(Color.B, "triangle1", 10, 4, 4); // Place it in the center of the board
-
-        
-        Set<Move> moves = triangle.findMoves(triangle.getX(), triangle.getY(), new Board());
-
-        
-        System.out.println("Possible Moves for Triangle at (4, 4):");
-        for (Move move : moves) {
-            System.out.println(move);
-        }
-		
-		
-		
-		
-		
-		
 
 	}
 

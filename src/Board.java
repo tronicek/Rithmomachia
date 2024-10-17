@@ -1,35 +1,61 @@
 public class Board {
-    static Piece board[][] = new Piece[8][16];
+    static int rows; //Number of Rows
+    static int cols; //Number of Columns
+	
+	static Piece[][] board;
+	
+	public static void initBoard(int numRows, int numCols) {
+		rows = numRows;
+		cols = numCols;
+		board = new Piece[rows][cols];
+	}
 
     static void printBoard() {
         // Print the numbers at the top for the columns
-        System.out.println("         1         2         3         4         5         6         7         8         9        10        11        12        13        14        15        16");
+        System.out.print("    ");
+        for (int i = 1; i <= cols; i++) {
+            System.out.printf("%9d", i);
+        }
+        System.out.println();
 
-        // Adjust the horizontal separator for 16 columns
-        System.out.println("    ---------------------------------------------------------------------------------------------------------------------------------------------------------------");
+        // Horizontal separator line for dynamic column size
+        System.out.print("    ");
+        for (int i = 0; i < cols; i++) {
+            System.out.print("----------");
+        }
+        System.out.println();
 
         // Letters on the sides for the rows
         char letter = 'a';
-        for (int i = 0; i < 8; i++) {
-            System.out.print(" " + letter + " ");  // Print the letter for the row
-            System.out.print("| ");
-            for (int j = 0; j < 16; j++) {
+        for (int i = 0; i < rows; i++) {
+            System.out.printf(" %c |", letter);  // Print the letter for the row
+            for (int j = 0; j < cols; j++) {
                 if (board[i][j] == null) {
-                    System.out.print("        | ");  // Eight spaces for each cell to allow more room for piece names
+                    System.out.print("         |");  // Empty space if no piece
                 } else {
-                    System.out.printf("%-8s| ", board[i][j]);  // Use printf for consistent width formatting (8 spaces)
+                    System.out.printf("%-8s|", board[i][j]);  // Piece name
                 }
             }
-            System.out.print(letter);  // Print the letter again at the end of the row
+            System.out.printf(" %c", letter);  // Print the letter at the end of the row
             letter++;
             System.out.println();
-            System.out.println("    ----------------------------------------------------------------------------------------------------------------------------------------------------------------");
+
+            // Horizontal separator line for dynamic column size
+            System.out.print("    ");
+            for (int k = 0; k < cols; k++) {
+                System.out.print("----------");
+            }
+            System.out.println();
         }
 
-        // Print the numbers again at the bottom for the columns
-        System.out.println("         1         2         3         4         5         6         7         8         9        10        11        12        13        14        15        16");
+        // Print the column numbers again at the bottom
+        System.out.print("    ");
+        for (int i = 1; i <= cols; i++) {
+            System.out.printf("%9d", i);
+        }
         System.out.println();
     }
+
 
     static void startGame() {
         // Initializes black pieces
@@ -88,7 +114,7 @@ public class Board {
     }
     
     public static boolean isValidPos(int x, int y) {
-    	return x >= 0 && x < 16 && y >= 0 && y < 8;
+    	return x >= 0 && x < cols && y >= 0 && y < rows;
     }
     
     public static boolean isEmpty(int x, int y) {
