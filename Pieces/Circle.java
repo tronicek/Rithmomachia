@@ -9,7 +9,7 @@ public class Circle extends Piece {
     int deltaX = Math.abs(endX - startX);
     int deltaY = Math.abs(endY - startY);
 
-    // A valid king move is either one square in any direction
+    // A valid circle move is either one square in any direction
     // deltaX and deltaY should both be 0, 1, or both
     if (deltaX <= 1 && deltaY <= 1) {
         return true;
