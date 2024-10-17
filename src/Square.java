@@ -43,20 +43,7 @@ public class Square extends Piece{
 	         mm.add(new Move(x, y, x - 3, y - 3));
 	     }
 
-	     // Up/Down/Left/Right moves (1 square) to keep movement flexible
-	     // This is optional, remove if only 3 squares movement is needed.
-	     if (Board.isValidPos(x + 1, y) && Board.isEmpty(x + 1, y)) {
-	         mm.add(new Move(x, y, x + 1, y));
-	     }
-	     if (Board.isValidPos(x - 1, y) && Board.isEmpty(x - 1, y)) {
-	         mm.add(new Move(x, y, x - 1, y));
-	     }
-	     if (Board.isValidPos(x, y + 1) && Board.isEmpty(x, y + 1)) {
-	         mm.add(new Move(x, y, x, y + 1));
-	     }
-	     if (Board.isValidPos(x, y - 1) && Board.isEmpty(x, y - 1)) {
-	         mm.add(new Move(x, y, x, y - 1));
-	     }
+	     
 
 	     return mm;
 	 }
