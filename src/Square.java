@@ -14,39 +14,42 @@ public class Square extends Piece{
 	 @Override
 	 public Set<Move> findMoves(int x, int y, Board board) {
 	     Set<Move> mm = new HashSet<>();
+	     int distance = 3;  // Move 3 squares
 
-	     // Horizontal and vertical moves (3 squares)
-	     if (Board.isValidPos(x + 3, y) && Board.isEmpty(x + 1, y) && Board.isEmpty(x + 2, y) && Board.isEmpty(x + 3, y)) {
-	         mm.add(new Move(x, y, x + 3, y));
+	     // Horizontal and vertical moves (distance squares)
+	     if (Board.isValidPos(x + distance, y) && Board.pathIsClear(x, y, x + distance, y, board)) {
+	         mm.add(new Move(x, y, x + distance, y));
 	     }
-	     if (Board.isValidPos(x - 3, y) && Board.isEmpty(x - 1, y) && Board.isEmpty(x - 2, y) && Board.isEmpty(x - 3, y)) {
-	         mm.add(new Move(x, y, x - 3, y));
+	     if (Board.isValidPos(x - distance, y) && Board.pathIsClear(x, y, x - distance, y, board)) {
+	         mm.add(new Move(x, y, x - distance, y));
 	     }
-	     if (Board.isValidPos(x, y + 3) && Board.isEmpty(x, y + 1) && Board.isEmpty(x, y + 2) && Board.isEmpty(x, y + 3)) {
-	         mm.add(new Move(x, y, x, y + 3));
+	     if (Board.isValidPos(x, y + distance) && Board.pathIsClear(x, y, x, y + distance, board)) {
+	         mm.add(new Move(x, y, x, y + distance));
 	     }
-	     if (Board.isValidPos(x, y - 3) && Board.isEmpty(x, y - 1) && Board.isEmpty(x, y - 2) && Board.isEmpty(x, y - 3)) {
-	         mm.add(new Move(x, y, x, y - 3));
-	     }
-
-	     // Diagonal moves (3 squares)
-	     if (Board.isValidPos(x + 3, y + 3) && Board.isEmpty(x + 1, y + 1) && Board.isEmpty(x + 2, y + 2) && Board.isEmpty(x + 3, y + 3)) {
-	         mm.add(new Move(x, y, x + 3, y + 3));
-	     }
-	     if (Board.isValidPos(x + 3, y - 3) && Board.isEmpty(x + 1, y - 1) && Board.isEmpty(x + 2, y - 2) && Board.isEmpty(x + 3, y - 3)) {
-	         mm.add(new Move(x, y, x + 3, y - 3));
-	     }
-	     if (Board.isValidPos(x - 3, y + 3) && Board.isEmpty(x - 1, y + 1) && Board.isEmpty(x - 2, y + 2) && Board.isEmpty(x - 3, y + 3)) {
-	         mm.add(new Move(x, y, x - 3, y + 3));
-	     }
-	     if (Board.isValidPos(x - 3, y - 3) && Board.isEmpty(x - 1, y - 1) && Board.isEmpty(x - 2, y - 2) && Board.isEmpty(x - 3, y - 3)) {
-	         mm.add(new Move(x, y, x - 3, y - 3));
+	     if (Board.isValidPos(x, y - distance) && Board.pathIsClear(x, y, x, y - distance, board)) {
+	         mm.add(new Move(x, y, x, y - distance));
 	     }
 
-	     
+	     // Diagonal moves (distance squares)
+	     if (Board.isValidPos(x + distance, y + distance) && Board.pathIsClear(x, y, x + distance, y + distance, board)) {
+	         mm.add(new Move(x, y, x + distance, y + distance));
+	     }
+	     if (Board.isValidPos(x + distance, y - distance) && Board.pathIsClear(x, y, x + distance, y - distance, board)) {
+	         mm.add(new Move(x, y, x + distance, y - distance));
+	     }
+	     if (Board.isValidPos(x - distance, y + distance) && Board.pathIsClear(x, y, x - distance, y + distance, board)) {
+	         mm.add(new Move(x, y, x - distance, y + distance));
+	     }
+	     if (Board.isValidPos(x - distance, y - distance) && Board.pathIsClear(x, y, x - distance, y - distance, board)) {
+	         mm.add(new Move(x, y, x - distance, y - distance));
+	     }
 
 	     return mm;
 	 }
+
+
+	 
+
 
 
 }

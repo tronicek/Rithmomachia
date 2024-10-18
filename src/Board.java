@@ -125,6 +125,33 @@ public class Board {
     	return board[y][x] == null;
     }
     
+ // Helper method to check if the path is clear
+ 	 public static boolean pathIsClear(int x1, int y1, int x2, int y2, Board board) {
+ 		    // Determine the direction of movement
+ 		    int dx = Integer.signum(x2 - x1); // Direction along x-axis
+ 		    int dy = Integer.signum(y2 - y1); // Direction along y-axis
+
+ 		    // Loop over each square between (x1, y1) and (x2, y2)
+ 		    for (int i = 1; i < Math.max(Math.abs(x2 - x1), Math.abs(y2 - y1)); i++) {
+ 		        int nextX = x1 + i * dx; // The x-coordinate of the next square along the path
+ 		        int nextY = y1 + i * dy; // The y-coordinate of the next square along the path
+
+ 		        // If any square along the path is not empty, the path is blocked
+ 		        if (!board.isEmpty(nextX, nextY)) {
+ 		            return false; // Path is blocked by another piece
+ 		        }
+ 		    }
+
+ 		    // Check if the destination square (x2, y2) is empty
+ 		    // If it's occupied, the piece cannot move there
+ 		    if (!board.isEmpty(x2, y2)) {
+ 		        return false; // Target square is occupied
+ 		    }
+
+ 		    // If all squares are empty and the target square is not occupied, the path is clear
+ 		    return true;
+ 		}
+
     
 
     public static void setPiece(int x, int y, Piece piece) {

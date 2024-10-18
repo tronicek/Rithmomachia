@@ -14,38 +14,34 @@ public class Circle extends Piece {
 	 @Override
 	 public Set<Move> findMoves(int x, int y, Board board) {
 	     Set<Move> mm = new HashSet<>();
+	     int distance = 1;  // Move 3 squares
 
-	     // Move one square to the right
-	     if (Board.isValidPos(x + 1, y) && Board.isEmpty(x + 1, y)) {
-	         mm.add(new Move(x, y, x + 1, y));
+	     // Horizontal and vertical moves (distance squares)
+	     if (Board.isValidPos(x + distance, y) && Board.pathIsClear(x, y, x + distance, y, board)) {
+	         mm.add(new Move(x, y, x + distance, y));
 	     }
-	     // Move one square to the left
-	     if (Board.isValidPos(x - 1, y) && Board.isEmpty(x - 1, y)) {
-	         mm.add(new Move(x, y, x - 1, y));
+	     if (Board.isValidPos(x - distance, y) && Board.pathIsClear(x, y, x - distance, y, board)) {
+	         mm.add(new Move(x, y, x - distance, y));
 	     }
-	     // Move one square up
-	     if (Board.isValidPos(x, y - 1) && Board.isEmpty(x, y - 1)) {
-	         mm.add(new Move(x, y, x, y - 1));
+	     if (Board.isValidPos(x, y + distance) && Board.pathIsClear(x, y, x, y + distance, board)) {
+	         mm.add(new Move(x, y, x, y + distance));
 	     }
-	     // Move one square down
-	     if (Board.isValidPos(x, y + 1) && Board.isEmpty(x, y + 1)) {
-	         mm.add(new Move(x, y, x, y + 1));
+	     if (Board.isValidPos(x, y - distance) && Board.pathIsClear(x, y, x, y - distance, board)) {
+	         mm.add(new Move(x, y, x, y - distance));
 	     }
-	     // Move one square diagonally up-right
-	     if (Board.isValidPos(x + 1, y - 1) && Board.isEmpty(x + 1, y - 1)) {
-	         mm.add(new Move(x, y, x + 1, y - 1));
+
+	     // Diagonal moves (distance squares)
+	     if (Board.isValidPos(x + distance, y + distance) && Board.pathIsClear(x, y, x + distance, y + distance, board)) {
+	         mm.add(new Move(x, y, x + distance, y + distance));
 	     }
-	     // Move one square diagonally up-left
-	     if (Board.isValidPos(x - 1, y - 1) && Board.isEmpty(x - 1, y - 1)) {
-	         mm.add(new Move(x, y, x - 1, y - 1));
+	     if (Board.isValidPos(x + distance, y - distance) && Board.pathIsClear(x, y, x + distance, y - distance, board)) {
+	         mm.add(new Move(x, y, x + distance, y - distance));
 	     }
-	     // Move one square diagonally down-right
-	     if (Board.isValidPos(x + 1, y + 1) && Board.isEmpty(x + 1, y + 1)) {
-	         mm.add(new Move(x, y, x + 1, y + 1));
+	     if (Board.isValidPos(x - distance, y + distance) && Board.pathIsClear(x, y, x - distance, y + distance, board)) {
+	         mm.add(new Move(x, y, x - distance, y + distance));
 	     }
-	     // Move one square diagonally down-left
-	     if (Board.isValidPos(x - 1, y + 1) && Board.isEmpty(x - 1, y + 1)) {
-	         mm.add(new Move(x, y, x - 1, y + 1));
+	     if (Board.isValidPos(x - distance, y - distance) && Board.pathIsClear(x, y, x - distance, y - distance, board)) {
+	         mm.add(new Move(x, y, x - distance, y - distance));
 	     }
 
 	     return mm;
