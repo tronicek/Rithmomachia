@@ -2,8 +2,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class Circle extends Piece {
-	public Circle(Color color, String ID, int value, int startX, int startY) {
-			super(color, ID, value, startX, startY);
+	public Circle(Color color, int value, int startX, int startY) {
+			super(color, value, startX, startY);
 	}
 	
 	 @Override
@@ -46,6 +46,29 @@ public class Circle extends Piece {
 
 	     return mm;
 	 }
+	 
+	 @Override
+	    public Set<Pos> capture(int x, int y, Board board) {
+	        Set<Pos> pp = new HashSet<>();
+	        int distance = 1;
+	        if (Board.isValidPos(x + distance, y)
+	                && board.contains(x + distance, y, value)) {
+	            pp.add(new Pos(x + distance, y));
+	        }
+	        if (Board.isValidPos(x - distance, y)
+	                && board.contains(x - distance, y, value)) {
+	            pp.add(new Pos(x - distance, y));
+	        }
+	        if (Board.isValidPos(x, y + distance)
+	                && board.contains(x, y + distance, value)) {
+	            pp.add(new Pos(x, y + distance));
+	        }
+	        if (Board.isValidPos(x, y - distance)
+	                && board.contains(x, y - distance, value)) {
+	            pp.add(new Pos(x, y - distance));
+	        }
+	        return pp;
+	    }
 
 
 }

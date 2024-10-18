@@ -4,6 +4,7 @@ public class Board {
 	
 	static Piece[][] board;
 	
+	
 	public static void initBoard(int numRows, int numCols) {
 		rows = numRows;
 		cols = numCols;
@@ -59,59 +60,61 @@ public class Board {
 
     static void startGame() {
         // Initializes black pieces
-        new Circle(Color.B, "circle3", 3, 5, 2);
-        new Circle(Color.B, "circle5", 5, 5, 3);
-        new Circle(Color.B, "circle7", 7, 5, 4);
-        new Circle(Color.B, "circle9", 9, 5, 5);
-        new Circle(Color.B, "circle9", 9, 4, 2);
-        new Circle(Color.B, "circle25", 25, 4, 3);
-        new Circle(Color.B, "circle49", 49, 4, 4);
-        new Circle(Color.B, "circle81", 81, 4, 5);
+        new Circle(Color.B, 3, 5, 2);
+        new Circle(Color.B, 5, 5, 3);
+        new Circle(Color.B, 7, 5, 4);
+        new Circle(Color.B, 9, 5, 5);
+        new Circle(Color.B, 9, 4, 2);
+        new Circle(Color.B, 25, 4, 3);
+        new Circle(Color.B, 49, 4, 4);
+        new Circle(Color.B, 81, 4, 5);
 
-        new Triangle(Color.B, "triangle16", 16, 4, 0);
-        new Triangle(Color.B, "triangle12", 12, 4, 1);
-        new Triangle(Color.B, "triangle90", 90, 4, 6);
-        new Triangle(Color.B, "triangle100", 100, 4, 7);
-        new Triangle(Color.B, "triangle36", 36, 3, 2);
-        new Triangle(Color.B, "triangle30", 30, 3, 3);
-        new Triangle(Color.B, "triangle56", 56, 3, 4);
-        new Triangle(Color.B, "triangle64", 64, 3, 5);
+        new Triangle(Color.B, 16, 4, 0);
+        new Triangle(Color.B, 12, 4, 1);
+        new Triangle(Color.B, 90, 4, 6);
+        new Triangle(Color.B, 100, 4, 7);
+        new Triangle(Color.B, 36, 3, 2);
+        new Triangle(Color.B, 30, 3, 3);
+        new Triangle(Color.B, 56, 3, 4);
+        new Triangle(Color.B, 64, 3, 5);
 
-        new Square(Color.B, "square49", 49, 2, 0);
-        new Square(Color.B, "square28", 28, 3, 0);
-        new Square(Color.B, "square121", 121, 2, 1);
-        new Square(Color.B, "square66", 66, 3, 1);
-        new Square(Color.B, "square225", 225, 2, 6);
-        new Square(Color.B, "square120", 120, 3, 6);
-        new Square(Color.B, "square361", 361, 2, 7);
+        new Square(Color.B, 49, 2, 0);
+        new Square(Color.B, 28, 3, 0);
+        new Square(Color.B, 121, 2, 1);
+        new Square(Color.B, 66, 3, 1);
+        new Square(Color.B, 225, 2, 6);
+        new Square(Color.B, 120, 3, 6);
+        new Square(Color.B, 361, 2, 7);
 
         // Initializes white pieces
-        new Circle(Color.W, "circle8", 8, 10, 2);
-        new Circle(Color.W, "circle6", 6, 10, 3);
-        new Circle(Color.W, "circle4", 4, 10, 4);
-        new Circle(Color.W, "circle2", 2, 10, 5);
-        new Circle(Color.W, "circle64", 64, 11, 2);
-        new Circle(Color.W, "circle36", 36, 11, 3);
-        new Circle(Color.W, "circle16", 16, 11, 4);
-        new Circle(Color.W, "circle4", 4, 11, 5);
+        new Circle(Color.W, 8, 10, 2);
+        new Circle(Color.W, 6, 10, 3);
+        new Circle(Color.W, 4, 10, 4);
+        new Circle(Color.W, 2, 10, 5);
+        new Circle(Color.W, 64, 11, 2);
+        new Circle(Color.W, 36, 11, 3);
+        new Circle(Color.W, 16, 11, 4);
+        new Circle(Color.W, 4, 11, 5);
 
-        new Triangle(Color.W, "triangle81", 81, 11, 0);
-        new Triangle(Color.W, "triangle72", 72, 11, 1);
-        new Triangle(Color.W, "triangle6", 6, 11, 6);
-        new Triangle(Color.W, "triangle9", 9, 11, 7);
-        new Triangle(Color.W, "triangle49", 49, 12, 2);
-        new Triangle(Color.W, "triangle42", 42, 12, 3);
-        new Triangle(Color.W, "triangle20", 20, 12, 4);
-        new Triangle(Color.W, "triangle25", 25, 12, 5);
+        new Triangle(Color.W, 81, 11, 0);
+        new Triangle(Color.W, 72, 11, 1);
+        new Triangle(Color.W, 6, 11, 6);
+        new Triangle(Color.W, 9, 11, 7);
+        new Triangle(Color.W, 49, 12, 2);
+        new Triangle(Color.W, 42, 12, 3);
+        new Triangle(Color.W, 20, 12, 4);
+        new Triangle(Color.W, 25, 12, 5);
 
-        new Square(Color.W, "square153", 153, 12, 0);
-        new Square(Color.W, "square289", 289, 13, 0);
-        new Square(Color.W, "square169", 169, 13, 1);
-        new Square(Color.W, "square45", 45, 12, 6);
-        new Square(Color.W, "square81", 81, 13, 6);
-        new Square(Color.W, "square15", 15, 12, 7);
-        new Square(Color.W, "square25", 25, 13, 7);
+        new Square(Color.W, 153, 12, 0);
+        new Square(Color.W, 289, 13, 0);
+        new Square(Color.W, 169, 13, 1);
+        new Square(Color.W, 45, 12, 6);
+        new Square(Color.W, 81, 13, 6);
+        new Square(Color.W, 15, 12, 7);
+        new Square(Color.W, 25, 13, 7);
     }
+    
+    
     
     public static boolean isValidPos(int x, int y) {
     	return x >= 0 && x < cols && y >= 0 && y < rows;
@@ -137,20 +140,30 @@ public class Board {
  		        int nextY = y1 + i * dy; // The y-coordinate of the next square along the path
 
  		        // If any square along the path is not empty, the path is blocked
- 		        if (!board.isEmpty(nextX, nextY)) {
+ 		        if (!Board.isEmpty(nextX, nextY)) {
  		            return false; // Path is blocked by another piece
  		        }
  		    }
 
  		    // Check if the destination square (x2, y2) is empty
  		    // If it's occupied, the piece cannot move there
- 		    if (!board.isEmpty(x2, y2)) {
+ 		    if (!Board.isEmpty(x2, y2)) {
  		        return false; // Target square is occupied
  		    }
 
  		    // If all squares are empty and the target square is not occupied, the path is clear
  		    return true;
  		}
+ 	 
+ 	public boolean contains(int x, int y, int value) {
+ 	    // Check if the position (x, y) contains a piece with the specific value.
+ 	    Piece piece = getPiece(x, y); // Retrieves the piece at position (x, y)
+ 	    if (piece != null && piece.getValue() == value) {
+ 	        return true; // Return true if the piece has the same value
+ 	    }
+ 	    return false;
+ 	}
+
 
     
 

@@ -3,15 +3,14 @@ import java.util.Scanner;
 public class Game {
 
 	public static void main(String[] args) {
-		Scanner scanner = new Scanner(System.in);
-		
-		System.out.print("Enter number of rows: ");
-		int numRows = scanner.nextInt();
-		System.out.print("Enter number of columns: ");
-		int numCols = scanner.nextInt();
-		
-		Board.initBoard(numRows, numCols);
-		
+		try (Scanner scanner = new Scanner(System.in)) {
+			System.out.print("Enter number of rows: ");
+			int numRows = scanner.nextInt();
+			System.out.print("Enter number of columns: ");
+			int numCols = scanner.nextInt();
+			
+			Board.initBoard(numRows, numCols);
+		}
 		
 		Board.printBoard();
 

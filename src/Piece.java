@@ -7,9 +7,8 @@ public abstract class Piece {
 	private String ID;
 	private int x, y;
 	
-	public Piece( Color color, String ID, int value, int startX, int startY) {
+	public Piece( Color color, int value, int startX, int startY) {
 		this.color = color;
-		this.ID = ID;
 		this.x = startX;
 		this.y = startY;
 		this.value = value;
@@ -18,6 +17,8 @@ public abstract class Piece {
 	}
 	
 	public abstract Set<Move> findMoves(int x, int y, Board board);
+	
+	public abstract Set<Pos> capture(int x, int y, Board board);
 	   
     
 	
@@ -28,6 +29,10 @@ public abstract class Piece {
 	
 	public Color getColor() {
 		return this.color;
+	}
+	
+	public int getValue() {
+		return this.value;
 	}
 	
 	public int getX() {

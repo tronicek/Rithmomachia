@@ -5,17 +5,16 @@ public class TriangleTest {
     public static void main(String[] args) {
         // Create a board and initialize it
     	
-Scanner scanner = new Scanner(System.in);
+try (Scanner scanner = new Scanner(System.in)) {
+	System.out.print("Enter number of rows: ");
+	int numRows = scanner.nextInt();
+	System.out.print("Enter number of columns: ");
+	int numCols = scanner.nextInt();
+	Board.initBoard(numRows, numCols);
+}
 		
-		System.out.print("Enter number of rows: ");
-		int numRows = scanner.nextInt();
-		System.out.print("Enter number of columns: ");
-		int numCols = scanner.nextInt();
-    	Board.initBoard(numRows, numCols);
-        
-
-        // Create a triangle piece
-        Square square = new Square(Color.B, "square1", 1, 4, 4);
+		// Create a triangle piece
+        Square square = new Square(Color.B, 1, 4, 4);
         
         
         
@@ -31,10 +30,12 @@ Scanner scanner = new Scanner(System.in);
             System.out.println(move);
         }
         
-        
-        
+        	}
+    
+    
+
         
 
         // You could add assertions or expected results here
     }
-}
+
