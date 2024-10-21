@@ -22,7 +22,7 @@ try (Scanner scanner = new Scanner(System.in)) {
         Board.printBoard();
 
         // Call findMoves method
-        Set<Move> moves = square.findMoves(square.getX(), square.getY(), new Board());
+        Set<Move> moves = square.findMoves(square.getX(), square.getY(), new Board();
 
         // Print the moves
         System.out.println("Possible Moves for Square at (4, 4):");

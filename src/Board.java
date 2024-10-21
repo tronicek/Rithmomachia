@@ -1,8 +1,42 @@
 public class Board {
     static int rows; //Number of Rows
     static int cols; //Number of Columns
+    static Piece[][] board;
+    
+    
+    Board(int width, int height, String[] str) {
+        board = new Piece[width][height];
+        for (int i = 0; i < str.length; i++) {
+            String[] t = str[i].split(" +");
+            for (int j = 0; j < t.length; j++) {
+                board[i][j] = fromString(t[j]);
+            }
+        }
+    }
+   
+    private Piece fromString(String s) {
+        if (s.charAt(0) == '-') {
+            return null;
+        }
+        Color c = switch(s.charAt(0)) {
+            case 'B' -> Color.B;
+            case 'W' -> Color.W;
+            default -> { throw new AssertionError(); }
+        };
+        int value = s.charAt(2) - '0';
+        switch (s.charAt(1)) {
+            case 'R':
+                return new Circle(c, value);
+            case 'S':
+                return new Square(c, value);
+            case 'T':
+                return new Triangle(c, value);
+            default:
+                throw new AssertionError();
+        }
+    }
 	
-	static Piece[][] board;
+	
 	
 	
 	public static void initBoard(int numRows, int numCols) {
