@@ -1,5 +1,3 @@
-/* this is not nessessary yet but thought id put it in for now */
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,32 +5,63 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Rithmomachia</title>
+  <style>
+        .container {
+            display: flex;
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .board-container {
+            flex-shrink: 0;
+        }
+        .scale-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+            padding: 10px;
+            background: #f5f5f5;
+            border-radius: 4px;
+        }
+        .scale-controls input {
+            width: 200px;
+        }
+        .scale-controls label {
+            font-weight: bold;
+        }
+        #renderCanvas {
+            border: 1px solid #000;
+            width: 600px;
+            height: 600px;
+            touch-action: none;
+        }
+        .history-container {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        #history {
+            flex-grow: 1;
+            width: 300px;
+            height: 400px;
+            overflow-y: auto;
+            border: 1px solid #000;
+            padding: 10px;
+            font-family: Arial, sans-serif;
+        }
 </head>
 <body>
-  
-<canvas id="canvas" width="400" height="400"></canvas> // Could use React/Fabric for this 
-
- <form id="game-form">
-    <label for="width">Board Width:</label>
-    <input type="number" id="width" name="width" required>
-
-    <label for="height">Board Height:</label>
-    <input type="number" id="height" name="height" required>
-
-    <button type="submit">Start Game</button>
-  </form>
-
-  <canvas id="game-canvas" width="400" height="400"></canvas>
-
-  <script src="game.js"></script>
+    <div class="container">
+        <div class="board-container">
+            <canvas id="canvas" width="400" height="400"></canvas>
+        </div>
+        <div class="history-container">
+            <h2>Move History</h2>
+            <div id="history"></div>
+        </div>
+    </div>
   <script>
-    const gameForm = document.getElementById('game-form');
-    gameForm.addEventListener('submit', (event) => {
-      event.preventDefault();
-      const width = document.getElementById('width').value;
-      const height = document.getElementById('height').value;
-      initGame(document.getElementById('game-canvas'), parseInt(width), parseInt(height));
-    });
   </script>
 </body>
 </html>
