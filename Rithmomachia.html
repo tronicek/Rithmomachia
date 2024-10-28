@@ -12,4 +12,8 @@
   
 <canvas id="canvas" width="400" height="400"></canvas> // Could use React/Fabric for this 
 
-<script src='Game.java'></script> //not sure if this is how you go about this
+<script src="game.js"></script>
+  <script>
+    // Initialize the WebAssembly-based game
+    initGame(document.getElementById("canvas"));
+  </script>
