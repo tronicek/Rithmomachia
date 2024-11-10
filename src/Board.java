@@ -2,41 +2,7 @@ public class Board {
     static int rows; //Number of Rows
     static int cols; //Number of Columns
     static Piece[][] board;
-    
-    
-    Board(int width, int height, String[] str) {
-        board = new Piece[width][height];
-        for (int i = 0; i < str.length; i++) {
-            String[] t = str[i].split(" +");
-            for (int j = 0; j < t.length; j++) {
-                board[i][j] = fromString(t[j]);
-            }
-        }
-    }
    
-    private Piece fromString(String s) {
-        if (s.charAt(0) == '-') {
-            return null;
-        }
-        Color c = switch(s.charAt(0)) {
-            case 'B' -> Color.B;
-            case 'W' -> Color.W;
-            default -> { throw new AssertionError(); }
-        };
-        int value = s.charAt(2) - '0';
-        switch (s.charAt(1)) {
-            case 'R':
-                return new Circle(c, value);
-            case 'S':
-                return new Square(c, value);
-            case 'T':
-                return new Triangle(c, value);
-            default:
-                throw new AssertionError();
-        }
-    }
-	
-	
 	
 	
 	public static void initBoard(int numRows, int numCols) {
@@ -92,7 +58,7 @@ public class Board {
     }
 
 
-    static void startGame() {
+   /* static void startGame() {
         // Initializes black pieces
         new Circle(Color.B, 3, 5, 2);
         new Circle(Color.B, 5, 5, 3);
@@ -146,7 +112,7 @@ public class Board {
         new Square(Color.W, 81, 13, 6);
         new Square(Color.W, 15, 12, 7);
         new Square(Color.W, 25, 13, 7);
-    }
+    }*/
     
     
     
@@ -210,6 +176,6 @@ public class Board {
     }
 
     public static Piece getPiece(int x, int y) {
-        return board[y][x];
+        return board[x][y];
     }
 }
