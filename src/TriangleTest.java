@@ -14,10 +14,11 @@ public class TriangleTest {
 
         // Create and place Square pieces
         Square square = new Square(Color.B, 1, 4, 4);
-        Circle circle = new Circle(Color.B, 5, 7, 4);
+        Circle circle = new Circle(Color.B, 1, 7, 4);
+        new Circle(Color.B, 1, 4, 7);
         
-        Board.setPiece(square.getX(), square.getY(), square);  // Place square1 on the board
-        Board.setPiece(circle.getX(), circle.getY(), circle);  // Place square2 on the board
+        Board.setPiece(square.getX(), square.getY(), square);  // Place square on the board
+        Board.setPiece(circle.getX(), circle.getY(), circle);  // Place circle on the board
         
         // Print the board
         Board.printBoard();
