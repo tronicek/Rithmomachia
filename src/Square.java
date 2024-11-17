@@ -48,28 +48,33 @@ public class Square extends Piece{
 	 }
 	 
 	 @Override
-	    public Set<Pos> capture(int x, int y, Board board) {
+	 public Set<Pos> capture(int x, int y, Board board) {
 	        Set<Pos> pp = new HashSet<>();
 	        int distance = 3;
 	        if (Board.isValidPos(x + distance, y)
-	                && Board.contains(x + distance, y, value)) {
+	                && Board.contains(x + distance, y, value) && Board.capturepathIsClear(x, y, x + distance, y, board)) {
+	        	//System.out.print("Position Conditions met");
 	            pp.add(new Pos(x + distance, y));
+	            
 	        }
 	        if (Board.isValidPos(x - distance, y)
-	                && Board.contains(x - distance, y, value)) {
+	                && Board.contains(x - distance, y, value) && Board.capturepathIsClear(x, y, x - distance, y, board)) {
+	        	//System.out.print("Position Conditions met");
 	            pp.add(new Pos(x - distance, y));
 	        }
 	        if (Board.isValidPos(x, y + distance)
-	                && Board.contains(x, y + distance, value)) {
+	                && Board.contains(x, y + distance, value) && Board.capturepathIsClear(x, y, x, y + distance, board) ) {
+	        	//System.out.print("Position Conditions met");
 	            pp.add(new Pos(x, y + distance));
 	        }
 	        if (Board.isValidPos(x, y - distance)
-	                && Board.contains(x, y - distance, value)) {
+	                && Board.contains(x, y - distance, value) && Board.capturepathIsClear(x, y, x, y - distance, board)) {
+	        	//System.out.print("Position Conditions met");
 	            pp.add(new Pos(x, y - distance));
+	            
 	        }
 	        return pp;
 	    }
-
 
 	 
 
