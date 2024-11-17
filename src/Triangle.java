@@ -11,41 +11,64 @@ public class Triangle extends Piece {
         return String.format("%sT%d", color, value);
     }
 	
-	 @Override
-	 public Set<Move> findMoves(int x, int y, Board board) {
-	     Set<Move> mm = new HashSet<>();
-	     int distance = 2;  // Move 2 squares
+	@Override
+	public Set<Move> findMoves(int x, int y, Board board) {
+	    Set<Move> mm = new HashSet<>();
+	    int distance = 2; // Move 2 squares
 
-	     // Horizontal and vertical moves (distance squares)
-	     if (Board.isValidPos(x + distance, y) && Board.pathIsClear(x, y, x + distance, y, board)) {
-	         mm.add(new Move(x, y, x + distance, y));
-	     }
-	     if (Board.isValidPos(x - distance, y) && Board.pathIsClear(x, y, x - distance, y, board)) {
-	         mm.add(new Move(x, y, x - distance, y));
-	     }
-	     if (Board.isValidPos(x, y + distance) && Board.pathIsClear(x, y, x, y + distance, board)) {
-	         mm.add(new Move(x, y, x, y + distance));
-	     }
-	     if (Board.isValidPos(x, y - distance) && Board.pathIsClear(x, y, x, y - distance, board)) {
-	         mm.add(new Move(x, y, x, y - distance));
-	     }
+	    // Horizontal and vertical moves (distance squares)
+	    if (Board.isValidPos(x + distance, y) 
+	            && Board.pathIsClear(x, y, x + distance, y, board)) {
+	        mm.add(new Move(x, y, x + distance, y));
+	    }
+	    if (Board.isValidPos(x - distance, y) 
+	            && Board.pathIsClear(x, y, x - distance, y, board)) {
+	        mm.add(new Move(x, y, x - distance, y));
+	    }
+	    if (Board.isValidPos(x, y + distance) 
+	            && Board.pathIsClear(x, y, x, y + distance, board)) {
+	        mm.add(new Move(x, y, x, y + distance));
+	    }
+	    if (Board.isValidPos(x, y - distance) 
+	            && Board.pathIsClear(x, y, x, y - distance, board)) {
+	        mm.add(new Move(x, y, x, y - distance));
+	    }
 
-	     // Diagonal moves (distance squares)
-	     if (Board.isValidPos(x + distance, y + distance) && Board.pathIsClear(x, y, x + distance, y + distance, board)) {
-	         mm.add(new Move(x, y, x + distance, y + distance));
-	     }
-	     if (Board.isValidPos(x + distance, y - distance) && Board.pathIsClear(x, y, x + distance, y - distance, board)) {
-	         mm.add(new Move(x, y, x + distance, y - distance));
-	     }
-	     if (Board.isValidPos(x - distance, y + distance) && Board.pathIsClear(x, y, x - distance, y + distance, board)) {
-	         mm.add(new Move(x, y, x - distance, y + distance));
-	     }
-	     if (Board.isValidPos(x - distance, y - distance) && Board.pathIsClear(x, y, x - distance, y - distance, board)) {
-	         mm.add(new Move(x, y, x - distance, y - distance));
-	     }
+	    // Diagonal moves (distance squares)
+	    if (Board.isValidPos(x + distance, y + distance) 
+	            && Board.pathIsClear(x, y, x + distance, y + distance, board)) {
+	        mm.add(new Move(x, y, x + distance, y + distance));
+	    }
+	    if (Board.isValidPos(x + distance, y - distance) 
+	            && Board.pathIsClear(x, y, x + distance, y - distance, board)) {
+	        mm.add(new Move(x, y, x + distance, y - distance));
+	    }
+	    if (Board.isValidPos(x - distance, y + distance) 
+	            && Board.pathIsClear(x, y, x - distance, y + distance, board)) {
+	        mm.add(new Move(x, y, x - distance, y + distance));
+	    }
+	    if (Board.isValidPos(x - distance, y - distance) 
+	            && Board.pathIsClear(x, y, x - distance, y - distance, board)) {
+	        mm.add(new Move(x, y, x - distance, y - distance));
+	    }
 
-	     return mm;
-	 }
+	    // Knight-like moves
+	    if (Board.isValidPos(x + 2, y + 1) && Board.isEmpty(x + 2, y + 1)) {
+	        mm.add(new Move(x, y, x + 2, y + 1));
+	    }
+	    if (Board.isValidPos(x + 2, y - 1) && Board.isEmpty(x + 2, y - 1)) {
+	        mm.add(new Move(x, y, x + 2, y - 1));
+	    }
+	    if (Board.isValidPos(x - 2, y + 1) && Board.isEmpty(x - 2, y + 1)) {
+	        mm.add(new Move(x, y, x - 2, y + 1));
+	    }
+	    if (Board.isValidPos(x - 2, y - 1) && Board.isEmpty(x - 2, y - 1)) {
+	        mm.add(new Move(x, y, x - 2, y - 1));
+	    }
+
+	    return mm;
+	}
+
 
 	 @Override
 	    public Set<Pos> capture(int x, int y, Board board) {
