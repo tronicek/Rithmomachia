@@ -159,7 +159,9 @@ public class Board {
     
     
     public static boolean isValidPos(int x, int y) {
-    	return x >= 0 && x < cols && y >= 0 && y < rows;
+    	//System.out.print("isValidPos called: ");
+    	return x >= 0 && x < rows && y >= 0 && y < cols;
+    	
     }
     
     public static boolean isEmpty(int x, int y) {
@@ -167,7 +169,7 @@ public class Board {
     		return false;
     	}
     	
-    	return pieces[y][x] == null;
+    	return pieces[x][y] == null;
     }
     
  // Helper method to check if the path is clear
@@ -197,7 +199,30 @@ public class Board {
  		    return true;
  		}
  	 
- 	public boolean contains(int x, int y, int value) {
+ 	public static boolean capturepathIsClear(int x1, int y1, int x2, int y2, Board board) {
+		    // Determine the direction of movement
+		    int dx = Integer.signum(x2 - x1); // Direction along x-axis
+		    int dy = Integer.signum(y2 - y1); // Direction along y-axis
+
+		    // Loop over each square between (x1, y1) and (x2, y2)
+		    for (int i = 1; i < Math.max(Math.abs(x2 - x1), Math.abs(y2 - y1)); i++) {
+		        int nextX = x1 + i * dx; // The x-coordinate of the next square along the path
+		        int nextY = y1 + i * dy; // The y-coordinate of the next square along the path
+
+		        // If any square along the path is not empty, the path is blocked
+		        if (!Board.isEmpty(nextX, nextY)) {
+		            return false; // Path is blocked by another piece
+		        }
+		    }
+
+		   
+
+		    // If all squares are empty and the target square is not occupied, the path is clear
+		    return true;
+		}
+ 	 
+ 	public static boolean contains(int x, int y, int value) {
+ 		//System.out.print("Contains function called");
  	    // Check if the position (x, y) contains a piece with the specific value.
  	    Piece piece = getPiece(x, y); // Retrieves the piece at position (x, y)
  	    if (piece != null && piece.getValue() == value) {

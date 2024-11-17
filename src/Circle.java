@@ -52,19 +52,19 @@ public class Circle extends Piece {
 	        Set<Pos> pp = new HashSet<>();
 	        int distance = 1;
 	        if (Board.isValidPos(x + distance, y)
-	                && board.contains(x + distance, y, value)) {
+	                && Board.contains(x + distance, y, value)) {
 	            pp.add(new Pos(x + distance, y));
 	        }
 	        if (Board.isValidPos(x - distance, y)
-	                && board.contains(x - distance, y, value)) {
+	                && Board.contains(x - distance, y, value)) {
 	            pp.add(new Pos(x - distance, y));
 	        }
 	        if (Board.isValidPos(x, y + distance)
-	                && board.contains(x, y + distance, value)) {
+	                && Board.contains(x, y + distance, value)) {
 	            pp.add(new Pos(x, y + distance));
 	        }
 	        if (Board.isValidPos(x, y - distance)
-	                && board.contains(x, y - distance, value)) {
+	                && Board.contains(x, y - distance, value)) {
 	            pp.add(new Pos(x, y - distance));
 	        }
 	        return pp;

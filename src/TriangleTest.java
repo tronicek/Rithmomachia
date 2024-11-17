@@ -38,6 +38,7 @@ public class TriangleTest {
         Board b = new Board(1, 4, s);
         Board.printBoard();
         Piece p = Board.getPiece(0, 3);
+        //Board.contains(0,3,5);
         Set<Pos> pp = p.capture(0, 3, b);
         String t = toString(pp);
         assertEquals("[0,1]", t);

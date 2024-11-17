@@ -52,20 +52,26 @@ public class Triangle extends Piece {
 	        Set<Pos> pp = new HashSet<>();
 	        int distance = 2;
 	        if (Board.isValidPos(x + distance, y)
-	                && board.contains(x + distance, y, value)) {
+	                && Board.contains(x + distance, y, value) && Board.capturepathIsClear(x, y, x + distance, y, board)) {
+	        	//System.out.print("Position Conditions met");
 	            pp.add(new Pos(x + distance, y));
+	            
 	        }
 	        if (Board.isValidPos(x - distance, y)
-	                && board.contains(x - distance, y, value)) {
+	                && Board.contains(x - distance, y, value) && Board.capturepathIsClear(x, y, x - distance, y, board)) {
+	        	//System.out.print("Position Conditions met");
 	            pp.add(new Pos(x - distance, y));
 	        }
 	        if (Board.isValidPos(x, y + distance)
-	                && board.contains(x, y + distance, value)) {
+	                && Board.contains(x, y + distance, value) && Board.capturepathIsClear(x, y, x, y + distance, board) ) {
+	        	//System.out.print("Position Conditions met");
 	            pp.add(new Pos(x, y + distance));
 	        }
 	        if (Board.isValidPos(x, y - distance)
-	                && board.contains(x, y - distance, value)) {
+	                && Board.contains(x, y - distance, value) && Board.capturepathIsClear(x, y, x, y - distance, board)) {
+	        	//System.out.print("Position Conditions met");
 	            pp.add(new Pos(x, y - distance));
+	            
 	        }
 	        return pp;
 	    }
