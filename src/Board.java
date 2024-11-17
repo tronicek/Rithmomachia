@@ -1,14 +1,56 @@
 public class Board {
     static int rows; //Number of Rows
     static int cols; //Number of Columns
-    static Piece[][] board;
+    //static Piece[][] board;
+    static Piece[][] pieces;
+
+        Board(int width, int height, String[] str) {
+        	initBoard(width,height);
+        	//System.out.println("Start [0, 0]: " + pieces[0][0]);
+        	pieces = new Piece[width][height];
+        	//System.out.println("After 'pieces' are added [0, 0]: " + pieces[0][0]);
+        	for (int i = 0; i < str.length; i++) {
+        	    String[] t = str[i].split(" +");
+        	    for (int j = 0; j < t.length; j++) {
+        	        //System.out.println("Placing piece at [" + i + "][" + j + "]: " + t[j]);
+        	        pieces[i][j] = fromString(t[j]);
+        	        //System.out.println("Piece at [0, 0]: " + pieces[0][0]);
+        	        
+        	    }
+        	}
+
+            
+            
+        }
+       
+        private Piece fromString(String s) {
+            if (s.charAt(0) == '-') {
+                return null;
+            }
+            Color c = switch(s.charAt(0)) {
+                case 'B' -> Color.B;
+                case 'W' -> Color.W;
+                default -> { throw new AssertionError(); }
+            };
+            int value = s.charAt(2) - '0';
+            switch (s.charAt(1)) {
+                case 'C':
+                    return new Circle(c, value);
+                case 'S':
+                    return new Square(c, value);
+                case 'T':
+                    return new Triangle(c, value);
+                default:
+                    throw new AssertionError();
+            }
+        }
    
 	
 	
 	public static void initBoard(int numRows, int numCols) {
 		rows = numRows;
 		cols = numCols;
-		board = new Piece[rows][cols];
+		pieces = new Piece[rows][cols];
 	}
 
     static void printBoard() {
@@ -31,10 +73,10 @@ public class Board {
         for (int i = 0; i < rows; i++) {
             System.out.printf(" %c |", letter);  // Print the letter for the row
             for (int j = 0; j < cols; j++) {
-                if (board[i][j] == null) {
+                if (pieces[i][j] == null) {
                     System.out.print("         |");  // Empty space if no piece
                 } else {
-                    System.out.printf("%-8s|", board[i][j]);  // Piece name
+                    System.out.printf("%-8s|", pieces[i][j]);  // Piece name
                 }
             }
             System.out.printf(" %c", letter);  // Print the letter at the end of the row
@@ -125,7 +167,7 @@ public class Board {
     		return false;
     	}
     	
-    	return board[y][x] == null;
+    	return pieces[y][x] == null;
     }
     
  // Helper method to check if the path is clear
@@ -172,10 +214,10 @@ public class Board {
             piece.setX(x);
             piece.setY(y);
         }
-        board[y][x] = piece;
+        pieces[y][x] = piece;
     }
 
     public static Piece getPiece(int x, int y) {
-        return board[x][y];
+        return pieces[x][y];
     }
 }

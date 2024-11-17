@@ -2,8 +2,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class Square extends Piece{
-	public Square(Color color, int value, int startX, int startY) {
-		super(color, value, startX, startY);
+	public Square(Color color, int value) {
+		super(color, value);
 	}
 	
 	 @Override

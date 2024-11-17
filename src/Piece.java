@@ -4,16 +4,13 @@ import java.util.Set;
 public abstract class Piece {
 	protected final Color color;
 	protected final int value; 
-	private String ID;
 	private int x, y;
 	
-	public Piece( Color color, int value, int startX, int startY) {
+	public Piece( Color color, int value) {
 		this.color = color;
-		this.x = startX;
-		this.y = startY;
 		this.value = value;
 		
-		Board.setPiece(x, y, this);
+		//Board.setPiece(x, y, this);
 	}
 	
 	public abstract Set<Move> findMoves(int x, int y, Board board);
@@ -23,9 +20,7 @@ public abstract class Piece {
     
 	
 	
-	public String getID() {
-		return this.ID;
-	}
+	
 	
 	public Color getColor() {
 		return this.color;
