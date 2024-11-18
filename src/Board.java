@@ -230,7 +230,15 @@ public class Board {
  	    }
  	    return false;
  	}
-
+ 	
+ 	//Check if a piece is the same as another piece
+ 	public boolean checkColor(int x, int y, Color c) {
+ 		Piece piece = getPiece(x,y);
+ 		if (piece.getColor() == c) {
+ 			return false;
+ 		}
+ 		return true;
+ 	}
 
     
 
