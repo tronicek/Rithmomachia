@@ -164,8 +164,8 @@
             renderOnAddRemove: true
         });
 
-        const length = 45.5;
-        const height = 40;
+        const length = 46;
+        const height = 41;
         let boardState = Array(8).fill().map(() => Array(16).fill(null));
         let isLooping = true;
         let cont = true;
@@ -258,8 +258,8 @@
                         const piecePromise = loadPieceImage(piece).then(pieceObject => {
                             // Position the piece
                             pieceObject.set({
-                                left: colIndex * length + length / 2 + 95,
-                                top: rowIndex * height + height / 2 + 77
+                                left: colIndex * length + length / 2 + 92.75,
+                                top: rowIndex * height + height / 2 + 75
                             });
 
                             boardState[rowIndex][colIndex] = pieceObject;
@@ -288,7 +288,7 @@
             video.autoplay = true;
             video.loop = false;
             video.controls = false;
-            video.muted = true;
+            video.muted = false;
 
             videoContainer.appendChild(video);
 
