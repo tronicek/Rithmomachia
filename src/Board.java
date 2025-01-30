@@ -4,14 +4,11 @@ import java.util.Set;
 public class Board {
     private int rows; //Number of Rows
     private int cols; //Number of Columns
-    //static Piece[][] board;
     private Piece[][] pieces;
 
         Board(int numRows, int numCols, String[] str) {
         	initBoard(numRows,numCols);
         	//System.out.println("Start [0, 0]: " + pieces[0][0]);
-            // redundant code below
-        	//pieces = new Piece[numRows][numCols];
         	//System.out.println("After 'pieces' are added [0, 0]: " + pieces[0][0]);
         	for (int i = 0; i < str.length; i++) {
         	    String[] t = str[i].split(" +");

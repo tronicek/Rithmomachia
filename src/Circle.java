@@ -52,8 +52,7 @@ public class Circle extends Piece {
 	        Set<Pos> pp = new HashSet<>();
 	        int distance = 1;
 	        
-	        
-	        
+
 	        if (board.isValidPos(x + distance, y)
 	                && board.contains(x + distance, y, value) && board.capturepathIsClear(x, y, x + distance, y, board)  && (board.checkColor( x + distance, y, color))) {
 	        	//System.out.print("Position Conditions met");

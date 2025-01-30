@@ -6,7 +6,7 @@ import java.util.Set;
 public abstract class Piece {
 	protected final Color color;
 	protected final int value; 
-	private int x, y; // These are never set on creation!!
+	private int x, y;
 	
 	public Piece( Color color, int value, int x, int y) {
 		this.color = color;

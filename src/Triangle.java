@@ -98,8 +98,4 @@ public class Triangle extends Piece {
 	        }
 	        return pp;
 	    }
-	
-	
-	
-
 }

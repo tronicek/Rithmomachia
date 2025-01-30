@@ -36,4 +36,5 @@ public class EruptionTest {
         String capture = toString(possible);
         Assert.assertEquals("[0,4]", capture);
     }
+
 }
