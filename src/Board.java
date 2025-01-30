@@ -7,10 +7,10 @@ public class Board {
     //static Piece[][] board;
     private Piece[][] pieces;
 
-        Board(int width, int height, String[] str) {
-        	initBoard(width,height);
+        Board(int numRows, int numCols, String[] str) {
+        	initBoard(numRows,numCols);
         	//System.out.println("Start [0, 0]: " + pieces[0][0]);
-        	pieces = new Piece[width][height];
+        	pieces = new Piece[numRows][numCols];
         	//System.out.println("After 'pieces' are added [0, 0]: " + pieces[0][0]);
         	for (int i = 0; i < str.length; i++) {
         	    String[] t = str[i].split(" +");
@@ -197,7 +197,7 @@ public class Board {
     }
 
     public Piece findClosestLeft(int xStart, int yStart) {
-        for (int i = xStart-1; i<=0; i--){
+        for (int i = xStart-1; i>=0; i--){
             if (!this.isEmpty(i, yStart)) {
                 return this.getPiece(i, yStart);
             }
@@ -242,7 +242,7 @@ public class Board {
     }
 
     public Piece findClosestUpLeft(int xStart, int yStart) {
-        for (int i = xStart-1, j = yStart-1; i>=0 && j<=0; i--, j--){
+        for (int i = xStart-1, j = yStart-1; i>=0 && j>=0; i--, j--){
             if (!this.isEmpty(i, j)) {
                 return this.getPiece(i, j);
             }
