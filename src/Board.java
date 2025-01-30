@@ -1,8 +1,11 @@
+import java.util.HashSet;
+import java.util.Set;
+
 public class Board {
-    static int rows; //Number of Rows
-    static int cols; //Number of Columns
+    private int rows; //Number of Rows
+    private int cols; //Number of Columns
     //static Piece[][] board;
-    static Piece[][] pieces;
+    private Piece[][] pieces;
 
         Board(int width, int height, String[] str) {
         	initBoard(width,height);
@@ -18,19 +21,18 @@ public class Board {
         	        
         	    }
         	}
-
-            
-            
         }
        
-        private Piece fromString(String s) {
+        private static Piece fromString(String s) {
             if (s.charAt(0) == '-') {
                 return null;
             }
-            Color c = switch(s.charAt(0)) {
+            Color c = switch (s.charAt(0)) {
                 case 'B' -> Color.B;
                 case 'W' -> Color.W;
-                default -> { throw new AssertionError(); }
+                default -> {
+                    throw new AssertionError();
+                }
             };
             int value = s.charAt(2) - '0';
             switch (s.charAt(1)) {
@@ -47,13 +49,13 @@ public class Board {
    
 	
 	
-	public static void initBoard(int numRows, int numCols) {
+	private void initBoard(int numRows, int numCols) {
 		rows = numRows;
 		cols = numCols;
 		pieces = new Piece[rows][cols];
 	}
 
-    static void printBoard() {
+    public void printBoard() {
         // Print the numbers at the top for the columns
         System.out.print("    ");
         for (int i = 1; i <= cols; i++) {
@@ -158,13 +160,106 @@ public class Board {
     
     
     
-    public static boolean isValidPos(int x, int y) {
+    public boolean isValidPos(int x, int y) {
     	//System.out.print("isValidPos called: ");
     	return x >= 0 && x < rows && y >= 0 && y < cols;
     	
     }
+
+    public Set<Piece> findClosestNeighbors(int xStart, int yStart){
+        Set<Piece> neighbors = new HashSet<>();
+        if (findClosestRight(xStart, yStart)!=null)
+            neighbors.add(findClosestRight(xStart, yStart));
+        if (findClosestLeft(xStart, yStart)!=null)
+            neighbors.add(findClosestLeft(xStart, yStart));
+        if (findClosestUp(xStart, yStart)!=null)
+            neighbors.add(findClosestUp(xStart, yStart));
+        if (findClosestDown(xStart, yStart)!=null)
+            neighbors.add(findClosestDown(xStart, yStart));
+        if (findClosestUpRight(xStart, yStart)!=null)
+            neighbors.add(findClosestUpRight(xStart, yStart));
+        if (findClosestUpLeft(xStart, yStart)!=null)
+            neighbors.add(findClosestUpLeft(xStart, yStart));
+        if (findClosestDownRight(xStart, yStart)!=null)
+            neighbors.add(findClosestDownRight(xStart, yStart));
+        if (findClosestDownLeft(xStart, yStart)!=null)
+            neighbors.add(findClosestDownLeft(xStart, yStart));
+        return neighbors;
+    }
+
+    public Piece findClosestRight(int xStart, int yStart) {
+        for (int i = xStart+1; i<this.cols; i++){
+            if (!this.isEmpty(i, yStart)) {
+                return this.getPiece(i, yStart);
+            }
+        }
+        return null;
+    }
+
+    public Piece findClosestLeft(int xStart, int yStart) {
+        for (int i = xStart-1; i<=0; i--){
+            if (!this.isEmpty(i, yStart)) {
+                return this.getPiece(i, yStart);
+            }
+        }
+        return null;
+    }
+
+    public Piece findClosestUp(int xStart, int yStart) {
+        for (int i = yStart-1; i>=0; i--){
+            if (!this.isEmpty(xStart, i)) {
+                return this.getPiece(xStart, i);
+            }
+        }
+        return null;
+    }
+
+    public Piece findClosestDown(int xStart, int yStart) {
+        for (int i = yStart+1; i<this.rows; i++){
+            if (!this.isEmpty(xStart, i)) {
+                return this.getPiece(xStart, i);
+            }
+        }
+        return null;
+    }
+
+    public Piece findClosestUpRight(int xStart, int yStart) {
+        for (int i = xStart+1, j = yStart-1; i<this.cols && j>=0; i++, j--){
+            if (!this.isEmpty(i, j)) {
+                return this.getPiece(i, j);
+            }
+        }
+        return null;
+    }
+
+    public Piece findClosestDownRight(int xStart, int yStart) {
+        for (int i = xStart+1, j = yStart+1; i<this.cols && j<this.rows; i++, j++){
+            if (!this.isEmpty(i, j)) {
+                return this.getPiece(i, j);
+            }
+        }
+        return null;
+    }
+
+    public Piece findClosestUpLeft(int xStart, int yStart) {
+        for (int i = xStart-1, j = yStart-1; i>=0 && j<=0; i--, j--){
+            if (!this.isEmpty(i, j)) {
+                return this.getPiece(i, j);
+            }
+        }
+        return null;
+    }
+
+    public Piece findClosestDownLeft(int xStart, int yStart) {
+        for (int i = xStart-1, j = yStart+1; i>=0 && j<this.rows; i--, j++){
+            if (!this.isEmpty(i, j)) {
+                return this.getPiece(i, j);
+            }
+        }
+        return null;
+    }
     
-    public static boolean isEmpty(int x, int y) {
+    public boolean isEmpty(int x, int y) {
     	if(!isValidPos(x,y)) {
     		return false;
     	}
@@ -173,55 +268,54 @@ public class Board {
     }
     
  // Helper method to check if the path is clear
- 	 public static boolean pathIsClear(int x1, int y1, int x2, int y2, Board board) {
- 		    // Determine the direction of movement
- 		    int dx = Integer.signum(x2 - x1); // Direction along x-axis
- 		    int dy = Integer.signum(y2 - y1); // Direction along y-axis
+ 	 public boolean pathIsClear(int x1, int y1, int x2, int y2, Board board) {
+         // Determine the direction of movement
+         int dx = Integer.signum(x2 - x1); // Direction along x-axis
+         int dy = Integer.signum(y2 - y1); // Direction along y-axis
 
- 		    // Loop over each square between (x1, y1) and (x2, y2)
- 		    for (int i = 1; i < Math.max(Math.abs(x2 - x1), Math.abs(y2 - y1)); i++) {
- 		        int nextX = x1 + i * dx; // The x-coordinate of the next square along the path
- 		        int nextY = y1 + i * dy; // The y-coordinate of the next square along the path
+         // Loop over each square between (x1, y1) and (x2, y2)
+         for (int i = 1; i < Math.max(Math.abs(x2 - x1), Math.abs(y2 - y1)); i++) {
+             int nextX = x1 + i * dx; // The x-coordinate of the next square along the path
+             int nextY = y1 + i * dy; // The y-coordinate of the next square along the path
 
- 		        // If any square along the path is not empty, the path is blocked
- 		        if (!Board.isEmpty(nextX, nextY)) {
- 		            return false; // Path is blocked by another piece
- 		        }
- 		    }
+             // If any square along the path is not empty, the path is blocked
+             if (!board.isEmpty(nextX, nextY)) {
+                 return false; // Path is blocked by another piece
+             }
+         }
 
- 		    // Check if the destination square (x2, y2) is empty
- 		    // If it's occupied, the piece cannot move there
- 		    if (!Board.isEmpty(x2, y2)) {
- 		        return false; // Target square is occupied
- 		    }
+         // Check if the destination square (x2, y2) is empty
+         // If it's occupied, the piece cannot move there
+         if (!board.isEmpty(x2, y2)) {
+             return false; // Target square is occupied
+         }
 
- 		    // If all squares are empty and the target square is not occupied, the path is clear
- 		    return true;
- 		}
+         // If all squares are empty and the target square is not occupied, the path is clear
+         return true;
+     }
  	 
- 	public static boolean capturepathIsClear(int x1, int y1, int x2, int y2, Board board) {
-		    // Determine the direction of movement
-		    int dx = Integer.signum(x2 - x1); // Direction along x-axis
-		    int dy = Integer.signum(y2 - y1); // Direction along y-axis
+ 	public boolean capturepathIsClear(int x1, int y1, int x2, int y2, Board board) {
+        // Determine the direction of movement
+        int dx = Integer.signum(x2 - x1); // Direction along x-axis
+        int dy = Integer.signum(y2 - y1); // Direction along y-axis
 
-		    // Loop over each square between (x1, y1) and (x2, y2)
-		    for (int i = 1; i < Math.max(Math.abs(x2 - x1), Math.abs(y2 - y1)); i++) {
-		        int nextX = x1 + i * dx; // The x-coordinate of the next square along the path
-		        int nextY = y1 + i * dy; // The y-coordinate of the next square along the path
+        // Loop over each square between (x1, y1) and (x2, y2)
+        for (int i = 1; i < Math.max(Math.abs(x2 - x1), Math.abs(y2 - y1)); i++) {
+            int nextX = x1 + i * dx; // The x-coordinate of the next square along the path
+            int nextY = y1 + i * dy; // The y-coordinate of the next square along the path
 
-		        // If any square along the path is not empty, the path is blocked
-		        if (!Board.isEmpty(nextX, nextY)) {
-		            return false; // Path is blocked by another piece
-		        }
-		    }
+            // If any square along the path is not empty, the path is blocked
+            if (!board.isEmpty(nextX, nextY)) {
+                return false; // Path is blocked by another piece
+            }
+        }
 
-		   
 
-		    // If all squares are empty and the target square is not occupied, the path is clear
-		    return true;
-		}
+        // If all squares are empty and the target square is not occupied, the path is clear
+        return true;
+    }
  	 
- 	public static boolean contains(int x, int y, int value) {
+ 	public boolean contains(int x, int y, int value) {
  		//System.out.print("Contains function called");
  	    // Check if the position (x, y) contains a piece with the specific value.
  	    Piece piece = getPiece(x, y); // Retrieves the piece at position (x, y)
@@ -242,7 +336,7 @@ public class Board {
 
     
 
-    public static void setPiece(int x, int y, Piece piece) {
+    public void setPiece(int x, int y, Piece piece) {
         if (piece != null) {
             piece.setX(x);
             piece.setY(y);
@@ -250,7 +344,7 @@ public class Board {
         pieces[y][x] = piece;
     }
 
-    public static Piece getPiece(int x, int y) {
+    public Piece getPiece(int x, int y) {
         return pieces[x][y];
     }
 }

@@ -9,7 +9,7 @@ public class Game {
             int numRows = scanner.nextInt();
             System.out.print("Enter number of columns: ");
             int numCols = scanner.nextInt();
-            Board.initBoard(numRows, numCols);
+            //Board.initBoard(numRows, numCols);
         }
 
         // Create and place Square pieces
@@ -17,11 +17,11 @@ public class Game {
         Circle circle = new Circle(Color.B, 1);
         new Circle(Color.B, 1);
         
-        Board.setPiece(square.getX(), square.getY(), square);  // Place square on the board
-        Board.setPiece(circle.getX(), circle.getY(), circle);  // Place circle on the board
+        //Board.setPiece(square.getX(), square.getY(), square);  // Place square on the board
+        //Board.setPiece(circle.getX(), circle.getY(), circle);  // Place circle on the board
         
         // Print the board
-        Board.printBoard();
+        //Board.printBoard();
 
         // Call findMoves method
         /*Set<Move> moves = square.findMoves(square.getX(), square.getY(), new Board());
