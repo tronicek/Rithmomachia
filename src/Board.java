@@ -7,23 +7,24 @@ public class Board {
     //static Piece[][] board;
     private Piece[][] pieces;
 
-        Board(int width, int height, String[] str) {
-        	initBoard(width,height);
+        Board(int numRows, int numCols, String[] str) {
+        	initBoard(numRows,numCols);
         	//System.out.println("Start [0, 0]: " + pieces[0][0]);
-        	pieces = new Piece[width][height];
+            // redundant code below
+        	//pieces = new Piece[numRows][numCols];
         	//System.out.println("After 'pieces' are added [0, 0]: " + pieces[0][0]);
         	for (int i = 0; i < str.length; i++) {
         	    String[] t = str[i].split(" +");
         	    for (int j = 0; j < t.length; j++) {
         	        //System.out.println("Placing piece at [" + i + "][" + j + "]: " + t[j]);
-        	        pieces[i][j] = fromString(t[j]);
+        	        pieces[i][j] = fromString(t[j], i, j);
         	        //System.out.println("Piece at [0, 0]: " + pieces[0][0]);
         	        
         	    }
         	}
         }
-       
-        private static Piece fromString(String s) {
+
+        private static Piece fromString(String s, int row, int col) {
             if (s.charAt(0) == '-') {
                 return null;
             }
@@ -34,14 +35,14 @@ public class Board {
                     throw new AssertionError();
                 }
             };
-            int value = s.charAt(2) - '0';
+            int value = Integer.valueOf(s.substring(2));
             switch (s.charAt(1)) {
                 case 'C':
-                    return new Circle(c, value);
+                    return new Circle(c, value, row, col);
                 case 'S':
-                    return new Square(c, value);
+                    return new Square(c, value, row, col);
                 case 'T':
-                    return new Triangle(c, value);
+                    return new Triangle(c, value, row, col);
                 default:
                     throw new AssertionError();
             }
@@ -187,44 +188,44 @@ public class Board {
         return neighbors;
     }
 
-    public Piece findClosestRight(int xStart, int yStart) {
-        for (int i = xStart+1; i<this.cols; i++){
-            if (!this.isEmpty(i, yStart)) {
-                return this.getPiece(i, yStart);
+    public Piece findClosestRight(int row, int col) {
+        for (int i = col+1; i<this.cols; i++){
+            if (!this.isEmpty(row, i)) {
+                return this.getPiece(row, i);
             }
         }
         return null;
     }
 
-    public Piece findClosestLeft(int xStart, int yStart) {
-        for (int i = xStart-1; i<=0; i--){
-            if (!this.isEmpty(i, yStart)) {
-                return this.getPiece(i, yStart);
+    public Piece findClosestLeft(int row, int col) {
+        for (int i = col -1; i>=0; i--){
+            if (!this.isEmpty(row, i)) {
+                return this.getPiece(row, i);
             }
         }
         return null;
     }
 
-    public Piece findClosestUp(int xStart, int yStart) {
-        for (int i = yStart-1; i>=0; i--){
-            if (!this.isEmpty(xStart, i)) {
-                return this.getPiece(xStart, i);
+    public Piece findClosestUp(int row, int col) {
+        for (int i = row-1; i>=0; i--){
+            if (!this.isEmpty(i, col)) {
+                return this.getPiece(i, col);
             }
         }
         return null;
     }
 
-    public Piece findClosestDown(int xStart, int yStart) {
-        for (int i = yStart+1; i<this.rows; i++){
-            if (!this.isEmpty(xStart, i)) {
-                return this.getPiece(xStart, i);
+    public Piece findClosestDown(int row, int col) {
+        for (int i = row+1; i<this.rows; i++){
+            if (!this.isEmpty(i, col)) {
+                return this.getPiece(i, col);
             }
         }
         return null;
     }
 
-    public Piece findClosestUpRight(int xStart, int yStart) {
-        for (int i = xStart+1, j = yStart-1; i<this.cols && j>=0; i++, j--){
+    public Piece findClosestUpRight(int row, int col) {
+        for (int i = row-1, j = col+1; i>=0 && j<this.cols; i--, j++){
             if (!this.isEmpty(i, j)) {
                 return this.getPiece(i, j);
             }
@@ -232,8 +233,8 @@ public class Board {
         return null;
     }
 
-    public Piece findClosestDownRight(int xStart, int yStart) {
-        for (int i = xStart+1, j = yStart+1; i<this.cols && j<this.rows; i++, j++){
+    public Piece findClosestDownRight(int row, int col) {
+        for (int i = row+1, j = col+1; i<this.rows && j<this.cols; i++, j++){
             if (!this.isEmpty(i, j)) {
                 return this.getPiece(i, j);
             }
@@ -241,8 +242,8 @@ public class Board {
         return null;
     }
 
-    public Piece findClosestUpLeft(int xStart, int yStart) {
-        for (int i = xStart-1, j = yStart-1; i>=0 && j<=0; i--, j--){
+    public Piece findClosestUpLeft(int row, int col) {
+        for (int i = row-1, j = col-1; i>=0 && j>=0; i--, j--){
             if (!this.isEmpty(i, j)) {
                 return this.getPiece(i, j);
             }
@@ -250,8 +251,8 @@ public class Board {
         return null;
     }
 
-    public Piece findClosestDownLeft(int xStart, int yStart) {
-        for (int i = xStart-1, j = yStart+1; i>=0 && j<this.rows; i--, j++){
+    public Piece findClosestDownLeft(int row, int col) {
+        for (int i = row+1, j = col-1; i<this.rows && j>=0; i++, j--){
             if (!this.isEmpty(i, j)) {
                 return this.getPiece(i, j);
             }

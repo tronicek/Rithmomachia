@@ -2,8 +2,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class Circle extends Piece {
-	public Circle(Color color, int value) {
-			super(color, value);
+	public Circle(Color color, int value, int x, int y) {
+			super(color, value, x, y);
 	}
 	
 	 @Override
