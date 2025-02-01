@@ -23,8 +23,8 @@ public class TriangleTest {
             "--- WT5 --- BT5"
         };
         Board b = new Board(1, 4, s);
-        Board.printBoard();
-        Piece p = Board.getPiece(0, 1);
+        b.printBoard();
+        Piece p = b.getPiece(0, 1);
         Set<Pos> pp = p.capture(0, 1, b);
         String t = toString(pp);
         assertEquals("[0,3]", t);
@@ -38,8 +38,8 @@ public class TriangleTest {
             "--- BT5 --- WT5"
         };
         Board b = new Board(1, 4, s);
-        Board.printBoard();
-        Piece p = Board.getPiece(0, 3);
+        b.printBoard();
+        Piece p = b.getPiece(0, 3);
         //Board.contains(0,3,5);
         Set<Pos> pp = p.capture(0, 3, b);
         String t = toString(pp);
@@ -55,8 +55,8 @@ public class TriangleTest {
             "BT5"
         };
         Board b = new Board(4, 1, s);
-        Board.printBoard();
-        Piece p = Board.getPiece(1, 0);
+        b.printBoard();
+        Piece p = b.getPiece(1, 0);
         Set<Pos> pp = p.capture(1, 0, b);
         String t = toString(pp);
         assertEquals("[3,0]", t);
@@ -71,8 +71,8 @@ public class TriangleTest {
             "WT5"
         };
         Board b = new Board(4, 1, s);
-        Board.printBoard();
-        Piece p = Board.getPiece(3, 0);
+        b.printBoard();
+        Piece p = b.getPiece(3, 0);
         Set<Pos> pp = p.capture(3, 0, b);
         String t = toString(pp);
         assertEquals("[1,0]", t);
@@ -84,8 +84,8 @@ public class TriangleTest {
             "--- WT5 WC2 BT5"
         };
         Board b = new Board(1, 4, s);
-        Board.printBoard();
-        Piece p = Board.getPiece(0, 1);
+        b.printBoard();
+        Piece p = b.getPiece(0, 1);
         Set<Pos> pp = p.capture(0, 1, b);
         assertEquals(0, pp.size());
     }
@@ -96,8 +96,8 @@ public class TriangleTest {
             "--- BT5 BC2 WT5"
         };
         Board b = new Board(1, 4, s);
-        Board.printBoard();
-        Piece p = Board.getPiece(0, 3);
+        b.printBoard();
+        Piece p = b.getPiece(0, 3);
         Set<Pos> pp = p.capture(0, 3, b);
         assertEquals(0, pp.size());
     }
@@ -111,8 +111,8 @@ public class TriangleTest {
             "BT5"
         };
         Board b = new Board(4, 1, s);
-        Board.printBoard();
-        Piece p = Board.getPiece(1, 0);
+        b.printBoard();
+        Piece p = b.getPiece(1, 0);
         Set<Pos> pp = p.capture(1, 0, b);
         assertEquals(0, pp.size());
     }
@@ -126,8 +126,8 @@ public class TriangleTest {
             "WT5"
         };
         Board b = new Board(4, 1, s);
-        Board.printBoard();
-        Piece p = Board.getPiece(3, 0);
+        b.printBoard();
+        Piece p = b.getPiece(3, 0);
         Set<Pos> pp = p.capture(3, 0, b);
         assertEquals(0, pp.size());
     }
@@ -142,8 +142,8 @@ public class TriangleTest {
             
         };
         Board b = new Board(3, 3, s);
-        Board.printBoard();
-        Piece p = Board.getPiece(1, 1);
+        b.printBoard();
+        Piece p = b.getPiece(1, 1);
         Set<Pos> pp = p.capture(1, 1, b);
         assertEquals(8, pp.size());
     }
@@ -156,8 +156,8 @@ public class TriangleTest {
             
         };
         Board b = new Board(3, 3, s);
-        Board.printBoard();
-        Piece p = Board.getPiece(1, 1);
+        b.printBoard();
+        Piece p = b.getPiece(1, 1);
         Set<Pos> pp = p.capture(1, 1, b);
         assertEquals(8, pp.size());
     }
@@ -170,8 +170,8 @@ public class TriangleTest {
             
         };
         Board b = new Board(3, 3, s);
-        Board.printBoard();
-        Piece p = Board.getPiece(1, 1);
+        b.printBoard();
+        Piece p = b.getPiece(1, 1);
         Set<Pos> pp = p.capture(1, 1, b);
         assertEquals(8, pp.size());
     }
@@ -184,8 +184,8 @@ public class TriangleTest {
             
         };
         Board b = new Board(3, 3, s);
-        Board.printBoard();
-        Piece p = Board.getPiece(1, 1);
+        b.printBoard();
+        Piece p = b.getPiece(1, 1);
         Set<Pos> pp = p.capture(1, 1, b);
         assertEquals(0, pp.size());
     }
@@ -198,8 +198,8 @@ public class TriangleTest {
             
         };
         Board b = new Board(3, 3, s);
-        Board.printBoard();
-        Piece p = Board.getPiece(1, 1);
+        b.printBoard();
+        Piece p = b.getPiece(1, 1);
         Set<Pos> pp = p.capture(1, 1, b);
         assertEquals(0, pp.size());
     }
@@ -212,8 +212,8 @@ public class TriangleTest {
             
         };
         Board b = new Board(3, 3, s);
-        Board.printBoard();
-        Piece p = Board.getPiece(1, 1);
+        b.printBoard();
+        Piece p = b.getPiece(1, 1);
         Set<Pos> pp = p.capture(1, 1, b);
         assertEquals(8, pp.size());
     }
@@ -226,8 +226,8 @@ public class TriangleTest {
             
         };
         Board b = new Board(3, 3, s);
-        Board.printBoard();
-        Piece p = Board.getPiece(1, 1);
+        b.printBoard();
+        Piece p = b.getPiece(1, 1);
         Set<Pos> pp = p.capture(1, 1, b);
         assertEquals(8, pp.size());
     }
@@ -240,8 +240,8 @@ public class TriangleTest {
             
         };
         Board b = new Board(3, 3, s);
-        Board.printBoard();
-        Piece p = Board.getPiece(1, 1);
+        b.printBoard();
+        Piece p = b.getPiece(1, 1);
         Set<Pos> pp = p.capture(1, 1, b);
         assertEquals(8, pp.size());
     }
@@ -255,8 +255,8 @@ public class TriangleTest {
             
         };
         Board b = new Board(3, 3, s);
-        Board.printBoard();
-        Piece p = Board.getPiece(1, 1);
+        b.printBoard();
+        Piece p = b.getPiece(1, 1);
         Set<Pos> pp = p.capture(1, 1, b);
         assertEquals(0, pp.size());
     }
@@ -269,8 +269,8 @@ public class TriangleTest {
             
         };
         Board b = new Board(3, 3, s);
-        Board.printBoard();
-        Piece p = Board.getPiece(1, 1);
+        b.printBoard();
+        Piece p = b.getPiece(1, 1);
         Set<Pos> pp = p.capture(1, 1, b);
         assertEquals(0, pp.size());
     }
@@ -285,8 +285,8 @@ public class TriangleTest {
             
         };
         Board b = new Board(5, 5, s);
-        Board.printBoard();
-        Piece p = Board.getPiece(2, 2);
+        b.printBoard();
+        Piece p = b.getPiece(2, 2);
         Set<Pos> pp = p.capture(2, 2, b);
         assertEquals(0, pp.size());
     }
@@ -301,8 +301,8 @@ public class TriangleTest {
             
         };
         Board b = new Board(5, 5, s);
-        Board.printBoard();
-        Piece p = Board.getPiece(2, 2);
+        b.printBoard();
+        Piece p = b.getPiece(2, 2);
         Set<Pos> pp = p.capture(2, 2, b);
         assertEquals(0, pp.size());
     }
@@ -317,8 +317,8 @@ public class TriangleTest {
             
         };
         Board b = new Board(5, 5, s);
-        Board.printBoard();
-        Piece p = Board.getPiece(2, 2);
+        b.printBoard();
+        Piece p = b.getPiece(2, 2);
         Set<Pos> pp = p.capture(2, 2, b);
         assertEquals(0, pp.size());
     }
@@ -333,8 +333,8 @@ public class TriangleTest {
             
         };
         Board b = new Board(5, 5, s);
-        Board.printBoard();
-        Piece p = Board.getPiece(2, 2);
+        b.printBoard();
+        Piece p = b.getPiece(2, 2);
         Set<Pos> pp = p.capture(2, 2, b);
         assertEquals(8, pp.size());
     }
@@ -345,8 +345,8 @@ public class TriangleTest {
             
         };
         Board b = new Board(1, 1, s);
-        Board.printBoard();
-        Piece p = Board.getPiece(0, 0);
+        b.printBoard();
+        Piece p = b.getPiece(0, 0);
         Set<Pos> pp = p.capture(0, 0, b);
         assertEquals(0, pp.size());
     }
@@ -358,8 +358,8 @@ public class TriangleTest {
             
         };
         Board b = new Board(2, 2, s);
-        Board.printBoard();
-        Piece p = Board.getPiece(0, 0);
+        b.printBoard();
+        Piece p = b.getPiece(0, 0);
         Set<Pos> pp = p.capture(0, 0, b);
         assertEquals(3, pp.size());
     }
