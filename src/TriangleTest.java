@@ -363,6 +363,38 @@ public class TriangleTest {
         Set<Pos> pp = p.capture(0, 0, b);
         assertEquals(3, pp.size());
     }
+    @Test
+    public void testCT17() {
+    	String[] s = {
+    			"WC1 BC3 --- BC3"
+    			
+    	};
+    	Board b = new Board(1, 5, s);
+    	Board.printBoard();
+    	//Piece p = Board.getPiece(0, 0);
+    	//Set<Pos> pp = p.capture(0, 0, b);
+    	//assertEquals(1, pp.size());
+    	int d = Board.getDistance(0, 0, s);
+    	assertEquals(2, d);
+    	
+    }
+    @Test
+    public void testCT18() {
+    	String[] s = {
+    			"WC1 BC3 ---",
+    			"BC3 --- ---",
+    			"--- --- ---"
+    			
+    	};
+    	Board b = new Board(3, 3, s);
+    	Board.printBoard();
+    	//Piece p = Board.getPiece(0, 0);
+    	//Set<Pos> pp = p.capture(0, 0, b);
+    	//assertEquals(1, pp.size());
+    	int d = Board.getDistance(0, 0, s);
+    	assertEquals(2, d);
+    	
+    }
     
     
     

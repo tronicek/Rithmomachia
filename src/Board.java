@@ -214,14 +214,70 @@ public class Board {
 		            return false; // Path is blocked by another piece
 		        }
 		    }
-
-		   
-
+		  
 		    // If all squares are empty and the target square is not occupied, the path is clear
 		    return true;
 		}
+ 	
+ 	public static void checkDistances(int x, int y, int rows, int cols, Board board, Piece currentPiece) {
+ 	    // Directions: [dx, dy] for all 8 possible directions (horizontal, vertical, diagonal)
+ 	    int[][] directions = {
+ 	        {1, 0},  // Right
+ 	        {-1, 0}, // Left
+ 	        {0, 1},  // Up
+ 	        {0, -1}, // Down
+ 	        {1, 1},  // Diagonal up-right
+ 	        {-1, -1},// Diagonal down-left
+ 	        {1, -1}, // Diagonal down-right
+ 	        {-1, 1}  // Diagonal up-left
+ 	    };
+
+ 	    for (int[] dir : directions) {
+ 	        int dx = dir[0];
+ 	        int dy = dir[1];
+ 	        int distance = 0;
+
+ 	        int currX = x;
+ 	        int currY = y;
+
+ 	        while (true) {
+ 	            currX += dx;
+ 	            currY += dy;
+ 	            distance++;
+
+ 	            // Check if out of bounds
+ 	            if (currX < 0 || currX >= rows || currY < 0 || currY >= cols) {
+ 	                System.out.println("Direction (" + dx + "," + dy + "): Edge reached at distance " + distance);
+ 	                break;
+ 	            }
+
+ 	            // Check if square is occupied
+ 	            if (!Board.isEmpty(currX, currY)) {
+ 	                Piece targetPiece = Board.getPiece(currX, currY);
+ 	                int capturingValue = currentPiece.getValue();
+ 	                int targetValue = targetPiece.getValue();
+
+ 	                // Check capture conditions
+ 	                boolean canCapture = 
+ 	                    (capturingValue * distance == targetValue) || 
+ 	                    (capturingValue / distance == targetValue);
+
+ 	                if (canCapture) {
+ 	                    System.out.println("Direction (" + dx + "," + dy + "): Piece at distance " + distance + " can be captured!");
+ 	                } else {
+ 	                    System.out.println("Direction (" + dx + "," + dy + "): Piece at distance " + distance + " cannot be captured.");
+ 	                }
+
+ 	                break; // Stop checking further in this direction
+ 	            }
+ 	        }
+ 	    }
+ 	}
+
+
+ 	
  	 
- 	public static boolean contains(int x, int y, int value) {
+ 	public static boolean containsSame(int x, int y, int value) {
  		//System.out.print("Contains function called");
  	    // Check if the position (x, y) contains a piece with the specific value.
  	    Piece piece = getPiece(x, y); // Retrieves the piece at position (x, y)
@@ -239,6 +295,7 @@ public class Board {
  		}
  		return true;
  	}
+ 	
 
     
 
