@@ -2,8 +2,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class Triangle extends Piece {
-	public Triangle(Color color, int value) {
-			super(color, value);
+	public Triangle(Color color, int value, int x, int y) {
+			super(color, value, x, y);
 	}
 	
 	@Override
@@ -17,52 +17,52 @@ public class Triangle extends Piece {
 	    int distance = 2; // Move 2 squares
 
 	    // Horizontal and vertical moves (distance squares)
-	    if (Board.isValidPos(x + distance, y) 
-	            && Board.pathIsClear(x, y, x + distance, y, board)) {
+	    if (board.isValidPos(x + distance, y)
+	            && board.pathIsClear(x, y, x + distance, y, board)) {
 	        mm.add(new Move(x, y, x + distance, y));
 	    }
-	    if (Board.isValidPos(x - distance, y) 
-	            && Board.pathIsClear(x, y, x - distance, y, board)) {
+	    if (board.isValidPos(x - distance, y)
+	            && board.pathIsClear(x, y, x - distance, y, board)) {
 	        mm.add(new Move(x, y, x - distance, y));
 	    }
-	    if (Board.isValidPos(x, y + distance) 
-	            && Board.pathIsClear(x, y, x, y + distance, board)) {
+	    if (board.isValidPos(x, y + distance)
+	            && board.pathIsClear(x, y, x, y + distance, board)) {
 	        mm.add(new Move(x, y, x, y + distance));
 	    }
-	    if (Board.isValidPos(x, y - distance) 
-	            && Board.pathIsClear(x, y, x, y - distance, board)) {
+	    if (board.isValidPos(x, y - distance)
+	            && board.pathIsClear(x, y, x, y - distance, board)) {
 	        mm.add(new Move(x, y, x, y - distance));
 	    }
 
 	    // Diagonal moves (distance squares)
-	    if (Board.isValidPos(x + distance, y + distance) 
-	            && Board.pathIsClear(x, y, x + distance, y + distance, board)) {
+	    if (board.isValidPos(x + distance, y + distance)
+	            && board.pathIsClear(x, y, x + distance, y + distance, board)) {
 	        mm.add(new Move(x, y, x + distance, y + distance));
 	    }
-	    if (Board.isValidPos(x + distance, y - distance) 
-	            && Board.pathIsClear(x, y, x + distance, y - distance, board)) {
+	    if (board.isValidPos(x + distance, y - distance)
+	            && board.pathIsClear(x, y, x + distance, y - distance, board)) {
 	        mm.add(new Move(x, y, x + distance, y - distance));
 	    }
-	    if (Board.isValidPos(x - distance, y + distance) 
-	            && Board.pathIsClear(x, y, x - distance, y + distance, board)) {
+	    if (board.isValidPos(x - distance, y + distance)
+	            && board.pathIsClear(x, y, x - distance, y + distance, board)) {
 	        mm.add(new Move(x, y, x - distance, y + distance));
 	    }
-	    if (Board.isValidPos(x - distance, y - distance) 
-	            && Board.pathIsClear(x, y, x - distance, y - distance, board)) {
+	    if (board.isValidPos(x - distance, y - distance)
+	            && board.pathIsClear(x, y, x - distance, y - distance, board)) {
 	        mm.add(new Move(x, y, x - distance, y - distance));
 	    }
 
 	    // Knight-like moves
-	    if (Board.isValidPos(x + 2, y + 1) && Board.isEmpty(x + 2, y + 1)) {
+	    if (board.isValidPos(x + 2, y + 1) && board.isEmpty(x + 2, y + 1)) {
 	        mm.add(new Move(x, y, x + 2, y + 1));
 	    }
-	    if (Board.isValidPos(x + 2, y - 1) && Board.isEmpty(x + 2, y - 1)) {
+	    if (board.isValidPos(x + 2, y - 1) && board.isEmpty(x + 2, y - 1)) {
 	        mm.add(new Move(x, y, x + 2, y - 1));
 	    }
-	    if (Board.isValidPos(x - 2, y + 1) && Board.isEmpty(x - 2, y + 1)) {
+	    if (board.isValidPos(x - 2, y + 1) && board.isEmpty(x - 2, y + 1)) {
 	        mm.add(new Move(x, y, x - 2, y + 1));
 	    }
-	    if (Board.isValidPos(x - 2, y - 1) && Board.isEmpty(x - 2, y - 1)) {
+	    if (board.isValidPos(x - 2, y - 1) && board.isEmpty(x - 2, y - 1)) {
 	        mm.add(new Move(x, y, x - 2, y - 1));
 	    }
 
@@ -71,35 +71,31 @@ public class Triangle extends Piece {
 
 
 	 @Override
-	    public Set<Pos> capture(int x, int y, Board board) {
+	    public Set<Pos> encounterCapture(int x, int y, Board board) {
 	        Set<Pos> pp = new HashSet<>();
 	        int distance = 2;
-	        if (Board.isValidPos(x + distance, y)
-	                && Board.containsSame(x + distance, y, value) && Board.capturepathIsClear(x, y, x + distance, y, board)) {
+	        if (board.isValidPos(x + distance, y)
+	                && board.contains(x + distance, y, value) && board.capturepathIsClear(x, y, x + distance, y, board)) {
 	        	//System.out.print("Position Conditions met");
 	            pp.add(new Pos(x + distance, y));
 	            
 	        }
-	        if (Board.isValidPos(x - distance, y)
-	                && Board.containsSame(x - distance, y, value) && Board.capturepathIsClear(x, y, x - distance, y, board)) {
+	        if (board.isValidPos(x - distance, y)
+	                && board.contains(x - distance, y, value) && board.capturepathIsClear(x, y, x - distance, y, board)) {
 	        	//System.out.print("Position Conditions met");
 	            pp.add(new Pos(x - distance, y));
 	        }
-	        if (Board.isValidPos(x, y + distance)
-	                && Board.containsSame(x, y + distance, value) && Board.capturepathIsClear(x, y, x, y + distance, board) ) {
+	        if (board.isValidPos(x, y + distance)
+	                && board.contains(x, y + distance, value) && board.capturepathIsClear(x, y, x, y + distance, board) ) {
 	        	//System.out.print("Position Conditions met");
 	            pp.add(new Pos(x, y + distance));
 	        }
-	        if (Board.isValidPos(x, y - distance)
-	                && Board.containsSame(x, y - distance, value) && Board.capturepathIsClear(x, y, x, y - distance, board)) {
+	        if (board.isValidPos(x, y - distance)
+	                && board.contains(x, y - distance, value) && board.capturepathIsClear(x, y, x, y - distance, board)) {
 	        	//System.out.print("Position Conditions met");
 	            pp.add(new Pos(x, y - distance));
 	            
 	        }
 	        return pp;
 	    }
-	
-	
-	
-
 }
