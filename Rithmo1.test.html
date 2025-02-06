@@ -135,7 +135,7 @@
             left: 0;
         }
 
-        #startButton {
+        #startButton, #muteButton, #teamChangeButton, #themeChangeButton, #settingsButton{
             background-color: #777777;
             color: black;
             padding: 15px 30px;
@@ -168,6 +168,14 @@
         <div id="StartScreen">
             <!--Going to make another canvas for the start screen eventually maybe Darin-->
             <button id="startButton">Start Game</button>
+            <br>
+            <button id="muteButton">Mute</button>
+            <br>
+            <button id="teamChangeButton">Change Team</button>
+            <br>
+            <button id="themeChangeButton">Change Theme</button>
+            <br>
+            <button id="settingsButton">Settings</button>
         </div>
         <div class="game-container">
             <label id = "fileLabel" for="moveFileInput" class="custom-file-label hidden" >Choose File</label>
@@ -190,6 +198,8 @@
 
     <script>
 
+        let isMuted = false;
+        
         const CANVAS_WIDTH = 1000;
         const OFFSET_WIDTH = 65;
         const CANVAS_HEIGHT = 500;
@@ -212,7 +222,24 @@
         //When start button is clicked it hides itself and calls start game -Darin
         document.getElementById('startButton').addEventListener('click', function() {
             document.getElementById('StartScreen').classList.add('hidden');
+            document.getElementById('muteButton').classList.add('hidden');
             StartGame();
+        });
+
+        document.getElementById('muteButton').addEventListener('click', function() {
+            isMuted = !isMuted;
+            this.textContent = isMuted ? 'Unmute' : 'Mute';
+            
+            // Update mute state for intro video
+            const introVideo = document.getElementById('introVideo');
+            introVideo.muted = isMuted;
+            
+            // Update any currently playing videos in the video container
+            const videoContainer = document.getElementById('videoContainer');
+            const activeVideos = videoContainer.getElementsByTagName('video');
+            for (let video of activeVideos) {
+                video.muted = isMuted;
+            }
         });
 
         //Can also mute and unmute audio by pressing m on the keyboard
@@ -220,6 +247,7 @@
             if(event.key == "m" || event.key === "M")
             {
                 isMuted = !isMuted;
+                document.getElementById('muteButton').textContent = isMuted ? 'Unmute' : 'Mute';
             
                 const introVideo = document.getElementById('introVideo');
                 introVideo.muted = isMuted;
@@ -230,8 +258,12 @@
                     video.muted = isMuted;
             }
             }
+            else if(event.key == "s" || event.key == "S")
+            {
+                SkipVideo();
+            }
         });
-
+        
         //Plays preloaded intro video, initializes game, and unhides all elements that were previously hidden that are needed for the game. -Darin
         function StartGame() {
             canvas.clear();
@@ -245,6 +277,18 @@
             document.getElementById('game-board').classList.remove('hidden');
         }
 
+        function SkipVideo(){
+            const videoContainer = document.getElementById('videoContainer'); 
+            if(videoContainer.innerHTML != "")
+            {
+                videoContainer.innerHTML = "";
+                videoContainer.style.pointerEvents = 'none';
+                cont = true;
+            }
+            else{
+                console.log("No video to skip") 
+            }
+        }
 
         const length = (CANVAS_WIDTH-OFFSET_WIDTH)/16;
         const height = (CANVAS_HEIGHT - OFFSET_HEIGHT) / 8;
@@ -286,7 +330,7 @@
                     imagePath = `Images/Rithmomachia/Board and pieces/${isWhite ? 'White' : 'Black'}_Pyramid.png`
                     value = isWhite ? ['c1', 'c4', 't9', 't16', 's25', 's36'] : ['C16', 'T25', 'T36', 'S49', 'S64']
                 }else {
-                    imagePath = `Images/Rithmomachia/Board and pieces/${value}_${isWhite ? 'White' : 'Black'}_${{
+                    imagePath = `Images/Board and pieces/${value}_${isWhite ? 'White' : 'Black'}_${{
                             's': 'Square',
                             't': 'Triangle',
                             'c': 'Circle',
@@ -370,7 +414,7 @@
             video.autoplay = true;
             video.loop = false;
             video.controls = false;
-            video.muted = false;
+            video.muted = isMuted;
 
             videoContainer.appendChild(video);
             video.style.display = "block";
@@ -395,7 +439,7 @@
             video.autoplay = true;
             video.loop = false;
             video.controls = false;
-            video.muted = false;
+            video.muted = isMuted;
 
             videoContainer.appendChild(video);
 
@@ -523,45 +567,72 @@
             }
         }
 
-        function capturePiece(position,value=null) {
+        function capturePiece(position, value, type) {
+            const firstPos = position[0];
+            const firstRow = firstPos.toUpperCase().charCodeAt(0) - 65;
+            const firstCol = Number(firstPos.slice(1)) - 1;
+            const firstPiece = boardState[firstRow][firstCol];
+            const pieceColor = firstPiece ? firstPiece.pieceColor : null;
+            const pieceColor2 = pieceColor.toLowerCase();
+             const oppositeColor = pieceColor2 === 'white' ? 'black' : 'white';
+            
+            switch (type) {
+                case "s":
+                    console.log('Playing Siege')
+                    playVideo(`Images/Rithmomachia/captures and intro with sound/Siege ${oppositeColor}.mp4`);
+                    break;
+                case "n":
+                    console.log('Playing Encounter')
+                    playVideo(`Images/Rithmomachia/captures and intro with sound/Encounter ${oppositeColor}.mp4`);
+                    break;
+                case "r":
+                    console.log('Playing Eruption')
+                    playVideo(`Images/Rithmomachia/captures and intro with sound/Eruption ${oppositeColor}.mp4`);
+                    break;
+                case "d":
+                    console.log('Playing Deceite')
+                    playVideo(`Images/Rithmomachia/captures and intro with sound/Deceit ${oppositeColor}.mp4`);
+                    break;
+            }
+            for (let i = 0; i < position.length; i++) {
+                const c = position[i].toUpperCase().charCodeAt(0) - 65;
+                const r = Number(position[i].slice(1)) - 1;
 
-            const c = position.toUpperCase().charCodeAt(0) - 65;
-            const r = Number(position.slice(1)) - 1;
+                // Find the piece at the specified position
+                const piece = boardState[c][r];
 
-            // Find the piece at the specified position
-            const piece = boardState[c][r];
-
-            if (piece) {
-                if (Array.isArray(piece.pieceValue)) {
-                    let index = piece.pieceValue.indexOf(value);
-                    piece.pieceValue.splice(index, 1);
-                    updatePyramid(piece.pieceColor, piece.pieceValue);
-                    if (piece.pieceValue.length == 0) {
+                if (piece) {
+                    if (Array.isArray(piece.pieceValue)) {
+                        let index = piece.pieceValue.indexOf(value[i]);
+                        piece.pieceValue.splice(index, 1);
+                        updatePyramid(piece.pieceColor, piece.pieceValue);
+                        if (piece.pieceValue.length == 0) {
+                            piece.animate({ opacity: 0 }, {
+                                duration: 500,
+                                onChange: canvas.renderAll.bind(canvas),
+                                onComplete: () => {
+                                    canvas.remove(piece);
+                                    boardState[c][r] = null; // Clear the captured position
+                                    console.log(`Pyramid at ${position[i]} empty.`);
+                                }
+                            });
+                        };
+                    }
+                    else {
                         piece.animate({ opacity: 0 }, {
                             duration: 500,
                             onChange: canvas.renderAll.bind(canvas),
                             onComplete: () => {
                                 canvas.remove(piece);
                                 boardState[c][r] = null; // Clear the captured position
-                                console.log(`Pyramid at ${position} empty.`);
+                                console.log(`Piece at ${position[i]} captured.`);
                             }
                         });
-                    };
-                }
-                else {
-                    piece.animate({ opacity: 0 }, {
-                        duration: 500,
-                        onChange: canvas.renderAll.bind(canvas),
-                        onComplete: () => {
-                            canvas.remove(piece);
-                            boardState[c][r] = null; // Clear the captured position
-                            console.log(`Piece at ${position} captured.`);
-                        }
-                    });
-                }
+                    }
 
-            } else {
-                console.log(`No piece found at ${position} to capture.`);
+                } else {
+                    console.log(`No piece found at ${position[i]} to capture.`);
+                }
             }
         }
 
@@ -659,16 +730,22 @@
                         if (pair.toUpperCase().includes('X')) {
                             // Handle capture move (e.g., A1A2xC4c9)
                             const parts = pair.split('x'); // Split by 'x'
-                            const move = parts[0]; // First part is the move (e.g., A1A2)
-                            const captureDetails = parts[1]; // Second part is the capture info (e.g., C4c9)
+                            let [move, ...captures] = parts;
+                            const c = captures[0].match(/([snrd])(.*)/i);
+                            console.log(c);
+                            captures[0] = c[2];
+                            let take = [];
+                            let ids = [];
 
                             // Extract capture position and unique ID (e.g., "C4" and "c9")
-                            const captureMatch = captureDetails.match(/^([A-H][0-9]*)([c,t,s,C,T,S]\d+)/i);
-                            const capture = captureMatch[1]; // Capture position (e.g., "C4")
-                            const id = captureMatch[2]; // Captured piece info (e.g., "c9")
+                            captures.forEach(cap => {
+                                const captureMatch = cap.match(/([A-H][0-9]*)([c,t,s,C,T,S]\d+)/i);
+                                take.push(captureMatch[1]); // Capture position (e.g., "C4")
+                                ids.push(captureMatch[2]); // Captured piece info (e.g., "c9")
+                            });
 
                             const [from, to] = splitMove(move); // Split the move into 'from' and 'to'
-                            moves.push([from, to, capture, id]); // Add the parsed capture
+                            moves.push([from, to, take, ids, c[1]]); // Add the parsed capture
                         } else if (pair.length >= 4) {
                             // Handle regular move (e.g., A1A2)
                             const [from, to] = splitMove(pair);
@@ -714,7 +791,7 @@
                         // Handle capture if specified
                         if (capture) {
                             setTimeout(() => {
-                                capturePiece(capture, move[3]);
+                                capturePiece(capture, move[3], move[4]);
                             }, 600); // Slight delay to align with move animation
                         }
 
@@ -807,10 +884,6 @@
             }
         }
 
-
-
-        //Not needed anymore as I have a start button in -Darin
-        //window.onload = //initializeGame;
         document.getElementById('moveFileInput').addEventListener('change', handleFileUpload);
         document.getElementById('endLoopButton').addEventListener('click', () => {
             isLooping = false;
