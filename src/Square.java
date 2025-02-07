@@ -48,6 +48,7 @@ public class Square extends Piece {
 	}
 
 	@Override
+
 	public Set<Pos> encounterCapture(int x, int y, Board board) {
 		Set<Pos> pp = new HashSet<>();
 		int distance = 3;

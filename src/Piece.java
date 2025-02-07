@@ -71,7 +71,10 @@ public abstract class Piece {
 	   		}
       		}
 	}
+<<<<<<< HEAD
 	
+=======
+>>>>>>> 222caa7957a3b91c66b162f271a8a91a3909d4b6
 	*/
 	public Color getColor() {
 		return this.color;
