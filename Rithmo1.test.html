@@ -61,6 +61,7 @@
             background-color: #620404;
             border-radius: 100px;
             color: #000000;
+            z-index: 9998;
         }
 
         .game-container {
@@ -89,6 +90,8 @@
             height: 300px;
             min-width: 85px;
             width: 85px;
+            /* Added order attribute for team change functionality and moving the pyramid display Darin*/
+            order: -1;
         }
 
         #white-pyramid {
@@ -99,6 +102,8 @@
             height: 300px;
             min-width: 85px;
             width: 85px;
+            /* Order here too Darin*/
+            order: 1;
         }
 
         #endLoopButton {
@@ -135,7 +140,35 @@
             left: 0;
         }
 
-        #startButton {
+        #StartScreen {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            width: 1000px; 
+            height: 800px; 
+            border-radius: 20px;
+            padding: 20px;
+            overflow: hidden;
+        }
+
+        /* Added to flip background without flipping the entire start screen Darin */
+        #backgroundWrapper {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('Images/Board and pieces/Board-Rotate.png');
+            background-size: cover;
+            background-position: center;
+            transition: transform 0.5s ease;
+            transform-origin: center center; 
+        }
+
+        /* Added a grouping of the start screen buttons to format instead of listing them individually. Also gave start screen buttons a hover effect Darin */
+        #StartScreen button {
             background-color: #777777;
             color: black;
             padding: 15px 30px;
@@ -143,20 +176,18 @@
             cursor: pointer;
             border-radius: 10px;
             font-size: 20px;
+            margin: 10px 0;
+            transform: rotate(0deg) !important; 
+            transition: background-color 0.3s ease; 
+            z-index: 1; 
         }
 
-        #StartScreen {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            background-image: url('Images/Board and pieces/Board-Rotate.png');
-            background-size: cover;
-            background-position: center;
-            width: 1000px; 
-            height: 800px; 
-            border-radius: 20px;
-            padding: 20px;
+        #StartScreen button:hover {
+            background-color: #888888;
+        }
+
+        #StartScreen button:active {
+            background-color: #666666;
         }
     </style>
 </head>
@@ -167,7 +198,13 @@
         <h1 class="title">Rithmomachia</h1>
         <div id="StartScreen">
             <!--Going to make another canvas for the start screen eventually maybe Darin-->
+            <!-- Background wrapper for image of background board on start screen Darin -->
+            <div id="backgroundWrapper"></div>
             <button id="startButton">Start Game</button>
+            <button id="muteButton">Mute</button>
+            <button id="teamChangeButton">Change Team (Current team: Black)</button>
+            <button id="themeChangeButton">Change Theme</button>
+            <button id="settingsButton">Settings</button>
         </div>
         <div class="game-container">
             <label id = "fileLabel" for="moveFileInput" class="custom-file-label hidden" >Choose File</label>
@@ -190,6 +227,11 @@
 
     <script>
 
+        let isMuted = false;
+
+        //Team variable used to determine which team the player is Darin
+        let team = "Black";
+        
         const CANVAS_WIDTH = 1000;
         const OFFSET_WIDTH = 65;
         const CANVAS_HEIGHT = 500;
@@ -212,15 +254,64 @@
         //When start button is clicked it hides itself and calls start game -Darin
         document.getElementById('startButton').addEventListener('click', function() {
             document.getElementById('StartScreen').classList.add('hidden');
+            document.getElementById('muteButton').classList.add('hidden');
             StartGame();
         });
 
 
+
+        //Function for the team change button. Once pressed behind the scenes the board and pieces are swapped and visually the button changes the current team and the background of start screen flips. Darin
+        document.getElementById('teamChangeButton').addEventListener('click', function(){
+            const backgroundWrapper = document.getElementById('backgroundWrapper');
+
+            let Black_Pyramid = document.getElementById("black-pyramid");
+            let White_Pyramid = document.getElementById("white-pyramid");
+
+            let BlackOrder = window.getComputedStyle(Black_Pyramid).order;
+            let WhiteOrder = window.getComputedStyle(White_Pyramid).order;
+
+            Black_Pyramid.style.order = WhiteOrder;
+            White_Pyramid.style.order = BlackOrder;
+
+            team = team === "Black" ? "White" : "Black";
+
+            if (team === "White") {
+                backgroundWrapper.style.transform = "rotate(180deg)";
+            } else {
+                backgroundWrapper.style.transform = "rotate(0deg)";
+            }
+
+            this.textContent = `Change Team (Current team: ${team})`
+
+            console.log(`Changed to ${team} team`);
+
+
+        })
+
+        document.getElementById('muteButton').addEventListener('click', function() {
+            isMuted = !isMuted;
+            this.textContent = isMuted ? 'Unmute' : 'Mute';
+            
+            // Update mute state for intro video
+            const introVideo = document.getElementById('introVideo');
+            introVideo.muted = isMuted;
+            
+            // Update any currently playing videos in the video container
+            const videoContainer = document.getElementById('videoContainer');
+            const activeVideos = videoContainer.getElementsByTagName('video');
+            for (let video of activeVideos) {
+                video.muted = isMuted;
+            }
+        });
+
+		 2e28651715456c844c49135bd3689e4fd39afe41
         //Can also mute and unmute audio by pressing m on the keyboard
         document.addEventListener("keydown", function(event){
+            //Key to mute audio Darin
             if(event.key == "m" || event.key === "M")
             {
                 isMuted = !isMuted;
+                document.getElementById('muteButton').textContent = isMuted ? 'Unmute' : 'Mute';
             
                 const introVideo = document.getElementById('introVideo');
                 introVideo.muted = isMuted;
@@ -230,9 +321,12 @@
                 for (let video of activeVideos) {
                     video.muted = isMuted;
             }
+            } //Key to skip videos Darin
+            else if(event.key == "s" || event.key == "S")
+            {
+                SkipVideo();
             }
         });
-
 
         //Plays preloaded intro video, initializes game, and unhides all elements that were previously hidden that are needed for the game. -Darin
         function StartGame() {
@@ -246,7 +340,19 @@
             document.getElementById('white-pyramid').classList.remove('hidden');
             document.getElementById('game-board').classList.remove('hidden');
         }
-
+        //Skips video by removing it from the html Darin
+        function SkipVideo(){
+            const videoContainer = document.getElementById('videoContainer'); 
+            if(videoContainer.innerHTML != "")
+            {
+                videoContainer.innerHTML = "";
+                videoContainer.style.pointerEvents = 'none';
+                cont = true;
+            }
+            else{
+                console.log("No video to skip") 
+            }
+        }
 
 
 
@@ -268,6 +374,21 @@
                         scaleX: CANVAS_WIDTH / boardImage.width,
                         scaleY: CANVAS_HEIGHT / boardImage.height
                     });
+
+                    if (team === "White") {
+                        boardImage.set({
+                            angle: 180,
+                            left: CANVAS_WIDTH,
+                            top: CANVAS_HEIGHT
+                        });
+                    } else {
+                        boardImage.set({
+                            angle: 0,
+                            left: 0,
+                            top: 0
+                        });
+                    }
+
                     canvas.insertAt(boardImage, 0);
                     resolve(boardImage);
                 }, function(error) {
@@ -287,10 +408,10 @@
                 // Construct dynamic image path
                 let imagePath;
                 if (baseType == 'p') {
-                    imagePath = `Images/Rithmomachia/Board and pieces/${isWhite ? 'White' : 'Black'}_Pyramid.png`
+                    imagePath = `Images/Board and pieces/${isWhite ? 'White' : 'Black'}_Pyramid.png`
                     value = isWhite ? ['c1', 'c4', 't9', 't16', 's25', 's36'] : ['C16', 'T25', 'T36', 'S49', 'S64']
                 }else {
-                    imagePath = `Images/Rithmomachia/Board and pieces/${value}_${isWhite ? 'White' : 'Black'}_${{
+                    imagePath = `Images/Board and pieces/${value}_${isWhite ? 'White' : 'Black'}_${{
                             's': 'Square',
                             't': 'Triangle',
                             'c': 'Circle',
@@ -323,7 +444,8 @@
         }
 
         async function addPieces() {
-            const initialBoardState = [
+            //2 Board initial states for the different player team cases. Darin
+            const initialBoardState = team === "Black" ? [
                 ['s49', 's28', 't16', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', 'T81', 'S153', 'S289'],
                 ['s121', 's66', 't36', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', 'T49', 'P', 'S169'],
                 ['.', 't12', 'c9', 'c3', '.', '.', '.', '.', '.', '.', '.', '.', 'C8', 'C64', 'T72', '.'],
@@ -332,7 +454,15 @@
                 ['.', 't90', 'c81', 'c9', '.', '.', '.', '.', '.', '.', '.', '.', 'C2', 'C4', 'T6', '.'],
                 ['s225', 's120', 't64', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', 'T25', 'S45', 'S81'],
                 ['s361', 'p', 't100', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', 'T9', 'S15', 'S25']
-
+            ] : [
+                ['S25', 'S15', 'T9', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', 't100', 'p', 's361'],
+                ['S81', 'S45', 'T25', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', 't64', 's120', 's225'],
+                ['.', 'T6', 'C4', 'C2', '.', '.', '.', '.', '.', '.', '.', '.', 'c9', 'c81', 't90', '.'],
+                ['.', 'T20', 'C16', 'C4', '.', '.', '.', '.', '.', '.', '.', '.', 'c7', 'c49', 't56', '.'],
+                ['.', 'T42', 'C36', 'C6', '.', '.', '.', '.', '.', '.', '.', '.', 'c5', 'c25', 't30', '.'],
+                ['.', 'T72', 'C64', 'C8', '.', '.', '.', '.', '.', '.', '.', '.', 'c3', 'c9', 't12', '.'],
+                ['S169', 'P', 'T49', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', 't36', 's66', 's121'],
+                ['S289', 'S153', 'T81', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', 't16', 's28', 's49']
             ];
 
             const pieceLoadPromises = [];
@@ -374,7 +504,7 @@
             video.autoplay = true;
             video.loop = false;
             video.controls = false;
-            video.muted = false;
+            video.muted = isMuted;
 
             videoContainer.appendChild(video);
             video.style.display = "block";
@@ -399,7 +529,7 @@
             video.autoplay = true;
             video.loop = false;
             video.controls = false;
-            video.muted = false;
+            video.muted = isMuted;
 
             videoContainer.appendChild(video);
 
@@ -527,45 +657,72 @@
             }
         }
 
-        function capturePiece(position,value=null) {
+        function capturePiece(position, value, type) {
+            const firstPos = position[0];
+            const firstRow = firstPos.toUpperCase().charCodeAt(0) - 65;
+            const firstCol = Number(firstPos.slice(1)) - 1;
+            const firstPiece = boardState[firstRow][firstCol];
+            const pieceColor = firstPiece ? firstPiece.pieceColor : null;
+            const pieceColor2 = pieceColor.toLowerCase();
+             const oppositeColor = pieceColor2 === 'white' ? 'black' : 'white';
+            
+            switch (type) {
+                case "s":
+                    console.log('Playing Siege')
+                    playVideo(`Images/Rithmomachia/captures and intro with sound/Siege ${oppositeColor}.mp4`);
+                    break;
+                case "n":
+                    console.log('Playing Encounter')
+                    playVideo(`Images/Rithmomachia/captures and intro with sound/Encounter ${oppositeColor}.mp4`);
+                    break;
+                case "r":
+                    console.log('Playing Eruption')
+                    playVideo(`Images/Rithmomachia/captures and intro with sound/Eruption ${oppositeColor}.mp4`);
+                    break;
+                case "d":
+                    console.log('Playing Deceite')
+                    playVideo(`Images/Rithmomachia/captures and intro with sound/Deceit ${oppositeColor}.mp4`);
+                    break;
+            }
+            for (let i = 0; i < position.length; i++) {
+                const c = position[i].toUpperCase().charCodeAt(0) - 65;
+                const r = Number(position[i].slice(1)) - 1;
 
-            const c = position.toUpperCase().charCodeAt(0) - 65;
-            const r = Number(position.slice(1)) - 1;
+                // Find the piece at the specified position
+                const piece = boardState[c][r];
 
-            // Find the piece at the specified position
-            const piece = boardState[c][r];
-
-            if (piece) {
-                if (Array.isArray(piece.pieceValue)) {
-                    let index = piece.pieceValue.indexOf(value);
-                    piece.pieceValue.splice(index, 1);
-                    updatePyramid(piece.pieceColor, piece.pieceValue);
-                    if (piece.pieceValue.length == 0) {
+                if (piece) {
+                    if (Array.isArray(piece.pieceValue)) {
+                        let index = piece.pieceValue.indexOf(value[i]);
+                        piece.pieceValue.splice(index, 1);
+                        updatePyramid(piece.pieceColor, piece.pieceValue);
+                        if (piece.pieceValue.length == 0) {
+                            piece.animate({ opacity: 0 }, {
+                                duration: 500,
+                                onChange: canvas.renderAll.bind(canvas),
+                                onComplete: () => {
+                                    canvas.remove(piece);
+                                    boardState[c][r] = null; // Clear the captured position
+                                    console.log(`Pyramid at ${position[i]} empty.`);
+                                }
+                            });
+                        };
+                    }
+                    else {
                         piece.animate({ opacity: 0 }, {
                             duration: 500,
                             onChange: canvas.renderAll.bind(canvas),
                             onComplete: () => {
                                 canvas.remove(piece);
                                 boardState[c][r] = null; // Clear the captured position
-                                console.log(`Pyramid at ${position} empty.`);
+                                console.log(`Piece at ${position[i]} captured.`);
                             }
                         });
-                    };
-                }
-                else {
-                    piece.animate({ opacity: 0 }, {
-                        duration: 500,
-                        onChange: canvas.renderAll.bind(canvas),
-                        onComplete: () => {
-                            canvas.remove(piece);
-                            boardState[c][r] = null; // Clear the captured position
-                            console.log(`Piece at ${position} captured.`);
-                        }
-                    });
-                }
+                    }
 
-            } else {
-                console.log(`No piece found at ${position} to capture.`);
+                } else {
+                    console.log(`No piece found at ${position[i]} to capture.`);
+                }
             }
         }
 
@@ -663,16 +820,22 @@
                         if (pair.toUpperCase().includes('X')) {
                             // Handle capture move (e.g., A1A2xC4c9)
                             const parts = pair.split('x'); // Split by 'x'
-                            const move = parts[0]; // First part is the move (e.g., A1A2)
-                            const captureDetails = parts[1]; // Second part is the capture info (e.g., C4c9)
+                            let [move, ...captures] = parts;
+                            const c = captures[0].match(/([snrd])(.*)/i);
+                            console.log(c);
+                            captures[0] = c[2];
+                            let take = [];
+                            let ids = [];
 
                             // Extract capture position and unique ID (e.g., "C4" and "c9")
-                            const captureMatch = captureDetails.match(/^([A-H][0-9]*)([c,t,s,C,T,S]\d+)/i);
-                            const capture = captureMatch[1]; // Capture position (e.g., "C4")
-                            const id = captureMatch[2]; // Captured piece info (e.g., "c9")
+                            captures.forEach(cap => {
+                                const captureMatch = cap.match(/([A-H][0-9]*)([c,t,s,C,T,S]\d+)/i);
+                                take.push(captureMatch[1]); // Capture position (e.g., "C4")
+                                ids.push(captureMatch[2]); // Captured piece info (e.g., "c9")
+                            });
 
                             const [from, to] = splitMove(move); // Split the move into 'from' and 'to'
-                            moves.push([from, to, capture, id]); // Add the parsed capture
+                            moves.push([from, to, take, ids, c[1]]); // Add the parsed capture
                         } else if (pair.length >= 4) {
                             // Handle regular move (e.g., A1A2)
                             const [from, to] = splitMove(pair);
@@ -718,7 +881,7 @@
                         // Handle capture if specified
                         if (capture) {
                             setTimeout(() => {
-                                capturePiece(capture, move[3]);
+                                capturePiece(capture, move[3], move[4]);
                             }, 600); // Slight delay to align with move animation
                         }
 
@@ -813,8 +976,6 @@
 
 
 
-        //Not needed anymore as I have a start button in -Darin
-        //window.onload = //initializeGame;
         document.getElementById('moveFileInput').addEventListener('change', handleFileUpload);
         document.getElementById('endLoopButton').addEventListener('click', () => {
             isLooping = false;
