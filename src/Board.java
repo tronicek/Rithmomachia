@@ -35,11 +35,11 @@ public class Board {
             int value = Integer.valueOf(s.substring(2));
             switch (s.charAt(1)) {
                 case 'C':
-                    return new Circle(c, value, row, col);
+                    return new Circle(c, value, row, col, 1);
                 case 'S':
-                    return new Square(c, value, row, col);
+                    return new Square(c, value, row, col, 3);
                 case 'T':
-                    return new Triangle(c, value, row, col);
+                    return new Triangle(c, value, row, col, 2);
                 default:
                     throw new AssertionError();
             }
@@ -158,9 +158,9 @@ public class Board {
     
     
     
-    public boolean isValidPos(int x, int y) {
+    public boolean isValidPos(int row, int col) {
     	//System.out.print("isValidPos called: ");
-    	return x >= 0 && x < rows && y >= 0 && y < cols;
+    	return row >= 0 && row < rows && col >= 0 && col < cols;
     	
     }
 
@@ -257,34 +257,34 @@ public class Board {
         return null;
     }
     
-    public boolean isEmpty(int x, int y) {
-    	if(!isValidPos(x,y)) {
+    public boolean isEmpty(int row, int col) {
+    	if(!isValidPos(row,col)) {
     		return false;
     	}
     	
-    	return pieces[x][y] == null;
+    	return pieces[row][col] == null;
     }
     
  // Helper method to check if the path is clear
- 	 public boolean pathIsClear(int x1, int y1, int x2, int y2, Board board) {
+ 	 public boolean pathIsClear(int row1, int col1, int row2, int col2, Board board) {
          // Determine the direction of movement
-         int dx = Integer.signum(x2 - x1); // Direction along x-axis
-         int dy = Integer.signum(y2 - y1); // Direction along y-axis
+         int dRow = Integer.signum(row2 - row1); // Direction along x-axis
+         int dCol = Integer.signum(col2 - col1); // Direction along y-axis
 
-         // Loop over each square between (x1, y1) and (x2, y2)
-         for (int i = 1; i < Math.max(Math.abs(x2 - x1), Math.abs(y2 - y1)); i++) {
-             int nextX = x1 + i * dx; // The x-coordinate of the next square along the path
-             int nextY = y1 + i * dy; // The y-coordinate of the next square along the path
+         // Loop over each square between (row1, col1) and (row2, col2)
+         for (int i = 1; i < Math.max(Math.abs(row2 - row1), Math.abs(col2 - col1)); i++) {
+             int nextRow = row1 + i * dRow; // The x-coordinate of the next square along the path
+             int nextCol = col1 + i * dCol; // The y-coordinSate of the next square along the path
 
              // If any square along the path is not empty, the path is blocked
-             if (!board.isEmpty(nextX, nextY)) {
+             if (!board.isEmpty(nextRow, nextCol)) {
                  return false; // Path is blocked by another piece
              }
          }
 
-         // Check if the destination square (x2, y2) is empty
+         // Check if the destination square (row2, col2) is empty
          // If it's occupied, the piece cannot move there
-         if (!board.isEmpty(x2, y2)) {
+         if (!board.isEmpty(row2, col2)) {
              return false; // Target square is occupied
          }
 
@@ -292,18 +292,18 @@ public class Board {
          return true;
      }
  	 
- 	public boolean capturepathIsClear(int x1, int y1, int x2, int y2, Board board) {
+ 	public boolean capturepathIsClear(int rowStart, int colStart, int rowEnd, int colEnd, Board board) {
         // Determine the direction of movement
-        int dx = Integer.signum(x2 - x1); // Direction along x-axis
-        int dy = Integer.signum(y2 - y1); // Direction along y-axis
+        int dx = Integer.signum(rowEnd - rowStart); // Direction along rows
+        int dy = Integer.signum(colEnd - colStart); // Direction along cols
 
-        // Loop over each square between (x1, y1) and (x2, y2)
-        for (int i = 1; i < Math.max(Math.abs(x2 - x1), Math.abs(y2 - y1)); i++) {
-            int nextX = x1 + i * dx; // The x-coordinate of the next square along the path
-            int nextY = y1 + i * dy; // The y-coordinate of the next square along the path
+        // Loop over each square between (x1, y1) and (x2, col2)
+        for (int i = 1; i < Math.max(Math.abs(rowEnd - rowStart), Math.abs(colEnd - colStart)); i++) {
+            int nextRow = rowStart + i * dx; // The row-coordinate of the next square along the path
+            int nextCol = colStart + i * dy; // The col-coordinate of the next square along the path
 
             // If any square along the path is not empty, the path is blocked
-            if (!board.isEmpty(nextX, nextY)) {
+            if (!board.isEmpty(nextRow, nextCol)) {
                 return false; // Path is blocked by another piece
             }
         }
@@ -313,10 +313,10 @@ public class Board {
         return true;
     }
  	 
- 	public boolean contains(int x, int y, int value) {
+ 	public boolean contains(int row, int col, int value) {
  		//System.out.print("Contains function called");
  	    // Check if the position (x, y) contains a piece with the specific value.
- 	    Piece piece = getPiece(x, y); // Retrieves the piece at position (x, y)
+ 	    Piece piece = getPiece(row, col); // Retrieves the piece at position (x, y)
  	    if (piece != null && piece.getValue() == value) {
  	        return true; // Return true if the piece has the same value
  	    }
@@ -324,8 +324,8 @@ public class Board {
  	}
  	
  	//Check if a piece is the same as another piece
- 	public boolean checkColor(int x, int y, Color c) {
- 		Piece piece = getPiece(x,y);
+ 	public boolean checkColor(int row, int col, Color c) {
+ 		Piece piece = getPiece(row,col);
  		if (piece.getColor() == c) {
  			return false;
  		}
@@ -334,15 +334,15 @@ public class Board {
 
     
 
-    public void setPiece(int x, int y, Piece piece) {
+    public void setPiece(int row, int col, Piece piece) {
         if (piece != null) {
-            piece.setX(x);
-            piece.setY(y);
+            piece.setRow(row);
+            piece.setCol(col);
         }
-        pieces[y][x] = piece;
+        pieces[row][col] = piece;
     }
 
-    public Piece getPiece(int x, int y) {
-        return pieces[x][y];
+    public Piece getPiece(int row, int col) {
+        return pieces[row][col];
     }
 }

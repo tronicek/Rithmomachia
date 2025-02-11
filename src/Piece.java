@@ -6,20 +6,22 @@ import java.util.Set;
 public abstract class Piece {
 	protected final Color color;
 	protected final int value; 
-	private int x, y;
+	private int row, col;
+	private int moveSpaces;
 	
-	public Piece( Color color, int value, int x, int y) {
+	public Piece( Color color, int value, int row, int col, int moveSpaces) {
 		this.color = color;
 		this.value = value;
-		this.x = x;
-		this.y = y;
+		this.row = row;
+		this.col = col;
+		this.moveSpaces = moveSpaces;
 		
-		//Board.setPiece(x, y, this);
+		//Board.setPiece(row, col, this);
 	}
 	
-	public abstract Set<Move> findMoves(int x, int y, Board board);
+	public abstract Set<Move> findMoves(int row, int col,Board board);
 	
-	public abstract Set<Pos> encounterCapture(int x, int y, Board board);
+	public abstract Set<Pos> encounterCapture(int row, int col, Board board);
 	   
     
 	
@@ -27,13 +29,13 @@ public abstract class Piece {
 	// If there are no captures, it will return an empty set.
 	public Set<Pos> eruptionCapture(Board board){
 		Set<Pos> posECaps = new HashSet<>();
-		Set<Piece> neighbors = board.findClosestNeighbors(this.x, this.y);
+		Set<Piece> neighbors = board.findClosestNeighbors(this.row, this.col);
 		if (!neighbors.isEmpty()) {
 			for (Piece piece : neighbors) {
 				if (piece.color != this.color) {
 					int totalSquares = 2;
-					int numRows = Math.abs(piece.x - this.x);
-					int numCols = Math.abs(piece.y - this.y);
+					int numRows = Math.abs(piece.row - this.row);
+					int numCols = Math.abs(piece.col - this.col);
 					if (numRows == 0)
 						totalSquares = numCols + 1;
 					else
@@ -44,7 +46,7 @@ public abstract class Piece {
 					}
 					int multValue = this.value * totalSquares;
 					if (multValue == piece.value || divValue == piece.value) {
-						posECaps.add(new Pos(piece.x, piece.y));
+						posECaps.add(new Pos(piece.row, piece.col));
 					}
 				}
 			}
@@ -84,21 +86,21 @@ public abstract class Piece {
 		return this.value;
 	}
 	
-	public int getX() {
-		return this.x;
+	public int getRow() {
+		return this.row;
 	}
 	
-	void setX(int newX) {
-		this.x = newX;
+	void setRow(int newX) {
+		this.row = newX;
 	}
 	
-	public int getY()
+	public int getCol()
 	{
-		return this.y;
+		return this.col;
 	}
 	
-	void setY(int newY) {
-		this.y = newY;
+	void setCol(int newY) {
+		this.col = newY;
 	}
 	
 	public String nullToString() {

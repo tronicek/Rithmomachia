@@ -2,8 +2,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class Circle extends Piece {
-	public Circle(Color color, int value, int x, int y) {
-			super(color, value, x, y);
+	public Circle(Color color, int value, int row, int col, int moveSpaces) {
+			super(color, value, row, col, 1);
 	}
 	
 	 @Override
@@ -12,91 +12,91 @@ public class Circle extends Piece {
 	    }
 	 
 	 @Override
-	 public Set<Move> findMoves(int x, int y, Board board) {
+	 public Set<Move> findMoves(int row, int col, Board board) {
 	     Set<Move> mm = new HashSet<>();
 	     int distance = 1;  // Move 3 squares
 
 	     // Horizontal and vertical moves (distance squares)
-	     if (board.isValidPos(x + distance, y) && board.pathIsClear(x, y, x + distance, y, board)) {
-	         mm.add(new Move(x, y, x + distance, y) );
+	     if (board.isValidPos(row + distance, col) && board.pathIsClear(row, col, row + distance, col, board)) {
+	         mm.add(new Move(row, col, row + distance, col) );
 	     }
-	     if (board.isValidPos(x - distance, y) && board.pathIsClear(x, y, x - distance, y, board)) {
-	         mm.add(new Move(x, y, x - distance, y));
+	     if (board.isValidPos(row - distance, col) && board.pathIsClear(row, col, row - distance, col, board)) {
+	         mm.add(new Move(row, col, row - distance, col));
 	     }
-	     if (board.isValidPos(x, y + distance) && board.pathIsClear(x, y, x, y + distance, board)) {
-	         mm.add(new Move(x, y, x, y + distance));
+	     if (board.isValidPos(row, col + distance) && board.pathIsClear(row, col, row, col + distance, board)) {
+	         mm.add(new Move(row, col, row, col + distance));
 	     }
-	     if (board.isValidPos(x, y - distance) && board.pathIsClear(x, y, x, y - distance, board)) {
-	         mm.add(new Move(x, y, x, y - distance));
+	     if (board.isValidPos(row, col - distance) && board.pathIsClear(row, col, row, col - distance, board)) {
+	         mm.add(new Move(row, col, row, col - distance));
 	     }
 
 	     // Diagonal moves (distance squares)
-	     if (board.isValidPos(x + distance, y + distance) && board.pathIsClear(x, y, x + distance, y + distance, board)) {
-	         mm.add(new Move(x, y, x + distance, y + distance));
+	     if (board.isValidPos(row + distance, col + distance) && board.pathIsClear(row, col, row + distance, col + distance, board)) {
+	         mm.add(new Move(row, col, row + distance, col + distance));
 	     }
-	     if (board.isValidPos(x + distance, y - distance) && board.pathIsClear(x, y, x + distance, y - distance, board)) {
-	         mm.add(new Move(x, y, x + distance, y - distance));
+	     if (board.isValidPos(row + distance, col - distance) && board.pathIsClear(row, col, row + distance, col - distance, board)) {
+	         mm.add(new Move(row, col, row + distance, col - distance));
 	     }
-	     if (board.isValidPos(x - distance, y + distance) && board.pathIsClear(x, y, x - distance, y + distance, board)) {
-	         mm.add(new Move(x, y, x - distance, y + distance));
+	     if (board.isValidPos(row - distance, col + distance) && board.pathIsClear(row, col, row - distance, col + distance, board)) {
+	         mm.add(new Move(row, col, row - distance, col + distance));
 	     }
-	     if (board.isValidPos(x - distance, y - distance) && board.pathIsClear(x, y, x - distance, y - distance, board)) {
-	         mm.add(new Move(x, y, x - distance, y - distance));
+	     if (board.isValidPos(row - distance, col - distance) && board.pathIsClear(row, col, row - distance, col - distance, board)) {
+	         mm.add(new Move(row, col, row - distance, col - distance));
 	     }
 
 	     return mm;
 	 }
 	 
 	 @Override
-	 public Set<Pos> encounterCapture(int x, int y, Board board) {
+	 public Set<Pos> encounterCapture(int row, int col, Board board) {
 	        Set<Pos> pp = new HashSet<>();
 	        int distance = 1;
 	        
 
-	        if (board.isValidPos(x + distance, y)
-	                && board.contains(x + distance, y, value) && board.capturepathIsClear(x, y, x + distance, y, board)  && (board.checkColor( x + distance, y, color))) {
-	        	//System.out.print("Position Conditions met");
-	            pp.add(new Pos(x + distance, y));
+	        if (board.isValidPos(row + distance, col)
+	                && board.contains(row + distance, col, value) && board.capturepathIsClear(row, col, row + distance, col, board)  && (board.checkColor( row + distance, col, color))) {
+	        	//Scolstem.out.print("Position Conditions met");
+	            pp.add(new Pos(row + distance, col));
 	            
 	        }
-	        if (board.isValidPos(x - distance, y)
-	                && board.contains(x - distance, y, value) && board.capturepathIsClear(x, y, x - distance, y, board) && (board.checkColor( x - distance, y, color))) {
-	        	//System.out.print("Position Conditions met");
-	            pp.add(new Pos(x - distance, y));
+	        if (board.isValidPos(row - distance, col)
+	                && board.contains(row - distance, col, value) && board.capturepathIsClear(row, col, row - distance, col, board) && (board.checkColor( row - distance, col, color))) {
+	        	//Scolstem.out.print("Position Conditions met");
+	            pp.add(new Pos(row - distance, col));
 	        }
-	        if (board.isValidPos(x, y + distance)
-	                && board.contains(x, y + distance, value) && board.capturepathIsClear(x, y, x, y + distance, board) && (board.checkColor( x, y + distance, color))) {
-	        	//System.out.print("Position Conditions met");
-	            pp.add(new Pos(x, y + distance));
+	        if (board.isValidPos(row, col + distance)
+	                && board.contains(row, col + distance, value) && board.capturepathIsClear(row, col, row, col + distance, board) && (board.checkColor( row, col + distance, color))) {
+	        	//Scolstem.out.print("Position Conditions met");
+	            pp.add(new Pos(row, col + distance));
 	        }
-	        if (board.isValidPos(x, y - distance)
-	                && board.contains(x, y - distance, value) && board.capturepathIsClear(x, y, x, y - distance, board) && (board.checkColor( x, y - distance, color)))  {
-	        	//System.out.print("Position Conditions met");
-	            pp.add(new Pos(x, y - distance));
+	        if (board.isValidPos(row, col - distance)
+	                && board.contains(row, col - distance, value) && board.capturepathIsClear(row, col, row, col - distance, board) && (board.checkColor( row, col - distance, color)))  {
+	        	//Scolstem.out.print("Position Conditions met");
+	            pp.add(new Pos(row, col - distance));
 	            
 	        }
 	        
 	        //Diagonal Captures
 	        
-	        if(board.isValidPos(x + distance, y + distance)
-	        		&& board.contains(x + distance, y + distance, value) && board.capturepathIsClear(x, y, x + distance, y + distance, board) && (board.checkColor( x + distance, y + distance, color)) ) {
-	        	//System.out.print("Position Conditions met");
-	        	pp.add(new Pos(x + distance, y + distance));
+	        if(board.isValidPos(row + distance, col + distance)
+	        		&& board.contains(row + distance, col + distance, value) && board.capturepathIsClear(row, col, row + distance, col + distance, board) && (board.checkColor( row + distance, col + distance, color)) ) {
+	        	//Scolstem.out.print("Position Conditions met");
+	        	pp.add(new Pos(row + distance, col + distance));
 	        }
-	        if(board.isValidPos(x + distance, y - distance)
-	        		&& board.contains(x + distance, y - distance, value) && board.capturepathIsClear(x, y, x + distance, y - distance, board) && (board.checkColor( x + distance, y - distance, color))) {
-	        	//System.out.print("Position Conditions met");
-	        	pp.add(new Pos(x + distance, y - distance));
+	        if(board.isValidPos(row + distance, col - distance)
+	        		&& board.contains(row + distance, col - distance, value) && board.capturepathIsClear(row, col, row + distance, col - distance, board) && (board.checkColor( row + distance, col - distance, color))) {
+	        	//Scolstem.out.print("Position Conditions met");
+	        	pp.add(new Pos(row + distance, col - distance));
 	        }
-	        if(board.isValidPos(x - distance, y + distance)
-	        		&& board.contains(x - distance, y + distance, value) && board.capturepathIsClear(x, y, x - distance, y + distance, board) && (board.checkColor( x - distance, y + distance, color))) {
-	        	//System.out.print("Position Conditions met");
-	        	pp.add(new Pos(x - distance, y + distance));
+	        if(board.isValidPos(row - distance, col + distance)
+	        		&& board.contains(row - distance, col + distance, value) && board.capturepathIsClear(row, col, row - distance, col + distance, board) && (board.checkColor( row - distance, col + distance, color))) {
+	        	//Scolstem.out.print("Position Conditions met");
+	        	pp.add(new Pos(row - distance, col + distance));
 	        }
-	        if(board.isValidPos(x - distance, y - distance)
-	        		&& board.contains(x - distance, y - distance, value) && board.capturepathIsClear(x, y, x - distance, y - distance, board) && (board.checkColor( x - distance, y - distance, color))) {
-	        	//System.out.print("Position Conditions met");
-	        	pp.add(new Pos(x - distance, y - distance));
+	        if(board.isValidPos(row - distance, col - distance)
+	        		&& board.contains(row - distance, col - distance, value) && board.capturepathIsClear(row, col, row - distance, col - distance, board) && (board.checkColor( row - distance, col - distance, color))) {
+	        	//Scolstem.out.print("Position Conditions met");
+	        	pp.add(new Pos(row - distance, col - distance));
 	        }
 	        return pp;
 	    }
