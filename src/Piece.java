@@ -21,7 +21,59 @@ public abstract class Piece {
 	
 	public abstract Set<Move> findMoves(int row, int col,Board board);
 	
-	public abstract Set<Pos> encounterCapture(int row, int col, Board board);
+	public Set<Pos> encounterCapture(int row, int col, Board board){
+		 Set<Pos> pp = new HashSet<>();
+	        int distance = getmoveSpaces();
+	        
+
+	        if (board.isValidPos(row + distance, col)
+	                && board.contains(row + distance, col, value) && board.capturepathIsClear(row, col, row + distance, col, board)  && (board.checkColor( row + distance, col, color))) {
+	        	//Scolstem.out.print("Position Conditions met");
+	            pp.add(new Pos(row + distance, col));
+	            
+	        }
+	        if (board.isValidPos(row - distance, col)
+	                && board.contains(row - distance, col, value) && board.capturepathIsClear(row, col, row - distance, col, board) && (board.checkColor( row - distance, col, color))) {
+	        	//Scolstem.out.print("Position Conditions met");
+	            pp.add(new Pos(row - distance, col));
+	        }
+	        if (board.isValidPos(row, col + distance)
+	                && board.contains(row, col + distance, value) && board.capturepathIsClear(row, col, row, col + distance, board) && (board.checkColor( row, col + distance, color))) {
+	        	//Scolstem.out.print("Position Conditions met");
+	            pp.add(new Pos(row, col + distance));
+	        }
+	        if (board.isValidPos(row, col - distance)
+	                && board.contains(row, col - distance, value) && board.capturepathIsClear(row, col, row, col - distance, board) && (board.checkColor( row, col - distance, color)))  {
+	        	//Scolstem.out.print("Position Conditions met");
+	            pp.add(new Pos(row, col - distance));
+	            
+	        }
+	        
+	        //Diagonal Captures
+	        
+	        if(board.isValidPos(row + distance, col + distance)
+	        		&& board.contains(row + distance, col + distance, value) && board.capturepathIsClear(row, col, row + distance, col + distance, board) && (board.checkColor( row + distance, col + distance, color)) ) {
+	        	//Scolstem.out.print("Position Conditions met");
+	        	pp.add(new Pos(row + distance, col + distance));
+	        }
+	        if(board.isValidPos(row + distance, col - distance)
+	        		&& board.contains(row + distance, col - distance, value) && board.capturepathIsClear(row, col, row + distance, col - distance, board) && (board.checkColor( row + distance, col - distance, color))) {
+	        	//Scolstem.out.print("Position Conditions met");
+	        	pp.add(new Pos(row + distance, col - distance));
+	        }
+	        if(board.isValidPos(row - distance, col + distance)
+	        		&& board.contains(row - distance, col + distance, value) && board.capturepathIsClear(row, col, row - distance, col + distance, board) && (board.checkColor( row - distance, col + distance, color))) {
+	        	//Scolstem.out.print("Position Conditions met");
+	        	pp.add(new Pos(row - distance, col + distance));
+	        }
+	        if(board.isValidPos(row - distance, col - distance)
+	        		&& board.contains(row - distance, col - distance, value) && board.capturepathIsClear(row, col, row - distance, col - distance, board) && (board.checkColor( row - distance, col - distance, color))) {
+	        	//Scolstem.out.print("Position Conditions met");
+	        	pp.add(new Pos(row - distance, col - distance));
+	        }
+	        return pp;
+	    }
+	
 	   
     
 	
@@ -85,6 +137,10 @@ public abstract class Piece {
 	
 	public int getRow() {
 		return this.row;
+	}
+	
+	public int getmoveSpaces() {
+		return this.moveSpaces;
 	}
 	
 	void setRow(int newRow) {

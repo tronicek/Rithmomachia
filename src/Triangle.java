@@ -70,32 +70,5 @@ public class Triangle extends Piece {
 	}
 
 
-	 @Override
-	    public Set<Pos> encounterCapture(int row, int col, Board board) {
-	        Set<Pos> pp = new HashSet<>();
-	        int distance = 2;
-	        if (board.isValidPos(row + distance, col)
-	                && board.contains(row + distance, col, value) && board.capturepathIsClear(row, col, row + distance, col, board)) {
-	        	//Scolstem.out.print("Position Conditions met");
-	            pp.add(new Pos(row + distance, col));
-	            
-	        }
-	        if (board.isValidPos(row - distance, col)
-	                && board.contains(row - distance, col, value) && board.capturepathIsClear(row, col, row - distance, col, board)) {
-	        	//Scolstem.out.print("Position Conditions met");
-	            pp.add(new Pos(row - distance, col));
-	        }
-	        if (board.isValidPos(row, col + distance)
-	                && board.contains(row, col + distance, value) && board.capturepathIsClear(row, col, row, col + distance, board) ) {
-	        	//Scolstem.out.print("Position Conditions met");
-	            pp.add(new Pos(row, col + distance));
-	        }
-	        if (board.isValidPos(row, col - distance)
-	                && board.contains(row, col - distance, value) && board.capturepathIsClear(row, col, row, col - distance, board)) {
-	        	//Scolstem.out.print("Position Conditions met");
-	            pp.add(new Pos(row, col - distance));
-	            
-	        }
-	        return pp;
-	    }
+	 
 }

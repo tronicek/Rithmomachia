@@ -363,6 +363,41 @@ public class EncounterTest {
         Set<Pos> pp = p.encounterCapture(0, 0, b);
         assertEquals(3, pp.size());
     }
+    @Test
+    public void testCT17() {
+        String[] s = {
+        		"BC1 BC1 BC1 BC1 BC1 ",
+        		"BC1 --- --- --- BC1 ",
+        		"BC1 --- WT1 --- BC1 ",
+        		"BC1 --- --- --- BC1 ",
+        		"BC1 BC1 BC1 BC1 BC1"
+        };
+        Board b = new Board(5, 5, s);
+        b.printBoard();
+        Piece p = b.getPiece(2, 2);
+        Set<Pos> pp = p.encounterCapture(2, 2, b);
+        assertEquals(8, pp.size());
+    }
+    @Test
+    public void testCT18() {
+        String[] s = {
+        		"BC1 BC1 BC1 BC1 BC1 BC1 BC1",
+        		"BC1 --- --- --- --- --- BC1",
+        		"BC1 --- --- --- --- --- BC1",
+        		"BC1 --- --- WS1 --- --- BC1",
+        		"BC1 --- --- --- --- --- BC1",
+        		"BC1 --- --- --- --- --- BC1",
+        		"BC1 BC1 BC1 BC1 BC1 BC1 BC1",
+        		
+        };
+        Board b = new Board(7, 7, s);
+        b.printBoard();
+        Piece p = b.getPiece(3, 3);
+        Set<Pos> pp = p.encounterCapture(3, 3, b);
+        assertEquals(8, pp.size());
+    }
+    
+    
     
    
     
