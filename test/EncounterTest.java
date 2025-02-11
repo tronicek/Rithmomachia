@@ -57,11 +57,7 @@ public class EncounterTest {
         Board b = new Board(4, 1, s);
         b.printBoard();
         Piece p = b.getPiece(1, 0);
-<<<<<<< HEAD:test/EncounterTest.java
         Set<Pos> pp = p.encounterCapture(1, 0, b);
-=======
-        Set<Pos> pp = p.capture(1, 0, b);
->>>>>>> 222caa7957a3b91c66b162f271a8a91a3909d4b6:src/TriangleTest.java
         String t = toString(pp);
         assertEquals("[3,0]", t);
     }
@@ -77,11 +73,7 @@ public class EncounterTest {
         Board b = new Board(4, 1, s);
         b.printBoard();
         Piece p = b.getPiece(3, 0);
-<<<<<<< HEAD:test/EncounterTest.java
         Set<Pos> pp = p.encounterCapture(3, 0, b);
-=======
-        Set<Pos> pp = p.capture(3, 0, b);
->>>>>>> 222caa7957a3b91c66b162f271a8a91a3909d4b6:src/TriangleTest.java
         String t = toString(pp);
         assertEquals("[1,0]", t);
     }
@@ -94,11 +86,7 @@ public class EncounterTest {
         Board b = new Board(1, 4, s);
         b.printBoard();
         Piece p = b.getPiece(0, 1);
-<<<<<<< HEAD:test/EncounterTest.java
         Set<Pos> pp = p.encounterCapture(0, 1, b);
-=======
-        Set<Pos> pp = p.capture(0, 1, b);
->>>>>>> 222caa7957a3b91c66b162f271a8a91a3909d4b6:src/TriangleTest.java
         assertEquals(0, pp.size());
     }
 
@@ -110,11 +98,7 @@ public class EncounterTest {
         Board b = new Board(1, 4, s);
         b.printBoard();
         Piece p = b.getPiece(0, 3);
-<<<<<<< HEAD:test/EncounterTest.java
         Set<Pos> pp = p.encounterCapture(0, 3, b);
-=======
-        Set<Pos> pp = p.capture(0, 3, b);
->>>>>>> 222caa7957a3b91c66b162f271a8a91a3909d4b6:src/TriangleTest.java
         assertEquals(0, pp.size());
     }
 
@@ -129,11 +113,7 @@ public class EncounterTest {
         Board b = new Board(4, 1, s);
         b.printBoard();
         Piece p = b.getPiece(1, 0);
-<<<<<<< HEAD:test/EncounterTest.java
         Set<Pos> pp = p.encounterCapture(1, 0, b);
-=======
-        Set<Pos> pp = p.capture(1, 0, b);
->>>>>>> 222caa7957a3b91c66b162f271a8a91a3909d4b6:src/TriangleTest.java
         assertEquals(0, pp.size());
     }
 
@@ -148,11 +128,7 @@ public class EncounterTest {
         Board b = new Board(4, 1, s);
         b.printBoard();
         Piece p = b.getPiece(3, 0);
-<<<<<<< HEAD:test/EncounterTest.java
         Set<Pos> pp = p.encounterCapture(3, 0, b);
-=======
-        Set<Pos> pp = p.capture(3, 0, b);
->>>>>>> 222caa7957a3b91c66b162f271a8a91a3909d4b6:src/TriangleTest.java
         assertEquals(0, pp.size());
     }
     
@@ -168,11 +144,7 @@ public class EncounterTest {
         Board b = new Board(3, 3, s);
         b.printBoard();
         Piece p = b.getPiece(1, 1);
-<<<<<<< HEAD:test/EncounterTest.java
         Set<Pos> pp = p.encounterCapture(1, 1, b);
-=======
-        Set<Pos> pp = p.capture(1, 1, b);
->>>>>>> 222caa7957a3b91c66b162f271a8a91a3909d4b6:src/TriangleTest.java
         assertEquals(8, pp.size());
     }
     @Test
@@ -186,11 +158,7 @@ public class EncounterTest {
         Board b = new Board(3, 3, s);
         b.printBoard();
         Piece p = b.getPiece(1, 1);
-<<<<<<< HEAD:test/EncounterTest.java
         Set<Pos> pp = p.encounterCapture(1, 1, b);
-=======
-        Set<Pos> pp = p.capture(1, 1, b);
->>>>>>> 222caa7957a3b91c66b162f271a8a91a3909d4b6:src/TriangleTest.java
         assertEquals(8, pp.size());
     }
     @Test
@@ -204,11 +172,7 @@ public class EncounterTest {
         Board b = new Board(3, 3, s);
         b.printBoard();
         Piece p = b.getPiece(1, 1);
-<<<<<<< HEAD:test/EncounterTest.java
         Set<Pos> pp = p.encounterCapture(1, 1, b);
-=======
-        Set<Pos> pp = p.capture(1, 1, b);
->>>>>>> 222caa7957a3b91c66b162f271a8a91a3909d4b6:src/TriangleTest.java
         assertEquals(8, pp.size());
     }
     @Test
@@ -222,11 +186,7 @@ public class EncounterTest {
         Board b = new Board(3, 3, s);
         b.printBoard();
         Piece p = b.getPiece(1, 1);
-<<<<<<< HEAD:test/EncounterTest.java
         Set<Pos> pp = p.encounterCapture(1, 1, b);
-=======
-        Set<Pos> pp = p.capture(1, 1, b);
->>>>>>> 222caa7957a3b91c66b162f271a8a91a3909d4b6:src/TriangleTest.java
         assertEquals(0, pp.size());
     }
     @Test
@@ -240,11 +200,7 @@ public class EncounterTest {
         Board b = new Board(3, 3, s);
         b.printBoard();
         Piece p = b.getPiece(1, 1);
-<<<<<<< HEAD:test/EncounterTest.java
         Set<Pos> pp = p.encounterCapture(1, 1, b);
-=======
-        Set<Pos> pp = p.capture(1, 1, b);
->>>>>>> 222caa7957a3b91c66b162f271a8a91a3909d4b6:src/TriangleTest.java
         assertEquals(0, pp.size());
     }
     @Test
@@ -258,11 +214,7 @@ public class EncounterTest {
         Board b = new Board(3, 3, s);
         b.printBoard();
         Piece p = b.getPiece(1, 1);
-<<<<<<< HEAD:test/EncounterTest.java
         Set<Pos> pp = p.encounterCapture(1, 1, b);
-=======
-        Set<Pos> pp = p.capture(1, 1, b);
->>>>>>> 222caa7957a3b91c66b162f271a8a91a3909d4b6:src/TriangleTest.java
         assertEquals(8, pp.size());
     }
     @Test
@@ -276,11 +228,7 @@ public class EncounterTest {
         Board b = new Board(3, 3, s);
         b.printBoard();
         Piece p = b.getPiece(1, 1);
-<<<<<<< HEAD:test/EncounterTest.java
         Set<Pos> pp = p.encounterCapture(1, 1, b);
-=======
-        Set<Pos> pp = p.capture(1, 1, b);
->>>>>>> 222caa7957a3b91c66b162f271a8a91a3909d4b6:src/TriangleTest.java
         assertEquals(8, pp.size());
     }
     @Test
@@ -294,11 +242,7 @@ public class EncounterTest {
         Board b = new Board(3, 3, s);
         b.printBoard();
         Piece p = b.getPiece(1, 1);
-<<<<<<< HEAD:test/EncounterTest.java
         Set<Pos> pp = p.encounterCapture(1, 1, b);
-=======
-        Set<Pos> pp = p.capture(1, 1, b);
->>>>>>> 222caa7957a3b91c66b162f271a8a91a3909d4b6:src/TriangleTest.java
         assertEquals(8, pp.size());
     }
     
@@ -313,11 +257,7 @@ public class EncounterTest {
         Board b = new Board(3, 3, s);
         b.printBoard();
         Piece p = b.getPiece(1, 1);
-<<<<<<< HEAD:test/EncounterTest.java
         Set<Pos> pp = p.encounterCapture(1, 1, b);
-=======
-        Set<Pos> pp = p.capture(1, 1, b);
->>>>>>> 222caa7957a3b91c66b162f271a8a91a3909d4b6:src/TriangleTest.java
         assertEquals(0, pp.size());
     }
     @Test
@@ -331,11 +271,7 @@ public class EncounterTest {
         Board b = new Board(3, 3, s);
         b.printBoard();
         Piece p = b.getPiece(1, 1);
-<<<<<<< HEAD:test/EncounterTest.java
         Set<Pos> pp = p.encounterCapture(1, 1, b);
-=======
-        Set<Pos> pp = p.capture(1, 1, b);
->>>>>>> 222caa7957a3b91c66b162f271a8a91a3909d4b6:src/TriangleTest.java
         assertEquals(0, pp.size());
     }
     @Test
@@ -351,11 +287,7 @@ public class EncounterTest {
         Board b = new Board(5, 5, s);
         b.printBoard();
         Piece p = b.getPiece(2, 2);
-<<<<<<< HEAD:test/EncounterTest.java
         Set<Pos> pp = p.encounterCapture(2, 2, b);
-=======
-        Set<Pos> pp = p.capture(2, 2, b);
->>>>>>> 222caa7957a3b91c66b162f271a8a91a3909d4b6:src/TriangleTest.java
         assertEquals(0, pp.size());
     }
     @Test
@@ -371,11 +303,7 @@ public class EncounterTest {
         Board b = new Board(5, 5, s);
         b.printBoard();
         Piece p = b.getPiece(2, 2);
-<<<<<<< HEAD:test/EncounterTest.java
         Set<Pos> pp = p.encounterCapture(2, 2, b);
-=======
-        Set<Pos> pp = p.capture(2, 2, b);
->>>>>>> 222caa7957a3b91c66b162f271a8a91a3909d4b6:src/TriangleTest.java
         assertEquals(0, pp.size());
     }
     @Test
@@ -391,11 +319,7 @@ public class EncounterTest {
         Board b = new Board(5, 5, s);
         b.printBoard();
         Piece p = b.getPiece(2, 2);
-<<<<<<< HEAD:test/EncounterTest.java
         Set<Pos> pp = p.encounterCapture(2, 2, b);
-=======
-        Set<Pos> pp = p.capture(2, 2, b);
->>>>>>> 222caa7957a3b91c66b162f271a8a91a3909d4b6:src/TriangleTest.java
         assertEquals(0, pp.size());
     }
     @Test
@@ -411,11 +335,7 @@ public class EncounterTest {
         Board b = new Board(5, 5, s);
         b.printBoard();
         Piece p = b.getPiece(2, 2);
-<<<<<<< HEAD:test/EncounterTest.java
         Set<Pos> pp = p.encounterCapture(2, 2, b);
-=======
-        Set<Pos> pp = p.capture(2, 2, b);
->>>>>>> 222caa7957a3b91c66b162f271a8a91a3909d4b6:src/TriangleTest.java
         assertEquals(8, pp.size());
     }
     @Test
@@ -427,11 +347,7 @@ public class EncounterTest {
         Board b = new Board(1, 1, s);
         b.printBoard();
         Piece p = b.getPiece(0, 0);
-<<<<<<< HEAD:test/EncounterTest.java
         Set<Pos> pp = p.encounterCapture(0, 0, b);
-=======
-        Set<Pos> pp = p.capture(0, 0, b);
->>>>>>> 222caa7957a3b91c66b162f271a8a91a3909d4b6:src/TriangleTest.java
         assertEquals(0, pp.size());
     }
     @Test
@@ -444,11 +360,7 @@ public class EncounterTest {
         Board b = new Board(2, 2, s);
         b.printBoard();
         Piece p = b.getPiece(0, 0);
-<<<<<<< HEAD:test/EncounterTest.java
         Set<Pos> pp = p.encounterCapture(0, 0, b);
-=======
-        Set<Pos> pp = p.capture(0, 0, b);
->>>>>>> 222caa7957a3b91c66b162f271a8a91a3909d4b6:src/TriangleTest.java
         assertEquals(3, pp.size());
     }
     
