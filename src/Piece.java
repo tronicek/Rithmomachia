@@ -8,18 +8,72 @@ public abstract class Piece {
 	protected final int value; 
 	private int row, col;
 	private int moveSpaces;
+	private String shape;
 	
-	public Piece( Color color, int value, int row, int col, int moveSpaces) {
+	public Piece( Color color, int value, int row, int col, int moveSpaces, String shape) {
 		this.color = color;
 		this.value = value;
 		this.row = row;
 		this.col = col;
 		this.moveSpaces = moveSpaces;
+		this.shape = shape;
 		
 		//Board.setPiece(row, col, this);
 	}
 	
-	public abstract Set<Move> findMoves(int row, int col,Board board);
+	public Set<Move> findMoves(int row, int col,Board board){
+		Set<Move> mm = new HashSet<>();
+	     int distance = getmoveSpaces();  
+
+	     // Horizontal and vertical moves (distance squares)
+	     if (board.isValidPos(row + distance, col) && board.pathIsClear(row, col, row + distance, col, board)) {
+	         mm.add(new Move(row, col, row + distance, col) );
+	     }
+	     if (board.isValidPos(row - distance, col) && board.pathIsClear(row, col, row - distance, col, board)) {
+	         mm.add(new Move(row, col, row - distance, col));
+	     }
+	     if (board.isValidPos(row, col + distance) && board.pathIsClear(row, col, row, col + distance, board)) {
+	         mm.add(new Move(row, col, row, col + distance));
+	     }
+	     if (board.isValidPos(row, col - distance) && board.pathIsClear(row, col, row, col - distance, board)) {
+	         mm.add(new Move(row, col, row, col - distance));
+	     }
+
+	     // Diagonal moves (distance squares)
+	     if (board.isValidPos(row + distance, col + distance) && board.pathIsClear(row, col, row + distance, col + distance, board)) {
+	         mm.add(new Move(row, col, row + distance, col + distance));
+	     }
+	     if (board.isValidPos(row + distance, col - distance) && board.pathIsClear(row, col, row + distance, col - distance, board)) {
+	         mm.add(new Move(row, col, row + distance, col - distance));
+	     }
+	     if (board.isValidPos(row - distance, col + distance) && board.pathIsClear(row, col, row - distance, col + distance, board)) {
+	         mm.add(new Move(row, col, row - distance, col + distance));
+	     }
+	     if (board.isValidPos(row - distance, col - distance) && board.pathIsClear(row, col, row - distance, col - distance, board)) {
+	         mm.add(new Move(row, col, row - distance, col - distance));
+	     }
+	     
+	     	// Knight-like moves
+	     
+	     if (getmoveSpaces() == 2) {
+	    	    
+	 	    if (board.isValidPos(row + 2, col + 1) && board.isEmpty(row + 2, col + 1)) {
+	 	        mm.add(new Move(row, col, row + 2, col + 1));
+	 	    }
+	 	    if (board.isValidPos(row + 2, col - 1) && board.isEmpty(row + 2, col - 1)) {
+	 	        mm.add(new Move(row, col, row + 2, col - 1));
+	 	    }
+	 	    if (board.isValidPos(row - 2, col + 1) && board.isEmpty(row - 2, col + 1)) {
+	 	        mm.add(new Move(row, col, row - 2, col + 1));
+	 	    }
+	 	    if (board.isValidPos(row - 2, col - 1) && board.isEmpty(row - 2, col - 1)) {
+	 	        mm.add(new Move(row, col, row - 2, col - 1));
+	 	    }
+
+	     }
+
+	     return mm;
+	}
 	
 	public Set<Pos> encounterCapture(int row, int col, Board board){
 		 Set<Pos> pp = new HashSet<>();
@@ -143,6 +197,10 @@ public abstract class Piece {
 		return this.moveSpaces;
 	}
 	
+	public String getShape() {
+		return this.shape;
+	}
+	
 	void setRow(int newRow) {
 		this.row = newRow;
 	}
@@ -159,6 +217,8 @@ public abstract class Piece {
 	public String nullToString() {
 		return "   ";
 	}
-	public abstract String toString();
+	public String toString() {
+		return String.format("%s%s%d", color, getShape(), value);
+	}
 
 }
