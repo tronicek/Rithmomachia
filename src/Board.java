@@ -294,13 +294,13 @@ public class Board {
  	 
  	public boolean capturepathIsClear(int rowStart, int colStart, int rowEnd, int colEnd, Board board) {
         // Determine the direction of movement
-        int dx = Integer.signum(rowEnd - rowStart); // Direction along rows
-        int dy = Integer.signum(colEnd - colStart); // Direction along cols
+        int dRow = Integer.signum(rowEnd - rowStart); // Direction along rows
+        int dCol = Integer.signum(colEnd - colStart); // Direction along cols
 
         // Loop over each square between (x1, y1) and (x2, col2)
         for (int i = 1; i < Math.max(Math.abs(rowEnd - rowStart), Math.abs(colEnd - colStart)); i++) {
-            int nextRow = rowStart + i * dx; // The row-coordinate of the next square along the path
-            int nextCol = colStart + i * dy; // The col-coordinate of the next square along the path
+            int nextRow = rowStart + i * dRow; // The row-coordinate of the next square along the path
+            int nextCol = colStart + i * dCol; // The col-coordinate of the next square along the path
 
             // If any square along the path is not empty, the path is blocked
             if (!board.isEmpty(nextRow, nextCol)) {

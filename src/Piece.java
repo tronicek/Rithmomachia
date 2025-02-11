@@ -73,10 +73,7 @@ public abstract class Piece {
 	   		}
       		}
 	}
-<<<<<<< HEAD
-	
-=======
->>>>>>> 222caa7957a3b91c66b162f271a8a91a3909d4b6
+
 	*/
 	public Color getColor() {
 		return this.color;
@@ -90,8 +87,8 @@ public abstract class Piece {
 		return this.row;
 	}
 	
-	void setRow(int newX) {
-		this.row = newX;
+	void setRow(int newRow) {
+		this.row = newRow;
 	}
 	
 	public int getCol()
@@ -99,8 +96,8 @@ public abstract class Piece {
 		return this.col;
 	}
 	
-	void setCol(int newY) {
-		this.col = newY;
+	void setCol(int newCol) {
+		this.col = newCol;
 	}
 	
 	public String nullToString() {
