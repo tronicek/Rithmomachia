@@ -218,7 +218,7 @@ public abstract class Piece {
 		return "   ";
 	}
 	public String toString() {
-		return String.format("%s%s%d", color, getShape(), value);
+		return String.format("%s%s%d", color, shape, value);
 	}
 
 }
