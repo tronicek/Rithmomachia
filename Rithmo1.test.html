@@ -259,7 +259,6 @@
         });
 
 
-
         //Function for the team change button. Once pressed behind the scenes the board and pieces are swapped and visually the button changes the current team and the background of start screen flips. Darin
         document.getElementById('teamChangeButton').addEventListener('click', function(){
             const backgroundWrapper = document.getElementById('backgroundWrapper');
@@ -304,7 +303,6 @@
             }
         });
 
-		 //2e28651715456c844c49135bd3689e4fd39afe41 ??????? 
         //Can also mute and unmute audio by pressing m on the keyboard
         document.addEventListener("keydown", function(event){
             //Key to mute audio Darin
@@ -327,7 +325,7 @@
                 SkipVideo();
             }
         });
-
+        
         //Plays preloaded intro video, initializes game, and unhides all elements that were previously hidden that are needed for the game. -Darin
         function StartGame() {
             canvas.clear();
@@ -353,8 +351,6 @@
                 console.log("No video to skip") 
             }
         }
-
-
 
         const length = (CANVAS_WIDTH-OFFSET_WIDTH)/16;
         const height = (CANVAS_HEIGHT - OFFSET_HEIGHT) / 8;
