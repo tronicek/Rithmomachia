@@ -74,7 +74,59 @@ public abstract class Piece {
 
 	     return mm;
 	}
-	
+	public Set<Pos> captureBySiege(Board board) {
+		Set<Pos> capturedPositions = new HashSet<>();
+		int row = this.getRow();
+		int col = this.getCol();
+		Color myColor = this.getColor();
+
+		boolean orthogonalBlocked = true;
+		boolean diagonalBlocked = true;
+
+		// Check all four orthogonal directions
+		int[][] orthogonalMoves = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
+		for (int[] move : orthogonalMoves) {
+			int newRow = row + move[0];
+			int newCol = col + move[1];
+
+			// Check if the position is valid
+			if (!board.isValidPos(newRow, newCol)) {
+				orthogonalBlocked = false;  // If out of bounds, not blocked
+				continue;
+			}
+
+			Piece neighbor = board.getPiece(newRow, newCol);
+			if (neighbor == null || neighbor.getColor() == myColor) {
+				orthogonalBlocked = false;  // If empty or friendly piece, not blocked
+			}
+		}
+
+		// Check all four diagonal directions
+		int[][] diagonalMoves = {{-1, -1}, {-1, 1}, {1, -1}, {1, 1}};
+		for (int[] move : diagonalMoves) {
+			int newRow = row + move[0];
+			int newCol = col + move[1];
+
+			if (!board.isValidPos(newRow, newCol)) {
+				diagonalBlocked = false;
+				continue;
+			}
+
+			Piece neighbor = board.getPiece(newRow, newCol);
+			if (neighbor == null || neighbor.getColor() == myColor) {
+				diagonalBlocked = false;
+			}
+		}
+
+		// Capture if surrounded in any one pattern (either all orthogonal or all diagonal)
+		if (orthogonalBlocked || diagonalBlocked) {
+			capturedPositions.add(new Pos(row, col));
+		}
+
+		return capturedPositions;
+	}
+
+
 	public Set<Pos> encounterCapture(int row, int col, Board board){
 		 Set<Pos> pp = new HashSet<>();
 	        int distance = getmoveSpaces();
