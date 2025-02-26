@@ -74,19 +74,49 @@ public class VictoryManager {
         return colorToCheck == Color.B ? blackCaptures.get("value") >= valueGoal : whiteCaptures.get("value") >= valueGoal;
     }
 
+    // Glorious victory involves making a arithmetic, geometric, or harmonic progression with a certain number of pieces
+    // May include enemy pieces but must have one of your own pieces on one end
+    // May be straight line, angle, or box as long as proportional distance between men and no obstruction between men
+    // Must be positioned in enemy territory: spaces forward from your own first row
     private boolean checkGloriousVictories(Color colorToCheck) {
         return false;
     }
 
+    // Requires only 3 pieces in one of the progressions
     private boolean checkVictoriaMagna(Color colorToCheck) {
         return false;
     }
 
+    // Requires 4 total pieces that includes 2 different 3 piece progressions.
     private boolean checkVictoriaMayor(Color colorToCheck) {
         return false;
     }
 
+    // Requires 4 total pieces that contain all 3 types of 3 piece progressions
     private boolean checkVictoriaExcelentisma(Color colorToCheck) {
+        return false;
+    }
+
+    // What to feed and return? Do we run this per piece? Run per entire board??
+    // Perhaps feed it a set of 3 pieces/values. So each piece would need to find its next
+    // 2 proportional neighbors in sequence. So start at first anchor, move to next anchor, find remaining anchor??
+    // If we start at checkVictoriaMagna, for example, we know what color we need to check and only need to run for
+    // all white pieces, for example. Then check black after black moves. From what I understand, the player who last moved
+    // can get the victory at the end of their turn.
+    private boolean checkArithmeticProgression(){
+        // given ints a<b<c, arithmetic if b-1 = c-b => 2b = c-1 ????? Typo??
+        // Should be c-b = b-a or b = (c-a)/2
+        return false;
+    }
+
+    private boolean checkGeometricProgression(){
+        // given ints a<b<c, geometric if b/a=c/b or b = sqrt(ac)
+        return false;
+    }
+
+    private boolean checkHarmonicProgression(){
+        // given ints a<b<c, harmonic if (c-b)/(b-a) = c/a
+        // or b = (2ac)/(a+c)
         return false;
     }
 }
