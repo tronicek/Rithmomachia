@@ -1,5 +1,6 @@
+package Rithmomachia;
+
 import java.util.Scanner;
-import java.util.Set;
 
 public class Game {
     public static void main(String[] args) {
@@ -16,10 +17,10 @@ public class Game {
         //Square square = new Square(Color.B, 1);
         //Circle circle = new Circle(Color.B, 1);
         //new Circle(Color.B, 1);
-        
+
         //Board.setPiece(square.getX(), square.getY(), square);  // Place square on the board
         //Board.setPiece(circle.getX(), circle.getY(), circle);  // Place circle on the board
-        
+
         // Print the board
         //Board.printBoard();
 

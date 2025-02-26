@@ -1,57 +1,79 @@
+package Rithmomachia;
+
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 public class Board {
     private int rows; //Number of Rows
     private int cols; //Number of Columns
     private Piece[][] pieces;
+    private VictoryManager victoryManager;
 
-        Board(int numRows, int numCols, String[] str) {
-        	initBoard(numRows,numCols);
-        	//System.out.println("Start [0, 0]: " + pieces[0][0]);
-        	//System.out.println("After 'pieces' are added [0, 0]: " + pieces[0][0]);
-        	for (int i = 0; i < str.length; i++) {
-        	    String[] t = str[i].split(" +");
-        	    for (int j = 0; j < t.length; j++) {
-        	        //System.out.println("Placing piece at [" + i + "][" + j + "]: " + t[j]);
-        	        pieces[i][j] = fromString(t[j], i, j);
-        	        //System.out.println("Piece at [0, 0]: " + pieces[0][0]);
-        	        
-        	    }
-        	}
-        }
+    public Board(int numRows, int numCols, String[] str) {
+        initBoard(numRows,numCols);
+        //System.out.println("Start [0, 0]: " + pieces[0][0]);
+        //System.out.println("After 'pieces' are added [0, 0]: " + pieces[0][0]);
+        for (int i = 0; i < str.length; i++) {
+            String[] t = str[i].split(" +");
+            for (int j = 0; j < t.length; j++) {
+                //System.out.println("Placing piece at [" + i + "][" + j + "]: " + t[j]);
+                pieces[i][j] = fromString(t[j], i, j);
+                //System.out.println("Piece at [0, 0]: " + pieces[0][0]);
 
-        private static Piece fromString(String s, int row, int col) {
-            if (s.charAt(0) == '-') {
-                return null;
-            }
-            Color c = switch (s.charAt(0)) {
-                case 'B' -> Color.B;
-                case 'W' -> Color.W;
-                default -> {
-                    throw new AssertionError();
-                }
-            };
-            int value = Integer.valueOf(s.substring(2));
-            switch (s.charAt(1)) {
-                case 'C':
-                    return new Circle(c, value, row, col, 1);
-                case 'S':
-                    return new Square(c, value, row, col, 3);
-                case 'T':
-                    return new Triangle(c, value, row, col, 2);
-                default:
-                    throw new AssertionError();
             }
         }
-   
-	
-	
-	private void initBoard(int numRows, int numCols) {
-		rows = numRows;
-		cols = numCols;
-		pieces = new Piece[rows][cols];
-	}
+        victoryManager = new VictoryManager(this, null, 0, 0, 0);
+    }
+
+    public Board(int numRows, int numCols, String[] str, Victory victory, int bodies, int digits, int values) {
+        initBoard(numRows,numCols);
+        //System.out.println("Start [0, 0]: " + pieces[0][0]);
+        //System.out.println("After 'pieces' are added [0, 0]: " + pieces[0][0]);
+        for (int i = 0; i < str.length; i++) {
+            String[] t = str[i].split(" +");
+            for (int j = 0; j < t.length; j++) {
+                //System.out.println("Placing piece at [" + i + "][" + j + "]: " + t[j]);
+                pieces[i][j] = fromString(t[j], i, j);
+                //System.out.println("Piece at [0, 0]: " + pieces[0][0]);
+
+            }
+        }
+        victoryManager = new VictoryManager(this, victory, bodies, digits, values);
+    }
+
+    private static Piece fromString(String s, int row, int col) {
+        if (s.charAt(0) == '-') {
+            return null;
+        }
+        Color c = switch (s.charAt(0)) {
+            case 'B' -> Color.B;
+            case 'W' -> Color.W;
+            default -> {
+                throw new AssertionError();
+            }
+        };
+        int value = Integer.valueOf(s.substring(2));
+        switch (s.charAt(1)) {
+            case 'C':
+                return new Circle(c, value, row, col);
+            case 'S':
+                return new Square(c, value, row, col);
+            case 'T':
+                return new Triangle(c, value, row, col);
+            default:
+                throw new AssertionError();
+        }
+    }
+
+
+
+    private void initBoard(int numRows, int numCols) {
+        rows = numRows;
+        cols = numCols;
+        pieces = new Piece[rows][cols];
+    }
 
     public void printBoard() {
         // Print the numbers at the top for the columns
@@ -155,13 +177,38 @@ public class Board {
         new Square(Color.W, 15, 12, 7);
         new Square(Color.W, 25, 13, 7);
     }*/
-    
-    
-    
+
+    public void capture(Piece piece) {
+        victoryManager.capture(piece);
+    }
+
     public boolean isValidPos(int row, int col) {
-    	//System.out.print("isValidPos called: ");
-    	return row >= 0 && row < rows && col >= 0 && col < cols;
-    	
+        //System.out.print("isValidPos called: ");
+        return row >= 0 && row < rows && col >= 0 && col < cols;
+
+    }
+
+    // Gets all pieces of the specified color on the board
+    public Set<Piece> getPiecesOfColor(Color color){
+        Set<Piece> pieces = new HashSet<>();
+        for (int i = 0; i < this.rows; i++) {
+            for (int j = 0; j < this.cols; j++) {
+                if (this.pieces[i][j] != null && this.pieces[i][j].getColor() == color){
+                    pieces.add(this.pieces[i][j]);
+                }
+            }
+        }
+        return pieces;
+    }
+
+    // Returns all pieces on the board as sets mapped to their color
+    public Map<Color, Set<Piece>> getAllPieces(){
+        Map<Color, Set<Piece>> pieces = new HashMap<>();
+        pieces.put(Color.B, new HashSet<>());
+        pieces.put(Color.W, new HashSet<>());
+        pieces.get(Color.B).addAll(this.getPiecesOfColor(Color.B));
+        pieces.get(Color.W).addAll(this.getPiecesOfColor(Color.W));
+        return pieces;
     }
 
     public Set<Piece> findClosestNeighbors(int xStart, int yStart){
@@ -256,43 +303,43 @@ public class Board {
         }
         return null;
     }
-    
+
     public boolean isEmpty(int row, int col) {
-    	if(!isValidPos(row,col)) {
-    		return false;
-    	}
-    	
-    	return pieces[row][col] == null;
+        if(!isValidPos(row,col)) {
+            return false;
+        }
+
+        return pieces[row][col] == null;
     }
-    
- // Helper method to check if the path is clear
- 	 public boolean pathIsClear(int row1, int col1, int row2, int col2, Board board) {
-         // Determine the direction of movement
-         int dRow = Integer.signum(row2 - row1); // Direction along x-axis
-         int dCol = Integer.signum(col2 - col1); // Direction along y-axis
 
-         // Loop over each square between (row1, col1) and (row2, col2)
-         for (int i = 1; i < Math.max(Math.abs(row2 - row1), Math.abs(col2 - col1)); i++) {
-             int nextRow = row1 + i * dRow; // The x-coordinate of the next square along the path
-             int nextCol = col1 + i * dCol; // The y-coordinSate of the next square along the path
+    // Helper method to check if the path is clear
+    public boolean pathIsClear(int row1, int col1, int row2, int col2, Board board) {
+        // Determine the direction of movement
+        int dRow = Integer.signum(row2 - row1); // Direction along x-axis
+        int dCol = Integer.signum(col2 - col1); // Direction along y-axis
 
-             // If any square along the path is not empty, the path is blocked
-             if (!board.isEmpty(nextRow, nextCol)) {
-                 return false; // Path is blocked by another piece
-             }
-         }
+        // Loop over each square between (row1, col1) and (row2, col2)
+        for (int i = 1; i < Math.max(Math.abs(row2 - row1), Math.abs(col2 - col1)); i++) {
+            int nextRow = row1 + i * dRow; // The x-coordinate of the next square along the path
+            int nextCol = col1 + i * dCol; // The y-coordinSate of the next square along the path
 
-         // Check if the destination square (row2, col2) is empty
-         // If it's occupied, the piece cannot move there
-         if (!board.isEmpty(row2, col2)) {
-             return false; // Target square is occupied
-         }
+            // If any square along the path is not empty, the path is blocked
+            if (!board.isEmpty(nextRow, nextCol)) {
+                return false; // Path is blocked by another piece
+            }
+        }
 
-         // If all squares are empty and the target square is not occupied, the path is clear
-         return true;
-     }
- 	 
- 	public boolean capturepathIsClear(int rowStart, int colStart, int rowEnd, int colEnd, Board board) {
+        // Check if the destination square (row2, col2) is empty
+        // If it's occupied, the piece cannot move there
+        if (!board.isEmpty(row2, col2)) {
+            return false; // Target square is occupied
+        }
+
+        // If all squares are empty and the target square is not occupied, the path is clear
+        return true;
+    }
+
+    public boolean capturepathIsClear(int rowStart, int colStart, int rowEnd, int colEnd, Board board) {
         // Determine the direction of movement
         int dRow = Integer.signum(rowEnd - rowStart); // Direction along rows
         int dCol = Integer.signum(colEnd - colStart); // Direction along cols
@@ -312,27 +359,27 @@ public class Board {
         // If all squares are empty and the target square is not occupied, the path is clear
         return true;
     }
- 	 
- 	public boolean contains(int row, int col, int value) {
- 		//System.out.print("Contains function called");
- 	    // Check if the position (x, y) contains a piece with the specific value.
- 	    Piece piece = getPiece(row, col); // Retrieves the piece at position (x, y)
- 	    if (piece != null && piece.getValue() == value) {
- 	        return true; // Return true if the piece has the same value
- 	    }
- 	    return false;
- 	}
- 	
- 	//Check if a piece is the same as another piece
- 	public boolean checkColor(int row, int col, Color c) {
- 		Piece piece = getPiece(row,col);
- 		if (piece.getColor() == c) {
- 			return false;
- 		}
- 		return true;
- 	}
 
-    
+    public boolean contains(int row, int col, int value) {
+        //System.out.print("Contains function called");
+        // Check if the position (x, y) contains a piece with the specific value.
+        Piece piece = getPiece(row, col); // Retrieves the piece at position (x, y)
+        if (piece != null && piece.getValue() == value) {
+            return true; // Return true if the piece has the same value
+        }
+        return false;
+    }
+
+    //Check if a piece is the same as another piece
+    public boolean checkColor(int row, int col, Color c) {
+        Piece piece = getPiece(row,col);
+        if (piece.getColor() == c) {
+            return false;
+        }
+        return true;
+    }
+
+
 
     public void setPiece(int row, int col, Piece piece) {
         if (piece != null) {

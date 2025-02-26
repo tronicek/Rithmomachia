@@ -1,7 +1,9 @@
-import static org.junit.Assert.assertEquals;
+package Rithmomachia;
+
 import java.util.HashSet;
 import java.util.Set;
 import org.junit.Test;
+import org.junit.Assert;
 
 public class CaptureBySiegeTest {
 
@@ -32,7 +34,7 @@ public class CaptureBySiegeTest {
         Set<Pos> expected = new HashSet<>(); // No capture
 
         printResults(actual, expected);
-        assertEquals(expected, actual);
+        Assert.assertEquals(expected, actual);
     }
 
 
@@ -52,7 +54,7 @@ public class CaptureBySiegeTest {
         expected.add(new Pos(1, 1));
 
         printResults(actual, expected);
-        assertEquals(toString(expected), toString(actual));
+        Assert.assertEquals(toString(expected), toString(actual));
     }
 
     @Test
@@ -72,7 +74,7 @@ public class CaptureBySiegeTest {
         expected.add(new Pos(1, 1));
 
         printResults(actual, expected);
-        assertEquals(toString(expected), toString(actual));
+        Assert.assertEquals(toString(expected), toString(actual));
     }
 
     @Test
@@ -91,7 +93,7 @@ public class CaptureBySiegeTest {
         expected.add(new Pos(1, 1));
 
         printResults(actual, expected);
-        assertEquals(toString(expected), toString(actual));
+        Assert.assertEquals(toString(expected), toString(actual));
     }
     @Test
     public void testNotCaptured() {
@@ -106,6 +108,6 @@ public class CaptureBySiegeTest {
         Set<Pos> expected = new HashSet<>(); // No capture
 
         printResults(actual, expected);
-        assertEquals(expected, actual);
+        Assert.assertEquals(expected, actual);
     }
 }

@@ -1,6 +1,7 @@
+package Rithmomachia;
 
 public class Move {
-	private int startX, startY;
+    private int startX, startY;
     private int endX, endY;
 
     public Move(int startX, int startY, int endX, int endY) {
@@ -9,7 +10,7 @@ public class Move {
         this.endX = endX;
         this.endY = endY;
     }
-    
+
     @Override
     public String toString() {
         return String.format("Move from (%d, %d) to (%d, %d)", startX, startY, endX, endY);
