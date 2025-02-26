@@ -276,29 +276,34 @@
                     }.png`
                 },
                 videos: {
-                    //Is type in these statements even used?
+                    //Changed isWhite to act like the team variable. -Darin
                     intro: `Images/Rithmomachia/captures and intro with sound/Intro.mp4`,
                     siege: (/* type, */ isWhite) => `Images/Rithmomachia/captures and intro with sound/Siege ${isWhite == "Black"? 'black' : 'white'}.mp4`,
                     encounter: (/* type, */ isWhite) => `Images/Rithmomachia/captures and intro with sound/Encounter ${isWhite == "Black" ? 'black' : 'white'}.mp4`,
                     eruption: (/* type, */ isWhite) => `Images/Rithmomachia/captures and intro with sound/Eruption ${isWhite == "Black" ? 'black' : 'white'}.mp4`,
                     deceit: (/* type, */ isWhite) => `Images/Rithmomachia/captures and intro with sound/Deceit ${isWhite == "Black" ? 'black' : 'white'}.mp4`
                 },
+                //%scale, x is width of pieces and y is height
                 pieceScale: {
                   x: 0.75,
                   y: 0.75
                 },
+                //This is the offset each piece is at
                 pieceOffset: {
                     left: 65/2,
                     top: 31.25/2
                 },
+                //This is the size of the grid cells with length being x related and height being y related
                 cellSize: {
                     length: 58.4375,
                     height: 58.59375
                 },
+                //Offset of grid for enable snapping and move piece
                 gridOffset: {
                     centerX: 125 / 4,
                     centerY: 17
                 },
+                //Canvas dimensions for board
                 canvasDim: {
                     width: 1000,
                     height: 500
@@ -465,6 +470,7 @@
         //     preview.style.backgroundImage = `url('${THEMES[currentTheme].board}')`;
         // }
 
+        //Updates start screen background board 
         function updateBackgroundWrapper() {
             const backgroundWrapper = document.getElementById('backgroundWrapper');
             backgroundWrapper.style.backgroundImage = `url('${THEMES[currentTheme].board}')`;
@@ -483,6 +489,7 @@
             selection: false,
             renderOnAddRemove: true
         });
+        //Helper function to set canvas width and height with theme
         function setCanvasWidthandHeight() {
             CANVAS_WIDTH = THEMES[currentTheme].canvasDim.width;
             CANVAS_HEIGHT = THEMES[currentTheme].canvasDim.height;
@@ -500,6 +507,7 @@
         let length;
         let height;
 
+        //Helper function for the cell length and height to set dynamically with theme
         function setLengthandHeight() {
             length = THEMES[currentTheme].cellSize.length;
             height = THEMES[currentTheme].cellSize.height;
@@ -531,6 +539,7 @@
 
             team = team === "Black" ? "White" : "Black";
 
+            //Different animations for each board when the team is switched 
             if (currentTheme == "Daniel_Hunt") {
                 backgroundWrapper.style.transform = `scaleX(${team === "White" ? -1 : 1})`;
             } 
@@ -565,6 +574,7 @@
         })
 
 
+        //Start screen mute button
         document.getElementById('muteButton').addEventListener('click', function() {
             isMuted = !isMuted;
             this.textContent = isMuted ? 'Unmute' : 'Mute';
@@ -618,6 +628,7 @@
             document.getElementById('game-board').classList.remove('hidden');
         }
 
+        //Function to skip videos when called 
         function SkipVideo(){
             const videoContainer = document.getElementById('videoContainer'); 
             if(videoContainer.innerHTML != "")
