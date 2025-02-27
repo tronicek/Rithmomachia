@@ -4,11 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f18874f0-d025-429a-8473-c7dcfd72c00d" name="Changes" comment="updated the file structure to make sure all test files run" />
+    <list default="true" id="f18874f0-d025-429a-8473-c7dcfd72c00d" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ChangesViewManager">
+    <option name="groupingKeys">
+      <option value="directory" />
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -37,6 +42,7 @@
   "keyToString": {
     "Application.EncounterTest.executor": "Debug",
     "JUnit.CaptureBySiegeTest.executor": "Run",
+    "JUnit.CaptureBySiegeTest.testEdgeCase.executor": "Run",
     "JUnit.EncounterTest.executor": "Run",
     "JUnit.EruptionTest.executor": "Run",
     "JUnit.MoveTest.executor": "Run",
@@ -44,8 +50,9 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "main",
+    "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Game Development/Rithmomachia",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -63,60 +70,7 @@
       <recent name="" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.MoveTest">
-    <configuration name="EncounterTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="Rithmomachia.EncounterTest" />
-      <module name="Rithmomachia" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="Rithmomachia.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="MoveTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="Rithmomachia" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="Rithmomachia.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="Rithmomachia" />
-      <option name="MAIN_CLASS_NAME" value="Rithmomachia.MoveTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="MoveTest.test2" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="Rithmomachia" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="Rithmomachia.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="Rithmomachia" />
-      <option name="MAIN_CLASS_NAME" value="Rithmomachia.MoveTest" />
-      <option name="METHOD_NAME" value="test2" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="JetRunConfigurationType">
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
-      <option name="filePath" />
-      <method v="2" />
-    </configuration>
+  <component name="RunManager" selected="JUnit.CaptureBySiegeTest">
     <configuration default="true" type="PythonConfigurationType" factoryName="Python">
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -184,8 +138,85 @@
       <option name="USE_PATTERN" value="false" />
       <method v="2" />
     </configuration>
+    <configuration name="EncounterTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Rithmomachia.EncounterTest" />
+      <module name="Rithmomachia" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="Rithmomachia.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CaptureBySiegeTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Rithmomachia" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="Rithmomachia.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="Rithmomachia" />
+      <option name="MAIN_CLASS_NAME" value="Rithmomachia.CaptureBySiegeTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CaptureBySiegeTest.testEdgeCase" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Rithmomachia" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="Rithmomachia.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="Rithmomachia" />
+      <option name="MAIN_CLASS_NAME" value="Rithmomachia.CaptureBySiegeTest" />
+      <option name="METHOD_NAME" value="testEdgeCase" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MoveTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Rithmomachia" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="Rithmomachia.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="Rithmomachia" />
+      <option name="MAIN_CLASS_NAME" value="Rithmomachia.MoveTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MoveTest.test2" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Rithmomachia" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="Rithmomachia.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="Rithmomachia" />
+      <option name="MAIN_CLASS_NAME" value="Rithmomachia.MoveTest" />
+      <option name="METHOD_NAME" value="test2" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.CaptureBySiegeTest" />
+        <item itemvalue="JUnit.CaptureBySiegeTest.testEdgeCase" />
         <item itemvalue="JUnit.MoveTest" />
         <item itemvalue="JUnit.MoveTest.test2" />
         <item itemvalue="Application.EncounterTest" />
@@ -214,6 +245,7 @@
       <workItem from="1740677005614" duration="1831000" />
       <workItem from="1740682329516" duration="38000" />
       <workItem from="1740682389809" duration="1022000" />
+      <workItem from="1740685552469" duration="2732000" />
     </task>
     <task id="LOCAL-00001" summary="updated the file structure to make sure all test files run">
       <option name="closed" value="true" />

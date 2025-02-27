@@ -227,24 +227,24 @@ public class Board {
         return pieces;
     }
 
-    public Set<Piece> findClosestNeighbors(int xStart, int yStart){
+    public Set<Piece> findClosestNeighbors(int row, int col){
         Set<Piece> neighbors = new HashSet<>();
-        if (findClosestRight(xStart, yStart)!=null)
-            neighbors.add(findClosestRight(xStart, yStart));
-        if (findClosestLeft(xStart, yStart)!=null)
-            neighbors.add(findClosestLeft(xStart, yStart));
-        if (findClosestUp(xStart, yStart)!=null)
-            neighbors.add(findClosestUp(xStart, yStart));
-        if (findClosestDown(xStart, yStart)!=null)
-            neighbors.add(findClosestDown(xStart, yStart));
-        if (findClosestUpRight(xStart, yStart)!=null)
-            neighbors.add(findClosestUpRight(xStart, yStart));
-        if (findClosestUpLeft(xStart, yStart)!=null)
-            neighbors.add(findClosestUpLeft(xStart, yStart));
-        if (findClosestDownRight(xStart, yStart)!=null)
-            neighbors.add(findClosestDownRight(xStart, yStart));
-        if (findClosestDownLeft(xStart, yStart)!=null)
-            neighbors.add(findClosestDownLeft(xStart, yStart));
+        if (findClosestRight(row, col)!=null)
+            neighbors.add(findClosestRight(row, col));
+        if (findClosestLeft(row, col)!=null)
+            neighbors.add(findClosestLeft(row, col));
+        if (findClosestUp(row, col)!=null)
+            neighbors.add(findClosestUp(row, col));
+        if (findClosestDown(row, col)!=null)
+            neighbors.add(findClosestDown(row, col));
+        if (findClosestUpRight(row, col)!=null)
+            neighbors.add(findClosestUpRight(row, col));
+        if (findClosestUpLeft(row, col)!=null)
+            neighbors.add(findClosestUpLeft(row, col));
+        if (findClosestDownRight(row, col)!=null)
+            neighbors.add(findClosestDownRight(row, col));
+        if (findClosestDownLeft(row, col)!=null)
+            neighbors.add(findClosestDownLeft(row, col));
         return neighbors;
     }
 
@@ -429,21 +429,55 @@ public class Board {
 
     // This generates all tuples
     // Note: OUTPUT MUST BE LIST TO MAINTAIN ORDER!
+    // Just iterate through all tuples, each time one is generated, run check
     public Set<List<Piece>> getTuplesForColor(Color color) {
+        // Generate new set to return. Set contains lists of three pieces. Must return lists as order matters.
         Set<List<Piece>> tuples = new HashSet<>();
-        // Just iterate through all tuples, each time one is generated, run check
+        // Grab every piece of the color we are checking from the board.
+        Set<Piece> piecesToCheck = this.getPiecesOfColor(color);
+        // Pick a piece to be the first anchor
+        for (Piece firstAnchor : piecesToCheck) {
+            // Find all of the first anchor's neighbors.
+            Set<Piece> firstAnchorNeighbors = findClosestNeighbors(firstAnchor.getRow(), firstAnchor.getCol());
+            // Pick a piece to be the second anchor.
+            for (Piece secondAnchor : firstAnchorNeighbors) {
+                // Find all of the second anchor's neighbors.
+                Set<Piece> secondAnchorNeighbors = findClosestNeighbors(secondAnchor.getRow(), secondAnchor.getCol());
+                // Iterate over each of the third anchors
+                for (Piece thirdAnchor : secondAnchorNeighbors) {
+                    // Add the candidate to a new list.
+                    List<Piece> tupleCandidate = new ArrayList<>();
+                    tupleCandidate.add(firstAnchor);
+                    tupleCandidate.add(secondAnchor);
+                    tupleCandidate.add(thirdAnchor);
+                    // If that candidate is viable, add it to our set.
+                    if (isViableTuple(tupleCandidate)) {
+                        tuples.add(tupleCandidate);
+                    }
+                } // continue iterating through remaining second anchors
+            } // continue iterating through first anchors
+        }
         return tuples;
     }
 
-    // Feed the tuples into here to also make quadruples??
-    // Note: OUTPUT MUST BE LIST TO MAINTAIN ORDER!
-    // Check if tuple is in enemy territory. Needs color switch
+    // Check if candidate is viable.
+    private boolean isViableTuple(List<Piece> tupleCandidate){
+        return (isCorrectPosition(tupleCandidate)
+                && isCorrectOrder(tupleCandidate)
+                && isCorrectProportion(tupleCandidate));
+    }
+
+    // Check if tuple is in enemy territory. Note: this automatically extends to quadruples.
     private boolean isCorrectPosition(List<Piece> piecesToCheck) {
+        // The beginning of each enemy territory is determined when the board is built.
         int enemyStartColumn = 0;
+        // initiate our variables
         boolean isCorrect = true;
+        // A tuple always starts with the current color's piece, so we grab and switch that here
         switch(piecesToCheck.get(0).getColor()){
             case W:
                 enemyStartColumn = this.whiteEnemyTerritoryStartColumn;
+                // Ensure each piece in the candidate is inside the enemy territory. Break loop early if not.
                 for (Piece piece : piecesToCheck) {
                     if (piece.getCol() < enemyStartColumn){
                         isCorrect = false;
@@ -452,6 +486,7 @@ public class Board {
                 }
                 break;
             case B:
+                // Same exact thing if we're starting with black
                 enemyStartColumn = this.blackEnemyTerritoryStartColumn;
                 for (Piece piece : piecesToCheck) {
                     if (piece.getCol() > enemyStartColumn){
@@ -466,9 +501,7 @@ public class Board {
         return isCorrect;
     }
 
-    // This will calculate if the tuple is correctly ordered, ie ascending or descending
-    // Extend this to quadruple?
-    // Just check last three pieces?
+    // This will calculate if the tuple is correctly ordered, ie ascending or descending. Extends to quadruples.
     private boolean isCorrectOrder(List<Piece> piecesToCheck) {
         // Each tuple will be pre-vetted for order, so a quad can be checked with the last three values.
         // These ternary statements determine that.
@@ -480,11 +513,18 @@ public class Board {
                 || (a > b && b > c));
     }
 
-    // Calculate whether the tuple is correctly proportioned.
+    // Calculate whether the tuple is correctly proportioned. Extends to quadruples.
     private boolean isCorrectProportion(List<Piece> piecesToCheck) {
         // Calculate distance between 3 pieces. Since tuples are pre-vetted, can expand to quadruples by checking the final 3 pieces.
         int distance1 = piecesToCheck.size() == 3 ? distanceBetween(piecesToCheck.get(0), piecesToCheck.get(1)) : distanceBetween(piecesToCheck.get(1), piecesToCheck.get(2));
         int distance2 = piecesToCheck.size() == 3 ? distanceBetween(piecesToCheck.get(1), piecesToCheck.get(2)) : distanceBetween(piecesToCheck.get(2), piecesToCheck.get(3));
         return distance1 == distance2;
+    }
+
+    private Set<List<Piece>> getQuadruplesForColor(Color color) {
+        Set<List<Piece>> quadruples = new HashSet<>();
+        quadruples.addAll(getTuplesForColor(color));
+        // Do more stuff here.
+        return quadruples;
     }
 }
