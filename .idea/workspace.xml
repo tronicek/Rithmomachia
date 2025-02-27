@@ -4,18 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f18874f0-d025-429a-8473-c7dcfd72c00d" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/junit_4_13_2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Rithmomachia3.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Rithmomachia.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Rithmomachia.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Rithmomachia/MoveTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Rithmomachia/MoveTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/CaptureBySiegeTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/EncounterTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/Rithmomachia/EncounterTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/EruptionTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/Rithmomachia/EruptionTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/MoveTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/Rithmomachia/MoveTest.java" afterDir="false" />
-    </list>
+    <list default="true" id="f18874f0-d025-429a-8473-c7dcfd72c00d" name="Changes" comment="updated the file structure to make sure all test files run" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -48,8 +37,10 @@
   "keyToString": {
     "Application.EncounterTest.executor": "Debug",
     "JUnit.CaptureBySiegeTest.executor": "Run",
+    "JUnit.EncounterTest.executor": "Run",
     "JUnit.EruptionTest.executor": "Run",
     "JUnit.MoveTest.executor": "Run",
+    "JUnit.MoveTest.test2.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
@@ -222,8 +213,33 @@
       <workItem from="1740511517966" duration="2545000" />
       <workItem from="1740677005614" duration="1831000" />
       <workItem from="1740682329516" duration="38000" />
-      <workItem from="1740682389809" duration="689000" />
+      <workItem from="1740682389809" duration="1022000" />
     </task>
+    <task id="LOCAL-00001" summary="updated the file structure to make sure all test files run">
+      <option name="closed" value="true" />
+      <created>1740683298959</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1740683298959</updated>
+    </task>
+    <task id="LOCAL-00002" summary="updated the file structure to make sure all test files run">
+      <option name="closed" value="true" />
+      <created>1740683305986</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1740683305986</updated>
+    </task>
+    <task id="LOCAL-00003" summary="updated the file structure to make sure all test files run">
+      <option name="closed" value="true" />
+      <created>1740683362494</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1740683362495</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -239,5 +255,9 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="updated the file structure to make sure all test files run" />
+    <option name="LAST_COMMIT_MESSAGE" value="updated the file structure to make sure all test files run" />
   </component>
 </project>
