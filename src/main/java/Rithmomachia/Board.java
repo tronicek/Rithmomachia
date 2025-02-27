@@ -5,6 +5,8 @@ import java.util.*;
 public class Board {
     private int rows; //Number of Rows
     private int cols; //Number of Columns
+    private int blackEnemyTerritoryStartColumn;
+    private int whiteEnemyTerritoryStartColumn;
     private Piece[][] pieces;
     private VictoryManager victoryManager;
 
@@ -12,6 +14,8 @@ public class Board {
         initBoard(numRows,numCols);
         //System.out.println("Start [0, 0]: " + pieces[0][0]);
         //System.out.println("After 'pieces' are added [0, 0]: " + pieces[0][0]);
+        this.whiteEnemyTerritoryStartColumn = 1;
+        this.blackEnemyTerritoryStartColumn = numCols-2;
         for (int i = 0; i < str.length; i++) {
             String[] t = str[i].split(" +");
             for (int j = 0; j < t.length; j++) {
@@ -24,6 +28,8 @@ public class Board {
         victoryManager = new VictoryManager(this, null, 0, 0, 0);
     }
 
+
+    // A proper board must be presented with White on left side and Black on right side
     public Board(int numRows, int numCols, String[] str, Victory victory, int bodies, int digits, int values) {
         initBoard(numRows,numCols);
         //System.out.println("Start [0, 0]: " + pieces[0][0]);
@@ -40,18 +46,29 @@ public class Board {
         victoryManager = new VictoryManager(this, victory, bodies, digits, values);
     }
 
-    private static Piece fromString(String s, int row, int col) {
+    private Piece fromString(String s, int row, int col) {
         if (s.charAt(0) == '-') {
             return null;
         }
-        Color c = switch (s.charAt(0)) {
-            case 'B' -> Color.B;
-            case 'W' -> Color.W;
-            default -> {
+        Color c = Color.W;
+        switch(s.charAt(0)) {
+            case 'B' :
+                c = Color.B;
+                if (col <= this.blackEnemyTerritoryStartColumn){
+                    this.blackEnemyTerritoryStartColumn = col -1;
+                }
+                break;
+            case 'W' :
+                c = Color.W;
+                if (row >= this.whiteEnemyTerritoryStartColumn){
+                    this.whiteEnemyTerritoryStartColumn = col+1;
+                }
+                break;
+            default:
                 throw new AssertionError();
-            }
-        };
+        }
         int value = Integer.valueOf(s.substring(2));
+        // Need to build Pyramid too. Need to update enemy Territory start.
         switch (s.charAt(1)) {
             case 'C':
                 return new Circle(c, value, row, col);
@@ -69,6 +86,8 @@ public class Board {
     private void initBoard(int numRows, int numCols) {
         rows = numRows;
         cols = numCols;
+        this.blackEnemyTerritoryStartColumn = 1;
+        this.whiteEnemyTerritoryStartColumn = numCols-2;
         pieces = new Piece[rows][cols];
     }
 
@@ -376,7 +395,24 @@ public class Board {
         return true;
     }
 
-
+    // This returns the number of squares between two pieces INCLUSIVE.
+    // For example, if "---" represents a blank square, P1 --- --- P2 returns 4.
+    // Maybe need to consider if pieces are the same piece?
+    public int distanceBetween(Piece piece1, Piece piece2) {
+        // Always minimum of 2 squares
+        int totalSquares = 2;
+        // Determine how many rows of separation
+        int numRows = Math.abs(piece1.getRow() - piece2.getRow());
+        // Determine how many columns of separation
+        int numCols = Math.abs(piece1.getCol() - piece2.getCol());
+        if (numRows == 0)
+            // If pieces are in same column, use the column separation
+            totalSquares = numCols + 1;
+        else
+            // Otherwise, pieces are either horizontal or diagonal. May use row separator in each case
+            totalSquares = numRows + 1;
+        return totalSquares;
+    }
 
     public void setPiece(int row, int col, Piece piece) {
         if (piece != null) {
@@ -386,31 +422,69 @@ public class Board {
         pieces[row][col] = piece;
     }
 
+    // Need to handle Pyramid because it is multiple pieces. How to do this? Calls to this must run multiple times if encounter a pyramid?
     public Piece getPiece(int row, int col) {
         return pieces[row][col];
     }
 
     // This generates all tuples
     // Note: OUTPUT MUST BE LIST TO MAINTAIN ORDER!
-    public List<Piece> getTuplesForColor(Color color) {
-        List<Piece> tuples = new ArrayList<>();
+    public Set<List<Piece>> getTuplesForColor(Color color) {
+        Set<List<Piece>> tuples = new HashSet<>();
+        // Just iterate through all tuples, each time one is generated, run check
         return tuples;
     }
 
     // Feed the tuples into here to also make quadruples??
     // Note: OUTPUT MUST BE LIST TO MAINTAIN ORDER!
-    public List<Piece> getQuadruplesForColor(Color color) {
-        List<Piece> quadruples = new ArrayList<>();
-        return quadruples;
+    // Check if tuple is in enemy territory. Needs color switch
+    private boolean isCorrectPosition(List<Piece> piecesToCheck) {
+        int enemyStartColumn = 0;
+        boolean isCorrect = true;
+        switch(piecesToCheck.get(0).getColor()){
+            case W:
+                enemyStartColumn = this.whiteEnemyTerritoryStartColumn;
+                for (Piece piece : piecesToCheck) {
+                    if (piece.getCol() < enemyStartColumn){
+                        isCorrect = false;
+                        break;
+                    }
+                }
+                break;
+            case B:
+                enemyStartColumn = this.blackEnemyTerritoryStartColumn;
+                for (Piece piece : piecesToCheck) {
+                    if (piece.getCol() > enemyStartColumn){
+                        isCorrect = false;
+                        break;
+                    }
+                }
+                break;
+            default:
+                return false;
+        }
+        return isCorrect;
     }
 
-    // This will calculate the shape of the tuple using enums for the quadruple function
-    private Tuples calculateTupleShape(List<Piece> pieces) {
-        return null;
+    // This will calculate if the tuple is correctly ordered, ie ascending or descending
+    // Extend this to quadruple?
+    // Just check last three pieces?
+    private boolean isCorrectOrder(List<Piece> piecesToCheck) {
+        // Each tuple will be pre-vetted for order, so a quad can be checked with the last three values.
+        // These ternary statements determine that.
+        int a = piecesToCheck.size() == 3 ? piecesToCheck.get(0).getValue() : piecesToCheck.get(1).getValue();
+        int b = piecesToCheck.size() == 3 ? piecesToCheck.get(1).getValue() : piecesToCheck.get(2).getValue();
+        int c = piecesToCheck.size() == 3 ? piecesToCheck.get(2).getValue() : piecesToCheck.get(3).getValue();
+        // Only true if values are strictly increasing or strictly decreasing.
+        return ((a < b && b < c)
+                || (a > b && b > c));
     }
 
-    // Calculate whether the tuple is increasing or decreasing.
-    private boolean isDecreasing(List<Piece> pieces) {
-        return false;
+    // Calculate whether the tuple is correctly proportioned.
+    private boolean isCorrectProportion(List<Piece> piecesToCheck) {
+        // Calculate distance between 3 pieces. Since tuples are pre-vetted, can expand to quadruples by checking the final 3 pieces.
+        int distance1 = piecesToCheck.size() == 3 ? distanceBetween(piecesToCheck.get(0), piecesToCheck.get(1)) : distanceBetween(piecesToCheck.get(1), piecesToCheck.get(2));
+        int distance2 = piecesToCheck.size() == 3 ? distanceBetween(piecesToCheck.get(1), piecesToCheck.get(2)) : distanceBetween(piecesToCheck.get(2), piecesToCheck.get(3));
+        return distance1 == distance2;
     }
 }

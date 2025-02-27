@@ -5,6 +5,7 @@ import java.util.*;
 public class Pyramid extends Piece {
 
     private int currentValue;
+    private int remainingTotalValue;
     private String currentShape;
     private final HashMap<String, HashSet<Piece>> pieces;
     private final boolean isComplete;
@@ -15,9 +16,9 @@ public class Pyramid extends Piece {
 
     // Add CSV string to constructor. For example "P,W,T1,T5,T7,C2,S9"
     // change this to exclude shape and color. Pointless
-    public Pyramid(Color color, int row, int col, int circleValue, int triangleValue, int squareValue, String pyramidPieces) {
+    public Pyramid(Color color, int row, int col, String pyramidPieces) {
         super(color, 0, row, col, 0, "P");
-        this.currentValue = 0;
+        this.remainingTotalValue = 0;
         this.currentShape = "P";
         this.isComplete = true;
         // Crunch CSV string to build all pieces here
@@ -34,12 +35,15 @@ public class Pyramid extends Piece {
             switch (piece.substring(0, 1)) {
                 case "C":
                     circles.add(new Circle(this.getColor(), this.getRow(), this.getCol(), Integer.parseInt(piece.substring(1))));
+                    this.remainingTotalValue += Integer.parseInt(piece.substring(1));
                     break;
                 case "T":
                     triangles.add(new Triangle(this.getColor(), this.getRow(), this.getCol(), Integer.parseInt(piece.substring(1))));
+                    this.remainingTotalValue += Integer.parseInt(piece.substring(1));
                     break;
                 case "S":
                     squares.add(new Square(this.getColor(), this.getRow(), this.getCol(), Integer.parseInt(piece.substring(1))));
+                    this.remainingTotalValue += Integer.parseInt(piece.substring(1));
                     break;
                 default:
                     break;
@@ -48,6 +52,7 @@ public class Pyramid extends Piece {
         newPyramid.put("C", circles);
         newPyramid.put("T", triangles);
         newPyramid.put("S", squares);
+        super.setValue(remainingTotalValue);
         return newPyramid;
     }
 
@@ -174,12 +179,11 @@ public class Pyramid extends Piece {
         return pieceString.toString(); // Return the completed string
     }
 
-    // Will need to override move and capture algorithms to run through entire set and build new set and also values?
-    // Figure out combinatorics algorithm
-    // Definitely uses combinations, not permutations
-    // Maybe consider as all sets of one, then all sets of two etc etc
-    // How to actually generate all the combos?
-    // Wait, this is easy? Pick an anchor, add all remaining, pick second anchor, etc. Recursion
-    // Can run through sets of all size types and just take union of multiple sets because that will remove the duplicate values??
-    // I AM STUPID. VALUE POSSIBILITIES ARE SUM OR ANY INDIVIDUAL PIECE. IF A PIECE IS CAPTURED, VALUE POSSIBILITIES ARE ONLY EACH INDIVIDUAL PIECE
+    // Find out if pyramid is complete
+    public boolean isComplete() {
+        return isComplete;
+    }
+
+    // Will need to override deceipt
+    // Other big problem: How to handle Pyramid BEING captured because it can be whole value, even if not complete
 }

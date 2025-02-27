@@ -1,6 +1,8 @@
 package Rithmomachia;
 
 import java.util.HashMap;
+import java.util.List;
+import java.util.Set;
 
 public class VictoryManager {
 
@@ -32,6 +34,7 @@ public class VictoryManager {
     public boolean capture(Piece piece) {
         switch (piece.getColor()){
             case B: // If a black piece was captured, update white's capture map
+                // We check glorious in order of descending value. This happens first because they are better than the normal victories
                 if (this.checkVictoriaExcelentisma(Color.W)){
                     // handle victory here
                 }
@@ -92,6 +95,22 @@ public class VictoryManager {
 
     // Requires only 3 pieces in one of the progressions
     private boolean checkVictoriaMagna(Color colorToCheck) {
+        // Pull the set of valid tuples from the board
+        Set<List<Piece>> tuplesToCheck = board.getTuplesForColor(colorToCheck);
+        // Loop through each list of pieces in the tuple
+        for (List<Piece> pieces : tuplesToCheck) {
+            // b is always the middle value
+            int b = pieces.get(1).getValue();
+            // Ternary statements to assign a and c in ascending order
+            int a = (pieces.get(0).getValue()< b) ? pieces.get(0).getValue() : pieces.get(2).getValue();
+            int c = (pieces.get(2).getValue()> b) ? pieces.get(2).getValue() : pieces.get(0).getValue();
+            // If any set is any progression, we are done and can return true
+            if (this.isArithmeticProgression(a, b, c)
+                || this.isGeometricProgression(a, b, c)
+                || this.isHarmonicProgression(a, b, c)){
+                return true;
+            }
+        }
         return false;
     }
 
@@ -111,21 +130,27 @@ public class VictoryManager {
     // If we start at checkVictoriaMagna, for example, we know what color we need to check and only need to run for
     // all white pieces, for example. Then check black after black moves. From what I understand, the player who last moved
     // can get the victory at the end of their turn.
-    private boolean checkArithmeticProgression(){
+    private boolean isArithmeticProgression(int a, int b, int c){
         // given ints a<b<c, arithmetic if b-1 = c-b => 2b = c-1 ????? Typo??
         // Should be c-b = b-a or b = (c-a)/2
-        return false;
+        return (c-b) == (b-a);
     }
 
-    private boolean checkGeometricProgression(){
+    private boolean isGeometricProgression(int a, int b, int c){
         // given ints a<b<c, geometric if b/a=c/b or b = sqrt(ac)
-        return false;
+        if (b%a != 0 || c%b != 0){
+            return false;
+        }
+        return (b/a) == (c/b);
     }
 
-    private boolean checkHarmonicProgression(){
+    private boolean isHarmonicProgression(int a, int b, int c){
         // given ints a<b<c, harmonic if (c-b)/(b-a) = c/a
         // or b = (2ac)/(a+c)
-        return false;
+        if ((2*a*c)%(a+c) != 0){
+            return false;
+        }
+        return b == (2*a*c)/(a+c);
     }
 }
 
