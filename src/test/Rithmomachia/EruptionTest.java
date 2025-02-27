@@ -1,6 +1,5 @@
-import Rithmomachia.Board;
-import Rithmomachia.Piece;
-import Rithmomachia.Pos;
+package Rithmomachia;
+
 import org.junit.Assert;
 import org.junit.Test;
 
