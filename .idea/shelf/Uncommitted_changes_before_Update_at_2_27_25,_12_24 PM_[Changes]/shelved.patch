@@ -1,0 +1,63 @@
+Index: .idea/libraries/junit_4_13_2.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/libraries/junit_4_13_2.xml b/.idea/libraries/junit_4_13_2.xml
+new file mode 100644
+--- /dev/null	(date 1740512883580)
++++ b/.idea/libraries/junit_4_13_2.xml	(date 1740512883580)
+@@ -0,0 +1,9 @@
++<component name="libraryTable">
++  <library name="junit-4.13.2">
++    <CLASSES>
++      <root url="jar://$USER_HOME$/Downloads/junit-4.13.2.jar!/" />
++    </CLASSES>
++    <JAVADOC />
++    <SOURCES />
++  </library>
++</component>
+\ No newline at end of file
+Index: .idea/modules.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/modules.xml b/.idea/modules.xml
+new file mode 100644
+--- /dev/null	(date 1740512883571)
++++ b/.idea/modules.xml	(date 1740512883571)
+@@ -0,0 +1,8 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="ProjectModuleManager">
++    <modules>
++      <module fileurl="file://$PROJECT_DIR$/Rithmomachia3.iml" filepath="$PROJECT_DIR$/Rithmomachia3.iml" />
++    </modules>
++  </component>
++</project>
+\ No newline at end of file
+Index: Rithmomachia3.iml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Rithmomachia3.iml b/Rithmomachia3.iml
+new file mode 100644
+--- /dev/null	(date 1740512883569)
++++ b/Rithmomachia3.iml	(date 1740512883569)
+@@ -0,0 +1,13 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<module type="JAVA_MODULE" version="4">
++  <component name="NewModuleRootManager" inherit-compiler-output="true">
++    <exclude-output />
++    <content url="file://$MODULE_DIR$">
++      <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
++      <sourceFolder url="file://$MODULE_DIR$/test" isTestSource="true" />
++    </content>
++    <orderEntry type="inheritedJdk" />
++    <orderEntry type="sourceFolder" forTests="false" />
++    <orderEntry type="library" exported="" scope="TEST" name="junit-4.13.2" level="project" />
++  </component>
++</module>
+\ No newline at end of file
