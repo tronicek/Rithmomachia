@@ -32,11 +32,19 @@ public class VictoryManager {
     public boolean capture(Piece piece) {
         switch (piece.getColor()){
             case B: // If a black piece was captured, update white's capture map
+                if (this.checkVictoriaExcelentisma(Color.W)){
+                    // handle victory here
+                }
+                if (this.checkVictoriaMagna(Color.W)){}
+                if (this.checkVictoriaMayor(Color.W)){}
                 this.whiteCaptures.put("bodies", this.whiteCaptures.get("bodies") + 1);
                 this.whiteCaptures.put("digits", this.whiteCaptures.get("digits") + Integer.toString(piece.getValue()).length());
                 this.whiteCaptures.put("value", this.whiteCaptures.get("value") + piece.getValue());
                 break;
             case W: // If a white piece was captured, update black's capture map
+                if (this.checkVictoriaExcelentisma(Color.B)){}
+                if (this.checkVictoriaMagna(Color.B)){}
+                if (this.checkVictoriaMayor(Color.B)){}
                 this.blackCaptures.put("bodies", this.blackCaptures.get("bodies") + 1);
                 this.blackCaptures.put("digits", this.blackCaptures.get("digits") + Integer.toString(piece.getValue()).length());
                 this.blackCaptures.put("value", this.blackCaptures.get("value") + piece.getValue());

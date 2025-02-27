@@ -1,9 +1,6 @@
 package Rithmomachia;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class Board {
     private int rows; //Number of Rows
@@ -391,5 +388,29 @@ public class Board {
 
     public Piece getPiece(int row, int col) {
         return pieces[row][col];
+    }
+
+    // This generates all tuples
+    // Note: OUTPUT MUST BE LIST TO MAINTAIN ORDER!
+    public List<Piece> getTuplesForColor(Color color) {
+        List<Piece> tuples = new ArrayList<>();
+        return tuples;
+    }
+
+    // Feed the tuples into here to also make quadruples??
+    // Note: OUTPUT MUST BE LIST TO MAINTAIN ORDER!
+    public List<Piece> getQuadruplesForColor(Color color) {
+        List<Piece> quadruples = new ArrayList<>();
+        return quadruples;
+    }
+
+    // This will calculate the shape of the tuple using enums for the quadruple function
+    private Tuples calculateTupleShape(List<Piece> pieces) {
+        return null;
+    }
+
+    // Calculate whether the tuple is increasing or decreasing.
+    private boolean isDecreasing(List<Piece> pieces) {
+        return false;
     }
 }
