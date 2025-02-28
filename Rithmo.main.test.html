@@ -230,7 +230,7 @@
         <div class="game-container">
             <label id = "fileLabel" for="moveFileInput" class="custom-file-label hidden" >Open File</label>
             <input type="file" id="moveFileInput" accept=".txt" style="display:none;"/>
-            <button id="endLoopButton" class="hidden">Reset</button>
+            <button id="endLoopButton" class="hidden" onclick="resetGame()/* , StopFileExecution() */">Reset</button>
             <button id="pause" onclick="PauseButton()" class="hidden">Pause</button>
         </div>
         <div class="game-container">
@@ -480,6 +480,7 @@
 
         let CANVAS_WIDTH;
         let CANVAS_HEIGHT;
+        // let stopExecution = false;
 
 
         // Initialize canvas with proper dimensions
@@ -1072,12 +1073,15 @@
             });
         }
 
+        let currentFileReader = null;
 
         function handleFileUpload(event) {
+            // stopExecution = false;
             const file = event.target.files[0];
             if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
+                //Swapped fuction specific reader for the global reader so it can be stopped at will. -Darin
+                currentFileReader = new FileReader();
+                currentFileReader.onload = function(e) {
                     const fileContent = e.target.result;
                     const moves = parseMoves(fileContent);
                     resetGame().then(() => {
@@ -1086,7 +1090,7 @@
                         console.error('Error resetting the game:', error);
                     })
                 };
-                reader.readAsText(file);
+                currentFileReader.readAsText(file);
             }
         }
 
@@ -1147,9 +1151,14 @@
 
 
         function executeMoves(moves) {
+
             let index = 0;
 
             function playNextMove() {
+                if (stopExecution) {
+                    console.log("Move execution stopped.");
+                    return;
+                }
                 if (index < moves.length) {
                     if (cont) {
                         const move = moves[index];
@@ -1197,6 +1206,15 @@
             playNextMove(); // Start executing moves
         }
 
+        // function StopFileExecution() {
+        //     stopExecution = true;
+        //     if(currentFileReader)
+        //     {
+        //         currentFileReader.abort();
+        //         currentFileReader = null;
+        //     }
+        // }
+
 
         function resetGame() {
             return new Promise((resolve, reject) => {
@@ -1220,6 +1238,7 @@
                     console.error('Error loading board background:', error);
                     reject(error); // Reject if there's an error loading the board background
                 });
+
             });
         }
 
