@@ -1,8 +1,6 @@
 package Rithmomachia;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class VictoryManager {
 
@@ -99,12 +97,12 @@ public class VictoryManager {
         Set<List<Piece>> tuplesToCheck = board.getTuplesForColor(colorToCheck);
         // Loop through each list of pieces in the tuple
         for (List<Piece> pieces : tuplesToCheck) {
-            // b is always the middle value
-            int b = pieces.get(1).getValue();
-            // Ternary statements to assign a and c in ascending order
-            int a = (pieces.get(0).getValue()< b) ? pieces.get(0).getValue() : pieces.get(2).getValue();
-            int c = (pieces.get(2).getValue()> b) ? pieces.get(2).getValue() : pieces.get(0).getValue();
-            // If any set is any progression, we are done and can return true
+            // Sort each tuple and assign the values to integers
+            List<Integer> sortedPieceValues = this.sortTuple(pieces);
+            int a = sortedPieceValues.get(0);
+            int b = sortedPieceValues.get(1);
+            int c = sortedPieceValues.get(2);
+            // Check if the integers satisfy any of the progression type.
             if (this.isArithmeticProgression(a, b, c)
                 || this.isGeometricProgression(a, b, c)
                 || this.isHarmonicProgression(a, b, c)){
@@ -116,11 +114,80 @@ public class VictoryManager {
 
     // Requires 4 total pieces that includes 2 different 3 piece progressions.
     private boolean checkVictoriaMayor(Color colorToCheck) {
+        Set<List<Piece>> quadruplesToCheck = board.getQuadruplesForColor(colorToCheck);
+        for (List<Piece> pieces : quadruplesToCheck) {
+            List<Integer> sortedPieceValues = this.sortTuple(pieces);
+            int a = sortedPieceValues.get(0);
+            int b = sortedPieceValues.get(1);
+            int c = sortedPieceValues.get(2);
+            int d = sortedPieceValues.get(3);
+            // All permutations of a, b, c, d are:
+            // a, b, c; a, b, d; a, c, d; b, c, d
+            // I believe this algorithm covers all cases?
+            if (this.isArithmeticProgression(a, b, c) &&
+                    ((this.isGeometricProgression(a,b,d)||this.isHarmonicProgression(a,b,d))
+                    ||(this.isGeometricProgression(a,c,d)||this.isHarmonicProgression(a,c,d))
+                    ||(this.isGeometricProgression(b,c,d)||this.isHarmonicProgression(b,c,d)))){
+                return true;
+            }else if (this.isGeometricProgression(a,b,c)&&
+                    ((this.isArithmeticProgression(a,b,d)||this.isHarmonicProgression(a,b,d))
+                    ||(this.isArithmeticProgression(a,c,d)||this.isHarmonicProgression(a,c,d))
+                    ||(this.isArithmeticProgression(b,c,d)||this.isHarmonicProgression(b,c,d)))){
+                return true;
+            }else if(this.isHarmonicProgression(a,b,c) &&
+                    ((this.isArithmeticProgression(a,b,c)||this.isGeometricProgression(a,b,c))
+                    ||(this.isArithmeticProgression(a,c,d)||this.isGeometricProgression(a,c,d))
+                    ||(this.isArithmeticProgression(b,c,d)||this.isGeometricProgression(b,c,d)))){
+                return true;
+            }
+        }
         return false;
     }
 
     // Requires 4 total pieces that contain all 3 types of 3 piece progressions
+    // An unfathomable amount of combinatorics, but I think this covers everything
+    // There are 4 different arrangements of [a, b, c, d] that can be put into each of three different progressions.
+    // So fundamental theorem of counting says the total is 4*3*2 = 24
     private boolean checkVictoriaExcelentisma(Color colorToCheck) {
+        Set<List<Piece>> quadruplesToCheck = board.getQuadruplesForColor(colorToCheck);
+        for (List<Piece> pieces : quadruplesToCheck) {
+            List<Integer> sortedPieceValues = this.sortTuple(pieces);
+            int a = sortedPieceValues.get(0);
+            int b = sortedPieceValues.get(1);
+            int c = sortedPieceValues.get(2);
+            int d = sortedPieceValues.get(3);
+            if ((this.isArithmeticProgression(a, b, c) &&
+                    ((this.isGeometricProgression(a, b, d) &&
+                        (this.isHarmonicProgression(a,c,d) || this.isHarmonicProgression(b,c,d)))
+                    ||(this.isGeometricProgression(a,c,d) &&
+                        (this.isHarmonicProgression(a,b,d) || this.isHarmonicProgression(b,c,d)))
+                    ||(this.isGeometricProgression(b,c,d) &&
+                        (this.isHarmonicProgression(a,b,d) || this.isHarmonicProgression(a,c,d)))))
+                ||(this.isArithmeticProgression(a, b, d) &&
+                    ((this.isGeometricProgression(a, b, c) &&
+                        (this.isHarmonicProgression(a,c,d) || this.isHarmonicProgression(b,c,d)))
+                    ||(this.isGeometricProgression(a,c,d) &&
+                        (this.isHarmonicProgression(a,b,c) || this.isHarmonicProgression(b,c,d)))
+                    ||(this.isGeometricProgression(b,c,d) &&
+                        (this.isHarmonicProgression(a,b,c) || this.isHarmonicProgression(a,c,d)))))
+                ||(this.isArithmeticProgression(a, c, d) &&
+                    ((this.isGeometricProgression(a, b, c) &&
+                        (this.isHarmonicProgression(a,b,d) || this.isHarmonicProgression(b,c,d)))
+                    ||(this.isGeometricProgression(a,b,d) &&
+                        (this.isHarmonicProgression(a,b,c) || this.isHarmonicProgression(b,c,d)))
+                    ||(this.isGeometricProgression(b,c,d) &&
+                        (this.isHarmonicProgression(a,b,c) || this.isHarmonicProgression(a,b,d)))))
+                ||(this.isArithmeticProgression(b, c, d) &&
+                    ((this.isGeometricProgression(a, b, c) &&
+                        (this.isHarmonicProgression(a,b,d) || this.isHarmonicProgression(a,c,d)))
+                    ||(this.isGeometricProgression(a,b,d) &&
+                        (this.isHarmonicProgression(a,b,c) || this.isHarmonicProgression(a,c,d)))
+                    ||(this.isGeometricProgression(a,c,d) &&
+                        (this.isHarmonicProgression(a,b,c) || this.isHarmonicProgression(a,b,d)))))
+            ){
+                return true;
+            }
+        }
         return false;
     }
 
@@ -138,6 +205,7 @@ public class VictoryManager {
 
     private boolean isGeometricProgression(int a, int b, int c){
         // given ints a<b<c, geometric if b/a=c/b or b = sqrt(ac)
+        // End early if not divisible
         if (b%a != 0 || c%b != 0){
             return false;
         }
@@ -151,6 +219,14 @@ public class VictoryManager {
             return false;
         }
         return b == (2*a*c)/(a+c);
+    }
+
+    // This takes a tuple and returns it as a list of sorted integers. This makes it easier for victory checks.
+    private List<Integer> sortTuple(List<Piece> pieces){
+        List<Integer> sortedValues = new ArrayList<>();
+        pieces.forEach(piece -> sortedValues.add(piece.getValue()));
+        Collections.sort(sortedValues);
+        return sortedValues;
     }
 }
 
