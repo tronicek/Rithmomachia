@@ -4,10 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f18874f0-d025-429a-8473-c7dcfd72c00d" name="Changes" comment="Fleshed out method to find all viable tuples">
+    <list default="true" id="f18874f0-d025-429a-8473-c7dcfd72c00d" name="Changes" comment="All victories should be coded, including glorious victories. Need tons of tests. Pyramid is currently used as sum total of remaining pieces.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Rithmomachia/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Rithmomachia/Board.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Rithmomachia/Directions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Rithmomachia/Directions.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Rithmomachia/Pyramid.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Rithmomachia/Pyramid.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Rithmomachia/VictoryManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Rithmomachia/VictoryManager.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -253,7 +254,10 @@
       <workItem from="1740685552469" duration="2732000" />
       <workItem from="1740689811104" duration="61000" />
       <workItem from="1740695051721" duration="1355000" />
-      <workItem from="1740698607561" duration="8519000" />
+      <workItem from="1740698607561" duration="8715000" />
+      <workItem from="1740747547818" duration="7075000" />
+      <workItem from="1740756521320" duration="225000" />
+      <workItem from="1740756802002" duration="264000" />
     </task>
     <task id="LOCAL-00001" summary="updated the file structure to make sure all test files run">
       <option name="closed" value="true" />
@@ -287,7 +291,23 @@
       <option name="project" value="LOCAL" />
       <updated>1740689859838</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Created entire algorithm for generating viable quadruples. Will need to check this again because it's very complicated.">
+      <option name="closed" value="true" />
+      <created>1740711256343</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1740711256343</updated>
+    </task>
+    <task id="LOCAL-00006" summary="All victories should be coded, including glorious victories. Need tons of tests. Pyramid is currently used as sum total of remaining pieces.">
+      <option name="closed" value="true" />
+      <created>1740754645336</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1740754645336</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -307,6 +327,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="updated the file structure to make sure all test files run" />
     <MESSAGE value="Fleshed out method to find all viable tuples" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fleshed out method to find all viable tuples" />
+    <MESSAGE value="Created entire algorithm for generating viable quadruples. Will need to check this again because it's very complicated." />
+    <MESSAGE value="All victories should be coded, including glorious victories. Need tons of tests. Pyramid is currently used as sum total of remaining pieces." />
+    <option name="LAST_COMMIT_MESSAGE" value="All victories should be coded, including glorious victories. Need tons of tests. Pyramid is currently used as sum total of remaining pieces." />
   </component>
 </project>

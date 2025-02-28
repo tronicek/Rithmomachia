@@ -1,6 +1,11 @@
 package Rithmomachia;
 
-import java.util.*;
+import java.util.Map;
+import java.util.HashMap;
+import java.util.Set;
+import java.util.HashSet;
+import java.util.List;
+import java.util.ArrayList;
 
 public class Board {
     private int rows; //Number of Rows
@@ -523,7 +528,7 @@ public class Board {
         return distance1 == distance2;
     }
 
-    private Set<List<Piece>> getQuadruplesForColor(Color color) {
+    public Set<List<Piece>> getQuadruplesForColor(Color color) {
         Set<List<Piece>> quadruples = new HashSet<>();
         Set<List<Piece>> tuples = this.getTuplesForColor(color);
         Map<List<Piece>, List<Directions>> tupleSearchMap = new HashMap<>();
@@ -544,7 +549,14 @@ public class Board {
                     || (row1 < row2 && row2 < row3 && col1 > col2 && col2 > col3)
                     || (row1 > row2 && row2 > row3 && col1 < col2 && col2 < col3))
             {
-                directionsToSearch.add(Directions.ALL);
+                directionsToSearch.add(Directions.UP);
+                directionsToSearch.add(Directions.DOWN);
+                directionsToSearch.add(Directions.LEFT);
+                directionsToSearch.add(Directions.RIGHT);
+                directionsToSearch.add(Directions.UPLEFT);
+                directionsToSearch.add(Directions.UPRIGHT);
+                directionsToSearch.add(Directions.DOWNLEFT);
+                directionsToSearch.add(Directions.DOWNRIGHT);
             // Piece two is directly above piece 1
             } else if (col1 == col2 && row1 > row2) {
                 // Piece 3 is left/right of Piece 1
@@ -730,17 +742,10 @@ public class Board {
                             quadrupleCandidate.add(findClosestDown(endPiece.getRow(), endPiece.getCol()));
                         }
                         break;
-                    case ALL:
-                        Set<Piece> neighbors = findClosestNeighbors(endPiece.getRow(), endPiece.getCol());
-                        for (Piece neighbor : neighbors) {
-                            quadrupleCandidate.add(neighbor);
-                            if (isViableTuple(quadrupleCandidate)) {
-                                quadruples.add(quadrupleCandidate);
-                            }
-                        }
+                    default:
                         break;
                 }
-                if (directions != Directions.ALL && isViableTuple(quadrupleCandidate)) {
+                if (quadrupleCandidate.size() == 4 && isViableTuple(quadrupleCandidate)) {
                     quadruples.add(quadrupleCandidate);
                 }
             }

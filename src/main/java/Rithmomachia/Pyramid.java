@@ -1,6 +1,8 @@
 package Rithmomachia;
 
-import java.util.*;
+import java.util.Set;
+import java.util.HashMap;
+import java.util.HashSet;
 
 public class Pyramid extends Piece {
 
