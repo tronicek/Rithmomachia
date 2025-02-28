@@ -430,6 +430,8 @@ public class Board {
     // This generates all tuples
     // Note: OUTPUT MUST BE LIST TO MAINTAIN ORDER!
     // Just iterate through all tuples, each time one is generated, run check
+    // I'm pretty sure this doesn't produce any non-tuples...like it won't try to check any list less than 3?
+    // Have to test later.
     public Set<List<Piece>> getTuplesForColor(Color color) {
         // Generate new set to return. Set contains lists of three pieces. Must return lists as order matters.
         Set<List<Piece>> tuples = new HashSet<>();
@@ -523,8 +525,226 @@ public class Board {
 
     private Set<List<Piece>> getQuadruplesForColor(Color color) {
         Set<List<Piece>> quadruples = new HashSet<>();
-        quadruples.addAll(getTuplesForColor(color));
+        Set<List<Piece>> tuples = this.getTuplesForColor(color);
+        Map<List<Piece>, List<Directions>> tupleSearchMap = new HashMap<>();
         // Do more stuff here.
+        for (List<Piece> tuple : tuples) {
+            List<Directions> directionsToSearch = new ArrayList<>();
+            int row1 = tuple.get(0).getRow();
+            int col1 = tuple.get(0).getCol();
+            int row2 = tuple.get(1).getRow();
+            int col2 = tuple.get(1).getCol();
+            int row3 = tuple.get(2).getRow();
+            int col3 = tuple.get(2).getCol();
+            // Orthogonal or diagonal straight line
+            if ((row1 == row2 && row2 == row3)
+                    || (col1 == col2 && col2 == col3)
+                    || (row1 < row2 && row2 < row3 && col1 < col2 && col2 < col3)
+                    || (row1 > row2 && row2 > row3 && col1 > col2 && col2 > col3)
+                    || (row1 < row2 && row2 < row3 && col1 > col2 && col2 > col3)
+                    || (row1 > row2 && row2 > row3 && col1 < col2 && col2 < col3))
+            {
+                directionsToSearch.add(Directions.ALL);
+            // Piece two is directly above piece 1
+            } else if (col1 == col2 && row1 > row2) {
+                // Piece 3 is left/right of Piece 1
+                if (row3 == row1) {
+                    // Determine which way angle is pointing.
+                    directionsToSearch.add(col3 < col2 ? Directions.DOWNLEFT : Directions.DOWNRIGHT);
+                // Piece 3 is left/right of piece2
+                } else if (row3 == row2) {
+                    directionsToSearch.add(Directions.DOWN);
+                    directionsToSearch.add(col3 < col2 ? Directions.LEFT : Directions.RIGHT);
+                // piece 3 is diagonally up from piece 2
+                } else {
+                    // Only need to search in one direction
+                    directionsToSearch.add(col3 < col2 ? Directions.UPLEFT : Directions.UPRIGHT);
+                }
+            // piece 2 is diagonally up-left from piece 1
+            } else if (col1 > col2 && row1 > row2) {
+                // piece 3 is below piece 2
+                if (col3 == col2 && row3 == row1) {
+                    directionsToSearch.add(Directions.DOWN);
+                // ^ shaped
+                } else if (row3 == row1 && col3 < col2) {
+                    directionsToSearch.add(Directions.DOWNLEFT);
+                    directionsToSearch.add(Directions.DOWNRIGHT);
+                // Piece 3 is either directly left or right of piece 2
+                } else if (row3 == row2) {
+                    directionsToSearch.add(col3 < col2 ? Directions.LEFT : Directions.RIGHT);
+                // Piece 3 is above piece 2
+                } else if (col3 == col2) {
+                    directionsToSearch.add(Directions.UP);
+                // < shaped
+                } else {
+                    directionsToSearch.add(Directions.UPRIGHT);
+                    directionsToSearch.add(Directions.DOWNLEFT);
+                }
+            // Piece 2 is immediately left of Piece 1
+            } else if(row2 == row1 && col2 < col1) {
+                // Piece 3 is under or above Piece 1
+                if (col3 == col1) {
+                    directionsToSearch.add(row3 > row1 ? Directions.DOWNRIGHT : Directions.UPLEFT);
+                    // Piece 3 is above or below piece 2
+                } else if (col3 == col2) {
+                    directionsToSearch.add(Directions.RIGHT);
+                    directionsToSearch.add(row3 < row2 ? Directions.UP : Directions.DOWN);
+                    // Piece 3 is diagonally up or down from piece 3
+                } else if (col3 < col2) {
+                    directionsToSearch.add(row3 < row2 ? Directions.UPLEFT : Directions.DOWNLEFT);
+                }
+            // Piece 2 is diagonally down left of piece 1
+            } else if (row2 > row1 && col2 < col1) {
+                // Piece 3 directly above or below piece 2
+                if (col3 == col2) {
+                    directionsToSearch.add(row3< row2 ? Directions.UP : Directions.DOWN);
+                // v shaped
+                } else if (col3 < col2 && row3 < row1) {
+                    directionsToSearch.add(Directions.UPLEFT);
+                    directionsToSearch.add(Directions.UPRIGHT);
+                // Piece 3 is left or right of piece 2
+                } else if (row3 == row2) {
+                    directionsToSearch.add(col3 < col2 ? Directions.LEFT : Directions.RIGHT);
+                // < shaped
+                } else if (col3 == col1){
+                    directionsToSearch.add(Directions.UPRIGHT);
+                    directionsToSearch.add(Directions.DOWNRIGHT);
+                }
+                // piece 2 is directly below piece 1
+            } else if (col2 == col1) {
+                // Piece 3 is left/right of piece 1
+                if (row3 == row1){
+                    directionsToSearch.add(col3 < col1 ? Directions.UPRIGHT : Directions.UPLEFT);
+                // Piece 3 is left/right of piece 2
+                } else if (row3 == row2){
+                    directionsToSearch.add(Directions.UP);
+                    directionsToSearch.add(col3 < col2 ? Directions.LEFT : Directions.RIGHT);
+                // Piece 3Diagonally down-left/right from piece 2
+                } else {
+                    directionsToSearch.add(col3 < col2 ? Directions.DOWNLEFT : Directions.DOWNRIGHT);
+                }
+            // piece 2 diagonally downright of piece 1
+            } else if (row2 > row1) {
+                // Piece 3 above or below piece 2
+                if (col3 == col2) {
+                    directionsToSearch.add(row3 < row2 ? Directions.UP: Directions.DOWN);
+                // v shaped
+                } else if (row3 == row1) {
+                    directionsToSearch.add(Directions.UPLEFT);
+                    directionsToSearch.add(Directions.UPRIGHT);
+                // piece 3 left or right of piece 2
+                } else if (row3 == row2) {
+                    directionsToSearch.add(col3<col2 ? Directions.LEFT : Directions.RIGHT);
+                // > shaped
+                } else{
+                    directionsToSearch.add(Directions.UPLEFT);
+                    directionsToSearch.add(Directions.DOWNRIGHT);
+                }
+            // Piece 2 right of piece 1
+            } else if (row2 == row1) {
+                // Piece 3 above or below piece 1
+                if (col3==col1){
+                    directionsToSearch.add(row3 < row1 ? Directions.UPLEFT : Directions.DOWNRIGHT);
+                // Piece 3 above or below piece 2
+                }else if (col3 == col2){
+                    directionsToSearch.add(Directions.LEFT);
+                    directionsToSearch.add(row3 < row2 ? Directions.UP : Directions.DOWN);
+                // obtuse angle
+                }else{
+                    directionsToSearch.add(row3 < row2 ? Directions.UPRIGHT : Directions.DOWNRIGHT);
+                }
+            // Piece 2 up-right of piece 1
+            } else {
+                // Piece 3 is left or right of piece 2
+                if (row3 == row2) {
+                    directionsToSearch.add(col3<col2 ? Directions.LEFT : Directions.RIGHT);
+                // > shaped
+                } else if (col3 == col1){
+                    directionsToSearch.add(Directions.UPLEFT);
+                    directionsToSearch.add(Directions.DOWNLEFT);
+                // piece 3 above or below piece 2
+                } else if (col3 == col2) {
+                    directionsToSearch.add(row3 < row2 ? Directions.UP : Directions.DOWN);
+                // ^ shaped
+                } else{
+                    directionsToSearch.add(Directions.DOWNLEFT);
+                    directionsToSearch.add(Directions.DOWNRIGHT);
+                }
+            }
+            tupleSearchMap.put(tuple, directionsToSearch);
+        }
+        quadruples = this.generateQuadruples(tupleSearchMap);
+        return quadruples;
+    }
+
+    // Ok, so, this takes the map that maps viable tuples to end directions to search and returns viable quadruple candidates
+    private Set<List<Piece>> generateQuadruples(Map<List<Piece>, List<Directions>> tuples) {
+        Set<List<Piece>> quadruples = new HashSet<>();
+        // Loop through all the keys
+        for (List<Piece> pieces : tuples.keySet()) {
+            // We want to look starting from the end piece
+            Piece endPiece = pieces.get(2);
+            // We shoot rays in the appropriate directions for each end piece.
+            // If we find a neighbor, we make and test a quadruple, then add it to the viable candidate list if it is viable
+            for (Directions directions : tuples.get(pieces)) {
+                List<Piece> quadrupleCandidate = new ArrayList<>();
+                quadrupleCandidate.addAll(pieces);
+                switch (directions) {
+                    case UPLEFT:
+                        if (findClosestUpLeft(endPiece.getRow(), endPiece.getCol()) != null) {
+                            quadrupleCandidate.add(findClosestUpLeft(endPiece.getRow(), endPiece.getCol()));
+                        }
+                        break;
+                    case UPRIGHT:
+                        if (findClosestUpRight(endPiece.getRow(), endPiece.getCol()) != null) {
+                            quadrupleCandidate.add(findClosestUpRight(endPiece.getRow(), endPiece.getCol()));
+                        }
+                        break;
+                    case DOWNLEFT:
+                        if (findClosestDownLeft(endPiece.getRow(), endPiece.getCol()) != null) {
+                            quadrupleCandidate.add(findClosestDownLeft(endPiece.getRow(), endPiece.getCol()));
+                        }
+                        break;
+                    case DOWNRIGHT:
+                        if (findClosestDownRight(endPiece.getRow(), endPiece.getCol()) != null) {
+                            quadrupleCandidate.add(findClosestDownRight(endPiece.getRow(), endPiece.getCol()));
+                        }
+                        break;
+                    case LEFT:
+                        if (findClosestLeft(endPiece.getRow(), endPiece.getCol()) != null) {
+                            quadrupleCandidate.add(findClosestLeft(endPiece.getRow(), endPiece.getCol()));
+                        }
+                        break;
+                    case RIGHT:
+                        if (findClosestRight(endPiece.getRow(), endPiece.getCol()) != null) {
+                            quadrupleCandidate.add(findClosestRight(endPiece.getRow(), endPiece.getCol()));
+                        }
+                        break;
+                    case UP:
+                        if (findClosestUp(endPiece.getRow(), endPiece.getCol()) != null) {
+                            quadrupleCandidate.add(findClosestUp(endPiece.getRow(), endPiece.getCol()));
+                        }
+                        break;
+                    case DOWN:
+                        if (findClosestDown(endPiece.getRow(), endPiece.getCol()) != null) {
+                            quadrupleCandidate.add(findClosestDown(endPiece.getRow(), endPiece.getCol()));
+                        }
+                        break;
+                    case ALL:
+                        Set<Piece> neighbors = findClosestNeighbors(endPiece.getRow(), endPiece.getCol());
+                        for (Piece neighbor : neighbors) {
+                            quadrupleCandidate.add(neighbor);
+                            if (isViableTuple(quadrupleCandidate)) {
+                                quadruples.add(quadrupleCandidate);
+                            }
+                        }
+                        break;
+                }
+                if (directions != Directions.ALL && isViableTuple(quadrupleCandidate)) {
+                    quadruples.add(quadrupleCandidate);
+                }
+            }
+        }
         return quadruples;
     }
 }

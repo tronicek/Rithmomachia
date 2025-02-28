@@ -9,5 +9,5 @@ public enum Directions {
     DOWNLEFT,
     LEFT,
     UPLEFT,
-    TEST,
+    ALL,
 }
