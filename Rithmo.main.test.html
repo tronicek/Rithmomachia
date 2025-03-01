@@ -230,7 +230,7 @@
         <div class="game-container">
             <label id = "fileLabel" for="moveFileInput" class="custom-file-label hidden" >Open File</label>
             <input type="file" id="moveFileInput" accept=".txt" style="display:none;"/>
-            <button id="endLoopButton" class="hidden" onclick="resetGame()/* , StopFileExecution() */">Reset</button>
+            <button id="endLoopButton" class="hidden" onclick="handleReset()">Reset</button>
             <button id="pause" onclick="PauseButton()" class="hidden">Pause</button>
         </div>
         <div class="game-container">
@@ -480,7 +480,7 @@
 
         let CANVAS_WIDTH;
         let CANVAS_HEIGHT;
-        // let stopExecution = false;
+        let stopExecution = false;
 
 
         // Initialize canvas with proper dimensions
@@ -1076,7 +1076,7 @@
         let currentFileReader = null;
 
         function handleFileUpload(event) {
-            // stopExecution = false;
+            stopExecution = false;
             const file = event.target.files[0];
             if (file) {
                 //Swapped fuction specific reader for the global reader so it can be stopped at will. -Darin
@@ -1206,14 +1206,11 @@
             playNextMove(); // Start executing moves
         }
 
-        // function StopFileExecution() {
-        //     stopExecution = true;
-        //     if(currentFileReader)
-        //     {
-        //         currentFileReader.abort();
-        //         currentFileReader = null;
-        //     }
-        // }
+        function StopFileExecution() {
+            currentFileReader = null;
+            stopExecution = true;
+            isLooping = false;
+        }
 
 
         function resetGame() {
@@ -1242,6 +1239,14 @@
             });
         }
 
+        function handleReset() {
+            resetGame().then(() => {
+                StopFileExecution(); 
+                document.getElementById('moveFileInput').value = '';
+            }).catch(error => {
+                console.error("Error during reset:", error);
+            });
+        }
 
         // Initialize the game
         async function initializeGame() {
@@ -1271,10 +1276,12 @@
             }
         }
 
+        // document.getElementById('moveFileInput').addEventListener('change', handleFileUpload);
+        // document.getElementById('endLoopButton').addEventListener('click', () => {
+        //     isLooping = false;
+        // });
+        document.getElementById('moveFileInput').replaceWith(document.getElementById('moveFileInput').cloneNode(true));
         document.getElementById('moveFileInput').addEventListener('change', handleFileUpload);
-        document.getElementById('endLoopButton').addEventListener('click', () => {
-            isLooping = false;
-        });
     </script >
 </body>
 </html>
