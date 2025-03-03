@@ -253,13 +253,6 @@
         //Team variable used to determine which team the player is Darin
         let team = "Black";
 
-        // --------
-
-        // const DIMENSIONS = {
-        //   width: 46,
-        //   height: 41
-        // };
-
         const THEMES = {
             Lulu_Burkowski: {
                 board: 'Images/Rithmomachia/Board and pieces/Board-Rotate.png',
@@ -303,20 +296,6 @@
                     width: 1000,
                     height: 500
                 }
-                //<!--Work In progress--!> //We'll need these to have the pieces positions change based on the board type (boarder thickness)
-                // boardConfig: {
-                // canvasWidth: 1000,
-                // canvasHeight: 500,
-                // offsetWidth: 65,
-                // offsetHeight: 31.25,
-                    // Derived measurements
-                // borderLeft: 65/2,     // offsetWidth/2
-                // borderTop: 31.25/2,   // offsetHeight/2
-                // playableWidth: 740,    // Width of the actual playing area
-                // playableHeight: 330,   // Height of the actual playing area
-                // cellWidth: (1000 - 65)/16,  // (canvasWidth - offsetWidth)/columns      // Individual cell width
-                // cellHeight: (500 - 31.25)/8 // (canvasHeight - offsetHeight)/rows     // Individual cell height
-                //}
             },
             Jessie_Reed: {
                  board: 'Images/Rithmomachia Art/Board.png',
@@ -358,15 +337,6 @@
                     width: 925,
                     height: 480
                 }
-
-                //boardConfig: {
-                //  borderLeft: 92.75,
-                //  borderTop: 75,
-                //  playableWidth: 740,    // Width of the actual playing area
-                //  playableHeight: 330,   // Height of the actual playing area
-                //  cellWidth: 46.25,      // Individual cell width
-                //  cellHeight: 41.25      // Individual cell height
-                //}
             },
             Daniel_Hunt: {
                 board: 'Images/HUNT-Pieces/HUNT-NewBoard-01.png',
@@ -409,24 +379,10 @@
                     width: 925,
                     height: 480
                 }
-
-                //boardConfig: {
-                //  borderLeft: 92.75,
-                //  borderTop: 75,
-                //  playableWidth: 740,    // Width of the actual playing area
-                //  playableHeight: 330,   // Height of the actual playing area
-                //  cellWidth: 46.25,      // Individual cell width
-                //  cellHeight: 41.25      // Individual cell height
-                //}
             }
         };
 
         let currentTheme = "Daniel_Hunt";
-
-        // // Initialize theme from localStorage or default to classic
-        // const savedTheme = localStorage.getItem('theme') || 'Daniel_Hunt';
-        // currentTheme = savedTheme;
-        // document.getElementById('themeSelect').value = savedTheme;
 
         // Theme switching functionality
         document.getElementById('themeSelect').addEventListener('change', (e) => {
@@ -447,10 +403,6 @@
                 document.body.style.backgroundImage = "none";
             }
 
-            //localStorage.setItem('theme', currentTheme);
-            //Breaking code
-            //updateThemePreview();
-            
             // Only reset the game if it's already started
             if (!document.getElementById('StartScreen').classList.contains('hidden')) {
                 updateBackgroundWrapper();
@@ -459,18 +411,10 @@
             }
         });
 
-        //Was breaking my code.
-        // function updateThemePreview() {
-        //     const preview = document.getElementById('themePreview');
-        //     preview.style.backgroundImage = `url('${THEMES[currentTheme].board}')`;
-        // }
-
         function updateBackgroundWrapper() {
             const backgroundWrapper = document.getElementById('backgroundWrapper');
             backgroundWrapper.style.backgroundImage = `url('${THEMES[currentTheme].board}')`;
         }
-
-        //--------------------
 
         let CANVAS_WIDTH;
         let CANVAS_HEIGHT;
@@ -684,13 +628,7 @@
                     // Use the theme's pieceFormat function for regular pieces (This Should fix it)
                     imagePath = THEMES[currentTheme].pieces.pieceFormat(value, isWhite, baseType);
 
-                    //Theres a problem with this part loading
-                    // const pieceType = {
-                    //     's': THEMES[currentTheme].pieces.square,
-                    //     't': THEMES[currentTheme].pieces.triangle,
-                    //     'c': THEMES[currentTheme].pieces.circle
-                    // }[baseType];
-                    // imagePath = `${pieceType}${value}.png`;
+                   
                 }
 
                 fabric.Image.fromURL(imagePath, function(img) {
@@ -839,60 +777,6 @@
                 `;
 
         }
-
-
-        // function createGrid() {
-        //     const rows = 8; // Number of rows
-        //     const cols = 16; // Number of columns
-        //     const alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']; // Column labels (A-H for rows)
-
-        //     // Create the grid
-        //     for (let row = 0; row < rows; row++) {
-        //         for (let col = 0; col < cols; col++) {
-        //             // Calculate the center position for the current square
-        //             const centerX = col * length + length/2 + 95; // Adjust left margin
-        //             const centerY = row * height + height/2 + 77; // Adjust top margin
-
-        //             // Create the grid square
-        //             const rect = new fabric.Rect({
-        //                 left: centerX - length / 2, // Adjust to start drawing from the top-left corner
-        //                 top: centerY - height / 2, // Adjust to start drawing from the top-left corner
-        //                 width: length,
-        //                 height: height,
-        //                 fill: 'transparent',
-        //                 strokeWidth: 1,
-        //                 stroke: 'red',
-        //                 selectable: false,
-        //                 evented: false // Prevent grid squares from being interactive
-        //             });
-
-        //             // Add the grid square to the canvas
-        //             canvas.add(rect);
-
-        //             // Determine the algebraic notation
-        //             const file = alphabet[row]; // Row determines column label (A-H)
-        //             const rank = col + 1; // Column determines row number (1-16)
-
-        //             const algebraicNotation = `${file}${rank}`;
-
-        //             // Create the text for algebraic notation
-        //             const text = new fabric.Text(algebraicNotation, {
-        //                 left: centerX, // Centered in the square horizontally
-        //                 top: centerY, // Centered in the square vertically
-        //                 fontSize: 12,
-        //                 fontFamily: 'Arial',
-        //                 fill: 'rgba(0, 0, 0, 0.5)', // Semi-transparent black
-        //                 originX: 'center', // Align text by its center
-        //                 originY: 'center', // Align text by its center
-        //                 selectable: false, // Text should not be interactive
-        //                 evented: false // Text should not trigger events
-        //             });
-
-        //             // Add the text to the canvas
-        //             canvas.add(text);
-        //         }
-        //     }
-        // }
 
         function movePiece(from, to) {
 
