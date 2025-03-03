@@ -261,8 +261,6 @@
     <script>
 
         let isMuted = false;
-        let boardWidth;
-        let boardHeight;
 
         //Team variable used to determine which team the player is Darin
         let team = "Black";
@@ -670,9 +668,6 @@
                         scaleX: CANVAS_WIDTH / boardImage.width,
                         scaleY: CANVAS_HEIGHT / boardImage.height
                     });
-
-                    boardWidth = CANVAS_WIDTH / boardImage.width;
-                    boardHeight = CANVAS_HEIGHT / boardImage.height;
 
 
                     if (team === "White") {
