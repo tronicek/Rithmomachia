@@ -261,6 +261,8 @@
     <script>
 
         let isMuted = false;
+        let boardWidth;
+        let boardHeight;
 
         //Team variable used to determine which team the player is Darin
         let team = "Black";
@@ -669,6 +671,10 @@
                         scaleY: CANVAS_HEIGHT / boardImage.height
                     });
 
+                    boardWidth = CANVAS_WIDTH / boardImage.width;
+                    boardHeight = CANVAS_HEIGHT / boardImage.height;
+
+
                     if (team === "White") {
                         boardImage.set({
                             angle: 180,
@@ -865,58 +871,67 @@
         }
 
 
-        // function createGrid() {
-        //     const rows = 8; // Number of rows
-        //     const cols = 16; // Number of columns
-        //     const alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']; // Column labels (A-H for rows)
+        let gridObjects = []; 
 
-        //     // Create the grid
-        //     for (let row = 0; row < rows; row++) {
-        //         for (let col = 0; col < cols; col++) {
-        //             // Calculate the center position for the current square
-        //             const centerX = col * length + length/2 + 95; // Adjust left margin
-        //             const centerY = row * height + height/2 + 77; // Adjust top margin
+        function createGrid() {
+            if (gridObjects.length > 0) {
+                // If grid exists, remove it
+                gridObjects.forEach(obj => canvas.remove(obj));
+                gridObjects = []; // Clear the stored grid objects
+                canvas.renderAll();
+                return; // Exit function since we just removed the grid
+            }
 
-        //             // Create the grid square
-        //             const rect = new fabric.Rect({
-        //                 left: centerX - length / 2, // Adjust to start drawing from the top-left corner
-        //                 top: centerY - height / 2, // Adjust to start drawing from the top-left corner
-        //                 width: length,
-        //                 height: height,
-        //                 fill: 'transparent',
-        //                 strokeWidth: 1,
-        //                 stroke: 'red',
-        //                 selectable: false,
-        //                 evented: false // Prevent grid squares from being interactive
-        //             });
+            const rows = 8;
+            const cols = 16;
+            const alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
 
-        //             // Add the grid square to the canvas
-        //             canvas.add(rect);
+            for (let row = 0; row < rows; row++) {
+                for (let col = 0; col < cols; col++) {
+                    const centerX = col * length + length / 2 + THEMES[currentTheme].gridOffset.centerX;
+                    const centerY = row * height + height / 2 + THEMES[currentTheme].gridOffset.centerY;
 
-        //             // Determine the algebraic notation
-        //             const file = alphabet[row]; // Row determines column label (A-H)
-        //             const rank = col + 1; // Column determines row number (1-16)
+                    // Create grid square
+                    const rect = new fabric.Rect({
+                        left: centerX - length / 2,
+                        top: centerY - height / 2,
+                        width: length,
+                        height: height,
+                        fill: 'transparent',
+                        strokeWidth: 1,
+                        stroke: 'red',
+                        selectable: false,
+                        evented: false
+                    });
 
-        //             const algebraicNotation = `${file}${rank}`;
+                    // Determine algebraic notation
+                    const file = alphabet[row];
+                    const rank = col + 1;
+                    const algebraicNotation = `${file}${rank}`;
 
-        //             // Create the text for algebraic notation
-        //             const text = new fabric.Text(algebraicNotation, {
-        //                 left: centerX, // Centered in the square horizontally
-        //                 top: centerY, // Centered in the square vertically
-        //                 fontSize: 12,
-        //                 fontFamily: 'Arial',
-        //                 fill: 'rgba(0, 0, 0, 0.5)', // Semi-transparent black
-        //                 originX: 'center', // Align text by its center
-        //                 originY: 'center', // Align text by its center
-        //                 selectable: false, // Text should not be interactive
-        //                 evented: false // Text should not trigger events
-        //             });
+                    // Create notation text
+                    const text = new fabric.Text(algebraicNotation, {
+                        left: centerX,
+                        top: centerY,
+                        fontSize: 12,
+                        fontFamily: 'Arial',
+                        fill: 'rgba(0, 0, 0, 0.5)',
+                        originX: 'center',
+                        originY: 'center',
+                        selectable: false,
+                        evented: false
+                    });
 
-        //             // Add the text to the canvas
-        //             canvas.add(text);
-        //         }
-        //     }
-        // }
+                    // Add objects to canvas and store them
+                    canvas.add(rect);
+                    canvas.add(text);
+                    gridObjects.push(rect, text);
+                }
+            }
+
+            canvas.renderAll();
+        }
+
 
         function movePiece(from, to) {
 
@@ -1287,6 +1302,14 @@
                 cont = true;
             }
         }
+
+
+        document.addEventListener("keydown", (event) => {
+            if (event.key === "g" || event.key === "G") {
+                createGrid();
+            }
+        });
+
 
         // document.getElementById('moveFileInput').addEventListener('change', handleFileUpload);
         // document.getElementById('endLoopButton').addEventListener('click', () => {
