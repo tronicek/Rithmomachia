@@ -867,7 +867,7 @@
 
 
         let gridObjects = []; 
-
+        //Only creates a proper grid for Lulu's board. Is toggleable with G. -Darin
         function createGrid() {
             if (gridObjects.length > 0) {
                 // If grid exists, remove it
@@ -1298,7 +1298,7 @@
             }
         }
 
-
+        //Toggle for grid -Darin 
         document.addEventListener("keydown", (event) => {
             if (event.key === "g" || event.key === "G") {
                 createGrid();
