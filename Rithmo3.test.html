@@ -409,6 +409,8 @@
                         pieceValue: value
                     });
 
+                    console.log("width:", length, "Height:", height)
+
                     resolve(img);
                 }, function(error) {
                     console.error(`Failed to load image for piece ${piece}:`, error);
