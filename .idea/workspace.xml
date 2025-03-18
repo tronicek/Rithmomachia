@@ -4,18 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f18874f0-d025-429a-8473-c7dcfd72c00d" name="Changes" comment="All victories should be coded, including glorious victories. Need tons of tests. Pyramid is currently used as sum total of remaining pieces.">
+    <list default="true" id="f18874f0-d025-429a-8473-c7dcfd72c00d" name="Changes" comment="Added line to actually build pyramid in from string method in Board.">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2_27_25,_12_24 PM_[Changes]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2_27_25__12_24PM__Changes_.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Rithmomachia/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Rithmomachia/Board.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Rithmomachia/Pyramid.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Rithmomachia/Pyramid.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Rithmomachia/VictoryManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Rithmomachia/VictoryManager.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ChangesViewManager">
+  <component name="ChangesViewManager" show_ignored="true">
     <option name="groupingKeys">
       <option value="directory" />
     </option>
@@ -232,8 +232,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-125ca727e0f0-intellij.indexing.shared.core-IU-243.24978.46" />
-        <option value="bundled-js-predefined-d6986cc7102b-76f8388c3a79-JavaScript-IU-243.24978.46" />
+        <option value="bundled-jdk-9823dce3aa75-a94e463ab2e7-intellij.indexing.shared.core-IU-243.25659.39" />
+        <option value="bundled-js-predefined-d6986cc7102b-1632447f56bf-JavaScript-IU-243.25659.39" />
       </set>
     </attachedChunks>
   </component>
@@ -257,7 +257,14 @@
       <workItem from="1740698607561" duration="8715000" />
       <workItem from="1740747547818" duration="7075000" />
       <workItem from="1740756521320" duration="225000" />
-      <workItem from="1740756802002" duration="264000" />
+      <workItem from="1740756802002" duration="855000" />
+      <workItem from="1740757721190" duration="23000" />
+      <workItem from="1740882546233" duration="1231000" />
+      <workItem from="1740921469496" duration="15000" />
+      <workItem from="1741113326191" duration="653000" />
+      <workItem from="1741357711020" duration="55000" />
+      <workItem from="1741481499506" duration="1798000" />
+      <workItem from="1742317317742" duration="2608000" />
     </task>
     <task id="LOCAL-00001" summary="updated the file structure to make sure all test files run">
       <option name="closed" value="true" />
@@ -307,7 +314,23 @@
       <option name="project" value="LOCAL" />
       <updated>1740754645336</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="All victories should be coded, including glorious victories. Need tons of tests. Pyramid is currently used as sum total of remaining pieces. Amendment: Cleaned up over-imports in several classes.">
+      <option name="closed" value="true" />
+      <created>1740757190974</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1740757190974</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Added line to actually build pyramid in from string method in Board.">
+      <option name="closed" value="true" />
+      <created>1742319968533</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1742319968533</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -329,6 +352,8 @@
     <MESSAGE value="Fleshed out method to find all viable tuples" />
     <MESSAGE value="Created entire algorithm for generating viable quadruples. Will need to check this again because it's very complicated." />
     <MESSAGE value="All victories should be coded, including glorious victories. Need tons of tests. Pyramid is currently used as sum total of remaining pieces." />
-    <option name="LAST_COMMIT_MESSAGE" value="All victories should be coded, including glorious victories. Need tons of tests. Pyramid is currently used as sum total of remaining pieces." />
+    <MESSAGE value="All victories should be coded, including glorious victories. Need tons of tests. Pyramid is currently used as sum total of remaining pieces. Amendment: Cleaned up over-imports in several classes." />
+    <MESSAGE value="Added line to actually build pyramid in from string method in Board." />
+    <option name="LAST_COMMIT_MESSAGE" value="Added line to actually build pyramid in from string method in Board." />
   </component>
 </project>

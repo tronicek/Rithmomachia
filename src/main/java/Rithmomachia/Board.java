@@ -81,6 +81,8 @@ public class Board {
                 return new Square(c, value, row, col);
             case 'T':
                 return new Triangle(c, value, row, col);
+            case 'P':
+                return new Pyramid(c, row, col, s);
             default:
                 throw new AssertionError();
         }
