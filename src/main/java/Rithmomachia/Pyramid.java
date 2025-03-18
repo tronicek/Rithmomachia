@@ -170,7 +170,7 @@ public class Pyramid extends Piece {
         return eruptions;
     }
 
-    // Override to string method "P: WT3, WT6, WS8, WS9"
+    // Override to string method "WP: WT3, WT6, WS8, WS9"
     public String toString() {
         StringBuilder pieceString = new StringBuilder(); // Create new StringBuilder
         pieceString.append(this.getColor()).append("P:"); // Start string with color and piece type indicator
