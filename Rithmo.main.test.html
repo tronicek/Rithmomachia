@@ -62,14 +62,16 @@
         }
 
         .game-controls {
-            position: fixed;
+            position: absolute;
             top: 20px;
-            right: 5%;
+            right:2.5%;
             display: flex;
             flex-direction: row;
             gap: 10px;
             z-index: 100;
             max-width: calc(100% - 40px);
+            flex-wrap: wrap;
+            justify-content: flex-end;
         }
 
         .game-container {
@@ -224,7 +226,7 @@
             <button id="startButton">Start Game</button>
             <button id="muteButton">Mute</button>
             <button id="teamChangeButton">Change Team (Current team: Black)</button>
-            <button class="settingsButton">Settings</button>
+            <button class="volumeButton">Volume</button>
             <button class="infoButton">Game Info</button>
             <select id="themeSelect" title="Theme">
                 <option value="Daniel_Hunt">Daniel Theme</option>
@@ -237,7 +239,7 @@
             <input type="file" id="moveFileInput" accept=".txt" style="display:none;"/>
             <button id="endLoopButton" class="hidden" onclick="handleReset()">Reset</button>
             <button id="pause" onclick="PauseButton()" class="hidden">Pause</button>
-            <button class="hidden" id="settingsButton">Settings</button>
+            <button class="hidden" id="volumeButton">Volume</button> 
             <button class="hidden" id="infoButton">Game Info</button>
         </div>
         <div class="game-container">
@@ -634,7 +636,7 @@
             document.getElementById('black-pyramid').classList.remove('hidden');
             document.getElementById('white-pyramid').classList.remove('hidden');
             document.getElementById('game-board').classList.remove('hidden');
-            document.getElementById('settingsButton').classList.remove('hidden');
+            document.getElementById('volumeButton').classList.remove('hidden');
             document.getElementById('infoButton').classList.remove('hidden');
         }
 
