@@ -6,4 +6,8 @@ public enum Victory {
     QUARREL,
     HONOR,
     HONOR_AND_QUARREL,
+    MAGNA,
+    MAYOR,
+    EXCELENTISMA,
+    NONE,
 }

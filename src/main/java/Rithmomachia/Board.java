@@ -201,8 +201,8 @@ public class Board {
         new Square(Color.W, 25, 13, 7);
     }*/
 
-    public void capture(Piece piece) {
-        victoryManager.capture(piece);
+    public Victory capture(Piece piece) {
+        return victoryManager.capture(piece);
     }
 
     public boolean isValidPos(int row, int col) {

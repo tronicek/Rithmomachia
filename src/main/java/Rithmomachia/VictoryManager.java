@@ -33,23 +33,34 @@ public class VictoryManager {
         this.valueGoal = value;
     }
 
-    public boolean capture(Piece piece) {
+    // Will need to account for simple movements triggering glorious victories. Change this to return an enum?
+    public Victory capture(Piece piece) {
         switch (piece.getColor()){
             case B: // If a black piece was captured, update white's capture map
                 // We check glorious in order of descending value. This happens first because they are better than the normal victories
                 if (this.checkVictoriaExcelentisma(Color.W)){
-                    // handle victory here
+                    return Victory.EXCELENTISMA;
                 }
-                if (this.checkVictoriaMagna(Color.W)){}
-                if (this.checkVictoriaMayor(Color.W)){}
+                if (this.checkVictoriaMayor(Color.W)){
+                    return Victory.MAYOR;
+                }
+                if (this.checkVictoriaMayor(Color.W)){
+                    return Victory.MAGNA;
+                }
                 this.whiteCaptures.put("bodies", this.whiteCaptures.get("bodies") + 1);
                 this.whiteCaptures.put("digits", this.whiteCaptures.get("digits") + Integer.toString(piece.getValue()).length());
                 this.whiteCaptures.put("value", this.whiteCaptures.get("value") + piece.getValue());
                 break;
             case W: // If a white piece was captured, update black's capture map
-                if (this.checkVictoriaExcelentisma(Color.B)){}
-                if (this.checkVictoriaMagna(Color.B)){}
-                if (this.checkVictoriaMayor(Color.B)){}
+                if (this.checkVictoriaExcelentisma(Color.B)){
+                    return Victory.EXCELENTISMA;
+                }
+                if (this.checkVictoriaMayor(Color.B)){
+                    return Victory.MAYOR;
+                }
+                if (this.checkVictoriaMagna(Color.B)){
+                    return Victory.MAGNA;
+                }
                 this.blackCaptures.put("bodies", this.blackCaptures.get("bodies") + 1);
                 this.blackCaptures.put("digits", this.blackCaptures.get("digits") + Integer.toString(piece.getValue()).length());
                 this.blackCaptures.put("value", this.blackCaptures.get("value") + piece.getValue());
@@ -58,21 +69,66 @@ public class VictoryManager {
         return this.checkForVictory(colorToCheck); // Return true if the color that did the capture has won
     }
 
-    public boolean checkForVictory(Color colorToCheck) { // Checks given victory condition for color that is being checked
+    // Called when a piece is moved to check for glorious victories
+    public Victory move(Piece piece) {
+        switch (piece.getColor()){
+            case B: // If a black piece was moved
+                // We check glorious in order of descending value.
+                if (this.checkVictoriaExcelentisma(Color.B)){
+                    return Victory.EXCELENTISMA;
+                }
+                if (this.checkVictoriaMayor(Color.B)){
+                    return Victory.MAYOR;
+                }
+                if (this.checkVictoriaMayor(Color.B)){
+                    return Victory.MAGNA;
+                }
+                break;
+            case W: // If a white piece was moved, we check for white's glorious victories
+                if (this.checkVictoriaExcelentisma(Color.W)){
+                    return Victory.EXCELENTISMA;
+                }
+                if (this.checkVictoriaMayor(Color.W)){
+                    return Victory.MAYOR;
+                }
+                if (this.checkVictoriaMagna(Color.W)){
+                    return Victory.MAGNA;
+                }
+        }
+        return Victory.NONE;
+    }
+
+    public Victory checkForVictory(Color colorToCheck) { // Checks given victory condition for color that is being checked and returns either that condition or NONE
         switch (this.victory) {
             case BODIES:
-                return this.checkVictoryBodies(colorToCheck);
+                if (this.checkVictoryBodies(colorToCheck)) {
+                    return Victory.BODIES;
+                }
+                break;
             case GOODS:
-                return this.checkVictoryValues(colorToCheck);
+                if (this.checkVictoryValues(colorToCheck)) {
+                    return Victory.GOODS;
+                }
+                break;
             case QUARREL:
-                return this.checkVictoryValues(colorToCheck) && this.checkVictoryDigits(colorToCheck);
+                if (this.checkVictoryValues(colorToCheck) && this.checkVictoryDigits(colorToCheck)) {
+                    return Victory.QUARREL;
+                }
+                break;
             case HONOR:
-                return this.checkVictoryValues(colorToCheck) && this.checkVictoryBodies(colorToCheck);
+                if (this.checkVictoryValues(colorToCheck) && this.checkVictoryBodies(colorToCheck)) {
+                    return Victory.HONOR;
+                }
+                break;
             case HONOR_AND_QUARREL:
-                return this.checkVictoryValues(colorToCheck) && this.checkVictoryDigits(colorToCheck) && this.checkVictoryBodies(colorToCheck);
+                if (this.checkVictoryValues(colorToCheck) && this.checkVictoryDigits(colorToCheck) && this.checkVictoryBodies(colorToCheck)) {
+                    return Victory.HONOR_AND_QUARREL;
+                }
+                break;
             default:
-                return false;
+                return Victory.NONE;
         }
+        return Victory.NONE;
     }
 
     private boolean checkVictoryBodies(Color colorToCheck) {
@@ -139,7 +195,7 @@ public class VictoryManager {
                     ||(this.isArithmeticProgression(b,c,d)||this.isHarmonicProgression(b,c,d)))){
                 return true;
             }else if(this.isHarmonicProgression(a,b,c) &&
-                    ((this.isArithmeticProgression(a,b,c)||this.isGeometricProgression(a,b,c))
+                    ((this.isArithmeticProgression(a,b,d)||this.isGeometricProgression(a,b,d))
                     ||(this.isArithmeticProgression(a,c,d)||this.isGeometricProgression(a,c,d))
                     ||(this.isArithmeticProgression(b,c,d)||this.isGeometricProgression(b,c,d)))){
                 return true;

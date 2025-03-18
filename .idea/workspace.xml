@@ -5,10 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f18874f0-d025-429a-8473-c7dcfd72c00d" name="Changes" comment="Added line to actually build pyramid in from string method in Board.">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2_27_25,_12_24 PM_[Changes]/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2_27_25__12_24PM__Changes_.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Rithmomachia/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Rithmomachia/Board.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Rithmomachia/Victory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Rithmomachia/Victory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Rithmomachia/VictoryManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Rithmomachia/VictoryManager.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -265,6 +265,8 @@
       <workItem from="1741357711020" duration="55000" />
       <workItem from="1741481499506" duration="1798000" />
       <workItem from="1742317317742" duration="2608000" />
+      <workItem from="1742320129217" duration="158000" />
+      <workItem from="1742328191377" duration="3536000" />
     </task>
     <task id="LOCAL-00001" summary="updated the file structure to make sure all test files run">
       <option name="closed" value="true" />
@@ -330,7 +332,15 @@
       <option name="project" value="LOCAL" />
       <updated>1742319968533</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Added line to actually build pyramid in from string method in Board.">
+      <option name="closed" value="true" />
+      <created>1742320149052</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1742320149052</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
