@@ -240,7 +240,7 @@
             <button id="endLoopButton" class="hidden" onclick="handleReset()">Reset</button>
             <button id="pause" onclick="PauseButton()" class="hidden">Pause</button>
             <button class="hidden" id="volumeButton">Volume</button> 
-            <button class="hidden" id="infoButton">Game Info</button>
+            <button class="hidden infoButton" id="InfoButton">Game Info</button>
         </div>
         <div class="game-container">
             <div id="black-pyramid" class="hidden"><h3>Black<br />Pyramid</h3></div>
@@ -601,6 +601,12 @@
             }
         });
 
+        document.querySelectorAll(".infoButton").forEach(button => {
+            button.addEventListener("click", function() {
+                window.open("Images/Rithmomachia_Booklet/Rithmomachia_Booklet.pdf", "_blank");
+            });
+        });
+
         //Can also mute and unmute audio by pressing m on the keyboard
         document.addEventListener("keydown", function(event){
             if(event.key == "m" || event.key === "M")
@@ -637,7 +643,7 @@
             document.getElementById('white-pyramid').classList.remove('hidden');
             document.getElementById('game-board').classList.remove('hidden');
             document.getElementById('volumeButton').classList.remove('hidden');
-            document.getElementById('infoButton').classList.remove('hidden');
+            document.getElementById('InfoButton').classList.remove('hidden');
         }
 
         //Function to skip videos when called 
