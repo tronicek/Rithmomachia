@@ -213,45 +213,39 @@ public class Board {
 
     // Gets all pieces of the specified color on the board
     public Set<Piece> getPiecesOfColor(Color color){
-        Set<Piece> pieces = new HashSet<>();
+        Set<Piece> piecesOfColor = new HashSet<>();
         for (int i = 0; i < this.rows; i++) {
             for (int j = 0; j < this.cols; j++) {
                 if (this.pieces[i][j] != null && this.pieces[i][j].getColor() == color){
-                    pieces.add(this.pieces[i][j]);
+                    piecesOfColor.add(this.pieces[i][j]);
                 }
             }
         }
-        return pieces;
+        return piecesOfColor;
     }
 
     // Returns all pieces on the board as sets mapped to their color
     public Map<Color, Set<Piece>> getAllPieces(){
-        Map<Color, Set<Piece>> pieces = new HashMap<>();
-        pieces.put(Color.B, new HashSet<>());
-        pieces.put(Color.W, new HashSet<>());
-        pieces.get(Color.B).addAll(this.getPiecesOfColor(Color.B));
-        pieces.get(Color.W).addAll(this.getPiecesOfColor(Color.W));
-        return pieces;
+        Map<Color, Set<Piece>> allPieces = new HashMap<>();
+        allPieces.put(Color.B, this.getPiecesOfColor(Color.B));
+        allPieces.put(Color.W, this.getPiecesOfColor(Color.W));
+        return allPieces;
     }
 
+    // Rewrote this to remove double method calls. Basically, add everything to the set even if it is null
+    // null can only be added to the HashSet once. At the end, just call to remove null.
+    // If null is in the set, it is now gone. Otherwise, it just ignores the remove command and proceeds anyways.
     public Set<Piece> findClosestNeighbors(int row, int col){
         Set<Piece> neighbors = new HashSet<>();
-        if (findClosestRight(row, col)!=null)
-            neighbors.add(findClosestRight(row, col));
-        if (findClosestLeft(row, col)!=null)
-            neighbors.add(findClosestLeft(row, col));
-        if (findClosestUp(row, col)!=null)
-            neighbors.add(findClosestUp(row, col));
-        if (findClosestDown(row, col)!=null)
-            neighbors.add(findClosestDown(row, col));
-        if (findClosestUpRight(row, col)!=null)
-            neighbors.add(findClosestUpRight(row, col));
-        if (findClosestUpLeft(row, col)!=null)
-            neighbors.add(findClosestUpLeft(row, col));
-        if (findClosestDownRight(row, col)!=null)
-            neighbors.add(findClosestDownRight(row, col));
-        if (findClosestDownLeft(row, col)!=null)
-            neighbors.add(findClosestDownLeft(row, col));
+        neighbors.add(findClosestRight(row, col));
+        neighbors.add(findClosestLeft(row, col));
+        neighbors.add(findClosestUp(row, col));
+        neighbors.add(findClosestDown(row, col));
+        neighbors.add(findClosestUpRight(row, col));
+        neighbors.add(findClosestUpLeft(row, col));
+        neighbors.add(findClosestDownRight(row, col));
+        neighbors.add(findClosestDownLeft(row, col));
+        neighbors.remove(null);
         return neighbors;
     }
 
@@ -705,43 +699,51 @@ public class Board {
                 quadrupleCandidate.addAll(pieces);
                 switch (directions) {
                     case UPLEFT:
-                        if (findClosestUpLeft(endPiece.getRow(), endPiece.getCol()) != null) {
-                            quadrupleCandidate.add(findClosestUpLeft(endPiece.getRow(), endPiece.getCol()));
+                        Piece pUL = this.findClosestUpLeft(endPiece.getRow(), endPiece.getCol());
+                        if (pUL != null) {
+                            quadrupleCandidate.add(pUL);
                         }
                         break;
                     case UPRIGHT:
-                        if (findClosestUpRight(endPiece.getRow(), endPiece.getCol()) != null) {
-                            quadrupleCandidate.add(findClosestUpRight(endPiece.getRow(), endPiece.getCol()));
+                        Piece pUR = this.findClosestUpRight(endPiece.getRow(), endPiece.getCol());
+                        if (pUR != null) {
+                            quadrupleCandidate.add(pUR);
                         }
                         break;
                     case DOWNLEFT:
-                        if (findClosestDownLeft(endPiece.getRow(), endPiece.getCol()) != null) {
-                            quadrupleCandidate.add(findClosestDownLeft(endPiece.getRow(), endPiece.getCol()));
+                        Piece pDL = this.findClosestDownLeft(endPiece.getRow(), endPiece.getCol());
+                        if (pDL != null) {
+                            quadrupleCandidate.add(pDL);
                         }
                         break;
                     case DOWNRIGHT:
-                        if (findClosestDownRight(endPiece.getRow(), endPiece.getCol()) != null) {
-                            quadrupleCandidate.add(findClosestDownRight(endPiece.getRow(), endPiece.getCol()));
+                        Piece pDR = this.findClosestDownRight(endPiece.getRow(), endPiece.getCol());
+                        if (pDR != null) {
+                            quadrupleCandidate.add(pDR);
                         }
                         break;
                     case LEFT:
-                        if (findClosestLeft(endPiece.getRow(), endPiece.getCol()) != null) {
-                            quadrupleCandidate.add(findClosestLeft(endPiece.getRow(), endPiece.getCol()));
+                        Piece pL = this.findClosestLeft(endPiece.getRow(), endPiece.getCol());
+                        if (pL != null) {
+                            quadrupleCandidate.add(pL);
                         }
                         break;
                     case RIGHT:
-                        if (findClosestRight(endPiece.getRow(), endPiece.getCol()) != null) {
-                            quadrupleCandidate.add(findClosestRight(endPiece.getRow(), endPiece.getCol()));
+                        Piece pR = this.findClosestRight(endPiece.getRow(), endPiece.getCol());
+                        if (pR != null) {
+                            quadrupleCandidate.add(pR);
                         }
                         break;
                     case UP:
-                        if (findClosestUp(endPiece.getRow(), endPiece.getCol()) != null) {
-                            quadrupleCandidate.add(findClosestUp(endPiece.getRow(), endPiece.getCol()));
+                        Piece pU = this.findClosestUp(endPiece.getRow(), endPiece.getCol());
+                        if (pU != null) {
+                            quadrupleCandidate.add(pU);
                         }
                         break;
                     case DOWN:
-                        if (findClosestDown(endPiece.getRow(), endPiece.getCol()) != null) {
-                            quadrupleCandidate.add(findClosestDown(endPiece.getRow(), endPiece.getCol()));
+                        Piece pD = this.findClosestDown(endPiece.getRow(), endPiece.getCol());
+                        if (pD != null) {
+                            quadrupleCandidate.add(pD);
                         }
                         break;
                     default:

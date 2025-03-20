@@ -4,11 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f18874f0-d025-429a-8473-c7dcfd72c00d" name="Changes" comment="Added line to actually build pyramid in from string method in Board.">
+    <list default="true" id="f18874f0-d025-429a-8473-c7dcfd72c00d" name="Changes" comment="Fixed typo in checkVictoriaMayor method. Refactored capture method. It now returns a Victory enum. Added move method that does the same. New enums added for MAGNA, MAYOR, EXCELENTISIMA, and NONE. Note, these should not be fed into the constructor since they are not predetermined and are always possible.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Rithmomachia/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Rithmomachia/Board.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Rithmomachia/Victory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Rithmomachia/Victory.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Rithmomachia/VictoryManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Rithmomachia/VictoryManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Rithmomachia/Board$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Rithmomachia/Board$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Rithmomachia/Board.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Rithmomachia/Board.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Rithmomachia/MoveTest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Rithmomachia/Pyramid.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Rithmomachia/Pyramid.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Rithmomachia/Tuples.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Rithmomachia/Victory.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Rithmomachia/Victory.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Rithmomachia/VictoryManager$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Rithmomachia/VictoryManager$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Rithmomachia/VictoryManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Rithmomachia/VictoryManager.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -76,7 +83,7 @@
       <recent name="" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.CaptureBySiegeTest">
+  <component name="RunManager" selected="JUnit.EruptionTest">
     <configuration default="true" type="PythonConfigurationType" factoryName="Python">
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -144,19 +151,6 @@
       <option name="USE_PATTERN" value="false" />
       <method v="2" />
     </configuration>
-    <configuration name="EncounterTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="Rithmomachia.EncounterTest" />
-      <module name="Rithmomachia" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="Rithmomachia.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="CaptureBySiegeTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Rithmomachia" />
       <extension name="coverage">
@@ -184,6 +178,21 @@
       <option name="MAIN_CLASS_NAME" value="Rithmomachia.CaptureBySiegeTest" />
       <option name="METHOD_NAME" value="testEdgeCase" />
       <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="EruptionTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Rithmomachia" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="Rithmomachia.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="Rithmomachia" />
+      <option name="MAIN_CLASS_NAME" value="Rithmomachia.EruptionTest" />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -221,11 +230,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.EruptionTest" />
         <item itemvalue="JUnit.CaptureBySiegeTest" />
         <item itemvalue="JUnit.CaptureBySiegeTest.testEdgeCase" />
         <item itemvalue="JUnit.MoveTest" />
         <item itemvalue="JUnit.MoveTest.test2" />
-        <item itemvalue="Application.EncounterTest" />
       </list>
     </recent_temporary>
   </component>
@@ -266,7 +275,8 @@
       <workItem from="1741481499506" duration="1798000" />
       <workItem from="1742317317742" duration="2608000" />
       <workItem from="1742320129217" duration="158000" />
-      <workItem from="1742328191377" duration="3536000" />
+      <workItem from="1742328191377" duration="3913000" />
+      <workItem from="1742425742377" duration="4783000" />
     </task>
     <task id="LOCAL-00001" summary="updated the file structure to make sure all test files run">
       <option name="closed" value="true" />
@@ -340,7 +350,15 @@
       <option name="project" value="LOCAL" />
       <updated>1742320149052</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Fixed typo in checkVictoriaMayor method. Refactored capture method. It now returns a Victory enum. Added move method that does the same. New enums added for MAGNA, MAYOR, EXCELENTISIMA, and NONE. Note, these should not be fed into the constructor since they are not predetermined and are always possible.">
+      <option name="closed" value="true" />
+      <created>1742334370120</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1742334370120</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -364,6 +382,7 @@
     <MESSAGE value="All victories should be coded, including glorious victories. Need tons of tests. Pyramid is currently used as sum total of remaining pieces." />
     <MESSAGE value="All victories should be coded, including glorious victories. Need tons of tests. Pyramid is currently used as sum total of remaining pieces. Amendment: Cleaned up over-imports in several classes." />
     <MESSAGE value="Added line to actually build pyramid in from string method in Board." />
-    <option name="LAST_COMMIT_MESSAGE" value="Added line to actually build pyramid in from string method in Board." />
+    <MESSAGE value="Fixed typo in checkVictoriaMayor method. Refactored capture method. It now returns a Victory enum. Added move method that does the same. New enums added for MAGNA, MAYOR, EXCELENTISIMA, and NONE. Note, these should not be fed into the constructor since they are not predetermined and are always possible." />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed typo in checkVictoriaMayor method. Refactored capture method. It now returns a Victory enum. Added move method that does the same. New enums added for MAGNA, MAYOR, EXCELENTISIMA, and NONE. Note, these should not be fed into the constructor since they are not predetermined and are always possible." />
   </component>
 </project>

@@ -265,11 +265,8 @@ public class VictoryManager {
 
     private boolean isGeometricProgression(int a, int b, int c){
         // given ints a<b<c, geometric if b/a=c/b or b = sqrt(ac)
-        // End early if not divisible
-        if (b%a != 0 || c%b != 0){
-            return false;
-        }
-        return (b/a) == (c/b);
+        // allow any type of ratio, account for division inaccuracies
+        return Math.abs(((b/a)-(c/b))) < 0.00001;
     }
 
     private boolean isHarmonicProgression(int a, int b, int c){
