@@ -4,18 +4,47 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f18874f0-d025-429a-8473-c7dcfd72c00d" name="Changes" comment="Fixed typo in checkVictoriaMayor method. Refactored capture method. It now returns a Victory enum. Added move method that does the same. New enums added for MAGNA, MAYOR, EXCELENTISIMA, and NONE. Note, these should not be fed into the constructor since they are not predetermined and are always possible.">
+    <list default="true" id="f18874f0-d025-429a-8473-c7dcfd72c00d" name="Changes" comment="Updated geometric progressions to include any ratio, not just perfect divisors. Modified findClosestNeighbors and generateQuadruples to remove repeat function calls. Renamed internal variable in getPiecesOfColor and getAllPieces to avoid overlap with class member variables. Simplified getAllPieces">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Rithmomachia/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Rithmomachia/Board.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Rithmomachia/VictoryManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Rithmomachia/VictoryManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Rithmo.main.html" beforeDir="false" afterPath="$PROJECT_DIR$/Rithmo.main.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Rithmo.main.test.html" beforeDir="false" afterPath="$PROJECT_DIR$/Rithmo.main.test.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Rithmomachia/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/rithmomachia/Board.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Rithmomachia/Circle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/rithmomachia/Circle.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Rithmomachia/Color.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/rithmomachia/Color.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Rithmomachia/Directions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/rithmomachia/Directions.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Rithmomachia/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/rithmomachia/Game.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Rithmomachia/Move.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/rithmomachia/Move.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Rithmomachia/Piece.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/rithmomachia/Piece.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Rithmomachia/Pos.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/rithmomachia/Pos.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Rithmomachia/Pyramid.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/rithmomachia/Pyramid.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Rithmomachia/Square.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/rithmomachia/Square.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Rithmomachia/Triangle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/rithmomachia/Triangle.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Rithmomachia/Victory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/rithmomachia/Victory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Rithmomachia/VictoryManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/rithmomachia/VictoryManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/Rithmomachia/CaptureBySiegeTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/rithmomachia/CaptureBySiegeTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/Rithmomachia/EncounterTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/rithmomachia/EncounterTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/Rithmomachia/EruptionTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/rithmomachia/EruptionTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/Rithmomachia/MoveTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/rithmomachia/MoveTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/Rithmomachia/Board$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Rithmomachia/Board$1.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/Rithmomachia/Board.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Rithmomachia/Board.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Rithmomachia/MoveTest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Rithmomachia/Circle.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Rithmomachia/Circle.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Rithmomachia/Color.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Rithmomachia/Color.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Rithmomachia/Directions.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Rithmomachia/Directions.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Rithmomachia/Game.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Rithmomachia/Game.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Rithmomachia/Move.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Rithmomachia/Move.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Rithmomachia/Piece.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Rithmomachia/Piece.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Rithmomachia/Pos.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Rithmomachia/Pos.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/Rithmomachia/Pyramid.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Rithmomachia/Pyramid.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Rithmomachia/Tuples.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Rithmomachia/Square.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Rithmomachia/Square.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Rithmomachia/Triangle.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Rithmomachia/Triangle.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/Rithmomachia/Victory.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Rithmomachia/Victory.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/Rithmomachia/VictoryManager$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Rithmomachia/VictoryManager$1.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/Rithmomachia/VictoryManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Rithmomachia/VictoryManager.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/Rithmomachia/CaptureBySiegeTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/Rithmomachia/CaptureBySiegeTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/Rithmomachia/EncounterTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/Rithmomachia/EncounterTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/Rithmomachia/EruptionTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/Rithmomachia/EruptionTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/Rithmomachia/MoveTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/Rithmomachia/MoveTest.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -50,33 +79,34 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.EncounterTest.executor&quot;: &quot;Debug&quot;,
-    &quot;JUnit.CaptureBySiegeTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.CaptureBySiegeTest.testEdgeCase.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.EncounterTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.EruptionTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.MoveTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.MoveTest.test2.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Game Development/Rithmomachia&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15332031&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.EncounterTest.executor": "Run",
+    "JUnit.CaptureBySiegeTest.executor": "Run",
+    "JUnit.CaptureBySiegeTest.testEdgeCase.executor": "Run",
+    "JUnit.EncounterTest.executor": "Run",
+    "JUnit.EncounterTest.testC1.executor": "Run",
+    "JUnit.EruptionTest.executor": "Run",
+    "JUnit.MoveTest.executor": "Run",
+    "JUnit.MoveTest.test2.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "main",
+    "ignore.virus.scanning.warn.message": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Game Development/Rithmomachia",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15332031",
+    "project.structure.side.proportion": "0.2",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="Rithmomachia" />
@@ -151,16 +181,29 @@
       <option name="USE_PATTERN" value="false" />
       <method v="2" />
     </configuration>
+    <configuration name="EncounterTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="rithmomachia.EncounterTest" />
+      <module name="Rithmomachia" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="rithmomachia.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="CaptureBySiegeTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Rithmomachia" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="Rithmomachia.*" />
+          <option name="PATTERN" value="rithmomachia.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="Rithmomachia" />
-      <option name="MAIN_CLASS_NAME" value="Rithmomachia.CaptureBySiegeTest" />
+      <option name="MAIN_CLASS_NAME" value="rithmomachia.CaptureBySiegeTest" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -170,13 +213,29 @@
       <module name="Rithmomachia" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="Rithmomachia.*" />
+          <option name="PATTERN" value="rithmomachia.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="Rithmomachia" />
-      <option name="MAIN_CLASS_NAME" value="Rithmomachia.CaptureBySiegeTest" />
+      <option name="MAIN_CLASS_NAME" value="rithmomachia.CaptureBySiegeTest" />
       <option name="METHOD_NAME" value="testEdgeCase" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="EncounterTest.testC1" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Rithmomachia" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="rithmomachia.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="rithmomachia" />
+      <option name="MAIN_CLASS_NAME" value="rithmomachia.EncounterTest" />
+      <option name="METHOD_NAME" value="testC1" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -186,44 +245,13 @@
       <module name="Rithmomachia" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="Rithmomachia.*" />
+          <option name="PATTERN" value="rithmomachia.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="Rithmomachia" />
-      <option name="MAIN_CLASS_NAME" value="Rithmomachia.EruptionTest" />
+      <option name="MAIN_CLASS_NAME" value="rithmomachia.EruptionTest" />
       <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="MoveTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="Rithmomachia" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="Rithmomachia.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="Rithmomachia" />
-      <option name="MAIN_CLASS_NAME" value="Rithmomachia.MoveTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="MoveTest.test2" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="Rithmomachia" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="Rithmomachia.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="Rithmomachia" />
-      <option name="MAIN_CLASS_NAME" value="Rithmomachia.MoveTest" />
-      <option name="METHOD_NAME" value="test2" />
-      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -231,10 +259,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="JUnit.EruptionTest" />
+        <item itemvalue="Application.EncounterTest" />
+        <item itemvalue="JUnit.EncounterTest.testC1" />
         <item itemvalue="JUnit.CaptureBySiegeTest" />
         <item itemvalue="JUnit.CaptureBySiegeTest.testEdgeCase" />
-        <item itemvalue="JUnit.MoveTest" />
-        <item itemvalue="JUnit.MoveTest.test2" />
       </list>
     </recent_temporary>
   </component>
@@ -276,7 +304,9 @@
       <workItem from="1742317317742" duration="2608000" />
       <workItem from="1742320129217" duration="158000" />
       <workItem from="1742328191377" duration="3913000" />
-      <workItem from="1742425742377" duration="4783000" />
+      <workItem from="1742425742377" duration="4825000" />
+      <workItem from="1742502203252" duration="4000" />
+      <workItem from="1742590304154" duration="1551000" />
     </task>
     <task id="LOCAL-00001" summary="updated the file structure to make sure all test files run">
       <option name="closed" value="true" />
@@ -358,7 +388,15 @@
       <option name="project" value="LOCAL" />
       <updated>1742334370120</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Updated geometric progressions to include any ratio, not just perfect divisors. Modified findClosestNeighbors and generateQuadruples to remove repeat function calls. Renamed internal variable in getPiecesOfColor and getAllPieces to avoid overlap with class member variables. Simplified getAllPieces">
+      <option name="closed" value="true" />
+      <created>1742486015754</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1742486015754</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -383,6 +421,7 @@
     <MESSAGE value="All victories should be coded, including glorious victories. Need tons of tests. Pyramid is currently used as sum total of remaining pieces. Amendment: Cleaned up over-imports in several classes." />
     <MESSAGE value="Added line to actually build pyramid in from string method in Board." />
     <MESSAGE value="Fixed typo in checkVictoriaMayor method. Refactored capture method. It now returns a Victory enum. Added move method that does the same. New enums added for MAGNA, MAYOR, EXCELENTISIMA, and NONE. Note, these should not be fed into the constructor since they are not predetermined and are always possible." />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed typo in checkVictoriaMayor method. Refactored capture method. It now returns a Victory enum. Added move method that does the same. New enums added for MAGNA, MAYOR, EXCELENTISIMA, and NONE. Note, these should not be fed into the constructor since they are not predetermined and are always possible." />
+    <MESSAGE value="Updated geometric progressions to include any ratio, not just perfect divisors. Modified findClosestNeighbors and generateQuadruples to remove repeat function calls. Renamed internal variable in getPiecesOfColor and getAllPieces to avoid overlap with class member variables. Simplified getAllPieces" />
+    <option name="LAST_COMMIT_MESSAGE" value="Updated geometric progressions to include any ratio, not just perfect divisors. Modified findClosestNeighbors and generateQuadruples to remove repeat function calls. Renamed internal variable in getPiecesOfColor and getAllPieces to avoid overlap with class member variables. Simplified getAllPieces" />
   </component>
 </project>
