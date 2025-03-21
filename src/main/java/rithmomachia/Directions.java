@@ -1,4 +1,4 @@
-package Rithmomachia;
+package rithmomachia;
 
 public enum Directions {
     UP,

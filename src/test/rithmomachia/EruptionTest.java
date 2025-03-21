@@ -1,4 +1,4 @@
-package Rithmomachia;
+package rithmomachia;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -22,7 +22,7 @@ public class EruptionTest {
         };
         Board board = new Board(1,4,s);
         Piece piece = board.getPiece(0,1);
-        Set<Pos> possible = piece.eruptionCapture(board);
+        Set<Pos> possible = piece.captureByEruption(board);
         String capture = toString(possible);
         Assert.assertEquals("[0,3]", capture);
     }
@@ -34,7 +34,7 @@ public class EruptionTest {
         };
         Board board = new Board(1,5,s);
         Piece piece = board.getPiece(0,1);
-        Set<Pos> possible = piece.eruptionCapture(board);
+        Set<Pos> possible = piece.captureByEruption(board);
         String capture = toString(possible);
         Assert.assertEquals("[0,4]", capture);
     }
@@ -46,7 +46,7 @@ public class EruptionTest {
         };
         Board board = new Board(1,5,s);
         Piece piece = board.getPiece(0,4);
-        Set<Pos> possible = piece.eruptionCapture(board);
+        Set<Pos> possible = piece.captureByEruption(board);
         String capture = toString(possible);
         Assert.assertEquals("[0,1]", capture);
     }
@@ -61,7 +61,7 @@ public class EruptionTest {
         };
         Board board = new Board(4,1,s);
         Piece piece = board.getPiece(1,0);
-        Set<Pos> possible = piece.eruptionCapture(board);
+        Set<Pos> possible = piece.captureByEruption(board);
         String capture = toString(possible);
         Assert.assertEquals("[3,0]", capture);
     }
@@ -76,7 +76,7 @@ public class EruptionTest {
         };
         Board board = new Board(4,1,s);
         Piece piece = board.getPiece(3,0);
-        Set<Pos> possible = piece.eruptionCapture(board);
+        Set<Pos> possible = piece.captureByEruption(board);
         String capture = toString(possible);
         Assert.assertEquals("[1,0]", capture);
     }
@@ -91,7 +91,7 @@ public class EruptionTest {
         };
         Board board = new Board(4,4,s);
         Piece piece = board.getPiece(0,0);
-        Set<Pos> possible = piece.eruptionCapture(board);
+        Set<Pos> possible = piece.captureByEruption(board);
         String capture = toString(possible);
         Assert.assertEquals("[3,3]", capture);
     }
@@ -106,7 +106,7 @@ public class EruptionTest {
         };
         Board board = new Board(4,4,s);
         Piece piece = board.getPiece(3,3);
-        Set<Pos> possible = piece.eruptionCapture(board);
+        Set<Pos> possible = piece.captureByEruption(board);
         String capture = toString(possible);
         Assert.assertEquals("[0,0]", capture);
     }
@@ -121,7 +121,7 @@ public class EruptionTest {
         };
         Board board = new Board(4,4,s);
         Piece piece = board.getPiece(0,3);
-        Set<Pos> possible = piece.eruptionCapture(board);
+        Set<Pos> possible = piece.captureByEruption(board);
         String capture = toString(possible);
         Assert.assertEquals("[3,0]", capture);
     }
@@ -136,7 +136,7 @@ public class EruptionTest {
         };
         Board board = new Board(4,4,s);
         Piece piece = board.getPiece(3,0);
-        Set<Pos> possible = piece.eruptionCapture(board);
+        Set<Pos> possible = piece.captureByEruption(board);
         String capture = toString(possible);
         Assert.assertEquals("[0,3]", capture);
     }
@@ -148,7 +148,7 @@ public class EruptionTest {
         };
         Board board = new Board(1,4,s);
         Piece piece = board.getPiece(0,1);
-        Set<Pos> possible = piece.eruptionCapture(board);
+        Set<Pos> possible = piece.captureByEruption(board);
         String capture = toString(possible);
         Assert.assertEquals("[0,3]", capture);
     }
@@ -160,7 +160,7 @@ public class EruptionTest {
         };
         Board board = new Board(1,4,s);
         Piece piece = board.getPiece(0,1);
-        Set<Pos> possible = piece.eruptionCapture(board);
+        Set<Pos> possible = piece.captureByEruption(board);
         String capture = toString(possible);
         Assert.assertEquals("[0,3]", capture);
     }
@@ -172,7 +172,7 @@ public class EruptionTest {
         };
         Board board = new Board(1,4,s);
         Piece piece = board.getPiece(0,1);
-        Set<Pos> possible = piece.eruptionCapture(board);
+        Set<Pos> possible = piece.captureByEruption(board);
         Assert.assertEquals(possible.size(), 0);
     }
 
@@ -183,7 +183,7 @@ public class EruptionTest {
         };
         Board board = new Board(1,4,s);
         Piece piece = board.getPiece(0,3);
-        Set<Pos> possible = piece.eruptionCapture(board);
+        Set<Pos> possible = piece.captureByEruption(board);
         Assert.assertEquals(possible.size(), 0);
     }
 
@@ -196,7 +196,7 @@ public class EruptionTest {
         };
         Board board = new Board(3,3,s);
         Piece piece = board.getPiece(1,1);
-        Set<Pos> possible = piece.eruptionCapture(board);
+        Set<Pos> possible = piece.captureByEruption(board);
         Assert.assertEquals(possible.size(), 8);
     }
 
@@ -209,7 +209,7 @@ public class EruptionTest {
         };
         Board board = new Board(3,3,s);
         Piece piece = board.getPiece(1,1);
-        Set<Pos> possible = piece.eruptionCapture(board);
+        Set<Pos> possible = piece.captureByEruption(board);
         Assert.assertEquals(possible.size(), 7);
     }
 
@@ -222,7 +222,7 @@ public class EruptionTest {
         };
         Board board = new Board(3,3,s);
         Piece piece = board.getPiece(1,1);
-        Set<Pos> possible = piece.eruptionCapture(board);
+        Set<Pos> possible = piece.captureByEruption(board);
         Assert.assertEquals(possible.size(), 5);
     }
 
@@ -237,7 +237,7 @@ public class EruptionTest {
         };
         Board board = new Board(5,5,s);
         Piece piece = board.getPiece(4,3);
-        Set<Pos> possible = piece.eruptionCapture(board);
+        Set<Pos> possible = piece.captureByEruption(board);
         Assert.assertEquals(possible.size(), 5);
     }
 }

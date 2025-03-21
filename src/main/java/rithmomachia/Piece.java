@@ -1,4 +1,4 @@
-package Rithmomachia;
+package rithmomachia;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -79,98 +79,93 @@ public abstract class Piece {
 
     public Set<Pos> captureBySiege(Board board) {
         Set<Pos> capturedPositions = new HashSet<>();
-        int row = this.getRow();
-        int col = this.getCol();
-        Color myColor = this.getColor();
         boolean orthogonalBlocked = true;
         boolean diagonalBlocked = true;
         // Check all four orthogonal directions
         int[][] orthogonalMoves = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
         for (int[] move : orthogonalMoves) {
-            int newRow = row + move[0];
-            int newCol = col + move[1];
+            int newRow = this.row + move[0];
+            int newCol = this.col + move[1];
             // Check if the position is valid
             if (!board.isValidPos(newRow, newCol)) {
                 orthogonalBlocked = false;  // If out of bounds, not blocked
                 continue;
             }
             Piece neighbor = board.getPiece(newRow, newCol);
-            if (neighbor == null || neighbor.getColor() == myColor) {
+            if (neighbor == null || neighbor.getColor() == this.color) {
                 orthogonalBlocked = false;  // If empty or friendly piece, not blocked
             }
         }
         // Check all four diagonal directions
         int[][] diagonalMoves = {{-1, -1}, {-1, 1}, {1, -1}, {1, 1}};
         for (int[] move : diagonalMoves) {
-            int newRow = row + move[0];
-            int newCol = col + move[1];
+            int newRow = this.row + move[0];
+            int newCol = this.col + move[1];
             if (!board.isValidPos(newRow, newCol)) {
                 diagonalBlocked = false;
                 continue;
             }
             Piece neighbor = board.getPiece(newRow, newCol);
-            if (neighbor == null || neighbor.getColor() == myColor) {
+            if (neighbor == null || neighbor.getColor() == this.color) {
                 diagonalBlocked = false;
             }
         }
         // Capture if surrounded in any one pattern (either all orthogonal or all diagonal)
         if (orthogonalBlocked || diagonalBlocked) {
-            capturedPositions.add(new Pos(row, col));
+            capturedPositions.add(new Pos(this.row, this.col));
         }
         return capturedPositions;
     }
 
 
     // What is row col? The piece's current row and col??? Do we need this??
-    public Set<Pos> encounterCapture(int row, int col, Board board) {
+    public Set<Pos> captureByEncounter(Board board) {
         Set<Pos> pp = new HashSet<>();
-        int distance = getMoveSpaces();
 
-
-        if (board.isValidPos(row + distance, col)
-                && board.contains(row + distance, col, value) && board.capturepathIsClear(row, col, row + distance, col, board) && (board.checkColor(row + distance, col, color))) {
+        if (board.isValidPos(row + moveSpaces, col)
+                && board.contains(row + moveSpaces, col, value) && board.capturepathIsClear(row, col, row + moveSpaces, col, board) && (board.checkColor(row + moveSpaces, col, color))) {
             //Scolstem.out.print("Position Conditions met");
-            pp.add(new Pos(row + distance, col));
+            pp.add(new Pos(row + moveSpaces, col));
 
         }
-        if (board.isValidPos(row - distance, col)
-                && board.contains(row - distance, col, value) && board.capturepathIsClear(row, col, row - distance, col, board) && (board.checkColor(row - distance, col, color))) {
+        if (board.isValidPos(row - moveSpaces, col)
+                && board.contains(row - moveSpaces, col, value) && board.capturepathIsClear(row, col, row - moveSpaces, col, board) && (board.checkColor(row - moveSpaces, col, color))) {
             //Scolstem.out.print("Position Conditions met");
-            pp.add(new Pos(row - distance, col));
+            pp.add(new Pos(row - moveSpaces, col));
         }
-        if (board.isValidPos(row, col + distance)
-                && board.contains(row, col + distance, value) && board.capturepathIsClear(row, col, row, col + distance, board) && (board.checkColor(row, col + distance, color))) {
+        if (board.isValidPos(row, col + moveSpaces)
+                && board.contains(row, col + moveSpaces, value) && board.capturepathIsClear(row, col, row, col + moveSpaces, board) && (board.checkColor(row, col + moveSpaces, color))) {
             //Scolstem.out.print("Position Conditions met");
-            pp.add(new Pos(row, col + distance));
+            pp.add(new Pos(row, col + moveSpaces));
         }
-        if (board.isValidPos(row, col - distance)
-                && board.contains(row, col - distance, value) && board.capturepathIsClear(row, col, row, col - distance, board) && (board.checkColor(row, col - distance, color))) {
+        if (board.isValidPos(row, col - moveSpaces)
+                && board.contains(row, col - moveSpaces, value) && board.capturepathIsClear(row, col, row, col - moveSpaces, board) && (board.checkColor(row, col - moveSpaces, color))) {
             //Scolstem.out.print("Position Conditions met");
-            pp.add(new Pos(row, col - distance));
+            pp.add(new Pos(row, col - moveSpaces));
 
         }
 
         //Diagonal Captures
 
-        if (board.isValidPos(row + distance, col + distance)
-                && board.contains(row + distance, col + distance, value) && board.capturepathIsClear(row, col, row + distance, col + distance, board) && (board.checkColor(row + distance, col + distance, color))) {
+        if (board.isValidPos(row + moveSpaces, col + moveSpaces)
+                && board.contains(row + moveSpaces, col + moveSpaces, value) && board.capturepathIsClear(row, col, row + moveSpaces, col + moveSpaces, board) && (board.checkColor(row + moveSpaces, col + moveSpaces, color))) {
             //Scolstem.out.print("Position Conditions met");
-            pp.add(new Pos(row + distance, col + distance));
+            pp.add(new Pos(row + moveSpaces, col + moveSpaces));
         }
-        if (board.isValidPos(row + distance, col - distance)
-                && board.contains(row + distance, col - distance, value) && board.capturepathIsClear(row, col, row + distance, col - distance, board) && (board.checkColor(row + distance, col - distance, color))) {
+        if (board.isValidPos(row + moveSpaces, col - moveSpaces)
+                && board.contains(row + moveSpaces, col - moveSpaces, value) && board.capturepathIsClear(row, col, row + moveSpaces, col - moveSpaces, board) && (board.checkColor(row + moveSpaces, col - moveSpaces, color))) {
             //Scolstem.out.print("Position Conditions met");
-            pp.add(new Pos(row + distance, col - distance));
+            pp.add(new Pos(row + moveSpaces, col - moveSpaces));
         }
-        if (board.isValidPos(row - distance, col + distance)
-                && board.contains(row - distance, col + distance, value) && board.capturepathIsClear(row, col, row - distance, col + distance, board) && (board.checkColor(row - distance, col + distance, color))) {
+        if (board.isValidPos(row - moveSpaces, col + moveSpaces)
+                && board.contains(row - moveSpaces, col + moveSpaces, value) && board.capturepathIsClear(row, col, row - moveSpaces, col + moveSpaces, board) && (board.checkColor(row - moveSpaces, col + moveSpaces, color))) {
             //Scolstem.out.print("Position Conditions met");
-            pp.add(new Pos(row - distance, col + distance));
+            pp.add(new Pos(row - moveSpaces, col + moveSpaces));
         }
-        if (board.isValidPos(row - distance, col - distance)
-                && board.contains(row - distance, col - distance, value) && board.capturepathIsClear(row, col, row - distance, col - distance, board) && (board.checkColor(row - distance, col - distance, color))) {
+        if (board.isValidPos(row - moveSpaces, col - moveSpaces)
+                && board.contains(row - moveSpaces, col - moveSpaces, value) && board.capturepathIsClear(row, col, row - moveSpaces, col - moveSpaces, board) && (board.checkColor(row - moveSpaces, col - moveSpaces, color))) {
             //Scolstem.out.print("Position Conditions met");
-            pp.add(new Pos(row - distance, col - distance));
+            pp.add(new Pos(row - moveSpaces, col - moveSpaces));
         }
         return pp;
     }
@@ -178,7 +173,7 @@ public abstract class Piece {
 
     // This checks for all possible eruption captures and returns as a Set of Pos.
     // If there are no captures, it will return an empty set.
-    public Set<Pos> eruptionCapture(Board board) {
+    public Set<Pos> captureByEruption(Board board) {
         Set<Pos> posECaps = new HashSet<>();
         Set<Piece> neighbors = board.findClosestNeighbors(this.row, this.col);
         if (!neighbors.isEmpty()) {

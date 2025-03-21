@@ -1,4 +1,4 @@
-package Rithmomachia;
+package rithmomachia;
 import static org.junit.Assert.assertEquals;
 
 import java.util.Set;

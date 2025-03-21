@@ -1,4 +1,4 @@
-package Rithmomachia;
+package rithmomachia;
 
 import java.util.Set;
 import java.util.HashMap;
@@ -130,7 +130,7 @@ public class Pyramid extends Piece {
     // Override that runs algorithm for each piece remaining in the Pyramid
     // Need to add way to check all values???
     // Need to create virtual piece of each type remaining in set and then run capture algorithm for each piece type for each possible value????
-    public Set<Pos> encounterCapture(int row, int col, Board board) {
+    public Set<Pos> captureByEncounter(int row, int col, Board board) {
         Set<Pos> encounters = new HashSet<>();
         Set<Integer> values = getValues();
         for (String pieceType : this.pieces.keySet()) {
@@ -139,18 +139,18 @@ public class Pyramid extends Piece {
                     case "C":
                         for (Integer value : values) {
                             Circle virtualCircle = new Circle(this.getColor(), value, row, col);
-                            encounters.addAll(virtualCircle.encounterCapture(row, col, board));
+                            encounters.addAll(virtualCircle.captureByEncounter(board));
                         }
                         break;
                     case "T":
                         for (Integer value : values) {
                             Triangle virtualTriangle = new Triangle(this.getColor(), value, row, col);
-                            encounters.addAll(virtualTriangle.encounterCapture(row, col, board));
+                            encounters.addAll(virtualTriangle.captureByEncounter(board));
                         }
                         break;
                     case "S":
                         Square squareToCheck = (Square) pieces.get(pieceType).toArray()[0];
-                        encounters.addAll(squareToCheck.encounterCapture(row, col, board));
+                        encounters.addAll(squareToCheck.captureByEncounter(board));
                         break;
                     default:
                         break;
@@ -161,11 +161,11 @@ public class Pyramid extends Piece {
     }
 
     // Override. This does not depend on piece type but will need to run over all values.
-    public Set<Pos> eruptionCapture(Board board) {
+    public Set<Pos> captureByEruption(Board board) {
         Set<Pos> eruptions = new HashSet<>();
         for (int value : this.getValues()) {
             Piece virtualPiece = new Circle(this.getColor(), value, this.getRow(), this.getCol());
-            eruptions.addAll(virtualPiece.eruptionCapture(board));
+            eruptions.addAll(virtualPiece.captureByEruption(board));
         }
         return eruptions;
     }

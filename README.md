@@ -1,2 +1,2 @@
-# Rithmomachia
-An implementation of Rithmomachia in Java.
+# rithmomachia
+An implementation of rithmomachia in Java.

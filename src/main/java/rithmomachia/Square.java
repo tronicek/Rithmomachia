@@ -1,4 +1,4 @@
-package Rithmomachia;
+package rithmomachia;
 
 public class Square extends Piece {
     public Square(Color color, int value, int row, int col) {
