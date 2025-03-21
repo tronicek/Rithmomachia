@@ -1,4 +1,4 @@
-package Rithmomachia;
+package rithmomachia;
 
 import java.util.List;
 import java.util.HashMap;

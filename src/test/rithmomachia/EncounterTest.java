@@ -1,4 +1,4 @@
-package Rithmomachia;
+package rithmomachia;
 
 import static org.junit.Assert.assertEquals;
 
@@ -27,7 +27,7 @@ public class EncounterTest {
         Board b = new Board(1, 4, s);
         b.printBoard();
         Piece p = b.getPiece(0, 1);
-        Set<Pos> pp = p.encounterCapture(0, 1, b);
+        Set<Pos> pp = p.captureByEncounter(b);
         String t = toString(pp);
         assertEquals("[0,3]", t);
         
@@ -43,7 +43,7 @@ public class EncounterTest {
         b.printBoard();
         Piece p = b.getPiece(0, 3);
         //Board.contains(0,3,5);
-        Set<Pos> pp = p.encounterCapture(0, 3, b);
+        Set<Pos> pp = p.captureByEncounter(b);
         String t = toString(pp);
         assertEquals("[0,1]", t);
     }
@@ -59,7 +59,7 @@ public class EncounterTest {
         Board b = new Board(4, 1, s);
         b.printBoard();
         Piece p = b.getPiece(1, 0);
-        Set<Pos> pp = p.encounterCapture(1, 0, b);
+        Set<Pos> pp = p.captureByEncounter(b);
         String t = toString(pp);
         assertEquals("[3,0]", t);
     }
@@ -75,7 +75,7 @@ public class EncounterTest {
         Board b = new Board(4, 1, s);
         b.printBoard();
         Piece p = b.getPiece(3, 0);
-        Set<Pos> pp = p.encounterCapture(3, 0, b);
+        Set<Pos> pp = p.captureByEncounter(b);
         String t = toString(pp);
         assertEquals("[1,0]", t);
     }
@@ -88,7 +88,7 @@ public class EncounterTest {
         Board b = new Board(1, 4, s);
         b.printBoard();
         Piece p = b.getPiece(0, 1);
-        Set<Pos> pp = p.encounterCapture(0, 1, b);
+        Set<Pos> pp = p.captureByEncounter(b);
         assertEquals(0, pp.size());
     }
 
@@ -100,7 +100,7 @@ public class EncounterTest {
         Board b = new Board(1, 4, s);
         b.printBoard();
         Piece p = b.getPiece(0, 3);
-        Set<Pos> pp = p.encounterCapture(0, 3, b);
+        Set<Pos> pp = p.captureByEncounter(b);
         assertEquals(0, pp.size());
     }
 
@@ -115,7 +115,7 @@ public class EncounterTest {
         Board b = new Board(4, 1, s);
         b.printBoard();
         Piece p = b.getPiece(1, 0);
-        Set<Pos> pp = p.encounterCapture(1, 0, b);
+        Set<Pos> pp = p.captureByEncounter(b);
         assertEquals(0, pp.size());
     }
 
@@ -130,7 +130,7 @@ public class EncounterTest {
         Board b = new Board(4, 1, s);
         b.printBoard();
         Piece p = b.getPiece(3, 0);
-        Set<Pos> pp = p.encounterCapture(3, 0, b);
+        Set<Pos> pp = p.captureByEncounter(b);
         assertEquals(0, pp.size());
     }
     
@@ -146,7 +146,7 @@ public class EncounterTest {
         Board b = new Board(3, 3, s);
         b.printBoard();
         Piece p = b.getPiece(1, 1);
-        Set<Pos> pp = p.encounterCapture(1, 1, b);
+        Set<Pos> pp = p.captureByEncounter(b);
         assertEquals(8, pp.size());
     }
     @Test
@@ -160,7 +160,7 @@ public class EncounterTest {
         Board b = new Board(3, 3, s);
         b.printBoard();
         Piece p = b.getPiece(1, 1);
-        Set<Pos> pp = p.encounterCapture(1, 1, b);
+        Set<Pos> pp = p.captureByEncounter(b);
         assertEquals(8, pp.size());
     }
     @Test
@@ -174,7 +174,7 @@ public class EncounterTest {
         Board b = new Board(3, 3, s);
         b.printBoard();
         Piece p = b.getPiece(1, 1);
-        Set<Pos> pp = p.encounterCapture(1, 1, b);
+        Set<Pos> pp = p.captureByEncounter(b);
         assertEquals(8, pp.size());
     }
     @Test
@@ -188,7 +188,7 @@ public class EncounterTest {
         Board b = new Board(3, 3, s);
         b.printBoard();
         Piece p = b.getPiece(1, 1);
-        Set<Pos> pp = p.encounterCapture(1, 1, b);
+        Set<Pos> pp = p.captureByEncounter(b);
         assertEquals(0, pp.size());
     }
     @Test
@@ -202,7 +202,7 @@ public class EncounterTest {
         Board b = new Board(3, 3, s);
         b.printBoard();
         Piece p = b.getPiece(1, 1);
-        Set<Pos> pp = p.encounterCapture(1, 1, b);
+        Set<Pos> pp = p.captureByEncounter(b);
         assertEquals(0, pp.size());
     }
     @Test
@@ -216,7 +216,7 @@ public class EncounterTest {
         Board b = new Board(3, 3, s);
         b.printBoard();
         Piece p = b.getPiece(1, 1);
-        Set<Pos> pp = p.encounterCapture(1, 1, b);
+        Set<Pos> pp = p.captureByEncounter(b);
         assertEquals(8, pp.size());
     }
     @Test
@@ -230,7 +230,7 @@ public class EncounterTest {
         Board b = new Board(3, 3, s);
         b.printBoard();
         Piece p = b.getPiece(1, 1);
-        Set<Pos> pp = p.encounterCapture(1, 1, b);
+        Set<Pos> pp = p.captureByEncounter(b);
         assertEquals(8, pp.size());
     }
     @Test
@@ -244,7 +244,7 @@ public class EncounterTest {
         Board b = new Board(3, 3, s);
         b.printBoard();
         Piece p = b.getPiece(1, 1);
-        Set<Pos> pp = p.encounterCapture(1, 1, b);
+        Set<Pos> pp = p.captureByEncounter(b);
         assertEquals(8, pp.size());
     }
     
@@ -259,7 +259,7 @@ public class EncounterTest {
         Board b = new Board(3, 3, s);
         b.printBoard();
         Piece p = b.getPiece(1, 1);
-        Set<Pos> pp = p.encounterCapture(1, 1, b);
+        Set<Pos> pp = p.captureByEncounter(b);
         assertEquals(0, pp.size());
     }
     @Test
@@ -273,7 +273,7 @@ public class EncounterTest {
         Board b = new Board(3, 3, s);
         b.printBoard();
         Piece p = b.getPiece(1, 1);
-        Set<Pos> pp = p.encounterCapture(1, 1, b);
+        Set<Pos> pp = p.captureByEncounter(b);
         assertEquals(0, pp.size());
     }
     @Test
@@ -289,7 +289,7 @@ public class EncounterTest {
         Board b = new Board(5, 5, s);
         b.printBoard();
         Piece p = b.getPiece(2, 2);
-        Set<Pos> pp = p.encounterCapture(2, 2, b);
+        Set<Pos> pp = p.captureByEncounter(b);
         assertEquals(0, pp.size());
     }
     @Test
@@ -305,7 +305,7 @@ public class EncounterTest {
         Board b = new Board(5, 5, s);
         b.printBoard();
         Piece p = b.getPiece(2, 2);
-        Set<Pos> pp = p.encounterCapture(2, 2, b);
+        Set<Pos> pp = p.captureByEncounter(b);
         assertEquals(0, pp.size());
     }
     @Test
@@ -321,7 +321,7 @@ public class EncounterTest {
         Board b = new Board(5, 5, s);
         b.printBoard();
         Piece p = b.getPiece(2, 2);
-        Set<Pos> pp = p.encounterCapture(2, 2, b);
+        Set<Pos> pp = p.captureByEncounter(b);
         assertEquals(0, pp.size());
     }
     @Test
@@ -337,7 +337,7 @@ public class EncounterTest {
         Board b = new Board(5, 5, s);
         b.printBoard();
         Piece p = b.getPiece(2, 2);
-        Set<Pos> pp = p.encounterCapture(2, 2, b);
+        Set<Pos> pp = p.captureByEncounter(b);
         assertEquals(8, pp.size());
     }
     @Test
@@ -349,7 +349,7 @@ public class EncounterTest {
         Board b = new Board(1, 1, s);
         b.printBoard();
         Piece p = b.getPiece(0, 0);
-        Set<Pos> pp = p.encounterCapture(0, 0, b);
+        Set<Pos> pp = p.captureByEncounter(b);
         assertEquals(0, pp.size());
     }
     @Test
@@ -362,7 +362,7 @@ public class EncounterTest {
         Board b = new Board(2, 2, s);
         b.printBoard();
         Piece p = b.getPiece(0, 0);
-        Set<Pos> pp = p.encounterCapture(0, 0, b);
+        Set<Pos> pp = p.captureByEncounter(b);
         assertEquals(3, pp.size());
     }
     @Test
@@ -377,7 +377,7 @@ public class EncounterTest {
         Board b = new Board(5, 5, s);
         b.printBoard();
         Piece p = b.getPiece(2, 2);
-        Set<Pos> pp = p.encounterCapture(2, 2, b);
+        Set<Pos> pp = p.captureByEncounter(b);
         assertEquals(8, pp.size());
     }
     @Test
@@ -395,7 +395,7 @@ public class EncounterTest {
         Board b = new Board(7, 7, s);
         b.printBoard();
         Piece p = b.getPiece(3, 3);
-        Set<Pos> pp = p.encounterCapture(3, 3, b);
+        Set<Pos> pp = p.captureByEncounter(b);
         assertEquals(8, pp.size());
     }
     
