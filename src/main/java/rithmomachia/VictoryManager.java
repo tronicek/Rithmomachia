@@ -70,6 +70,7 @@ public class VictoryManager {
     }
 
     // Called when a piece is moved to check for glorious victories
+    @SuppressWarnings("unused")
     public Victory move(Piece piece) {
         switch (piece.getColor()){
             case B: // If a black piece was moved
