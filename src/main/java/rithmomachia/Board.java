@@ -428,14 +428,13 @@ public class Board {
         return pieces[row][col];
     }
 
-    // This generates all tuples
+    // This generates all triples
     // Note: OUTPUT MUST BE LIST TO MAINTAIN ORDER!
-    // Just iterate through all tuples, each time one is generated, run check
-    // I'm pretty sure this doesn't produce any non-tuples...like it won't try to check any list less than 3?
-    // Have to test later.
-    public Set<List<Piece>> getTuplesForColor(Color color) {
+    // Valid shapes are straight orthogonal and diagonal lines or right angles oriented orthogonally
+    public Map<List<Piece>, TripleShape> getTriplesForColor(Color color) {
+        /* Old algorithm
         // Generate new set to return. Set contains lists of three pieces. Must return lists as order matters.
-        Set<List<Piece>> tuples = new HashSet<>();
+        Set<List<Piece>> triples = new HashSet<>();
         // Grab every piece of the color we are checking from the board.
         Set<Piece> piecesToCheck = this.getPiecesOfColor(color);
         // Pick a piece to be the first anchor
@@ -455,28 +454,110 @@ public class Board {
                     tupleCandidate.add(thirdAnchor);
                     // If that candidate is viable, add it to our set.
                     if (isViableTuple(tupleCandidate)) {
-                        tuples.add(tupleCandidate);
+                        triples.add(tupleCandidate);
                     }
                 } // continue iterating through remaining second anchors
             } // continue iterating through first anchors
         }
-        return tuples;
+        */
+
+        // New algorithm
+        // Generate new set to return. Set contains lists of three pieces. Must return lists as order matters.
+        Map<List<Piece>, TripleShape> triples = new HashMap<>();
+        // Grab every piece of the color we are checking from the board.
+        Set<Piece> piecesToCheck = this.getPiecesOfColor(color);
+        // Pick a piece to be the first anchor
+        for (Piece firstAnchor : piecesToCheck){
+            // make a new list to hold the triple
+            List<Piece> tripleCandidate1 = new ArrayList<>();
+            tripleCandidate1.add(firstAnchor);
+            int row1 = firstAnchor.getRow();
+            int col1 = firstAnchor.getCol();
+            // Find all of the first anchor's neighbors.
+            Set<Piece> firstAnchorNeighbors = findClosestNeighbors(firstAnchor.getRow(), firstAnchor.getCol());
+            // Pick second anchor piece
+            for (Piece secondAnchor : firstAnchorNeighbors){
+                tripleCandidate1.add(secondAnchor);
+                int row2 = secondAnchor.getRow();
+                int col2 = secondAnchor.getCol();
+                // Case when first two pieces are vertically aligned.
+                if (col1 == col2) {
+                    boolean isUpward = row2 < row1;
+                    // We will generate three candidates in this case. Here, we make 2 new lists that have the same first two pieces
+                    List<Piece> tripleCandidate2 = new ArrayList<>(tripleCandidate1);
+                    List<Piece> tripleCandidate3 = new ArrayList<>(tripleCandidate1);
+                    // Find the piece on the left
+                    tripleCandidate1.add(findClosestLeft(row2, col2));
+                    // Find the piece on the right
+                    tripleCandidate2.add(findClosestRight(row2, col2));
+                    // Find the piece either on top or on the bottom based on orientation.
+                    tripleCandidate3.add(isUpward ? findClosestUp(row2, col2) : findClosestDown(row2, col2));
+                    if (isViableTriple(tripleCandidate1)){
+                        triples.put(tripleCandidate1, isUpward ? TripleShape.UP_THEN_LEFT : TripleShape.DOWN_THEN_LEFT);
+                    }
+                    if (isViableTriple(tripleCandidate2)){
+                        triples.put(tripleCandidate2, isUpward ? TripleShape.UP_THEN_RIGHT : TripleShape.DOWN_THEN_RIGHT);
+                    }
+                    if (isViableTriple(tripleCandidate3)){
+                        triples.put(tripleCandidate3, isUpward ? TripleShape.UP_THEN_UP : TripleShape.DOWN_THEN_DOWN);
+                    }
+                // Case when pieces are horizontal
+                } else if (row1 == row2) {
+                    boolean isRightward = col2 > col1;
+                    // Need three cases again
+                    List<Piece> tripleCandidate2 = new ArrayList<>(tripleCandidate1);
+                    List<Piece> tripleCandidate3 = new ArrayList<>(tripleCandidate1);
+                    // Find the piece on top
+                    tripleCandidate1.add(findClosestUp(row2, col2));
+                    // Find the piece below
+                    tripleCandidate2.add(findClosestDown(row2, col2));
+                    // Find the piece on left or right based on orientation
+                    tripleCandidate3.add(isRightward ? findClosestRight(row2, col2) : findClosestLeft(row2, col2));
+                    if (isViableTriple(tripleCandidate1)){
+                        triples.put(tripleCandidate1, isRightward ? TripleShape.RIGHT_THEN_UP : TripleShape.LEFT_THEN_UP);
+                    }
+                    if (isViableTriple(tripleCandidate2)){
+                        triples.put(tripleCandidate2, isRightward ? TripleShape.RIGHT_THEN_DOWN : TripleShape.LEFT_THEN_DOWN);
+                    }
+                    if (isViableTriple(tripleCandidate3)){
+                        triples.put(tripleCandidate3, isRightward ? TripleShape.RIGHT_THEN_RIGHT : TripleShape.LEFT_THEN_LEFT);
+                    }
+                } else if (row2 < row1){
+                    // All that's left are diagonals. These are upwards.
+                    boolean isRightward = col2 > col1;
+                    tripleCandidate1.add(isRightward ? findClosestUpRight(row2, col2) : findClosestUpLeft(row2, col2));
+                    if (isViableTriple(tripleCandidate1)){
+                        triples.put(tripleCandidate1, isRightward ? TripleShape.UPRIGHT : TripleShape.UPLEFT);
+                    }
+                }else {
+                    // Downwards diagonals
+                    boolean isRightward = col2 < col1;
+                    tripleCandidate1.add(isRightward ? findClosestDownRight(row2, col2) : findClosestDownLeft(row2, col2));
+                    if (isViableTriple(tripleCandidate1)){
+                        triples.put(tripleCandidate1, isRightward ? TripleShape.DOWNRIGHT : TripleShape.DOWNLEFT);
+                    }
+                }
+            }
+        }
+        return triples;
     }
 
     // Check if candidate is viable.
-    private boolean isViableTuple(List<Piece> tupleCandidate){
-        return (isCorrectPosition(tupleCandidate)
-                && isCorrectOrder(tupleCandidate)
-                && isCorrectProportion(tupleCandidate));
+    private boolean isViableTriple(List<Piece> tripleCandidate){
+        // The only way we could have null is if no third piece is found, so I account for that here
+        return (!tripleCandidate.contains(null)
+                && isCorrectPosition(tripleCandidate)
+                && isCorrectOrder(tripleCandidate)
+                && isCorrectProportion(tripleCandidate));
     }
 
-    // Check if tuple is in enemy territory. Note: this automatically extends to quadruples.
+    // Check if triple is in enemy territory. Note: this automatically extends to quadruples.
     private boolean isCorrectPosition(List<Piece> piecesToCheck) {
         // The beginning of each enemy territory is determined when the board is built.
         int enemyStartColumn = 0;
         // initiate our variables
         boolean isCorrect = true;
-        // A tuple always starts with the current color's piece, so we grab and switch that here
+        // A triple always starts with the current color's piece, so we grab and switch that here
         switch(piecesToCheck.get(0).getColor()){
             case W:
                 enemyStartColumn = this.whiteEnemyTerritoryStartColumn;
@@ -504,9 +585,9 @@ public class Board {
         return isCorrect;
     }
 
-    // This will calculate if the tuple is correctly ordered, ie ascending or descending. Extends to quadruples.
+    // This will calculate if the triple is correctly ordered, ie ascending or descending. Extends to quadruples.
     private boolean isCorrectOrder(List<Piece> piecesToCheck) {
-        // Each tuple will be pre-vetted for order, so a quad can be checked with the last three values.
+        // Each triple will be pre-vetted for order, so a quad can be checked with the last three values.
         // These ternary statements determine that.
         int a = piecesToCheck.size() == 3 ? piecesToCheck.get(0).getValue() : piecesToCheck.get(1).getValue();
         int b = piecesToCheck.size() == 3 ? piecesToCheck.get(1).getValue() : piecesToCheck.get(2).getValue();
@@ -516,27 +597,29 @@ public class Board {
                 || (a > b && b > c));
     }
 
-    // Calculate whether the tuple is correctly proportioned. Extends to quadruples.
+    // Calculate whether the triple is correctly proportioned. Extends to quadruples.
     private boolean isCorrectProportion(List<Piece> piecesToCheck) {
-        // Calculate distance between 3 pieces. Since tuples are pre-vetted, can expand to quadruples by checking the final 3 pieces.
+        // Calculate distance between 3 pieces. Since triples are pre-vetted, can expand to quadruples by checking the final 3 pieces.
         int distance1 = piecesToCheck.size() == 3 ? distanceBetween(piecesToCheck.get(0), piecesToCheck.get(1)) : distanceBetween(piecesToCheck.get(1), piecesToCheck.get(2));
         int distance2 = piecesToCheck.size() == 3 ? distanceBetween(piecesToCheck.get(1), piecesToCheck.get(2)) : distanceBetween(piecesToCheck.get(2), piecesToCheck.get(3));
         return distance1 == distance2;
     }
 
+
+    // Current allowed quadruple shapes are straight orthogonal and diagonal lines or boxes oriented orthogonally.
     public Set<List<Piece>> getQuadruplesForColor(Color color) {
-        Set<List<Piece>> quadruples = new HashSet<>();
-        Set<List<Piece>> tuples = this.getTuplesForColor(color);
+        /*Set<List<Piece>> quadruples = new HashSet<>();
+        Set<List<Piece>> triples = this.getTriplesForColor(color);
         Map<List<Piece>, List<Directions>> tupleSearchMap = new HashMap<>();
         // Do more stuff here.
-        for (List<Piece> tuple : tuples) {
+        for (List<Piece> triple : triples) {
             List<Directions> directionsToSearch = new ArrayList<>();
-            int row1 = tuple.get(0).getRow();
-            int col1 = tuple.get(0).getCol();
-            int row2 = tuple.get(1).getRow();
-            int col2 = tuple.get(1).getCol();
-            int row3 = tuple.get(2).getRow();
-            int col3 = tuple.get(2).getCol();
+            int row1 = triple.get(0).getRow();
+            int col1 = triple.get(0).getCol();
+            int row2 = triple.get(1).getRow();
+            int col2 = triple.get(1).getCol();
+            int row3 = triple.get(2).getRow();
+            int col3 = triple.get(2).getCol();
             // Orthogonal or diagonal straight line
             if ((row1 == row2 && row2 == row3)
                     || (col1 == col2 && col2 == col3)
@@ -679,22 +762,74 @@ public class Board {
                     directionsToSearch.add(Directions.DOWNRIGHT);
                 }
             }
-            tupleSearchMap.put(tuple, directionsToSearch);
+            tupleSearchMap.put(triple, directionsToSearch);
         }
         quadruples = this.generateQuadruples(tupleSearchMap);
+        return quadruples;*/
+        // New code starts here. Now, we have mapped a triple to a shape, so we know which direction to get the forth piece.
+        Set<List<Piece>> quadruples = new HashSet<>();
+        Map<List<Piece>, TripleShape> triples = this.getTriplesForColor(color);
+        for (List<Piece> triple : triples.keySet()) {
+            int row = triple.get(2).getRow();
+            int col = triple.get(2).getCol();
+            // Build a new list off the current list of pieces
+            List<Piece> quadrupleCandidate = new ArrayList<>(triple);
+            switch (triples.get(triple)) {
+                case UP_THEN_LEFT:
+                case UP_THEN_RIGHT:
+                case DOWN_THEN_DOWN:
+                    quadrupleCandidate.add(findClosestDown(row, col));
+                    break;
+                case DOWN_THEN_LEFT:
+                case DOWN_THEN_RIGHT:
+                case UP_THEN_UP:
+                    quadrupleCandidate.add(findClosestUp(row, col));
+                    break;
+                case RIGHT_THEN_UP:
+                case RIGHT_THEN_DOWN:
+                case LEFT_THEN_LEFT:
+                    quadrupleCandidate.add(findClosestLeft(row, col));
+                    break;
+                case LEFT_THEN_UP:
+                case LEFT_THEN_DOWN:
+                case RIGHT_THEN_RIGHT:
+                    quadrupleCandidate.add(findClosestRight(row, col));
+                    break;
+                case UPLEFT:
+                    quadrupleCandidate.add(findClosestUpLeft(row, col));
+                    break;
+                case UPRIGHT:
+                    quadrupleCandidate.add(findClosestUpRight(row, col));
+                    break;
+                case DOWNLEFT:
+                    quadrupleCandidate.add(findClosestDownLeft(row, col));
+                    break;
+                case DOWNRIGHT:
+                    quadrupleCandidate.add(findClosestDownRight(row, col));
+                    break;
+                default:
+                    quadrupleCandidate.add(null);
+                    break;
+            }
+            if (isViableTriple(quadrupleCandidate.subList(1, quadrupleCandidate.size()))){
+                quadruples.add(quadrupleCandidate);
+            }
+        }
         return quadruples;
     }
 
-    // Ok, so, this takes the map that maps viable tuples to end directions to search and returns viable quadruple candidates
-    private Set<List<Piece>> generateQuadruples(Map<List<Piece>, List<Directions>> tuples) {
+
+    /* This method is not needed anymore
+    // Ok, so, this takes the map that maps viable triples to end directions to search and returns viable quadruple candidates
+    private Set<List<Piece>> generateQuadruples(Map<List<Piece>, List<Directions>> triples) {
         Set<List<Piece>> quadruples = new HashSet<>();
         // Loop through all the keys
-        for (List<Piece> pieces : tuples.keySet()) {
+        for (List<Piece> pieces : triples.keySet()) {
             // We want to look starting from the end piece
             Piece endPiece = pieces.get(2);
             // We shoot rays in the appropriate directions for each end piece.
             // If we find a neighbor, we make and test a quadruple, then add it to the viable candidate list if it is viable
-            for (Directions directions : tuples.get(pieces)) {
+            for (Directions directions : triples.get(pieces)) {
                 List<Piece> quadrupleCandidate = new ArrayList<>();
                 quadrupleCandidate.addAll(pieces);
                 switch (directions) {
@@ -749,11 +884,11 @@ public class Board {
                     default:
                         break;
                 }
-                if (quadrupleCandidate.size() == 4 && isViableTuple(quadrupleCandidate)) {
+                if (quadrupleCandidate.size() == 4 && isViableTriple(quadrupleCandidate)) {
                     quadruples.add(quadrupleCandidate);
                 }
             }
         }
         return quadruples;
-    }
+    }*/
 }

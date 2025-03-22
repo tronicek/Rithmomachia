@@ -154,11 +154,11 @@ public class VictoryManager {
     // Requires only 3 pieces in one of the progressions
     private boolean checkVictoriaMagna(Color colorToCheck) {
         // Pull the set of valid tuples from the board
-        Set<List<Piece>> tuplesToCheck = board.getTuplesForColor(colorToCheck);
+        Set<List<Piece>> triplesToCheck = board.getTriplesForColor(colorToCheck).keySet();
         // Loop through each list of pieces in the tuple
-        for (List<Piece> pieces : tuplesToCheck) {
+        for (List<Piece> pieces : triplesToCheck) {
             // Sort each tuple and assign the values to integers
-            List<Integer> sortedPieceValues = this.sortTuple(pieces);
+            List<Integer> sortedPieceValues = this.sortTriple(pieces);
             int a = sortedPieceValues.get(0);
             int b = sortedPieceValues.get(1);
             int c = sortedPieceValues.get(2);
@@ -176,7 +176,7 @@ public class VictoryManager {
     private boolean checkVictoriaMayor(Color colorToCheck) {
         Set<List<Piece>> quadruplesToCheck = board.getQuadruplesForColor(colorToCheck);
         for (List<Piece> pieces : quadruplesToCheck) {
-            List<Integer> sortedPieceValues = this.sortTuple(pieces);
+            List<Integer> sortedPieceValues = this.sortTriple(pieces);
             int a = sortedPieceValues.get(0);
             int b = sortedPieceValues.get(1);
             int c = sortedPieceValues.get(2);
@@ -211,7 +211,7 @@ public class VictoryManager {
     private boolean checkVictoriaExcelentisma(Color colorToCheck) {
         Set<List<Piece>> quadruplesToCheck = board.getQuadruplesForColor(colorToCheck);
         for (List<Piece> pieces : quadruplesToCheck) {
-            List<Integer> sortedPieceValues = this.sortTuple(pieces);
+            List<Integer> sortedPieceValues = this.sortTriple(pieces);
             int a = sortedPieceValues.get(0);
             int b = sortedPieceValues.get(1);
             int c = sortedPieceValues.get(2);
@@ -272,14 +272,11 @@ public class VictoryManager {
     private boolean isHarmonicProgression(int a, int b, int c){
         // given ints a<b<c, harmonic if (c-b)/(b-a) = c/a
         // or b = (2ac)/(a+c)
-        if ((2*a*c)%(a+c) != 0){
-            return false;
-        }
-        return b == (2*a*c)/(a+c);
+        return Math.abs(b - (2*a*c)/(a+c)) < 0.00001;
     }
 
     // This takes a tuple and returns it as a list of sorted integers. This makes it easier for victory checks.
-    private List<Integer> sortTuple(List<Piece> pieces){
+    private List<Integer> sortTriple(List<Piece> pieces){
         List<Integer> sortedValues = new ArrayList<>();
         pieces.forEach(piece -> sortedValues.add(piece.getValue()));
         Collections.sort(sortedValues);
