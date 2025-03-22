@@ -8,13 +8,13 @@ import java.util.Collections;
 
 public class VictoryManager {
 
-    private Board board;
-    private HashMap<String, Integer> whiteCaptures;
-    private HashMap<String, Integer> blackCaptures;
-    private Victory victory;
-    private int bodiesGoal;
-    private int digitsGoal;
-    private int valueGoal;
+    private final Board board;
+    private final HashMap<String, Integer> whiteCaptures;
+    private final HashMap<String, Integer> blackCaptures;
+    private final Victory victory;
+    private final int bodiesGoal;
+    private final int digitsGoal;
+    private final int valueGoal;
 
     // Please construct with appropriate values or -1 if that value is not being used.
     public VictoryManager(Board board, Victory victory, int numBodies, int numDigits, int value) {
@@ -143,13 +143,10 @@ public class VictoryManager {
         return colorToCheck == Color.B ? blackCaptures.get("value") >= valueGoal : whiteCaptures.get("value") >= valueGoal;
     }
 
-    // Glorious victory involves making a arithmetic, geometric, or harmonic progression with a certain number of pieces
+    // Glorious victory involves making an arithmetic, geometric, or harmonic progression with a certain number of pieces
     // May include enemy pieces but must have one of your own pieces on one end
     // May be straight line, angle, or box as long as proportional distance between men and no obstruction between men
     // Must be positioned in enemy territory: spaces forward from your own first row
-    private boolean checkGloriousVictories(Color colorToCheck) {
-        return false;
-    }
 
     // Requires only 3 pieces in one of the progressions
     private boolean checkVictoriaMagna(Color colorToCheck) {
@@ -208,6 +205,7 @@ public class VictoryManager {
     // An unfathomable amount of combinatorics, but I think this covers everything
     // There are 4 different arrangements of [a, b, c, d] that can be put into each of three different progressions.
     // So fundamental theorem of counting says the total is 4*3*2 = 24
+    @SuppressWarnings("DuplicatedCode")
     private boolean checkVictoriaExcelentisma(Color colorToCheck) {
         Set<List<Piece>> quadruplesToCheck = board.getQuadruplesForColor(colorToCheck);
         for (List<Piece> pieces : quadruplesToCheck) {
