@@ -250,12 +250,6 @@ public class VictoryManager {
         return false;
     }
 
-    // What to feed and return? Do we run this per piece? Run per entire board??
-    // Perhaps feed it a set of 3 pieces/values. So each piece would need to find its next
-    // 2 proportional neighbors in sequence. So start at first anchor, move to next anchor, find remaining anchor??
-    // If we start at checkVictoriaMagna, for example, we know what color we need to check and only need to run for
-    // all white pieces, for example. Then check black after black moves. From what I understand, the player who last moved
-    // can get the victory at the end of their turn.
     private boolean isArithmeticProgression(int a, int b, int c){
         // given ints a<b<c, arithmetic if b-1 = c-b => 2b = c-1 ????? Typo??
         // Should be c-b = b-a or b = (c-a)/2
@@ -282,6 +276,3 @@ public class VictoryManager {
         return sortedValues;
     }
 }
-
-// Board has a victory tracker? Victory tracker has a board??
-// Board has capture function?

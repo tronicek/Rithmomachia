@@ -13,7 +13,7 @@ public class Board {
     private int blackEnemyTerritoryStartColumn;
     private int whiteEnemyTerritoryStartColumn;
     private Piece[][] pieces;
-    private VictoryManager victoryManager;
+    private final VictoryManager victoryManager;
 
     public Board(int numRows, int numCols, String[] str) {
         initBoard(numRows,numCols);
@@ -232,7 +232,7 @@ public class Board {
         return allPieces;
     }
 
-    // Rewrote this to remove double method calls. Basically, add everything to the set even if it is null
+    // Rewrote this to remove double method calls. Basically, add everything to the set even if it is null.
     // null can only be added to the HashSet once. At the end, just call to remove null.
     // If null is in the set, it is now gone. Otherwise, it just ignores the remove command and proceeds anyways.
     public Set<Piece> findClosestNeighbors(int row, int col){
@@ -356,7 +356,7 @@ public class Board {
         return true;
     }
 
-    public boolean capturepathIsClear(int rowStart, int colStart, int rowEnd, int colEnd, Board board) {
+    public boolean capturePathIsClear(int rowStart, int colStart, int rowEnd, int colEnd, Board board) {
         // Determine the direction of movement
         int dRow = Integer.signum(rowEnd - rowStart); // Direction along rows
         int dCol = Integer.signum(colEnd - colStart); // Direction along cols
@@ -371,8 +371,6 @@ public class Board {
                 return false; // Path is blocked by another piece
             }
         }
-
-
         // If all squares are empty and the target square is not occupied, the path is clear
         return true;
     }
@@ -432,36 +430,6 @@ public class Board {
     // Note: OUTPUT MUST BE LIST TO MAINTAIN ORDER!
     // Valid shapes are straight orthogonal and diagonal lines or right angles oriented orthogonally
     public Map<List<Piece>, TripleShape> getTriplesForColor(Color color) {
-        /* Old algorithm
-        // Generate new set to return. Set contains lists of three pieces. Must return lists as order matters.
-        Set<List<Piece>> triples = new HashSet<>();
-        // Grab every piece of the color we are checking from the board.
-        Set<Piece> piecesToCheck = this.getPiecesOfColor(color);
-        // Pick a piece to be the first anchor
-        for (Piece firstAnchor : piecesToCheck) {
-            // Find all of the first anchor's neighbors.
-            Set<Piece> firstAnchorNeighbors = findClosestNeighbors(firstAnchor.getRow(), firstAnchor.getCol());
-            // Pick a piece to be the second anchor.
-            for (Piece secondAnchor : firstAnchorNeighbors) {
-                // Find all of the second anchor's neighbors.
-                Set<Piece> secondAnchorNeighbors = findClosestNeighbors(secondAnchor.getRow(), secondAnchor.getCol());
-                // Iterate over each of the third anchors
-                for (Piece thirdAnchor : secondAnchorNeighbors) {
-                    // Add the candidate to a new list.
-                    List<Piece> tupleCandidate = new ArrayList<>();
-                    tupleCandidate.add(firstAnchor);
-                    tupleCandidate.add(secondAnchor);
-                    tupleCandidate.add(thirdAnchor);
-                    // If that candidate is viable, add it to our set.
-                    if (isViableTuple(tupleCandidate)) {
-                        triples.add(tupleCandidate);
-                    }
-                } // continue iterating through remaining second anchors
-            } // continue iterating through first anchors
-        }
-        */
-
-        // New algorithm
         // Generate new set to return. Set contains lists of three pieces. Must return lists as order matters.
         Map<List<Piece>, TripleShape> triples = new HashMap<>();
         // Grab every piece of the color we are checking from the board.
@@ -606,165 +574,7 @@ public class Board {
 
     // Current allowed quadruple shapes are straight orthogonal and diagonal lines or boxes oriented orthogonally.
     public Set<List<Piece>> getQuadruplesForColor(Color color) {
-        /*Set<List<Piece>> quadruples = new HashSet<>();
-        Set<List<Piece>> triples = this.getTriplesForColor(color);
-        Map<List<Piece>, List<Directions>> tupleSearchMap = new HashMap<>();
-        // Do more stuff here.
-        for (List<Piece> triple : triples) {
-            List<Directions> directionsToSearch = new ArrayList<>();
-            int row1 = triple.get(0).getRow();
-            int col1 = triple.get(0).getCol();
-            int row2 = triple.get(1).getRow();
-            int col2 = triple.get(1).getCol();
-            int row3 = triple.get(2).getRow();
-            int col3 = triple.get(2).getCol();
-            // Orthogonal or diagonal straight line
-            if ((row1 == row2 && row2 == row3)
-                    || (col1 == col2 && col2 == col3)
-                    || (row1 < row2 && row2 < row3 && col1 < col2 && col2 < col3)
-                    || (row1 > row2 && row2 > row3 && col1 > col2 && col2 > col3)
-                    || (row1 < row2 && row2 < row3 && col1 > col2 && col2 > col3)
-                    || (row1 > row2 && row2 > row3 && col1 < col2 && col2 < col3))
-            {
-                directionsToSearch.add(Directions.UP);
-                directionsToSearch.add(Directions.DOWN);
-                directionsToSearch.add(Directions.LEFT);
-                directionsToSearch.add(Directions.RIGHT);
-                directionsToSearch.add(Directions.UPLEFT);
-                directionsToSearch.add(Directions.UPRIGHT);
-                directionsToSearch.add(Directions.DOWNLEFT);
-                directionsToSearch.add(Directions.DOWNRIGHT);
-            // Piece two is directly above piece 1
-            } else if (col1 == col2 && row1 > row2) {
-                // Piece 3 is left/right of Piece 1
-                if (row3 == row1) {
-                    // Determine which way angle is pointing.
-                    directionsToSearch.add(col3 < col2 ? Directions.DOWNLEFT : Directions.DOWNRIGHT);
-                // Piece 3 is left/right of piece2
-                } else if (row3 == row2) {
-                    directionsToSearch.add(Directions.DOWN);
-                    directionsToSearch.add(col3 < col2 ? Directions.LEFT : Directions.RIGHT);
-                // piece 3 is diagonally up from piece 2
-                } else {
-                    // Only need to search in one direction
-                    directionsToSearch.add(col3 < col2 ? Directions.UPLEFT : Directions.UPRIGHT);
-                }
-            // piece 2 is diagonally up-left from piece 1
-            } else if (col1 > col2 && row1 > row2) {
-                // piece 3 is below piece 2
-                if (col3 == col2 && row3 == row1) {
-                    directionsToSearch.add(Directions.DOWN);
-                // ^ shaped
-                } else if (row3 == row1 && col3 < col2) {
-                    directionsToSearch.add(Directions.DOWNLEFT);
-                    directionsToSearch.add(Directions.DOWNRIGHT);
-                // Piece 3 is either directly left or right of piece 2
-                } else if (row3 == row2) {
-                    directionsToSearch.add(col3 < col2 ? Directions.LEFT : Directions.RIGHT);
-                // Piece 3 is above piece 2
-                } else if (col3 == col2) {
-                    directionsToSearch.add(Directions.UP);
-                // < shaped
-                } else {
-                    directionsToSearch.add(Directions.UPRIGHT);
-                    directionsToSearch.add(Directions.DOWNLEFT);
-                }
-            // Piece 2 is immediately left of Piece 1
-            } else if(row2 == row1 && col2 < col1) {
-                // Piece 3 is under or above Piece 1
-                if (col3 == col1) {
-                    directionsToSearch.add(row3 > row1 ? Directions.DOWNRIGHT : Directions.UPLEFT);
-                    // Piece 3 is above or below piece 2
-                } else if (col3 == col2) {
-                    directionsToSearch.add(Directions.RIGHT);
-                    directionsToSearch.add(row3 < row2 ? Directions.UP : Directions.DOWN);
-                    // Piece 3 is diagonally up or down from piece 3
-                } else if (col3 < col2) {
-                    directionsToSearch.add(row3 < row2 ? Directions.UPLEFT : Directions.DOWNLEFT);
-                }
-            // Piece 2 is diagonally down left of piece 1
-            } else if (row2 > row1 && col2 < col1) {
-                // Piece 3 directly above or below piece 2
-                if (col3 == col2) {
-                    directionsToSearch.add(row3< row2 ? Directions.UP : Directions.DOWN);
-                // v shaped
-                } else if (col3 < col2 && row3 < row1) {
-                    directionsToSearch.add(Directions.UPLEFT);
-                    directionsToSearch.add(Directions.UPRIGHT);
-                // Piece 3 is left or right of piece 2
-                } else if (row3 == row2) {
-                    directionsToSearch.add(col3 < col2 ? Directions.LEFT : Directions.RIGHT);
-                // < shaped
-                } else if (col3 == col1){
-                    directionsToSearch.add(Directions.UPRIGHT);
-                    directionsToSearch.add(Directions.DOWNRIGHT);
-                }
-                // piece 2 is directly below piece 1
-            } else if (col2 == col1) {
-                // Piece 3 is left/right of piece 1
-                if (row3 == row1){
-                    directionsToSearch.add(col3 < col1 ? Directions.UPRIGHT : Directions.UPLEFT);
-                // Piece 3 is left/right of piece 2
-                } else if (row3 == row2){
-                    directionsToSearch.add(Directions.UP);
-                    directionsToSearch.add(col3 < col2 ? Directions.LEFT : Directions.RIGHT);
-                // Piece 3Diagonally down-left/right from piece 2
-                } else {
-                    directionsToSearch.add(col3 < col2 ? Directions.DOWNLEFT : Directions.DOWNRIGHT);
-                }
-            // piece 2 diagonally downright of piece 1
-            } else if (row2 > row1) {
-                // Piece 3 above or below piece 2
-                if (col3 == col2) {
-                    directionsToSearch.add(row3 < row2 ? Directions.UP: Directions.DOWN);
-                // v shaped
-                } else if (row3 == row1) {
-                    directionsToSearch.add(Directions.UPLEFT);
-                    directionsToSearch.add(Directions.UPRIGHT);
-                // piece 3 left or right of piece 2
-                } else if (row3 == row2) {
-                    directionsToSearch.add(col3<col2 ? Directions.LEFT : Directions.RIGHT);
-                // > shaped
-                } else{
-                    directionsToSearch.add(Directions.UPLEFT);
-                    directionsToSearch.add(Directions.DOWNRIGHT);
-                }
-            // Piece 2 right of piece 1
-            } else if (row2 == row1) {
-                // Piece 3 above or below piece 1
-                if (col3==col1){
-                    directionsToSearch.add(row3 < row1 ? Directions.UPLEFT : Directions.DOWNRIGHT);
-                // Piece 3 above or below piece 2
-                }else if (col3 == col2){
-                    directionsToSearch.add(Directions.LEFT);
-                    directionsToSearch.add(row3 < row2 ? Directions.UP : Directions.DOWN);
-                // obtuse angle
-                }else{
-                    directionsToSearch.add(row3 < row2 ? Directions.UPRIGHT : Directions.DOWNRIGHT);
-                }
-            // Piece 2 up-right of piece 1
-            } else {
-                // Piece 3 is left or right of piece 2
-                if (row3 == row2) {
-                    directionsToSearch.add(col3<col2 ? Directions.LEFT : Directions.RIGHT);
-                // > shaped
-                } else if (col3 == col1){
-                    directionsToSearch.add(Directions.UPLEFT);
-                    directionsToSearch.add(Directions.DOWNLEFT);
-                // piece 3 above or below piece 2
-                } else if (col3 == col2) {
-                    directionsToSearch.add(row3 < row2 ? Directions.UP : Directions.DOWN);
-                // ^ shaped
-                } else{
-                    directionsToSearch.add(Directions.DOWNLEFT);
-                    directionsToSearch.add(Directions.DOWNRIGHT);
-                }
-            }
-            tupleSearchMap.put(triple, directionsToSearch);
-        }
-        quadruples = this.generateQuadruples(tupleSearchMap);
-        return quadruples;*/
-        // New code starts here. Now, we have mapped a triple to a shape, so we know which direction to get the forth piece.
+        // Now, we have mapped a triple to a shape, so we know which direction to get the forth piece.
         Set<List<Piece>> quadruples = new HashSet<>();
         Map<List<Piece>, TripleShape> triples = this.getTriplesForColor(color);
         for (List<Piece> triple : triples.keySet()) {
@@ -818,78 +628,4 @@ public class Board {
         }
         return quadruples;
     }
-
-
-    /* This method is not needed anymore
-    // Ok, so, this takes the map that maps viable triples to end directions to search and returns viable quadruple candidates
-    private Set<List<Piece>> generateQuadruples(Map<List<Piece>, List<Directions>> triples) {
-        Set<List<Piece>> quadruples = new HashSet<>();
-        // Loop through all the keys
-        for (List<Piece> pieces : triples.keySet()) {
-            // We want to look starting from the end piece
-            Piece endPiece = pieces.get(2);
-            // We shoot rays in the appropriate directions for each end piece.
-            // If we find a neighbor, we make and test a quadruple, then add it to the viable candidate list if it is viable
-            for (Directions directions : triples.get(pieces)) {
-                List<Piece> quadrupleCandidate = new ArrayList<>();
-                quadrupleCandidate.addAll(pieces);
-                switch (directions) {
-                    case UPLEFT:
-                        Piece pUL = this.findClosestUpLeft(endPiece.getRow(), endPiece.getCol());
-                        if (pUL != null) {
-                            quadrupleCandidate.add(pUL);
-                        }
-                        break;
-                    case UPRIGHT:
-                        Piece pUR = this.findClosestUpRight(endPiece.getRow(), endPiece.getCol());
-                        if (pUR != null) {
-                            quadrupleCandidate.add(pUR);
-                        }
-                        break;
-                    case DOWNLEFT:
-                        Piece pDL = this.findClosestDownLeft(endPiece.getRow(), endPiece.getCol());
-                        if (pDL != null) {
-                            quadrupleCandidate.add(pDL);
-                        }
-                        break;
-                    case DOWNRIGHT:
-                        Piece pDR = this.findClosestDownRight(endPiece.getRow(), endPiece.getCol());
-                        if (pDR != null) {
-                            quadrupleCandidate.add(pDR);
-                        }
-                        break;
-                    case LEFT:
-                        Piece pL = this.findClosestLeft(endPiece.getRow(), endPiece.getCol());
-                        if (pL != null) {
-                            quadrupleCandidate.add(pL);
-                        }
-                        break;
-                    case RIGHT:
-                        Piece pR = this.findClosestRight(endPiece.getRow(), endPiece.getCol());
-                        if (pR != null) {
-                            quadrupleCandidate.add(pR);
-                        }
-                        break;
-                    case UP:
-                        Piece pU = this.findClosestUp(endPiece.getRow(), endPiece.getCol());
-                        if (pU != null) {
-                            quadrupleCandidate.add(pU);
-                        }
-                        break;
-                    case DOWN:
-                        Piece pD = this.findClosestDown(endPiece.getRow(), endPiece.getCol());
-                        if (pD != null) {
-                            quadrupleCandidate.add(pD);
-                        }
-                        break;
-                    default:
-                        break;
-                }
-                if (quadrupleCandidate.size() == 4 && isViableTriple(quadrupleCandidate)) {
-                    quadruples.add(quadrupleCandidate);
-                }
-            }
-        }
-        return quadruples;
-    }*/
 }

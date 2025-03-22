@@ -123,23 +123,23 @@ public abstract class Piece {
         Set<Pos> pp = new HashSet<>();
 
         if (board.isValidPos(row + moveSpaces, col)
-                && board.contains(row + moveSpaces, col, value) && board.capturepathIsClear(row, col, row + moveSpaces, col, board) && (board.checkColor(row + moveSpaces, col, color))) {
+                && board.contains(row + moveSpaces, col, value) && board.capturePathIsClear(row, col, row + moveSpaces, col, board) && (board.checkColor(row + moveSpaces, col, color))) {
             //Scolstem.out.print("Position Conditions met");
             pp.add(new Pos(row + moveSpaces, col));
 
         }
         if (board.isValidPos(row - moveSpaces, col)
-                && board.contains(row - moveSpaces, col, value) && board.capturepathIsClear(row, col, row - moveSpaces, col, board) && (board.checkColor(row - moveSpaces, col, color))) {
+                && board.contains(row - moveSpaces, col, value) && board.capturePathIsClear(row, col, row - moveSpaces, col, board) && (board.checkColor(row - moveSpaces, col, color))) {
             //Scolstem.out.print("Position Conditions met");
             pp.add(new Pos(row - moveSpaces, col));
         }
         if (board.isValidPos(row, col + moveSpaces)
-                && board.contains(row, col + moveSpaces, value) && board.capturepathIsClear(row, col, row, col + moveSpaces, board) && (board.checkColor(row, col + moveSpaces, color))) {
+                && board.contains(row, col + moveSpaces, value) && board.capturePathIsClear(row, col, row, col + moveSpaces, board) && (board.checkColor(row, col + moveSpaces, color))) {
             //Scolstem.out.print("Position Conditions met");
             pp.add(new Pos(row, col + moveSpaces));
         }
         if (board.isValidPos(row, col - moveSpaces)
-                && board.contains(row, col - moveSpaces, value) && board.capturepathIsClear(row, col, row, col - moveSpaces, board) && (board.checkColor(row, col - moveSpaces, color))) {
+                && board.contains(row, col - moveSpaces, value) && board.capturePathIsClear(row, col, row, col - moveSpaces, board) && (board.checkColor(row, col - moveSpaces, color))) {
             //Scolstem.out.print("Position Conditions met");
             pp.add(new Pos(row, col - moveSpaces));
 
@@ -148,22 +148,22 @@ public abstract class Piece {
         //Diagonal Captures
 
         if (board.isValidPos(row + moveSpaces, col + moveSpaces)
-                && board.contains(row + moveSpaces, col + moveSpaces, value) && board.capturepathIsClear(row, col, row + moveSpaces, col + moveSpaces, board) && (board.checkColor(row + moveSpaces, col + moveSpaces, color))) {
+                && board.contains(row + moveSpaces, col + moveSpaces, value) && board.capturePathIsClear(row, col, row + moveSpaces, col + moveSpaces, board) && (board.checkColor(row + moveSpaces, col + moveSpaces, color))) {
             //Scolstem.out.print("Position Conditions met");
             pp.add(new Pos(row + moveSpaces, col + moveSpaces));
         }
         if (board.isValidPos(row + moveSpaces, col - moveSpaces)
-                && board.contains(row + moveSpaces, col - moveSpaces, value) && board.capturepathIsClear(row, col, row + moveSpaces, col - moveSpaces, board) && (board.checkColor(row + moveSpaces, col - moveSpaces, color))) {
+                && board.contains(row + moveSpaces, col - moveSpaces, value) && board.capturePathIsClear(row, col, row + moveSpaces, col - moveSpaces, board) && (board.checkColor(row + moveSpaces, col - moveSpaces, color))) {
             //Scolstem.out.print("Position Conditions met");
             pp.add(new Pos(row + moveSpaces, col - moveSpaces));
         }
         if (board.isValidPos(row - moveSpaces, col + moveSpaces)
-                && board.contains(row - moveSpaces, col + moveSpaces, value) && board.capturepathIsClear(row, col, row - moveSpaces, col + moveSpaces, board) && (board.checkColor(row - moveSpaces, col + moveSpaces, color))) {
+                && board.contains(row - moveSpaces, col + moveSpaces, value) && board.capturePathIsClear(row, col, row - moveSpaces, col + moveSpaces, board) && (board.checkColor(row - moveSpaces, col + moveSpaces, color))) {
             //Scolstem.out.print("Position Conditions met");
             pp.add(new Pos(row - moveSpaces, col + moveSpaces));
         }
         if (board.isValidPos(row - moveSpaces, col - moveSpaces)
-                && board.contains(row - moveSpaces, col - moveSpaces, value) && board.capturepathIsClear(row, col, row - moveSpaces, col - moveSpaces, board) && (board.checkColor(row - moveSpaces, col - moveSpaces, color))) {
+                && board.contains(row - moveSpaces, col - moveSpaces, value) && board.capturePathIsClear(row, col, row - moveSpaces, col - moveSpaces, board) && (board.checkColor(row - moveSpaces, col - moveSpaces, color))) {
             //Scolstem.out.print("Position Conditions met");
             pp.add(new Pos(row - moveSpaces, col - moveSpaces));
         }
