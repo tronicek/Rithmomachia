@@ -4,11 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f18874f0-d025-429a-8473-c7dcfd72c00d" name="Changes" comment="Renamed package to &quot;rithmomachia&quot; (lowercase). Class Move: &quot;x&quot; and &quot;y&quot; variable names changed to &quot;row&quot; and &quot;col&quot; respectively. All member variables made final. Class Piece: removed variables row, col, and myColor from captureBySiege; they are unnecessary as Piece can obtain these variables without method calls as they are member variables. Same for encounterCapture. encounterCapture renamed to captureByEncounter and row, col variables removed as unneeded. eruptionCapture renamed to captureByEruption.">
-      <change afterPath="$PROJECT_DIR$/src/main/java/rithmomachia/TripleShape.java" afterDir="false" />
+    <list default="true" id="f18874f0-d025-429a-8473-c7dcfd72c00d" name="Changes" comment="All instances of &quot;tuple&quot; renamed to &quot;triple&quot;. Major overhaul to triple and quadruple generating algorithm based on revised rule sets. Triples and quadruples may be straight orthogonal or diagonal lines. Additionally, triples may be right angles oriented orthogonally and quadruples may be boxes oriented orthogonally. No other shapes allowed. New enum TripleShapes created. Enum Directions is now unused. getTriplesByColor() now returns a HashMap of ArrayList&lt;Piece&gt; mapped to TripleShape.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/rithmomachia/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/rithmomachia/Board.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/rithmomachia/VictoryManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/rithmomachia/VictoryManager.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -278,7 +276,8 @@
       <workItem from="1742425742377" duration="4825000" />
       <workItem from="1742502203252" duration="4000" />
       <workItem from="1742590304154" duration="2096000" />
-      <workItem from="1742592500337" duration="9961000" />
+      <workItem from="1742592500337" duration="10005000" />
+      <workItem from="1742646524730" duration="378000" />
     </task>
     <task id="LOCAL-00001" summary="updated the file structure to make sure all test files run">
       <option name="closed" value="true" />
@@ -384,7 +383,15 @@
       <option name="project" value="LOCAL" />
       <updated>1742592356864</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="All instances of &quot;tuple&quot; renamed to &quot;triple&quot;. Major overhaul to triple and quadruple generating algorithm based on revised rule sets. Triples and quadruples may be straight orthogonal or diagonal lines. Additionally, triples may be right angles oriented orthogonally and quadruples may be boxes oriented orthogonally. No other shapes allowed. New enum TripleShapes created. Enum Directions is now unused. getTriplesByColor() now returns a HashMap of ArrayList&lt;Piece&gt; mapped to TripleShape.">
+      <option name="closed" value="true" />
+      <created>1742610349056</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1742610349056</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -412,6 +419,7 @@
     <MESSAGE value="Updated geometric progressions to include any ratio, not just perfect divisors. Modified findClosestNeighbors and generateQuadruples to remove repeat function calls. Renamed internal variable in getPiecesOfColor and getAllPieces to avoid overlap with class member variables. Simplified getAllPieces" />
     <MESSAGE value="Renamed package to &quot;rithmomachia&quot; (lowercase). Class Move: &quot;x&quot; and &quot;y&quot; variable names changed to &quot;row&quot; and &quot;col&quot; respectively. Class Piece: removed variables row, col, and myColor from captureBySiege; they are unnecessary as Piece can obtain these variables without method calls as they are member variables. Same for encounterCapture. encounterCapture renamed to captureByEncounter and row, col variables removed as unneeded. eruptionCapture renamed to captureByEruption" />
     <MESSAGE value="Renamed package to &quot;rithmomachia&quot; (lowercase). Class Move: &quot;x&quot; and &quot;y&quot; variable names changed to &quot;row&quot; and &quot;col&quot; respectively. All member variables made final. Class Piece: removed variables row, col, and myColor from captureBySiege; they are unnecessary as Piece can obtain these variables without method calls as they are member variables. Same for encounterCapture. encounterCapture renamed to captureByEncounter and row, col variables removed as unneeded. eruptionCapture renamed to captureByEruption." />
-    <option name="LAST_COMMIT_MESSAGE" value="Renamed package to &quot;rithmomachia&quot; (lowercase). Class Move: &quot;x&quot; and &quot;y&quot; variable names changed to &quot;row&quot; and &quot;col&quot; respectively. All member variables made final. Class Piece: removed variables row, col, and myColor from captureBySiege; they are unnecessary as Piece can obtain these variables without method calls as they are member variables. Same for encounterCapture. encounterCapture renamed to captureByEncounter and row, col variables removed as unneeded. eruptionCapture renamed to captureByEruption." />
+    <MESSAGE value="All instances of &quot;tuple&quot; renamed to &quot;triple&quot;. Major overhaul to triple and quadruple generating algorithm based on revised rule sets. Triples and quadruples may be straight orthogonal or diagonal lines. Additionally, triples may be right angles oriented orthogonally and quadruples may be boxes oriented orthogonally. No other shapes allowed. New enum TripleShapes created. Enum Directions is now unused. getTriplesByColor() now returns a HashMap of ArrayList&lt;Piece&gt; mapped to TripleShape." />
+    <option name="LAST_COMMIT_MESSAGE" value="All instances of &quot;tuple&quot; renamed to &quot;triple&quot;. Major overhaul to triple and quadruple generating algorithm based on revised rule sets. Triples and quadruples may be straight orthogonal or diagonal lines. Additionally, triples may be right angles oriented orthogonally and quadruples may be boxes oriented orthogonally. No other shapes allowed. New enum TripleShapes created. Enum Directions is now unused. getTriplesByColor() now returns a HashMap of ArrayList&lt;Piece&gt; mapped to TripleShape." />
   </component>
 </project>

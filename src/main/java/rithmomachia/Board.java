@@ -546,13 +546,13 @@ public class Board {
     private boolean isViableTriple(List<Piece> tripleCandidate){
         // The only way we could have null is if no third piece is found, so I account for that here
         return (!tripleCandidate.contains(null)
-                && isCorrectPosition(tripleCandidate)
-                && isCorrectOrder(tripleCandidate)
-                && isCorrectProportion(tripleCandidate));
+                && isTripleCorrectPosition(tripleCandidate)
+                && isTripleCorrectOrder(tripleCandidate)
+                && isTripleCorrectProportion(tripleCandidate));
     }
 
     // Check if triple is in enemy territory. Note: this automatically extends to quadruples.
-    private boolean isCorrectPosition(List<Piece> piecesToCheck) {
+    private boolean isTripleCorrectPosition(List<Piece> piecesToCheck) {
         // The beginning of each enemy territory is determined when the board is built.
         int enemyStartColumn = 0;
         // initiate our variables
@@ -585,23 +585,21 @@ public class Board {
         return isCorrect;
     }
 
-    // This will calculate if the triple is correctly ordered, ie ascending or descending. Extends to quadruples.
-    private boolean isCorrectOrder(List<Piece> piecesToCheck) {
-        // Each triple will be pre-vetted for order, so a quad can be checked with the last three values.
-        // These ternary statements determine that.
-        int a = piecesToCheck.size() == 3 ? piecesToCheck.get(0).getValue() : piecesToCheck.get(1).getValue();
-        int b = piecesToCheck.size() == 3 ? piecesToCheck.get(1).getValue() : piecesToCheck.get(2).getValue();
-        int c = piecesToCheck.size() == 3 ? piecesToCheck.get(2).getValue() : piecesToCheck.get(3).getValue();
+    // This will calculate if the triple is correctly ordered, ie ascending or descending.
+    private boolean isTripleCorrectOrder(List<Piece> piecesToCheck) {
+        int a = piecesToCheck.get(0).getValue();
+        int b = piecesToCheck.get(1).getValue();
+        int c = piecesToCheck.get(2).getValue();
         // Only true if values are strictly increasing or strictly decreasing.
         return ((a < b && b < c)
                 || (a > b && b > c));
     }
 
-    // Calculate whether the triple is correctly proportioned. Extends to quadruples.
-    private boolean isCorrectProportion(List<Piece> piecesToCheck) {
-        // Calculate distance between 3 pieces. Since triples are pre-vetted, can expand to quadruples by checking the final 3 pieces.
-        int distance1 = piecesToCheck.size() == 3 ? distanceBetween(piecesToCheck.get(0), piecesToCheck.get(1)) : distanceBetween(piecesToCheck.get(1), piecesToCheck.get(2));
-        int distance2 = piecesToCheck.size() == 3 ? distanceBetween(piecesToCheck.get(1), piecesToCheck.get(2)) : distanceBetween(piecesToCheck.get(2), piecesToCheck.get(3));
+    // Calculate whether the triple is correctly proportioned.
+    private boolean isTripleCorrectProportion(List<Piece> piecesToCheck) {
+        // Calculate distance between 3 pieces.
+        int distance1 = distanceBetween(piecesToCheck.get(0), piecesToCheck.get(1));
+        int distance2 = distanceBetween(piecesToCheck.get(1), piecesToCheck.get(2));
         return distance1 == distance2;
     }
 
@@ -811,6 +809,9 @@ public class Board {
                     quadrupleCandidate.add(null);
                     break;
             }
+            // This feeds a sublist consisting of the last three pieces in the new quadruple.
+            // For a quadruple, the final three pieces must by definition also be a valid triple.
+            // Since triples are pre-validated, we can validate the quadruple by checking only the final 3 pieces.
             if (isViableTriple(quadrupleCandidate.subList(1, quadrupleCandidate.size()))){
                 quadruples.add(quadrupleCandidate);
             }
