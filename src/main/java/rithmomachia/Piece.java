@@ -179,20 +179,23 @@ public abstract class Piece {
         if (!neighbors.isEmpty()) {
             for (Piece piece : neighbors) {
                 if (piece.color != this.color) {
-                    int totalSquares = 2;
-                    int numRows = Math.abs(piece.row - this.row);
-                    int numCols = Math.abs(piece.col - this.col);
-                    if (numRows == 0)
-                        totalSquares = numCols + 1;
-                    else
-                        totalSquares = numRows + 1;
-                    int divValue = 0;
-                    if (this.value % totalSquares == 0) {
-                        divValue = this.value / totalSquares;
-                    }
-                    int multValue = this.value * totalSquares;
-                    if (multValue == piece.value || divValue == piece.value) {
-                        posECaps.add(new Pos(piece.row, piece.col));
+                    Set<Piece> pieceAsSet = piece.getPieceAsSet();
+                    for (Piece setPiece : pieceAsSet) {
+                        int totalSquares = 2;
+                        int numRows = Math.abs(piece.row - this.row);
+                        int numCols = Math.abs(piece.col - this.col);
+                        if (numRows == 0)
+                            totalSquares = numCols + 1;
+                        else
+                            totalSquares = numRows + 1;
+                        int divValue = 0;
+                        if (this.value % totalSquares == 0) {
+                            divValue = this.value / totalSquares;
+                        }
+                        int multValue = this.value * totalSquares;
+                        if (multValue == piece.value || divValue == piece.value) {
+                            posECaps.add(new Pos(piece.row, piece.col));
+                        }
                     }
                 }
             }
@@ -280,6 +283,12 @@ public abstract class Piece {
 
     void setCol(int newCol) {
         this.col = newCol;
+    }
+
+    public Set<Piece> getPieceAsSet(){
+        Set<Piece> pieceAsSet = new HashSet<>();
+        pieceAsSet.add(this);
+        return pieceAsSet;
     }
 
     public String nullToString() {

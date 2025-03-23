@@ -7,6 +7,7 @@ import java.util.HashSet;
 public class Pyramid extends Piece {
 
     private int currentValue;
+    private int completeValue;
     private int remainingTotalValue;
     private String currentShape;
     private final HashMap<String, HashSet<Piece>> pieces;
@@ -25,6 +26,7 @@ public class Pyramid extends Piece {
         this.isComplete = true;
         // Crunch CSV string to build all pieces here
         this.pieces = buildPyramid(pyramidPieces);
+        this.completeValue = this.remainingTotalValue;
     }
 
     private HashMap<String, HashSet<Piece>> buildPyramid(String pyramidString) {
@@ -66,20 +68,22 @@ public class Pyramid extends Piece {
 
     private Set<Integer> getValues() {
         Set<Integer> values = new HashSet<Integer>();
-        for (Piece piece : getPiecesAsSet()) {
+        for (Piece piece : getPyramidAsSet()) {
             values.add(piece.getValue());
         }
-        if (this.isComplete) {
-            int totalValue = 0;
-            for (Piece piece : getPiecesAsSet()) {
-                totalValue += piece.getValue();
-            }
-            values.add(totalValue);
-        }
+        values.add(this.remainingTotalValue);
         return values;
     }
 
-    public Set<Piece> getPiecesAsSet() {
+    private Set<Integer> getValuesForMakingCaptures(){
+        Set<Integer> valuesForMakingCaptures = this.getValues();
+        if (this.isComplete) {
+            valuesForMakingCaptures.add(this.completeValue);
+        }
+        return valuesForMakingCaptures;
+    }
+
+    private Set<Piece> getPyramidAsSet() {
         Set<Piece> piecesSet = new HashSet<>();
         for (String pieceType : this.pieces.keySet()) {
             piecesSet.addAll(this.pieces.get(pieceType));
@@ -133,7 +137,7 @@ public class Pyramid extends Piece {
     // Need to create virtual piece of each type remaining in set and then run capture algorithm for each piece type for each possible value????
     public Set<Pos> captureByEncounter(int row, int col, Board board) {
         Set<Pos> encounters = new HashSet<>();
-        Set<Integer> values = getValues();
+        Set<Integer> values = getValuesForMakingCaptures();
         for (String pieceType : this.pieces.keySet()) {
             if (!pieces.get(pieceType).isEmpty()) {
                 switch (pieceType) {
@@ -164,7 +168,7 @@ public class Pyramid extends Piece {
     // Override. This does not depend on piece type but will need to run over all values.
     public Set<Pos> captureByEruption(Board board) {
         Set<Pos> eruptions = new HashSet<>();
-        for (int value : this.getValues()) {
+        for (int value : this.getValuesForMakingCaptures()) {
             Piece virtualPiece = new Circle(this.getColor(), value, this.getRow(), this.getCol());
             eruptions.addAll(virtualPiece.captureByEruption(board));
         }
@@ -175,7 +179,7 @@ public class Pyramid extends Piece {
     public String toString() {
         StringBuilder pieceString = new StringBuilder(); // Create new StringBuilder
         pieceString.append(this.getColor()).append("P:"); // Start string with color and piece type indicator
-        for (Piece piece : this.getPiecesAsSet()) { // Loop through remaining pieces as set
+        for (Piece piece : this.getPyramidAsSet()) { // Loop through remaining pieces as set
             pieceString.append(" ").append(piece.toString()).append(","); // Add current piece's string representation to the builder
         }
         pieceString.deleteCharAt(pieceString.length() - 1); // Remove trailing comma
@@ -187,6 +191,9 @@ public class Pyramid extends Piece {
         return isComplete;
     }
 
+    public Set<Piece> getPieceAsSet() {
+        return this.getPyramidAsSet();
+    }
 
     // Will need to override deceipt
     // Other big problem: How to handle Pyramid BEING captured because it can be whole value, even if not complete
