@@ -36,15 +36,16 @@ public class Pyramid extends Piece {
         for (String piece : pyramidPieces) {
             switch (piece.substring(0, 1)) {
                 case "C":
-                    circles.add(new Circle(this.getColor(), this.getRow(), this.getCol(), Integer.parseInt(piece.substring(1))));
+
+                    circles.add(new Circle(this.getColor(), Integer.parseInt(piece.substring(1)), this.getRow(), this.getCol()));
                     this.remainingTotalValue += Integer.parseInt(piece.substring(1));
                     break;
                 case "T":
-                    triangles.add(new Triangle(this.getColor(), this.getRow(), this.getCol(), Integer.parseInt(piece.substring(1))));
+                    triangles.add(new Triangle(this.getColor(), Integer.parseInt(piece.substring(1)), this.getRow(), this.getCol()));
                     this.remainingTotalValue += Integer.parseInt(piece.substring(1));
                     break;
                 case "S":
-                    squares.add(new Square(this.getColor(), this.getRow(), this.getCol(), Integer.parseInt(piece.substring(1))));
+                    squares.add(new Square(this.getColor(), Integer.parseInt(piece.substring(1)), this.getRow(), this.getCol()));
                     this.remainingTotalValue += Integer.parseInt(piece.substring(1));
                     break;
                 default:
@@ -185,6 +186,7 @@ public class Pyramid extends Piece {
     public boolean isComplete() {
         return isComplete;
     }
+
 
     // Will need to override deceipt
     // Other big problem: How to handle Pyramid BEING captured because it can be whole value, even if not complete

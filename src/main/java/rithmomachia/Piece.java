@@ -289,5 +289,4 @@ public abstract class Piece {
     public String toString() {
         return String.format("%s%s%d", color, shape, value);
     }
-
 }

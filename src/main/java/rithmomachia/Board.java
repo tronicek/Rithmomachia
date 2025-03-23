@@ -52,26 +52,33 @@ public class Board {
     }
 
     private Piece fromString(String s, int row, int col) {
+        if (s.charAt(0) == 'P') {
+            Color pyramidColor = s.charAt(2) == 'W' ? Color.W : Color.B;
+            return new Pyramid(pyramidColor, row, col, s);
+        }
+
         if (s.charAt(0) == '-') {
             return null;
         }
+
         Color c = Color.W;
-        switch(s.charAt(0)) {
-            case 'B' :
+        switch (s.charAt(0)) {
+            case 'B':
                 c = Color.B;
-                if (col <= this.blackEnemyTerritoryStartColumn){
-                    this.blackEnemyTerritoryStartColumn = col -1;
+                if (col <= this.blackEnemyTerritoryStartColumn) {
+                    this.blackEnemyTerritoryStartColumn = col - 1;
                 }
                 break;
-            case 'W' :
+            case 'W':
                 c = Color.W;
-                if (row >= this.whiteEnemyTerritoryStartColumn){
-                    this.whiteEnemyTerritoryStartColumn = col+1;
+                if (row >= this.whiteEnemyTerritoryStartColumn) {
+                    this.whiteEnemyTerritoryStartColumn = col + 1;
                 }
                 break;
             default:
                 throw new AssertionError();
         }
+
         int value = Integer.valueOf(s.substring(2));
         // Need to build Pyramid too. Need to update enemy Territory start.
         switch (s.charAt(1)) {
@@ -81,12 +88,12 @@ public class Board {
                 return new Square(c, value, row, col);
             case 'T':
                 return new Triangle(c, value, row, col);
-            case 'P':
-                return new Pyramid(c, row, col, s);
             default:
                 throw new AssertionError();
         }
     }
+
+
 
 
 
