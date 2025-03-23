@@ -135,7 +135,7 @@ public class Pyramid extends Piece {
     // Override that runs algorithm for each piece remaining in the Pyramid
     // Need to add way to check all values???
     // Need to create virtual piece of each type remaining in set and then run capture algorithm for each piece type for each possible value????
-    public Set<Pos> captureByEncounter(int row, int col, Board board) {
+    public Set<Pos> captureByEncounter(Board board) {
         Set<Pos> encounters = new HashSet<>();
         Set<Integer> values = getValuesForMakingCaptures();
         for (String pieceType : this.pieces.keySet()) {
@@ -143,19 +143,21 @@ public class Pyramid extends Piece {
                 switch (pieceType) {
                     case "C":
                         for (Integer value : values) {
-                            Circle virtualCircle = new Circle(this.getColor(), value, row, col);
+                            Circle virtualCircle = new Circle(this.getColor(), value, this.getRow(), this.getCol());
                             encounters.addAll(virtualCircle.captureByEncounter(board));
                         }
                         break;
                     case "T":
                         for (Integer value : values) {
-                            Triangle virtualTriangle = new Triangle(this.getColor(), value, row, col);
+                            Triangle virtualTriangle = new Triangle(this.getColor(), value, this.getRow(), this.getCol());
                             encounters.addAll(virtualTriangle.captureByEncounter(board));
                         }
                         break;
                     case "S":
-                        Square squareToCheck = (Square) pieces.get(pieceType).toArray()[0];
-                        encounters.addAll(squareToCheck.captureByEncounter(board));
+                        for (Integer value : values) {
+                            Square virtualSquare = new Square(this.getColor(), value, this.getRow(), this.getCol());
+                            encounters.addAll(virtualSquare.captureByEncounter(board));
+                        }
                         break;
                     default:
                         break;

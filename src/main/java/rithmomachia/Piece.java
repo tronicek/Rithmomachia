@@ -119,6 +119,23 @@ public abstract class Piece {
 
 
     // What is row col? The piece's current row and col??? Do we need this??
+    // Have to rework this so it can capture pyramids as either a whole or a part.
+    // Thought:
+    //  Set<Pos> pp = new HashSet<>();
+    //  board.findClosestNeighbors(this.row, this.col);
+    //      for (Piece neighbor : board.findClosestNeighbors(this.row, this.col)){
+    //          for(Piece pieceInSet : neighbor.getPieceAsSet){
+    //              int neighborRow = pieceInSet.getRow();
+    //              int neighborCol = pieceInSet.getCol();
+    //              if (board.distanceBetween(this, pieceInSet) == this.moveSpaces + 1
+    //                  && board.checkColor(neighborRow, neighborCol, this.color)
+    //                  && this.value == pieceInSet.getValue()){
+    //                      pp.add(new Pos(pieceInSet.getRow(), pieceInSet.getCol()));
+    //              }
+    //          }
+    //      }
+    //  return pp;
+    // That's it. That's the function.
     public Set<Pos> captureByEncounter(Board board) {
         Set<Pos> pp = new HashSet<>();
 
@@ -182,8 +199,8 @@ public abstract class Piece {
                     Set<Piece> pieceAsSet = piece.getPieceAsSet();
                     for (Piece setPiece : pieceAsSet) {
                         int totalSquares = 2;
-                        int numRows = Math.abs(piece.row - this.row);
-                        int numCols = Math.abs(piece.col - this.col);
+                        int numRows = Math.abs(setPiece.row - this.row);
+                        int numCols = Math.abs(setPiece.col - this.col);
                         if (numRows == 0)
                             totalSquares = numCols + 1;
                         else
@@ -193,8 +210,8 @@ public abstract class Piece {
                             divValue = this.value / totalSquares;
                         }
                         int multValue = this.value * totalSquares;
-                        if (multValue == piece.value || divValue == piece.value) {
-                            posECaps.add(new Pos(piece.row, piece.col));
+                        if (multValue == setPiece.value || divValue == setPiece.value) {
+                            posECaps.add(new Pos(setPiece.row, setPiece.col));
                         }
                     }
                 }
