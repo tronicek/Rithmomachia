@@ -65,17 +65,15 @@
 		.game-controls {
 		    position: absolute;
 		    top: 20px;
-		    /* Position relative to the right side of the viewport */
-		    right: calc(85px + 40px); /* White pyramid width (85px) + extra margin (40px) */
-		    left: auto; /* Remove left positioning */
+		    right: 20px; /* Fixed distance from right edge */
 		    display: flex;
 		    flex-direction: row;
 		    gap: 10px;
 		    z-index: 100;
-		    /* Calculate max width to stay between title and white pyramid */
-		    max-width: calc(100% - 350px - 200px - 85px); /* 100% - title width - title position offset - white pyramid width */
+		    /* Limit width to prevent extending past white-pyramid */
+		    max-width: calc(100% - 350px - 200px); /* 100% - title width - spacing */
 		    flex-wrap: wrap;
-		    justify-content: flex-end; /* Align to right (toward white pyramid) */
+		    justify-content: flex-end;
 		    align-items: center;
 		}
 
