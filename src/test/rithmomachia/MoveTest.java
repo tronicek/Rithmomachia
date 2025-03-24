@@ -23,7 +23,7 @@ public class MoveTest {
         System.out.print("Test 1\n");
         b.printBoard();
         Piece p = b.getPiece(3, 3);
-        Set<Move> pp = p.findMoves(3, 3, b);
+        Set<Move> pp = p.findMoves(b);
         assertEquals(8, pp.size());
     }
     
@@ -42,7 +42,7 @@ public class MoveTest {
         System.out.print("Test 2\n");
         b.printBoard();
         Piece p = b.getPiece(3, 3);
-        Set<Move> pp = p.findMoves(3, 3, b);
+        Set<Move> pp = p.findMoves(b);
         assertEquals(12, pp.size());
     }
     
@@ -62,7 +62,7 @@ public class MoveTest {
         System.out.print("Test 3\n");
         b.printBoard();
         Piece p = b.getPiece(3, 3);
-        Set<Move> pp = p.findMoves(3, 3, b);
+        Set<Move> pp = p.findMoves(b);
         assertEquals(8, pp.size());
     }
 
@@ -82,7 +82,7 @@ public class MoveTest {
         System.out.print("Test 4\n");
         b.printBoard();
         Piece p = b.getPiece(3, 3);
-        Set<Move> pp = p.findMoves(3, 3, b);
+        Set<Move> pp = p.findMoves(b);
         assertEquals(28, pp.size());
     }
 
@@ -102,7 +102,7 @@ public class MoveTest {
         System.out.print("Test 5\n");
         b.printBoard();
         Piece p = b.getPiece(3, 3);
-        Set<Move> pp = p.findMoves(3, 3, b);
+        Set<Move> pp = p.findMoves(b);
         assertEquals(12, pp.size());
     }
 
@@ -122,7 +122,7 @@ public class MoveTest {
         System.out.print("Test 6\n");
         b.printBoard();
         Piece p = b.getPiece(3, 3);
-        Set<Move> pp = p.findMoves(3, 3, b);
+        Set<Move> pp = p.findMoves(b);
         assertEquals(8, pp.size());
     }
 
@@ -142,7 +142,7 @@ public class MoveTest {
         System.out.print("Test 7\n");
         b.printBoard();
         Piece p = b.getPiece(3, 3);
-        Set<Move> pp = p.findMoves(3, 3, b);
+        Set<Move> pp = p.findMoves(b);
         assertEquals(8, pp.size());
     }
 
@@ -162,7 +162,7 @@ public class MoveTest {
         System.out.print("Test 8\n");
         b.printBoard();
         Piece p = b.getPiece(3, 3);
-        Set<Move> pp = p.findMoves(3, 3, b);
+        Set<Move> pp = p.findMoves(b);
         assertEquals(20, pp.size());
     }
 
@@ -182,7 +182,7 @@ public class MoveTest {
         System.out.print("Test 9\n");
         b.printBoard();
         Piece p = b.getPiece(3, 3);
-        Set<Move> pp = p.findMoves(3, 3, b);
+        Set<Move> pp = p.findMoves(b);
         assertEquals(16, pp.size());
     }
     

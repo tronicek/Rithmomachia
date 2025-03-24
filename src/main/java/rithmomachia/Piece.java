@@ -23,53 +23,53 @@ public abstract class Piece {
     }
 
     // What is row col? The piece's current row and col??? Do we need this??
-    public Set<Move> findMoves(int row, int col, Board board) {
+    public Set<Move> findMoves(Board board) {
         Set<Move> mm = new HashSet<>();
         int distance = getMoveSpaces();
 
         // Horizontal and vertical moves (distance squares)
-        if (board.isValidPos(row + distance, col) && board.pathIsClear(row, col, row + distance, col, board)) {
-            mm.add(new Move(row, col, row + distance, col));
+        if (board.isValidPos(this.row + distance, this.col) && board.pathIsClear(this.row, this.col, this.row + distance, this.col, board)) {
+            mm.add(new Move(this.row, this.col, this.row + distance, this.col));
         }
-        if (board.isValidPos(row - distance, col) && board.pathIsClear(row, col, row - distance, col, board)) {
-            mm.add(new Move(row, col, row - distance, col));
+        if (board.isValidPos(this.row - distance, this.col) && board.pathIsClear(this.row, this.col, this.row - distance, this.col, board)) {
+            mm.add(new Move(this.row, this.col, this.row - distance, this.col));
         }
-        if (board.isValidPos(row, col + distance) && board.pathIsClear(row, col, row, col + distance, board)) {
-            mm.add(new Move(row, col, row, col + distance));
+        if (board.isValidPos(this.row, this.col + distance) && board.pathIsClear(this.row, this.col, this.row, this.col + distance, board)) {
+            mm.add(new Move(this.row, this.col, this.row, this.col + distance));
         }
-        if (board.isValidPos(row, col - distance) && board.pathIsClear(row, col, row, col - distance, board)) {
-            mm.add(new Move(row, col, row, col - distance));
+        if (board.isValidPos(this.row, this.col - distance) && board.pathIsClear(this.row, this.col, this.row, this.col - distance, board)) {
+            mm.add(new Move(this.row, this.col, this.row, this.col - distance));
         }
 
         // Diagonal moves (distance squares)
-        if (board.isValidPos(row + distance, col + distance) && board.pathIsClear(row, col, row + distance, col + distance, board)) {
-            mm.add(new Move(row, col, row + distance, col + distance));
+        if (board.isValidPos(this.row + distance, this.col + distance) && board.pathIsClear(this.row, this.col, this.row + distance, this.col + distance, board)) {
+            mm.add(new Move(this.row, this.col, this.row + distance, this.col + distance));
         }
-        if (board.isValidPos(row + distance, col - distance) && board.pathIsClear(row, col, row + distance, col - distance, board)) {
-            mm.add(new Move(row, col, row + distance, col - distance));
+        if (board.isValidPos(this.row + distance, this.col - distance) && board.pathIsClear(this.row, this.col, this.row + distance, this.col - distance, board)) {
+            mm.add(new Move(this.row, this.col, this.row + distance, this.col - distance));
         }
-        if (board.isValidPos(row - distance, col + distance) && board.pathIsClear(row, col, row - distance, col + distance, board)) {
-            mm.add(new Move(row, col, row - distance, col + distance));
+        if (board.isValidPos(this.row - distance, this.col + distance) && board.pathIsClear(this.row, this.col, this.row - distance, this.col + distance, board)) {
+            mm.add(new Move(this.row, this.col, this.row - distance, this.col + distance));
         }
-        if (board.isValidPos(row - distance, col - distance) && board.pathIsClear(row, col, row - distance, col - distance, board)) {
-            mm.add(new Move(row, col, row - distance, col - distance));
+        if (board.isValidPos(this.row - distance, this.col - distance) && board.pathIsClear(this.row, this.col, this.row - distance, this.col - distance, board)) {
+            mm.add(new Move(this.row, this.col, this.row - distance, this.col - distance));
         }
 
         // Knight-like moves
 
         if (getMoveSpaces() == 2) {
 
-            if (board.isValidPos(row + 2, col + 1) && board.isEmpty(row + 2, col + 1)) {
-                mm.add(new Move(row, col, row + 2, col + 1));
+            if (board.isValidPos(this.row + 2, this.col + 1) && board.isEmpty(this.row + 2, this.col + 1)) {
+                mm.add(new Move(this.row, this.col, this.row + 2, this.col + 1));
             }
-            if (board.isValidPos(row + 2, col - 1) && board.isEmpty(row + 2, col - 1)) {
-                mm.add(new Move(row, col, row + 2, col - 1));
+            if (board.isValidPos(this.row + 2, this.col - 1) && board.isEmpty(this.row + 2, this.col - 1)) {
+                mm.add(new Move(this.row, this.col, this.row + 2, this.col - 1));
             }
-            if (board.isValidPos(row - 2, col + 1) && board.isEmpty(row - 2, col + 1)) {
-                mm.add(new Move(row, col, row - 2, col + 1));
+            if (board.isValidPos(this.row - 2, this.col + 1) && board.isEmpty(this.row - 2, this.col + 1)) {
+                mm.add(new Move(this.row, this.col, this.row - 2, this.col + 1));
             }
-            if (board.isValidPos(row - 2, col - 1) && board.isEmpty(row - 2, col - 1)) {
-                mm.add(new Move(row, col, row - 2, col - 1));
+            if (board.isValidPos(this.row - 2, this.col - 1) && board.isEmpty(this.row - 2, this.col - 1)) {
+                mm.add(new Move(this.row, this.col, this.row - 2, this.col - 1));
             }
 
         }
