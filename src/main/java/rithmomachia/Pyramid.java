@@ -38,7 +38,6 @@ public class Pyramid extends Piece {
         for (String piece : pyramidPieces) {
             switch (piece.substring(0, 1)) {
                 case "C":
-
                     circles.add(new Circle(this.getColor(), Integer.parseInt(piece.substring(1)), this.getRow(), this.getCol()));
                     this.remainingTotalValue += Integer.parseInt(piece.substring(1));
                     break;
@@ -107,21 +106,21 @@ public class Pyramid extends Piece {
 
     // Override for findMoves. Loops through all remaining pieces, should run max three times,
     // Passes loop if none of the remaining piece type exists
-    public Set<Move> findMoves(int row, int col, Board board) {
+    public Set<Move> findMoves(Board board) {
         Set<Move> moves = new HashSet<>();
         for (String pieceType : this.pieces.keySet()) {
             if (!pieces.get(pieceType).isEmpty()) {
                 switch (pieceType) {
                     case "C":
-                        Circle circleToCheck = (Circle) pieces.get(pieceType).toArray()[0];
+                        Circle circleToCheck = new Circle(this.getColor(), 1, this.getRow(), this.getCol());
                         moves.addAll(circleToCheck.findMoves(board));
                         break;
                     case "T":
-                        Triangle triangleToCheck = (Triangle) pieces.get(pieceType).toArray()[0];
+                        Triangle triangleToCheck = new Triangle(this.getColor(), 1, this.getRow(), this.getCol());
                         moves.addAll(triangleToCheck.findMoves(board));
                         break;
                     case "S":
-                        Square squareToCheck = (Square) pieces.get(pieceType).toArray()[0];
+                        Square squareToCheck = new Square (this.getColor(), 1, this.getRow(), this.getCol());
                         moves.addAll(squareToCheck.findMoves(board));
                         break;
                     default:
