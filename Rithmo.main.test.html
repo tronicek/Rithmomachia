@@ -65,18 +65,15 @@
 		.game-controls {
 		    position: absolute;
 		    top: 20px;
-		    left: 2.5%;
+		    left: 390px; /* Position right after the title (350px width + 20px padding on both sides) */
 		    display: flex;
 		    flex-direction: row;
 		    gap: 10px;
 		    z-index: 100;
-		    /* Calculate width to stay between left edge and title */
-		    max-width: calc(350px - 85px); /* Title width (350px) minus the black-pyramid width (85px) */
+		    max-width: calc(100% - 390px - 105px); /* Subtract title position (390px) and white-pyramid width (85px) plus 20px margin */
 		    flex-wrap: wrap;
-		    justify-content: flex-start;
+		    justify-content: flex-start; /* Align from the start (right after title) */
 		    align-items: center;
-		    /* Ensure it doesn't overlap with the title */
-		    margin-right: 20px; /* Add some space between controls and title */
 		}
 
 		.game-container {
