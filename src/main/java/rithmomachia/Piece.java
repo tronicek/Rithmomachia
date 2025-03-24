@@ -128,7 +128,7 @@ public abstract class Piece {
     //              int neighborRow = pieceInSet.getRow();
     //              int neighborCol = pieceInSet.getCol();
     //              if (board.distanceBetween(this, pieceInSet) == this.moveSpaces + 1
-    //                  && board.checkColor(neighborRow, neighborCol, this.color)
+    //                  && this.color != pieceInSet.getColor()
     //                  && this.value == pieceInSet.getValue()){
     //                      pp.add(new Pos(pieceInSet.getRow(), pieceInSet.getCol()));
     //              }
