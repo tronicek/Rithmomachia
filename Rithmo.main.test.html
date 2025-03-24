@@ -65,12 +65,11 @@
 		.game-controls {
 		    position: absolute;
 		    top: 20px;
-		    right: 20px; /* Fixed distance from right edge */
+		    right: 125px; /* 85px (white-pyramid width) + 40px margin */
 		    display: flex;
 		    flex-direction: row;
 		    gap: 10px;
 		    z-index: 100;
-		    /* Limit width to prevent extending past white-pyramid */
 		    max-width: calc(100% - 350px - 200px); /* 100% - title width - spacing */
 		    flex-wrap: wrap;
 		    justify-content: flex-end;
