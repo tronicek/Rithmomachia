@@ -243,6 +243,118 @@ public abstract class Piece {
     }
 
     */
+
+    public Set<Pos> capturebyDeceit(Board board) {
+        Set<Pos> posDCaps = new HashSet<>();
+        if(board.isValidPos(row,col + 1) && board.isValidPos(row,col + 2)) {
+            if(board.getPiece(row,col + 1) != null && board.getPiece(row,col + 2) != null) {
+                Piece piece = board.getPiece(row,col + 1);
+                Piece piece2 = board.getPiece(row,col + 2);
+                if (piece2.color == this.color && piece.color != this.color) {
+                    if(piece.getValue() == this.value + piece2.getValue()) {
+                        posDCaps.add(new Pos(row,col + 1));
+                    }
+
+                }
+
+            }
+        }
+        if(board.isValidPos(row,col - 1) && board.isValidPos(row,col - 2)) {
+            if(board.getPiece(row,col - 1) != null && board.getPiece(row,col - 2) != null) {
+                Piece piece = board.getPiece(row,col - 1);
+                Piece piece2 = board.getPiece(row,col - 2);
+                if (piece2.color == this.color && piece.color != this.color) {
+                    if(piece.getValue() == this.value + piece2.getValue()) {
+                        posDCaps.add(new Pos(row,col - 1));
+                    }
+
+                }
+
+            }
+        }
+        if(board.isValidPos(row + 1,col) && board.isValidPos(row + 2,col)) {
+            if(board.getPiece(row + 1,col) != null && board.getPiece(row + 2,col) != null) {
+                Piece piece = board.getPiece(row + 1,col);
+                Piece piece2 = board.getPiece(row + 2,col);
+                if (piece2.color == this.color && piece.color != this.color) {
+                    if(piece.getValue() == this.value + piece2.getValue()) {
+                        posDCaps.add(new Pos(row + 1,col));
+                    }
+
+                }
+
+            }
+        }
+        if(board.isValidPos(row - 1,col) && board.isValidPos(row - 2,col)) {
+            if(board.getPiece(row - 1,col) != null && board.getPiece(row - 2,col) != null) {
+                Piece piece = board.getPiece(row - 1,col);
+                Piece piece2 = board.getPiece(row - 2,col);
+                if (piece2.color == this.color && piece.color != this.color) {
+                    if(piece.getValue() == this.value + piece2.getValue()) {
+                        posDCaps.add(new Pos(row - 1,col));
+                    }
+
+                }
+
+            }
+        }
+        if(board.isValidPos(row - 1,col + 1) && board.isValidPos(row - 2,col + 2)) {
+            if(board.getPiece(row - 1,col + 1) != null && board.getPiece(row - 2,col + 2) != null) {
+                Piece piece = board.getPiece(row - 1,col + 1);
+                Piece piece2 = board.getPiece(row - 2,col + 2);
+                if (piece2.color == this.color && piece.color != this.color) {
+                    if(piece.getValue() == this.value + piece2.getValue()) {
+                        posDCaps.add(new Pos(row - 1,col + 1));
+                    }
+
+                }
+
+            }
+        }
+        if(board.isValidPos(row + 1,col - 1) && board.isValidPos(row + 2,col - 2)) {
+            if(board.getPiece(row + 1,col - 1) != null && board.getPiece(row + 2,col - 2) != null) {
+                Piece piece = board.getPiece(row + 1,col - 1);
+                Piece piece2 = board.getPiece(row + 2,col - 2);
+                if (piece2.color == this.color && piece.color != this.color) {
+                    if(piece.getValue() == this.value + piece2.getValue()) {
+                        posDCaps.add(new Pos(row + 1,col - 1));
+                    }
+
+                }
+
+            }
+        }
+        if(board.isValidPos(row - 1,col - 1) && board.isValidPos(row - 2,col - 2)) {
+            if(board.getPiece(row - 1,col - 1) != null && board.getPiece(row - 2,col - 2) != null) {
+                Piece piece = board.getPiece(row - 1,col - 1);
+                Piece piece2 = board.getPiece(row - 2,col - 2);
+                if (piece2.color == this.color && piece.color != this.color) {
+                    if(piece.getValue() == this.value + piece2.getValue()) {
+                        posDCaps.add(new Pos(row - 1,col - 1));
+                    }
+
+                }
+
+            }
+        }
+        if(board.isValidPos(row + 1,col + 1) && board.isValidPos(row + 2,col + 2)) {
+            if(board.getPiece(row + 1,col + 1) != null && board.getPiece(row + 2,col + 2) != null) {
+                Piece piece = board.getPiece(row + 1,col + 1);
+                Piece piece2 = board.getPiece(row + 2,col + 2);
+                if (piece2.color == this.color && piece.color != this.color) {
+                    if(piece.getValue() == this.value + piece2.getValue()) {
+                        posDCaps.add(new Pos(row + 1,col + 1));
+                    }
+
+                }
+
+            }
+        }
+        return posDCaps;
+    }
+
+
+
     public Color getColor() {
         return this.color;
     }

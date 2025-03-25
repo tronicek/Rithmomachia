@@ -328,6 +328,8 @@ public class Board {
         return null;
     }
 
+
+
     public boolean isEmpty(int row, int col) {
         if(!isValidPos(row,col)) {
             return false;
@@ -391,6 +393,15 @@ public class Board {
         }
         return false;
     }
+
+    public boolean containsPiece(int row, int col) {
+        Piece piece = getPiece(row, col); // Retrieves the piece at position (x, y)
+        if (piece != null) {
+            return true; // Return true if the piece exists
+        }
+        return false;
+    }
+
 
     //Check if a piece is the same as another piece
     public boolean checkColor(int row, int col, Color c) {
