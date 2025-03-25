@@ -141,23 +141,23 @@ public abstract class Piece {
         Set<Pos> pp = new HashSet<>();
 
         if (board.isValidPos(row + moveSpaces, col)
-                && board.contains(row + moveSpaces, col, value) && board.capturePathIsClear(row, col, row + moveSpaces, col, board) && (board.checkColor(row + moveSpaces, col, color))) {
+                && board.containsPieceWithValue(row + moveSpaces, col, value) && board.capturePathIsClear(row, col, row + moveSpaces, col, board) && (board.isOppositeColor(row + moveSpaces, col, color))) {
             //Scolstem.out.print("Position Conditions met");
             pp.add(new Pos(row + moveSpaces, col));
 
         }
         if (board.isValidPos(row - moveSpaces, col)
-                && board.contains(row - moveSpaces, col, value) && board.capturePathIsClear(row, col, row - moveSpaces, col, board) && (board.checkColor(row - moveSpaces, col, color))) {
+                && board.containsPieceWithValue(row - moveSpaces, col, value) && board.capturePathIsClear(row, col, row - moveSpaces, col, board) && (board.isOppositeColor(row - moveSpaces, col, color))) {
             //Scolstem.out.print("Position Conditions met");
             pp.add(new Pos(row - moveSpaces, col));
         }
         if (board.isValidPos(row, col + moveSpaces)
-                && board.contains(row, col + moveSpaces, value) && board.capturePathIsClear(row, col, row, col + moveSpaces, board) && (board.checkColor(row, col + moveSpaces, color))) {
+                && board.containsPieceWithValue(row, col + moveSpaces, value) && board.capturePathIsClear(row, col, row, col + moveSpaces, board) && (board.isOppositeColor(row, col + moveSpaces, color))) {
             //Scolstem.out.print("Position Conditions met");
             pp.add(new Pos(row, col + moveSpaces));
         }
         if (board.isValidPos(row, col - moveSpaces)
-                && board.contains(row, col - moveSpaces, value) && board.capturePathIsClear(row, col, row, col - moveSpaces, board) && (board.checkColor(row, col - moveSpaces, color))) {
+                && board.containsPieceWithValue(row, col - moveSpaces, value) && board.capturePathIsClear(row, col, row, col - moveSpaces, board) && (board.isOppositeColor(row, col - moveSpaces, color))) {
             //Scolstem.out.print("Position Conditions met");
             pp.add(new Pos(row, col - moveSpaces));
 
@@ -166,22 +166,22 @@ public abstract class Piece {
         //Diagonal Captures
 
         if (board.isValidPos(row + moveSpaces, col + moveSpaces)
-                && board.contains(row + moveSpaces, col + moveSpaces, value) && board.capturePathIsClear(row, col, row + moveSpaces, col + moveSpaces, board) && (board.checkColor(row + moveSpaces, col + moveSpaces, color))) {
+                && board.containsPieceWithValue(row + moveSpaces, col + moveSpaces, value) && board.capturePathIsClear(row, col, row + moveSpaces, col + moveSpaces, board) && (board.isOppositeColor(row + moveSpaces, col + moveSpaces, color))) {
             //Scolstem.out.print("Position Conditions met");
             pp.add(new Pos(row + moveSpaces, col + moveSpaces));
         }
         if (board.isValidPos(row + moveSpaces, col - moveSpaces)
-                && board.contains(row + moveSpaces, col - moveSpaces, value) && board.capturePathIsClear(row, col, row + moveSpaces, col - moveSpaces, board) && (board.checkColor(row + moveSpaces, col - moveSpaces, color))) {
+                && board.containsPieceWithValue(row + moveSpaces, col - moveSpaces, value) && board.capturePathIsClear(row, col, row + moveSpaces, col - moveSpaces, board) && (board.isOppositeColor(row + moveSpaces, col - moveSpaces, color))) {
             //Scolstem.out.print("Position Conditions met");
             pp.add(new Pos(row + moveSpaces, col - moveSpaces));
         }
         if (board.isValidPos(row - moveSpaces, col + moveSpaces)
-                && board.contains(row - moveSpaces, col + moveSpaces, value) && board.capturePathIsClear(row, col, row - moveSpaces, col + moveSpaces, board) && (board.checkColor(row - moveSpaces, col + moveSpaces, color))) {
+                && board.containsPieceWithValue(row - moveSpaces, col + moveSpaces, value) && board.capturePathIsClear(row, col, row - moveSpaces, col + moveSpaces, board) && (board.isOppositeColor(row - moveSpaces, col + moveSpaces, color))) {
             //Scolstem.out.print("Position Conditions met");
             pp.add(new Pos(row - moveSpaces, col + moveSpaces));
         }
         if (board.isValidPos(row - moveSpaces, col - moveSpaces)
-                && board.contains(row - moveSpaces, col - moveSpaces, value) && board.capturePathIsClear(row, col, row - moveSpaces, col - moveSpaces, board) && (board.checkColor(row - moveSpaces, col - moveSpaces, color))) {
+                && board.containsPieceWithValue(row - moveSpaces, col - moveSpaces, value) && board.capturePathIsClear(row, col, row - moveSpaces, col - moveSpaces, board) && (board.isOppositeColor(row - moveSpaces, col - moveSpaces, color))) {
             //Scolstem.out.print("Position Conditions met");
             pp.add(new Pos(row - moveSpaces, col - moveSpaces));
         }
@@ -246,111 +246,31 @@ public abstract class Piece {
 
     public Set<Pos> capturebyDeceit(Board board) {
         Set<Pos> posDCaps = new HashSet<>();
-        if(board.isValidPos(row,col + 1) && board.isValidPos(row,col + 2)) {
-            if(board.getPiece(row,col + 1) != null && board.getPiece(row,col + 2) != null) {
-                Piece piece = board.getPiece(row,col + 1);
-                Piece piece2 = board.getPiece(row,col + 2);
-                if (piece2.color == this.color && piece.color != this.color) {
-                    if(piece.getValue() == this.value + piece2.getValue()) {
-                        posDCaps.add(new Pos(row,col + 1));
-                    }
-
-                }
-
-            }
+        if(board.deceitCaptureHelper(row, col, row, col + 1, row, col + 2, board)){
+            posDCaps.add(new Pos(row, col + 1));// Right
         }
-        if(board.isValidPos(row,col - 1) && board.isValidPos(row,col - 2)) {
-            if(board.getPiece(row,col - 1) != null && board.getPiece(row,col - 2) != null) {
-                Piece piece = board.getPiece(row,col - 1);
-                Piece piece2 = board.getPiece(row,col - 2);
-                if (piece2.color == this.color && piece.color != this.color) {
-                    if(piece.getValue() == this.value + piece2.getValue()) {
-                        posDCaps.add(new Pos(row,col - 1));
-                    }
-
-                }
-
-            }
+        if(board.deceitCaptureHelper(row, col, row, col - 1, row, col - 2, board)){
+            posDCaps.add(new Pos(row, col - 1));// Left
         }
-        if(board.isValidPos(row + 1,col) && board.isValidPos(row + 2,col)) {
-            if(board.getPiece(row + 1,col) != null && board.getPiece(row + 2,col) != null) {
-                Piece piece = board.getPiece(row + 1,col);
-                Piece piece2 = board.getPiece(row + 2,col);
-                if (piece2.color == this.color && piece.color != this.color) {
-                    if(piece.getValue() == this.value + piece2.getValue()) {
-                        posDCaps.add(new Pos(row + 1,col));
-                    }
-
-                }
-
-            }
+        if(board.deceitCaptureHelper(row, col,row + 1, col, row + 2, col, board)){
+            posDCaps.add(new Pos(row + 1, col));// Down
         }
-        if(board.isValidPos(row - 1,col) && board.isValidPos(row - 2,col)) {
-            if(board.getPiece(row - 1,col) != null && board.getPiece(row - 2,col) != null) {
-                Piece piece = board.getPiece(row - 1,col);
-                Piece piece2 = board.getPiece(row - 2,col);
-                if (piece2.color == this.color && piece.color != this.color) {
-                    if(piece.getValue() == this.value + piece2.getValue()) {
-                        posDCaps.add(new Pos(row - 1,col));
-                    }
-
-                }
-
-            }
+        if(board.deceitCaptureHelper(row, col, row - 1, col, row - 2, col, board)){
+            posDCaps.add(new Pos(row - 1, col));// Up
         }
-        if(board.isValidPos(row - 1,col + 1) && board.isValidPos(row - 2,col + 2)) {
-            if(board.getPiece(row - 1,col + 1) != null && board.getPiece(row - 2,col + 2) != null) {
-                Piece piece = board.getPiece(row - 1,col + 1);
-                Piece piece2 = board.getPiece(row - 2,col + 2);
-                if (piece2.color == this.color && piece.color != this.color) {
-                    if(piece.getValue() == this.value + piece2.getValue()) {
-                        posDCaps.add(new Pos(row - 1,col + 1));
-                    }
-
-                }
-
-            }
+        if(board.deceitCaptureHelper(row, col, row - 1, col + 1, row - 2, col + 2, board)){
+            posDCaps.add(new Pos (row - 1, col + 1));// Up-Right
         }
-        if(board.isValidPos(row + 1,col - 1) && board.isValidPos(row + 2,col - 2)) {
-            if(board.getPiece(row + 1,col - 1) != null && board.getPiece(row + 2,col - 2) != null) {
-                Piece piece = board.getPiece(row + 1,col - 1);
-                Piece piece2 = board.getPiece(row + 2,col - 2);
-                if (piece2.color == this.color && piece.color != this.color) {
-                    if(piece.getValue() == this.value + piece2.getValue()) {
-                        posDCaps.add(new Pos(row + 1,col - 1));
-                    }
-
-                }
-
-            }
+        if(board.deceitCaptureHelper(row, col,row + 1, col - 1, row + 2, col - 2, board)){
+            posDCaps.add(new Pos(row + 1, col - 1));// Down-Left
         }
-        if(board.isValidPos(row - 1,col - 1) && board.isValidPos(row - 2,col - 2)) {
-            if(board.getPiece(row - 1,col - 1) != null && board.getPiece(row - 2,col - 2) != null) {
-                Piece piece = board.getPiece(row - 1,col - 1);
-                Piece piece2 = board.getPiece(row - 2,col - 2);
-                if (piece2.color == this.color && piece.color != this.color) {
-                    if(piece.getValue() == this.value + piece2.getValue()) {
-                        posDCaps.add(new Pos(row - 1,col - 1));
-                    }
-
-                }
-
-            }
+        if(board.deceitCaptureHelper(row, col, row - 1, col - 1, row - 2, col - 2, board)){
+            posDCaps.add(new Pos(row - 1, col - 1));// Up-Left
         }
-        if(board.isValidPos(row + 1,col + 1) && board.isValidPos(row + 2,col + 2)) {
-            if(board.getPiece(row + 1,col + 1) != null && board.getPiece(row + 2,col + 2) != null) {
-                Piece piece = board.getPiece(row + 1,col + 1);
-                Piece piece2 = board.getPiece(row + 2,col + 2);
-                if (piece2.color == this.color && piece.color != this.color) {
-                    if(piece.getValue() == this.value + piece2.getValue()) {
-                        posDCaps.add(new Pos(row + 1,col + 1));
-                    }
-
-                }
-
-            }
+        if(board.deceitCaptureHelper(row, col, row + 1, col + 1, row + 2, col + 2, board)){
+            posDCaps.add(new Pos(row + 1, col + 1));// Down-Right
         }
-        return posDCaps;
+        return posDCaps;//Return Capture Positions
     }
 
 

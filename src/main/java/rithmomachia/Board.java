@@ -384,7 +384,7 @@ public class Board {
         return true;
     }
 
-    public boolean contains(int row, int col, int value) {
+    public boolean containsPieceWithValue(int row, int col, int value) {
         //System.out.print("Contains function called");
         // Check if the position (x, y) contains a piece with the specific value.
         Piece piece = getPiece(row, col); // Retrieves the piece at position (x, y)
@@ -403,8 +403,8 @@ public class Board {
     }
 
 
-    //Check if a piece is the same as another piece
-    public boolean checkColor(int row, int col, Color c) {
+    //Check if a piece is the opposite color of another piece
+    public boolean isOppositeColor(int row, int col, Color c) {
         Piece piece = getPiece(row,col);
         if (piece.getColor() == c) {
             return false;
@@ -429,6 +429,20 @@ public class Board {
             // Otherwise, pieces are either horizontal or diagonal. May use row separator in each case
             totalSquares = numRows + 1;
         return totalSquares;
+    }
+
+    public boolean deceitCaptureHelper(int row, int col, int row1, int col1, int row2, int col2, Board board) {
+        Piece capturingPiece = getPiece(row, col);
+        if (board.isValidPos(row1, col1) && board.isValidPos(row2, col2)) {
+            Piece captured = board.getPiece(row1, col1);
+            Piece ally = board.getPiece(row2, col2);
+
+            if (captured != null && ally != null && ally.color == capturingPiece.getColor() && captured.color != capturingPiece.getColor() &&
+                    captured.getValue() == capturingPiece.getValue() + ally.getValue()) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public void setPiece(int row, int col, Piece piece) {
