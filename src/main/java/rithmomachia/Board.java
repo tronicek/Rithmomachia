@@ -431,6 +431,20 @@ public class Board {
         return totalSquares;
     }
 
+    public boolean deceitCaptureHelper(int row, int col, int row1, int col1, int row2, int col2, Board board) {
+        Piece capturingPiece = getPiece(row, col);
+        if (board.isValidPos(row1, col1) && board.isValidPos(row2, col2)) {
+            Piece captured = board.getPiece(row1, col1);
+            Piece ally = board.getPiece(row2, col2);
+
+            if (captured != null && ally != null && ally.color == capturingPiece.getColor() && captured.color != capturingPiece.getColor() &&
+                    captured.getValue() == capturingPiece.getValue() + ally.getValue()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public void setPiece(int row, int col, Piece piece) {
         if (piece != null) {
             piece.setRow(row);
