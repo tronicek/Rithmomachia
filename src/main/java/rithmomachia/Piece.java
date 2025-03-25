@@ -246,12 +246,17 @@ public abstract class Piece {
 
     public Set<Pos> capturebyDeceit(Board board) {
         Set<Pos> posDCaps = new HashSet<>();
+        //Check two spaces in direction to make sure position is valid
         if(board.isValidPos(row,col + 1) && board.isValidPos(row,col + 2)) {
+            // Check two spaces in direction to make sure pieces exist
             if(board.getPiece(row,col + 1) != null && board.getPiece(row,col + 2) != null) {
-                Piece piece = board.getPiece(row,col + 1);
-                Piece piece2 = board.getPiece(row,col + 2);
+                Piece piece = board.getPiece(row,col + 1);//Track piece being captured
+                Piece piece2 = board.getPiece(row,col + 2);//Track ally Piece
+                //Check piece being captured is different from other pieces
                 if (piece2.color == this.color && piece.color != this.color) {
+                    //Check value to make sure sum of capture pieces equal piece being captured
                     if(piece.getValue() == this.value + piece2.getValue()) {
+                        //Add position to HashSet
                         posDCaps.add(new Pos(row,col + 1));
                     }
 
@@ -260,11 +265,16 @@ public abstract class Piece {
             }
         }
         if(board.isValidPos(row,col - 1) && board.isValidPos(row,col - 2)) {
+            //Check two spaces in direction to make sure position is valid
             if(board.getPiece(row,col - 1) != null && board.getPiece(row,col - 2) != null) {
-                Piece piece = board.getPiece(row,col - 1);
-                Piece piece2 = board.getPiece(row,col - 2);
+                // Check two spaces in direction to make sure pieces exist
+                Piece piece = board.getPiece(row,col - 1);//Track piece being captured
+                Piece piece2 = board.getPiece(row,col - 2);//Track ally Piece
+                //Check piece being captured is different from other pieces
                 if (piece2.color == this.color && piece.color != this.color) {
+                    //Check value to make sure sum of capture pieces equal piece being captured
                     if(piece.getValue() == this.value + piece2.getValue()) {
+                        //Add position to HashSet
                         posDCaps.add(new Pos(row,col - 1));
                     }
 
@@ -273,11 +283,16 @@ public abstract class Piece {
             }
         }
         if(board.isValidPos(row + 1,col) && board.isValidPos(row + 2,col)) {
+            //Check two spaces in direction to make sure position is valid
             if(board.getPiece(row + 1,col) != null && board.getPiece(row + 2,col) != null) {
-                Piece piece = board.getPiece(row + 1,col);
-                Piece piece2 = board.getPiece(row + 2,col);
+                // Check two spaces in direction to make sure pieces exist
+                Piece piece = board.getPiece(row + 1,col);//Track piece being captured
+                Piece piece2 = board.getPiece(row + 2,col);//Track ally Piece
+                //Check piece being captured is different from other pieces
                 if (piece2.color == this.color && piece.color != this.color) {
+                    //Check value to make sure sum of capture pieces equal piece being captured
                     if(piece.getValue() == this.value + piece2.getValue()) {
+                        //Add position to HashSet
                         posDCaps.add(new Pos(row + 1,col));
                     }
 
@@ -286,11 +301,16 @@ public abstract class Piece {
             }
         }
         if(board.isValidPos(row - 1,col) && board.isValidPos(row - 2,col)) {
+            //Check two spaces in direction to make sure position is valid
             if(board.getPiece(row - 1,col) != null && board.getPiece(row - 2,col) != null) {
-                Piece piece = board.getPiece(row - 1,col);
-                Piece piece2 = board.getPiece(row - 2,col);
+                // Check two spaces in direction to make sure pieces exist
+                Piece piece = board.getPiece(row - 1,col);//Track piece being captured
+                Piece piece2 = board.getPiece(row - 2,col);//Track ally Piece
+                //Check piece being captured is different from other pieces
                 if (piece2.color == this.color && piece.color != this.color) {
+                    //Check value to make sure sum of capture pieces equal piece being captured
                     if(piece.getValue() == this.value + piece2.getValue()) {
+                        //Add position to HashSet
                         posDCaps.add(new Pos(row - 1,col));
                     }
 
@@ -299,11 +319,16 @@ public abstract class Piece {
             }
         }
         if(board.isValidPos(row - 1,col + 1) && board.isValidPos(row - 2,col + 2)) {
+            //Check two spaces in direction to make sure position is valid
             if(board.getPiece(row - 1,col + 1) != null && board.getPiece(row - 2,col + 2) != null) {
-                Piece piece = board.getPiece(row - 1,col + 1);
-                Piece piece2 = board.getPiece(row - 2,col + 2);
+                // Check two spaces in direction to make sure pieces exist
+                Piece piece = board.getPiece(row - 1,col + 1);//Track piece being captured
+                Piece piece2 = board.getPiece(row - 2,col + 2);//Track ally Piece
+                //Check piece being captured is different from other pieces
                 if (piece2.color == this.color && piece.color != this.color) {
+                    //Check value to make sure sum of capture pieces equal piece being captured
                     if(piece.getValue() == this.value + piece2.getValue()) {
+                        //Add position to HashSet
                         posDCaps.add(new Pos(row - 1,col + 1));
                     }
 
@@ -312,11 +337,16 @@ public abstract class Piece {
             }
         }
         if(board.isValidPos(row + 1,col - 1) && board.isValidPos(row + 2,col - 2)) {
+            //Check two spaces in direction to make sure position is valid
             if(board.getPiece(row + 1,col - 1) != null && board.getPiece(row + 2,col - 2) != null) {
-                Piece piece = board.getPiece(row + 1,col - 1);
-                Piece piece2 = board.getPiece(row + 2,col - 2);
+                // Check two spaces in direction to make sure pieces exist
+                Piece piece = board.getPiece(row + 1,col - 1);//Track piece being captured
+                Piece piece2 = board.getPiece(row + 2,col - 2);//Track ally Piece
+                //Check piece being captured is different from other pieces
                 if (piece2.color == this.color && piece.color != this.color) {
+                    //Check value to make sure sum of capture pieces equal piece being captured
                     if(piece.getValue() == this.value + piece2.getValue()) {
+                        //Add position to HashSet
                         posDCaps.add(new Pos(row + 1,col - 1));
                     }
 
@@ -325,11 +355,16 @@ public abstract class Piece {
             }
         }
         if(board.isValidPos(row - 1,col - 1) && board.isValidPos(row - 2,col - 2)) {
+            //Check two spaces in direction to make sure position is valid
             if(board.getPiece(row - 1,col - 1) != null && board.getPiece(row - 2,col - 2) != null) {
-                Piece piece = board.getPiece(row - 1,col - 1);
-                Piece piece2 = board.getPiece(row - 2,col - 2);
+                // Check two spaces in direction to make sure pieces exist
+                Piece piece = board.getPiece(row - 1,col - 1);//Track piece being captured
+                Piece piece2 = board.getPiece(row - 2,col - 2);//Track ally Piece
+                //Check piece being captured is different from other pieces
                 if (piece2.color == this.color && piece.color != this.color) {
+                    //Check value to make sure sum of capture pieces equal piece being captured
                     if(piece.getValue() == this.value + piece2.getValue()) {
+                        //Add position to HashSet
                         posDCaps.add(new Pos(row - 1,col - 1));
                     }
 
@@ -338,11 +373,16 @@ public abstract class Piece {
             }
         }
         if(board.isValidPos(row + 1,col + 1) && board.isValidPos(row + 2,col + 2)) {
+            //Check two spaces in direction to make sure position is valid
             if(board.getPiece(row + 1,col + 1) != null && board.getPiece(row + 2,col + 2) != null) {
-                Piece piece = board.getPiece(row + 1,col + 1);
-                Piece piece2 = board.getPiece(row + 2,col + 2);
+                // Check two spaces in direction to make sure pieces exist
+                Piece piece = board.getPiece(row + 1,col + 1);//Track piece being captured
+                Piece piece2 = board.getPiece(row + 2,col + 2);//Track ally Piece
+                //Check piece being captured is different from other pieces
                 if (piece2.color == this.color && piece.color != this.color) {
+                    //Check value to make sure sum of capture pieces equal piece being captured
                     if(piece.getValue() == this.value + piece2.getValue()) {
+                        //Add position to HashSet
                         posDCaps.add(new Pos(row + 1,col + 1));
                     }
 
@@ -350,7 +390,7 @@ public abstract class Piece {
 
             }
         }
-        return posDCaps;
+        return posDCaps;//Return Capture Positions
     }
 
 
