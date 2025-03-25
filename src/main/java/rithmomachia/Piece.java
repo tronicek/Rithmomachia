@@ -123,7 +123,6 @@ public abstract class Piece {
     // Have to rework this so it can capture pyramids as either a whole or a part.
     // Thought:
     //  Set<Pos> pp = new HashSet<>();
-    //  board.findClosestNeighbors(this.row, this.col);
     //      for (Piece neighbor : board.findClosestNeighbors(this.row, this.col)){
     //          for(Piece pieceInSet : neighbor.getPieceAsSet){
     //              int neighborRow = pieceInSet.getRow();
@@ -139,51 +138,14 @@ public abstract class Piece {
     // That's it. That's the function.
     public Set<Pos> captureByEncounter(Board board) {
         Set<Pos> pp = new HashSet<>();
-
-        if (board.isValidPos(row + moveSpaces, col)
-                && board.containsPieceWithValue(row + moveSpaces, col, value) && board.capturePathIsClear(row, col, row + moveSpaces, col, board) && (board.isOppositeColor(row + moveSpaces, col, color))) {
-            //Scolstem.out.print("Position Conditions met");
-            pp.add(new Pos(row + moveSpaces, col));
-
-        }
-        if (board.isValidPos(row - moveSpaces, col)
-                && board.containsPieceWithValue(row - moveSpaces, col, value) && board.capturePathIsClear(row, col, row - moveSpaces, col, board) && (board.isOppositeColor(row - moveSpaces, col, color))) {
-            //Scolstem.out.print("Position Conditions met");
-            pp.add(new Pos(row - moveSpaces, col));
-        }
-        if (board.isValidPos(row, col + moveSpaces)
-                && board.containsPieceWithValue(row, col + moveSpaces, value) && board.capturePathIsClear(row, col, row, col + moveSpaces, board) && (board.isOppositeColor(row, col + moveSpaces, color))) {
-            //Scolstem.out.print("Position Conditions met");
-            pp.add(new Pos(row, col + moveSpaces));
-        }
-        if (board.isValidPos(row, col - moveSpaces)
-                && board.containsPieceWithValue(row, col - moveSpaces, value) && board.capturePathIsClear(row, col, row, col - moveSpaces, board) && (board.isOppositeColor(row, col - moveSpaces, color))) {
-            //Scolstem.out.print("Position Conditions met");
-            pp.add(new Pos(row, col - moveSpaces));
-
-        }
-
-        //Diagonal Captures
-
-        if (board.isValidPos(row + moveSpaces, col + moveSpaces)
-                && board.containsPieceWithValue(row + moveSpaces, col + moveSpaces, value) && board.capturePathIsClear(row, col, row + moveSpaces, col + moveSpaces, board) && (board.isOppositeColor(row + moveSpaces, col + moveSpaces, color))) {
-            //Scolstem.out.print("Position Conditions met");
-            pp.add(new Pos(row + moveSpaces, col + moveSpaces));
-        }
-        if (board.isValidPos(row + moveSpaces, col - moveSpaces)
-                && board.containsPieceWithValue(row + moveSpaces, col - moveSpaces, value) && board.capturePathIsClear(row, col, row + moveSpaces, col - moveSpaces, board) && (board.isOppositeColor(row + moveSpaces, col - moveSpaces, color))) {
-            //Scolstem.out.print("Position Conditions met");
-            pp.add(new Pos(row + moveSpaces, col - moveSpaces));
-        }
-        if (board.isValidPos(row - moveSpaces, col + moveSpaces)
-                && board.containsPieceWithValue(row - moveSpaces, col + moveSpaces, value) && board.capturePathIsClear(row, col, row - moveSpaces, col + moveSpaces, board) && (board.isOppositeColor(row - moveSpaces, col + moveSpaces, color))) {
-            //Scolstem.out.print("Position Conditions met");
-            pp.add(new Pos(row - moveSpaces, col + moveSpaces));
-        }
-        if (board.isValidPos(row - moveSpaces, col - moveSpaces)
-                && board.containsPieceWithValue(row - moveSpaces, col - moveSpaces, value) && board.capturePathIsClear(row, col, row - moveSpaces, col - moveSpaces, board) && (board.isOppositeColor(row - moveSpaces, col - moveSpaces, color))) {
-            //Scolstem.out.print("Position Conditions met");
-            pp.add(new Pos(row - moveSpaces, col - moveSpaces));
+        for (Piece neighbor : board.findClosestNeighbors(this.row, this.col)) {
+            for (Piece pieceInSet : neighbor.getPieceAsSet()) {
+                if (board.distanceBetween(this, pieceInSet) == this.moveSpaces + 1
+                        && this.color != pieceInSet.getColor()
+                        && this.value == pieceInSet.getValue()) {
+                    pp.add(new Pos(pieceInSet.getRow(), pieceInSet.getCol()));
+                }
+            }
         }
         return pp;
     }

@@ -1,11 +1,10 @@
 package rithmomachia;
 
-import static org.junit.Assert.assertEquals;
 
-//import java.util.Scanner;
-import java.util.Set;
-
+import org.junit.Assert;
 import org.junit.Test;
+
+import java.util.Set;
 
 public class EncounterTest {
 
@@ -29,7 +28,7 @@ public class EncounterTest {
         Piece p = b.getPiece(0, 1);
         Set<Pos> pp = p.captureByEncounter(b);
         String t = toString(pp);
-        assertEquals("[0,3]", t);
+        Assert.assertEquals("[0,3]", t);
         
         
     }
@@ -45,7 +44,7 @@ public class EncounterTest {
         //Board.contains(0,3,5);
         Set<Pos> pp = p.captureByEncounter(b);
         String t = toString(pp);
-        assertEquals("[0,1]", t);
+        Assert.assertEquals("[0,1]", t);
     }
 
     @Test
@@ -61,7 +60,7 @@ public class EncounterTest {
         Piece p = b.getPiece(1, 0);
         Set<Pos> pp = p.captureByEncounter(b);
         String t = toString(pp);
-        assertEquals("[3,0]", t);
+        Assert.assertEquals("[3,0]", t);
     }
 
     @Test
@@ -77,7 +76,7 @@ public class EncounterTest {
         Piece p = b.getPiece(3, 0);
         Set<Pos> pp = p.captureByEncounter(b);
         String t = toString(pp);
-        assertEquals("[1,0]", t);
+        Assert.assertEquals("[1,0]", t);
     }
 
     @Test
@@ -89,7 +88,7 @@ public class EncounterTest {
         b.printBoard();
         Piece p = b.getPiece(0, 1);
         Set<Pos> pp = p.captureByEncounter(b);
-        assertEquals(0, pp.size());
+        Assert.assertEquals(0, pp.size());
     }
 
     @Test
@@ -101,7 +100,7 @@ public class EncounterTest {
         b.printBoard();
         Piece p = b.getPiece(0, 3);
         Set<Pos> pp = p.captureByEncounter(b);
-        assertEquals(0, pp.size());
+        Assert.assertEquals(0, pp.size());
     }
 
     @Test
@@ -116,7 +115,7 @@ public class EncounterTest {
         b.printBoard();
         Piece p = b.getPiece(1, 0);
         Set<Pos> pp = p.captureByEncounter(b);
-        assertEquals(0, pp.size());
+        Assert.assertEquals(0, pp.size());
     }
 
     @Test
@@ -131,7 +130,7 @@ public class EncounterTest {
         b.printBoard();
         Piece p = b.getPiece(3, 0);
         Set<Pos> pp = p.captureByEncounter(b);
-        assertEquals(0, pp.size());
+        Assert.assertEquals(0, pp.size());
     }
     
     //Circle Tests
@@ -147,7 +146,7 @@ public class EncounterTest {
         b.printBoard();
         Piece p = b.getPiece(1, 1);
         Set<Pos> pp = p.captureByEncounter(b);
-        assertEquals(8, pp.size());
+        Assert.assertEquals(8, pp.size());
     }
     @Test
     public void testCT2() {
@@ -161,7 +160,7 @@ public class EncounterTest {
         b.printBoard();
         Piece p = b.getPiece(1, 1);
         Set<Pos> pp = p.captureByEncounter(b);
-        assertEquals(8, pp.size());
+        Assert.assertEquals(8, pp.size());
     }
     @Test
     public void testCT3() {
@@ -175,7 +174,7 @@ public class EncounterTest {
         b.printBoard();
         Piece p = b.getPiece(1, 1);
         Set<Pos> pp = p.captureByEncounter(b);
-        assertEquals(8, pp.size());
+        Assert.assertEquals(8, pp.size());
     }
     @Test
     public void testCT4() {
@@ -189,7 +188,7 @@ public class EncounterTest {
         b.printBoard();
         Piece p = b.getPiece(1, 1);
         Set<Pos> pp = p.captureByEncounter(b);
-        assertEquals(0, pp.size());
+        Assert.assertEquals(0, pp.size());
     }
     @Test
     public void testCT5() {
@@ -203,7 +202,7 @@ public class EncounterTest {
         b.printBoard();
         Piece p = b.getPiece(1, 1);
         Set<Pos> pp = p.captureByEncounter(b);
-        assertEquals(0, pp.size());
+        Assert.assertEquals(0, pp.size());
     }
     @Test
     public void testCT6() {
@@ -217,7 +216,7 @@ public class EncounterTest {
         b.printBoard();
         Piece p = b.getPiece(1, 1);
         Set<Pos> pp = p.captureByEncounter(b);
-        assertEquals(8, pp.size());
+        Assert.assertEquals(8, pp.size());
     }
     @Test
     public void testCT7() {
@@ -231,7 +230,7 @@ public class EncounterTest {
         b.printBoard();
         Piece p = b.getPiece(1, 1);
         Set<Pos> pp = p.captureByEncounter(b);
-        assertEquals(8, pp.size());
+        Assert.assertEquals(8, pp.size());
     }
     @Test
     public void testCT8() {
@@ -245,7 +244,7 @@ public class EncounterTest {
         b.printBoard();
         Piece p = b.getPiece(1, 1);
         Set<Pos> pp = p.captureByEncounter(b);
-        assertEquals(8, pp.size());
+        Assert.assertEquals(8, pp.size());
     }
     
     @Test
@@ -260,7 +259,7 @@ public class EncounterTest {
         b.printBoard();
         Piece p = b.getPiece(1, 1);
         Set<Pos> pp = p.captureByEncounter(b);
-        assertEquals(0, pp.size());
+        Assert.assertEquals(0, pp.size());
     }
     @Test
     public void testCT10() {
@@ -274,7 +273,7 @@ public class EncounterTest {
         b.printBoard();
         Piece p = b.getPiece(1, 1);
         Set<Pos> pp = p.captureByEncounter(b);
-        assertEquals(0, pp.size());
+        Assert.assertEquals(0, pp.size());
     }
     @Test
     public void testCT11() {
@@ -290,7 +289,7 @@ public class EncounterTest {
         b.printBoard();
         Piece p = b.getPiece(2, 2);
         Set<Pos> pp = p.captureByEncounter(b);
-        assertEquals(0, pp.size());
+        Assert.assertEquals(0, pp.size());
     }
     @Test
     public void testCT12() {
@@ -306,7 +305,7 @@ public class EncounterTest {
         b.printBoard();
         Piece p = b.getPiece(2, 2);
         Set<Pos> pp = p.captureByEncounter(b);
-        assertEquals(0, pp.size());
+        Assert.assertEquals(0, pp.size());
     }
     @Test
     public void testCT13() {
@@ -322,7 +321,7 @@ public class EncounterTest {
         b.printBoard();
         Piece p = b.getPiece(2, 2);
         Set<Pos> pp = p.captureByEncounter(b);
-        assertEquals(0, pp.size());
+        Assert.assertEquals(0, pp.size());
     }
     @Test
     public void testCT14() {
@@ -338,7 +337,7 @@ public class EncounterTest {
         b.printBoard();
         Piece p = b.getPiece(2, 2);
         Set<Pos> pp = p.captureByEncounter(b);
-        assertEquals(8, pp.size());
+        Assert.assertEquals(8, pp.size());
     }
     @Test
     public void testCT15() {
@@ -350,7 +349,7 @@ public class EncounterTest {
         b.printBoard();
         Piece p = b.getPiece(0, 0);
         Set<Pos> pp = p.captureByEncounter(b);
-        assertEquals(0, pp.size());
+        Assert.assertEquals(0, pp.size());
     }
     @Test
     public void testCT16() {
@@ -363,7 +362,7 @@ public class EncounterTest {
         b.printBoard();
         Piece p = b.getPiece(0, 0);
         Set<Pos> pp = p.captureByEncounter(b);
-        assertEquals(3, pp.size());
+        Assert.assertEquals(3, pp.size());
     }
     @Test
     public void testCT17() {
@@ -378,7 +377,7 @@ public class EncounterTest {
         b.printBoard();
         Piece p = b.getPiece(2, 2);
         Set<Pos> pp = p.captureByEncounter(b);
-        assertEquals(8, pp.size());
+        Assert.assertEquals(8, pp.size());
     }
     @Test
     public void testCT18() {
@@ -396,29 +395,6 @@ public class EncounterTest {
         b.printBoard();
         Piece p = b.getPiece(3, 3);
         Set<Pos> pp = p.captureByEncounter(b);
-        assertEquals(8, pp.size());
-    }
-    
-    
-    
-   
-    
-    
-    
-    
-    
-    
-
-    public static void main(String[] args) {
-        // Uncomment if you want to allow user-defined board initialization
-        /*
-        try (Scanner scanner = new Scanner(System.in)) {
-            System.out.print("Enter number of rows: ");
-            int numRows = scanner.nextInt();
-            System.out.print("Enter number of columns: ");
-            int numCols = scanner.nextInt();
-            Board.initBoard(numRows, numCols);
-        }
-        */
+        Assert.assertEquals(8, pp.size());
     }
 }
