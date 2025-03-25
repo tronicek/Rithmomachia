@@ -384,7 +384,7 @@ public class Board {
         return true;
     }
 
-    public boolean contains(int row, int col, int value) {
+    public boolean containsPieceWithValue(int row, int col, int value) {
         //System.out.print("Contains function called");
         // Check if the position (x, y) contains a piece with the specific value.
         Piece piece = getPiece(row, col); // Retrieves the piece at position (x, y)
@@ -403,8 +403,8 @@ public class Board {
     }
 
 
-    //Check if a piece is the same as another piece
-    public boolean checkColor(int row, int col, Color c) {
+    //Check if a piece is the opposite color of another piece
+    public boolean isOppositeColor(int row, int col, Color c) {
         Piece piece = getPiece(row,col);
         if (piece.getColor() == c) {
             return false;
