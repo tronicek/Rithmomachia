@@ -330,20 +330,7 @@
 					width: 1000,
 					height: 500
 				}
-				//<!--Work In progress--!> //We'll need these to have the pieces positions change based on the board type (boarder thickness)
-				// boardConfig: {
-				// canvasWidth: 1000,
-				// canvasHeight: 500,
-				// offsetWidth: 65,
-				// offsetHeight: 31.25,
-				// Derived measurements
-				// borderLeft: 65/2,     // offsetWidth/2
-				// borderTop: 31.25/2,   // offsetHeight/2
-				// playableWidth: 740,    // Width of the actual playing area
-				// playableHeight: 330,   // Height of the actual playing area
-				// cellWidth: (1000 - 65)/16,  // (canvasWidth - offsetWidth)/columns      // Individual cell width
-				// cellHeight: (500 - 31.25)/8 // (canvasHeight - offsetHeight)/rows     // Individual cell height
-				//}
+		
 			},
 			Jessie_Reed: {
 				board: 'Images/Rithmomachia Art/Board.png',
@@ -386,14 +373,6 @@
 					height: 480
 				}
 
-				//boardConfig: {
-				//  borderLeft: 92.75,
-				//  borderTop: 75,
-				//  playableWidth: 740,    // Width of the actual playing area
-				//  playableHeight: 330,   // Height of the actual playing area
-				//  cellWidth: 46.25,      // Individual cell width
-				//  cellHeight: 41.25      // Individual cell height
-				//}
 			},
 			Daniel_Hunt: {
 				board: 'Images/HUNT-Pieces/HUNT-NewBoard-01.png',
@@ -436,14 +415,6 @@
 					height: 480
 				}
 
-				//boardConfig: {
-				//  borderLeft: 92.75,
-				//  borderTop: 75,
-				//  playableWidth: 740,    // Width of the actual playing area
-				//  playableHeight: 330,   // Height of the actual playing area
-				//  cellWidth: 46.25,      // Individual cell width
-				//  cellHeight: 41.25      // Individual cell height
-				//}
 			}
 		};
 
@@ -695,13 +666,7 @@
 					// Use the theme's pieceFormat function for regular pieces (This Should fix it)
 					imagePath = THEMES[currentTheme].pieces.pieceFormat(value, isWhite, baseType);
 
-					//Theres a problem with this part loading
-					// const pieceType = {
-					//     's': THEMES[currentTheme].pieces.square,
-					//     't': THEMES[currentTheme].pieces.triangle,
-					//     'c': THEMES[currentTheme].pieces.circle
-					// }[baseType];
-					// imagePath = `${pieceType}${value}.png`;
+				
 				}
 
 				fabric.Image.fromURL(imagePath, function (img) {
