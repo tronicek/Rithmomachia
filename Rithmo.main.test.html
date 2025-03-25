@@ -63,18 +63,20 @@
 		}
 
 		.game-controls {
- 		    position: absolute;
- 		    top: 20px;
- 		    right: 2.5%; /* Indicates the percentage/pixles from the right side of the area it resides in*/
- 		    display: flex;
- 		    flex-direction: row;
- 		    gap: 10px;
- 		    z-index: 100;
- 		    max-width: calc(31%); /* Width limited to avoid reaching the title */
- 		    flex-wrap: wrap;
- 		    justify-content: flex-start;
- 		    align-items: center;
- 		}
+			position: absolute;
+			top: 20px;
+			right: 2.5%;
+			/* Indicates the percentage/pixles from the right side of the area it resides in*/
+			display: flex;
+			flex-direction: row;
+			gap: 10px;
+			z-index: 100;
+			max-width: calc(31%);
+			/* Width limited to avoid reaching the title */
+			flex-wrap: wrap;
+			justify-content: flex-start;
+			align-items: center;
+		}
 
 		.game-container {
 			display: flex;
@@ -330,7 +332,7 @@
 					width: 1000,
 					height: 500
 				}
-		
+
 			},
 			Jessie_Reed: {
 				board: 'Images/Rithmomachia Art/Board.png',
@@ -666,7 +668,7 @@
 					// Use the theme's pieceFormat function for regular pieces (This Should fix it)
 					imagePath = THEMES[currentTheme].pieces.pieceFormat(value, isWhite, baseType);
 
-				
+
 				}
 
 				fabric.Image.fromURL(imagePath, function (img) {
@@ -1255,7 +1257,7 @@
 
 		document.getElementById('moveFileInput').replaceWith(document.getElementById('moveFileInput').cloneNode(true));
 		document.getElementById('moveFileInput').addEventListener('change', handleFileUpload);
-	</script>
-</body>
+	</scrip >
+</body >
 
-</html>
+</html >
