@@ -271,6 +271,7 @@
 	<video id="introVideo" preload="auto" style="display: none;">
 		<source src="Images/Rith/HUNTRithCutscene.mp4" type="video/mp4">
 	</video>
+	<input id="gameId" type="text" readonly size="40" />
 
 	<script>
 
@@ -583,6 +584,9 @@
 			else if (event.key == "s" || event.key == "S") {
 				SkipVideo();
 			}
+			else if (event.key == "h" || event.key == "H") {
+				$("#gameId").toggle();
+			}
 		});
 
 		//Plays preloaded intro video, initializes game, and unhides all elements that were previously hidden that are needed for the game. -Darin
@@ -592,6 +596,18 @@
 			setLengthandHeight();
 			playIntroVideo();
 			initializeGame();
+			$.ajax({
+				url: 'api/games',
+				type: 'POST',
+				contentType: 'application/json',
+				dataType: 'text',
+				success: function (resp) {
+					$('#gameId').val(resp);
+				},
+				error: function () {
+					alert('Network communication error');
+				}
+			});
 			document.getElementById('fileLabel').classList.remove('hidden');
 			document.getElementById('endLoopButton').classList.remove('hidden');
 			document.getElementById('pause').classList.remove('hidden');
@@ -600,6 +616,7 @@
 			document.getElementById('game-board').classList.remove('hidden');
 			document.getElementById('volumeButton').classList.remove('hidden');
 			document.getElementById('InfoButton').classList.remove('hidden');
+
 		}
 
 		//Function to skip videos when called 
