@@ -173,37 +173,39 @@
 		}
 
 		#SetupScreen h2 {
-		    color: black;
-		    text-align: center;
-		    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
-		    position: relative;
-		    z-index: 2; /* Keeps it above the background */
-		    margin-top: 80px; /* Adds space below the title */
-		    /* If needed, you could also use padding-top instead */
+			color: black;
+			text-align: center;
+			text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+			position: relative;
+			z-index: 2;
+			/* Keeps it above the background */
+			margin-top: 20px;
+			/* Adds space below the title */
+			/* If needed, you could also use padding-top instead */
 		}
-    
+
 		.victory-list {
 			list-style-type: none;
 			padding: 0;
 		}
-		    
+
 		.victory-item {
-		     	 margin-bottom: 10px;
-		      	padding: 10px;
-		      	border: 1px solid #666666;
-		      	border-radius: 5px;
-		      	background-color: #888888;
-		      	transition: background-color 0.3s;
+			margin-bottom: 5px;
+			padding: 10px;
+			border: 1px solid #666666;
+			border-radius: 5px;
+			background-color: #888888;
+			transition: background-color 0.3s;
 		}
-		    
+
 		.victory-item:hover {
-		      	background-color: #999999;
+			background-color: #999999;
 		}
-		    
+
 		.victory-item label {
-		      	display: flex;
-		      	align-items: center;
-		      	cursor: pointer;
+			display: flex;
+			align-items: center;
+			cursor: pointer;
 		}
 
 		/* Added to flip background without flipping the entire start screen Darin */
@@ -252,7 +254,7 @@
 			margin: 10px 0;
 			transform: rotate(0deg) !important;
 			transition: background-color 0.3s ease;
-			z-index: 1;
+			z-index: 999;
 			width: 370px;
 			height: 40px;
 			text-align: center;
@@ -297,7 +299,6 @@
 		<div class="overlay" id="videoContainer"></div>
 		<h1 class="title">Rithmomachia</h1>
 		<div id="StartScreen">
-			<!--Going to make another canvas for the start screen eventually maybe Darin-->
 			<!-- Background wrapper for image of background board on start screen Darin -->
 			<div id="backgroundWrapper"></div>
 			<button id="startButton">Start Game</button>
@@ -312,51 +313,51 @@
 			</select>
 		</div>
 		<div id="SetupScreen" class="hidden">
-			//These Dont do anything for now but are here for in the future
+			<!-- //These Dont do anything for now but are here for in the future -->
 			<h2>Victory Conditions</h2>
 			<form>
-			    <ul class="victory-list">
-			      <li class="victory-item">
-			        <label>
-			          <input type="checkbox" name="victoryBodies" checked> Victory of Bodies
-			        </label>
-			      </li>
-			      <li class="victory-item">
-			        <label>
-			          <input type="checkbox" name="victoryGoods" checked> Victory of Goods
-			        </label>
-			      </li>
-			      <li class="victory-item">
-			        <label>
-			          <input type="checkbox" name="victoryQuarrel" checked> Victory of Quarrel
-			        </label>
-			      </li>
-			      <li class="victory-item">
-			        <label>
-			          <input type="checkbox" name="victoryHonor" checked> Victory of Honor
-			        </label>
-			      </li>
-			      <li class="victory-item">
-			        <label>
-			          <input type="checkbox" name="victoryHonorQuarrel" checked> Victory of Honor and Quarrel
-			        </label>
-			      </li>
-			      <li class="victory-item">
-			        <label>
-			          <input type="checkbox" name="victoriaMagna" checked> Victoria Magna
-			        </label>
-			      </li>
-			      <li class="victory-item">
-			        <label>
-			          <input type="checkbox" name="victoriaMayor" checked> Victoria Mayor
-			        </label>
-			      </li>
-			      <li class="victory-item">
-			        <label>
-			          <input type="checkbox" name="victoriaExcelentisima" checked> Victoria Excelentisima
-			        </label>
-			      </li>
-			    </ul>
+				<ul class="victory-list">
+					<li class="victory-item">
+						<label>
+							<input type="checkbox" name="victoryBodies" checked> Victory of Bodies
+						</label>
+					</li>
+					<li class="victory-item">
+						<label>
+							<input type="checkbox" name="victoryGoods" checked> Victory of Goods
+						</label>
+					</li>
+					<li class="victory-item">
+						<label>
+							<input type="checkbox" name="victoryQuarrel" checked> Victory of Quarrel
+						</label>
+					</li>
+					<li class="victory-item">
+						<label>
+							<input type="checkbox" name="victoryHonor" checked> Victory of Honor
+						</label>
+					</li>
+					<li class="victory-item">
+						<label>
+							<input type="checkbox" name="victoryHonorQuarrel" checked> Victory of Honor and Quarrel
+						</label>
+					</li>
+					<li class="victory-item">
+						<label>
+							<input type="checkbox" name="victoriaMagna" checked> Victoria Magna
+						</label>
+					</li>
+					<li class="victory-item">
+						<label>
+							<input type="checkbox" name="victoriaMayor" checked> Victoria Mayor
+						</label>
+					</li>
+					<li class="victory-item">
+						<label>
+							<input type="checkbox" name="victoriaExcelentisima" checked> Victoria Excelentisima
+						</label>
+					</li>
+				</ul>
 			</form>
 			<button id="ContinueToGame">Continue</button>
 		</div>
@@ -611,7 +612,7 @@
 			document.getElementById('SetupScreen').classList.add('hidden');
 			StartGame();
 		});
-		
+
 
 		//Function for the team change button. Once pressed behind the scenes the board and pieces are swapped and visually the button changes the current team and the background of start screen flips. Darin
 		document.getElementById('teamChangeButton').addEventListener('click', function () {
