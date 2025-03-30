@@ -63,12 +63,6 @@
 			color: #000000;
 		}
 
-		h2 {
-			color: white; /* Changed from black to white for better visibility */
-			text-align: center;
-			text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5); /* Added text shadow for better readability */
-		}
-
 		.game-controls {
 			position: absolute;
 			top: 20px;
@@ -176,6 +170,16 @@
 			border-radius: 20px;
 			padding: 20px;
 			overflow: hidden;
+		}
+
+		#SetupScreen h2 {
+		    color: white;
+		    text-align: center;
+		    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+		    position: relative;
+		    z-index: 2; /* Keeps it above the background */
+		    margin-top: 80px; /* Adds space below the title */
+		    /* If needed, you could also use padding-top instead */
 		}
     
 		.victory-list {
