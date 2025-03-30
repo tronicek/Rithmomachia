@@ -5,7 +5,7 @@
 	<meta charset="utf-8" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>rithmomachia</title>
+	<title>Rithmomachia</title>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/5.3.1/fabric.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<style>
@@ -170,6 +170,30 @@
 			border-radius: 20px;
 			padding: 20px;
 			overflow: hidden;
+		}
+    
+		.victory-list {
+			list-style-type: none;
+			padding: 0;
+		}
+		    
+		.victory-item {
+		     	 margin-bottom: 10px;
+		      	padding: 10px;
+		      	border: 1px solid #666666;
+		      	border-radius: 5px;
+		      	background-color: #888888;
+		      	transition: background-color 0.3s;
+		}
+		    
+		.victory-item:hover {
+		      	background-color: #999999;
+		}
+		    
+		.victory-item label {
+		      	display: flex;
+		      	align-items: center;
+		      	cursor: pointer;
 		}
 
 		/* Added to flip background without flipping the entire start screen Darin */
