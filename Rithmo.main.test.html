@@ -159,6 +159,19 @@
 			overflow: hidden;
 		}
 
+		#SetupScreen {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			position: relative;
+			width: 1000px;
+			height: 800px;
+			border-radius: 20px;
+			padding: 20px;
+			overflow: hidden;
+		}
+
 		/* Added to flip background without flipping the entire start screen Darin */
 		#backgroundWrapper {
 			position: absolute;
@@ -178,6 +191,23 @@
 
 		/* Added a grouping of the start screen buttons to format instead of listing them individually. Also gave start screen buttons a hover effect Darin */
 		#StartScreen button {
+			background-color: #777777;
+			color: black;
+			padding: 10px 20px;
+			border: none;
+			cursor: pointer;
+			border-radius: 10px;
+			font-size: 20px;
+			margin: 10px 0;
+			transform: rotate(0deg) !important;
+			transition: background-color 0.3s ease;
+			z-index: 1;
+			width: 370px;
+			height: 40px;
+			text-align: center;
+		}
+
+		#SetupScreen button {
 			background-color: #777777;
 			color: black;
 			padding: 10px 20px;
@@ -246,6 +276,54 @@
 				<option value="Lulu_Burkowski">Lulu Theme</option>
 				<option value="Jessie_Reed">Jessie Theme</option>
 			</select>
+		</div>
+		<div id="SetupScreen" class="hidden">
+			<h2>Victory Conditions</h2>
+			<form>
+			    <ul class="victory-list">
+			      <li class="victory-item">
+			        <label>
+			          <input type="checkbox" name="victoryBodies" checked> Victory of Bodies
+			        </label>
+			      </li>
+			      <li class="victory-item">
+			        <label>
+			          <input type="checkbox" name="victoryGoods" checked> Victory of Goods
+			        </label>
+			      </li>
+			      <li class="victory-item">
+			        <label>
+			          <input type="checkbox" name="victoryQuarrel" checked> Victory of Quarrel
+			        </label>
+			      </li>
+			      <li class="victory-item">
+			        <label>
+			          <input type="checkbox" name="victoryHonor" checked> Victory of Honor
+			        </label>
+			      </li>
+			      <li class="victory-item">
+			        <label>
+			          <input type="checkbox" name="victoryHonorQuarrel" checked> Victory of Honor and Quarrel
+			        </label>
+			      </li>
+			      <li class="victory-item">
+			        <label>
+			          <input type="checkbox" name="victoriaMagna" checked> Victoria Magna
+			        </label>
+			      </li>
+			      <li class="victory-item">
+			        <label>
+			          <input type="checkbox" name="victoriaMayor" checked> Victoria Mayor
+			        </label>
+			      </li>
+			      <li class="victory-item">
+			        <label>
+			          <input type="checkbox" name="victoriaExcelentisima" checked> Victoria Excelentisima
+			        </label>
+			      </li>
+			    </ul>
+			</form>
+			<button id="ContinueToGame">Continue</button>
 		</div>
 		<div class="game-controls">
 			<label id="fileLabel" for="moveFileInput" class="custom-file-label hidden">Open File</label>
@@ -490,8 +568,15 @@
 		document.getElementById('startButton').addEventListener('click', function () {
 			document.getElementById('StartScreen').classList.add('hidden');
 			document.getElementById('muteButton').classList.add('hidden');
+			document.getElementById('SetupScreen').classList.remove('hidden');
+			//StartGame();
+		});
+
+		document.getElementById('ContinueToGame').addEventListener('click', function () {
+			document.getElementById('SetupScreen').classList.add('hidden');
 			StartGame();
 		});
+		
 
 		//Function for the team change button. Once pressed behind the scenes the board and pieces are swapped and visually the button changes the current team and the background of start screen flips. Darin
 		document.getElementById('teamChangeButton').addEventListener('click', function () {
