@@ -4,7 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 
-public abstract class Piece {
+public class Piece {
     protected final Color color;
     private int value;
     private int row, col;
@@ -136,14 +136,14 @@ public abstract class Piece {
     //      }
     //  return pp;
     // That's it. That's the function.
-    public Set<Pos> captureByEncounter(Board board) {
-        Set<Pos> pp = new HashSet<>();
+    public Set<Piece> captureByEncounter(Board board) {
+        Set<Piece> pp = new HashSet<>();
         for (Piece neighbor : board.findClosestNeighbors(this.row, this.col)) {
             for (Piece pieceInSet : neighbor.getPieceAsSet()) {
                 if (board.distanceBetween(this, pieceInSet) == this.moveSpaces + 1
                         && this.color != pieceInSet.getColor()
                         && this.value == pieceInSet.getValue()) {
-                    pp.add(new Pos(pieceInSet.getRow(), pieceInSet.getCol()));
+                    pp.add(new Piece(pieceInSet.getColor(),pieceInSet.getValue(), pieceInSet.getRow(),pieceInSet.getCol(),pieceInSet.getMoveSpaces(),pieceInSet.getShape()));
                 }
             }
         }
@@ -153,8 +153,8 @@ public abstract class Piece {
 
     // This checks for all possible eruption captures and returns as a Set of Pos.
     // If there are no captures, it will return an empty set.
-    public Set<Pos> captureByEruption(Board board) {
-        Set<Pos> posECaps = new HashSet<>();
+    public Set<Piece> captureByEruption(Board board) {
+        Set<Piece> posECaps = new HashSet<>();
         Set<Piece> neighbors = board.findClosestNeighbors(this.row, this.col);
         if (!neighbors.isEmpty()) {
             for (Piece piece : neighbors) {
@@ -174,7 +174,7 @@ public abstract class Piece {
                         }
                         int multValue = this.value * totalSquares;
                         if (multValue == setPiece.value || divValue == setPiece.value) {
-                            posECaps.add(new Pos(setPiece.row, setPiece.col));
+                            posECaps.add(new Piece(setPiece.color, setPiece.value, setPiece.row, setPiece.col, setPiece.moveSpaces, setPiece.shape));
                         }
                     }
                 }
@@ -183,58 +183,19 @@ public abstract class Piece {
         return posECaps;
     }
 
-    /*public Set<Pos> deceitCapture(Board board) {
-        Set<Pos> posDCaps = new HashSet<>();
-          Set<Piece> neighbors = board.findClosestNeighbors(this.x, this.y);
-            if (!neighbors.isEmpty()){
-                  for(Piece piece1 : neighbors) { // Here making sure two diff pieces
-                 for(Piece piece2 : neighbors){
-                         if (piece1 != piece2){ //check if pieces are on opposite sides of piece
-                          boolean isOpposite = (piece1.x == piece2.x || piece1.y == piece2.y);
-
-                        if (isOpposite) { //check if sum of the values = current piece value
-                                  if (piece1.value + piece2.value == this.value) { //add both pieces' positions as working deceit captures
-                                     posDCaps.add(new Pos(piece1.x, piece1.y));
-                                     posDCaps.add(new Pos(piece2.x, piece2.y));
-                                 }
-                            }
-                      }
-                       }
+    public Set<Piece> capturebyDeceit(Board board) {
+        Set<Piece> pieces = new HashSet<>();
+        for (Piece neighbor : board.findClosestNeighbors(this.row, this.col)) {
+            for (Piece pieceInSet : neighbor.getPieceAsSet()) {
+               if(pieceInSet.getColor() != this.color) {
+                    if(board.deceitCaptureHelper(row,col,pieceInSet.getRow(), pieceInSet.getCol(), 2 * pieceInSet.getRow() - row, 2 * pieceInSet.getCol() - col,board)){
+                        pieces.add(pieceInSet);//Add Capturable Piece to Set
+                    }
                }
-              }
+            }
+        }
+        return pieces;//Return Set of Pieces
     }
-
-    */
-
-    public Set<Pos> capturebyDeceit(Board board) {
-        Set<Pos> posDCaps = new HashSet<>();
-        if(board.deceitCaptureHelper(row, col, row, col + 1, row, col + 2, board)){
-            posDCaps.add(new Pos(row, col + 1));// Right
-        }
-        if(board.deceitCaptureHelper(row, col, row, col - 1, row, col - 2, board)){
-            posDCaps.add(new Pos(row, col - 1));// Left
-        }
-        if(board.deceitCaptureHelper(row, col,row + 1, col, row + 2, col, board)){
-            posDCaps.add(new Pos(row + 1, col));// Down
-        }
-        if(board.deceitCaptureHelper(row, col, row - 1, col, row - 2, col, board)){
-            posDCaps.add(new Pos(row - 1, col));// Up
-        }
-        if(board.deceitCaptureHelper(row, col, row - 1, col + 1, row - 2, col + 2, board)){
-            posDCaps.add(new Pos (row - 1, col + 1));// Up-Right
-        }
-        if(board.deceitCaptureHelper(row, col,row + 1, col - 1, row + 2, col - 2, board)){
-            posDCaps.add(new Pos(row + 1, col - 1));// Down-Left
-        }
-        if(board.deceitCaptureHelper(row, col, row - 1, col - 1, row - 2, col - 2, board)){
-            posDCaps.add(new Pos(row - 1, col - 1));// Up-Left
-        }
-        if(board.deceitCaptureHelper(row, col, row + 1, col + 1, row + 2, col + 2, board)){
-            posDCaps.add(new Pos(row + 1, col + 1));// Down-Right
-        }
-        return posDCaps;//Return Capture Positions
-    }
-
 
 
     public Color getColor() {

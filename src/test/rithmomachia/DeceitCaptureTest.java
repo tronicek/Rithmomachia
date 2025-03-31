@@ -10,9 +10,9 @@ import static org.junit.Assert.assertEquals;
 
 public class DeceitCaptureTest {
 
-    private String toString(Set<Pos> pp) {
+    private String toString(Set<Piece> pp) {
         StringBuilder sb = new StringBuilder();
-        for (Pos p : pp) {
+        for (Piece p : pp) {
             sb.append(p);
         }
         return sb.toString();
@@ -30,9 +30,9 @@ public class DeceitCaptureTest {
         Board b = new Board(3, 3, s);
         b.printBoard();
         Piece p = b.getPiece(1, 0);
-        Set<Pos> pp = p.capturebyDeceit(b);
+        Set<Piece> pp = p.capturebyDeceit(b);
         String t = toString(pp);
-        assertEquals("[1,1]", t);
+        assertEquals("WC5", t);
     }
     @Test
     public void test2() {
@@ -44,9 +44,9 @@ public class DeceitCaptureTest {
         Board b = new Board(3, 3, s);
         b.printBoard();
         Piece p = b.getPiece(1, 2);
-        Set<Pos> pp = p.capturebyDeceit(b);
+        Set<Piece> pp = p.capturebyDeceit(b);
         String t = toString(pp);
-        assertEquals("[1,1]", t);
+        assertEquals("WC5", t);
     }
     @Test
     public void test3() {
@@ -58,9 +58,9 @@ public class DeceitCaptureTest {
         Board b = new Board(3, 3, s);
         b.printBoard();
         Piece p = b.getPiece(0, 1);
-        Set<Pos> pp = p.capturebyDeceit(b);
+        Set<Piece> pp = p.capturebyDeceit(b);
         String t = toString(pp);
-        assertEquals("[1,1]", t);
+        assertEquals("WC5", t);
     }
     @Test
     public void test4() {
@@ -72,9 +72,9 @@ public class DeceitCaptureTest {
         Board b = new Board(3, 3, s);
         b.printBoard();
         Piece p = b.getPiece(2, 1);
-        Set<Pos> pp = p.capturebyDeceit(b);
+        Set<Piece> pp = p.capturebyDeceit(b);
         String t = toString(pp);
-        assertEquals("[1,1]", t);
+        assertEquals("WC5", t);
     }
     @Test
     public void test5() {
@@ -86,9 +86,9 @@ public class DeceitCaptureTest {
         Board b = new Board(3, 3, s);
         b.printBoard();
         Piece p = b.getPiece(2, 0);
-        Set<Pos> pp = p.capturebyDeceit(b);
+        Set<Piece> pp = p.capturebyDeceit(b);
         String t = toString(pp);
-        assertEquals("[1,1]", t);
+        assertEquals("WC5", t);
     }
     @Test
     public void test6() {
@@ -100,9 +100,9 @@ public class DeceitCaptureTest {
         Board b = new Board(3, 3, s);
         b.printBoard();
         Piece p = b.getPiece(0, 2);
-        Set<Pos> pp = p.capturebyDeceit(b);
+        Set<Piece> pp = p.capturebyDeceit(b);
         String t = toString(pp);
-        assertEquals("[1,1]", t);
+        assertEquals("WC5", t);
     }
     @Test
     public void test7() {
@@ -114,9 +114,9 @@ public class DeceitCaptureTest {
         Board b = new Board(3, 3, s);
         b.printBoard();
         Piece p = b.getPiece(0, 0);
-        Set<Pos> pp = p.capturebyDeceit(b);
+        Set<Piece> pp = p.capturebyDeceit(b);
         String t = toString(pp);
-        assertEquals("[1,1]", t);
+        assertEquals("WC5", t);
     }
     @Test
     public void test8() {
@@ -128,9 +128,9 @@ public class DeceitCaptureTest {
         Board b = new Board(3, 3, s);
         b.printBoard();
         Piece p = b.getPiece(2, 2);
-        Set<Pos> pp = p.capturebyDeceit(b);
+        Set<Piece> pp = p.capturebyDeceit(b);
         String t = toString(pp);
-        assertEquals("[1,1]", t);
+        assertEquals("WC5", t);
     }
     @Test
     public void test9() {
@@ -142,7 +142,7 @@ public class DeceitCaptureTest {
         Board b = new Board(3, 3, s);
         b.printBoard();
         Piece p = b.getPiece(2, 2);
-        Set<Pos> pp = p.capturebyDeceit(b);
+        Set<Piece> pp = p.capturebyDeceit(b);
         assertEquals(0, pp.size());
     }
     @Test
@@ -155,7 +155,7 @@ public class DeceitCaptureTest {
         Board b = new Board(3, 3, s);
         b.printBoard();
         Piece p = b.getPiece(2, 2);
-        Set<Pos> pp = p.capturebyDeceit(b);
+        Set<Piece> pp = p.capturebyDeceit(b);
         assertEquals(0, pp.size());
     }
     @Test
@@ -168,7 +168,7 @@ public class DeceitCaptureTest {
         Board b = new Board(3, 3, s);
         b.printBoard();
         Piece p = b.getPiece(0, 0);
-        Set<Pos> pp = p.capturebyDeceit(b);
+        Set<Piece> pp = p.capturebyDeceit(b);
         assertEquals(0, pp.size());
     }
     @Test
@@ -181,7 +181,7 @@ public class DeceitCaptureTest {
         Board b = new Board(3, 3, s);
         b.printBoard();
         Piece p = b.getPiece(1, 1);
-        Set<Pos> pp = p.capturebyDeceit(b);
+        Set<Piece> pp = p.capturebyDeceit(b);
         assertEquals(0, pp.size());
     }
     @Test
@@ -197,7 +197,7 @@ public class DeceitCaptureTest {
         Board b = new Board(5, 5, s);
         b.printBoard();
         Piece p = b.getPiece(2, 2);
-        Set<Pos> pp = p.capturebyDeceit(b);
+        Set<Piece> pp = p.capturebyDeceit(b);
         assertEquals(8, pp.size());
     }
 

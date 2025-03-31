@@ -87,7 +87,7 @@ public class Pyramid extends Piece {
         for (String pieceType : this.pieces.keySet()) {
             piecesSet.addAll(this.pieces.get(pieceType));
         }
-        piecesSet.add(this);
+
         return piecesSet;
     }
 
@@ -135,8 +135,8 @@ public class Pyramid extends Piece {
     // Override that runs algorithm for each piece remaining in the Pyramid
     // Need to add way to check all values???
     // Need to create virtual piece of each type remaining in set and then run capture algorithm for each piece type for each possible value????
-    public Set<Pos> captureByEncounter(Board board) {
-        Set<Pos> encounters = new HashSet<>();
+    public Set<Piece> captureByEncounter(Board board) {
+        Set<Piece> encounters = new HashSet<>();
         Set<Integer> values = getValuesForMakingCaptures();
         for (String pieceType : this.pieces.keySet()) {
             if (!pieces.get(pieceType).isEmpty()) {
@@ -168,8 +168,8 @@ public class Pyramid extends Piece {
     }
 
     // Override. This does not depend on piece type but will need to run over all values.
-    public Set<Pos> captureByEruption(Board board) {
-        Set<Pos> eruptions = new HashSet<>();
+    public Set<Piece> captureByEruption(Board board) {
+        Set<Piece> eruptions = new HashSet<>();
         for (int value : this.getValuesForMakingCaptures()) {
             Piece virtualPiece = new Circle(this.getColor(), value, this.getRow(), this.getCol());
             eruptions.addAll(virtualPiece.captureByEruption(board));
