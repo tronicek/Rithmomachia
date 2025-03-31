@@ -5,8 +5,9 @@
 	<meta charset="utf-8" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>rithmomachia</title>
+	<title>Rithmomachia</title>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/5.3.1/fabric.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<style>
 		@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap');
 
@@ -63,18 +64,20 @@
 		}
 
 		.game-controls {
- 		    position: absolute;
- 		    top: 20px;
- 		    right: 2.5%; /* Indicates the percentage/pixles from the right side of the area it resides in*/
- 		    display: flex;
- 		    flex-direction: row;
- 		    gap: 10px;
- 		    z-index: 100;
- 		    max-width: calc(31%); /* Width limited to avoid reaching the title */
- 		    flex-wrap: wrap;
- 		    justify-content: flex-start;
- 		    align-items: center;
- 		}
+			position: absolute;
+			top: 20px;
+			right: 2.5%;
+			/* Indicates the percentage/pixles from the right side of the area it resides in*/
+			display: flex;
+			flex-direction: row;
+			gap: 10px;
+			z-index: 100;
+			max-width: calc(31%);
+			/* Width limited to avoid reaching the title */
+			flex-wrap: wrap;
+			justify-content: flex-start;
+			align-items: center;
+		}
 
 		.game-container {
 			display: flex;
@@ -156,6 +159,55 @@
 			overflow: hidden;
 		}
 
+		#SetupScreen {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			position: relative;
+			width: 1000px;
+			height: 800px;
+			border-radius: 20px;
+			padding: 20px;
+			overflow: hidden;
+		}
+
+		#SetupScreen h2 {
+			color: black;
+			text-align: center;
+			text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+			position: relative;
+			z-index: 2;
+			/* Keeps it above the background */
+			margin-top: 20px;
+			/* Adds space below the title */
+			/* If needed, you could also use padding-top instead */
+		}
+
+		.victory-list {
+			list-style-type: none;
+			padding: 0;
+		}
+
+		.victory-item {
+			margin-bottom: 5px;
+			padding: 10px;
+			border: 1px solid #666666;
+			border-radius: 5px;
+			background-color: #888888;
+			transition: background-color 0.3s;
+		}
+
+		.victory-item:hover {
+			background-color: #999999;
+		}
+
+		.victory-item label {
+			display: flex;
+			align-items: center;
+			cursor: pointer;
+		}
+
 		/* Added to flip background without flipping the entire start screen Darin */
 		#backgroundWrapper {
 			position: absolute;
@@ -186,6 +238,23 @@
 			transform: rotate(0deg) !important;
 			transition: background-color 0.3s ease;
 			z-index: 1;
+			width: 370px;
+			height: 40px;
+			text-align: center;
+		}
+
+		#SetupScreen button {
+			background-color: #777777;
+			color: black;
+			padding: 10px 20px;
+			border: none;
+			cursor: pointer;
+			border-radius: 10px;
+			font-size: 20px;
+			margin: 10px 0;
+			transform: rotate(0deg) !important;
+			transition: background-color 0.3s ease;
+			z-index: 999;
 			width: 370px;
 			height: 40px;
 			text-align: center;
@@ -230,7 +299,6 @@
 		<div class="overlay" id="videoContainer"></div>
 		<h1 class="title">Rithmomachia</h1>
 		<div id="StartScreen">
-			<!--Going to make another canvas for the start screen eventually maybe Darin-->
 			<!-- Background wrapper for image of background board on start screen Darin -->
 			<div id="backgroundWrapper"></div>
 			<button id="startButton">Start Game</button>
@@ -243,6 +311,55 @@
 				<option value="Lulu_Burkowski">Lulu Theme</option>
 				<option value="Jessie_Reed">Jessie Theme</option>
 			</select>
+		</div>
+		<div id="SetupScreen" class="hidden">
+			<!-- //These Dont do anything for now but are here for in the future -->
+			<h2>Victory Conditions</h2>
+			<form>
+				<ul class="victory-list">
+					<li class="victory-item">
+						<label>
+							<input type="checkbox" name="victoryBodies" checked> Victory of Bodies
+						</label>
+					</li>
+					<li class="victory-item">
+						<label>
+							<input type="checkbox" name="victoryGoods" checked> Victory of Goods
+						</label>
+					</li>
+					<li class="victory-item">
+						<label>
+							<input type="checkbox" name="victoryQuarrel" checked> Victory of Quarrel
+						</label>
+					</li>
+					<li class="victory-item">
+						<label>
+							<input type="checkbox" name="victoryHonor" checked> Victory of Honor
+						</label>
+					</li>
+					<li class="victory-item">
+						<label>
+							<input type="checkbox" name="victoryHonorQuarrel" checked> Victory of Honor and Quarrel
+						</label>
+					</li>
+					<li class="victory-item">
+						<label>
+							<input type="checkbox" name="victoriaMagna" checked> Victoria Magna
+						</label>
+					</li>
+					<li class="victory-item">
+						<label>
+							<input type="checkbox" name="victoriaMayor" checked> Victoria Mayor
+						</label>
+					</li>
+					<li class="victory-item">
+						<label>
+							<input type="checkbox" name="victoriaExcelentisima" checked> Victoria Excelentisima
+						</label>
+					</li>
+				</ul>
+			</form>
+			<button id="ContinueToGame">Continue</button>
 		</div>
 		<div class="game-controls">
 			<label id="fileLabel" for="moveFileInput" class="custom-file-label hidden">Open File</label>
@@ -268,6 +385,7 @@
 	<video id="introVideo" preload="auto" style="display: none;">
 		<source src="Images/Rith/HUNTRithCutscene.mp4" type="video/mp4">
 	</video>
+	<input id="gameId" type="text" readonly size="40" />
 
 	<script>
 
@@ -330,7 +448,7 @@
 					width: 1000,
 					height: 500
 				}
-		
+
 			},
 			Jessie_Reed: {
 				board: 'Images/Rithmomachia Art/Board.png',
@@ -486,8 +604,15 @@
 		document.getElementById('startButton').addEventListener('click', function () {
 			document.getElementById('StartScreen').classList.add('hidden');
 			document.getElementById('muteButton').classList.add('hidden');
+			document.getElementById('SetupScreen').classList.remove('hidden');
+			//StartGame();
+		});
+
+		document.getElementById('ContinueToGame').addEventListener('click', function () {
+			document.getElementById('SetupScreen').classList.add('hidden');
 			StartGame();
 		});
+
 
 		//Function for the team change button. Once pressed behind the scenes the board and pieces are swapped and visually the button changes the current team and the background of start screen flips. Darin
 		document.getElementById('teamChangeButton').addEventListener('click', function () {
@@ -580,6 +705,9 @@
 			else if (event.key == "s" || event.key == "S") {
 				SkipVideo();
 			}
+			else if (event.key == "h" || event.key == "H") {
+				$("#gameId").toggle();
+			}
 		});
 
 		//Plays preloaded intro video, initializes game, and unhides all elements that were previously hidden that are needed for the game. -Darin
@@ -589,6 +717,18 @@
 			setLengthandHeight();
 			playIntroVideo();
 			initializeGame();
+			$.ajax({
+				url: 'api/games',
+				type: 'POST',
+				contentType: 'application/json',
+				dataType: 'text',
+				success: function (resp) {
+					$('#gameId').val(resp);
+				},
+				error: function () {
+					alert('Network communication error');
+				}
+			});
 			document.getElementById('fileLabel').classList.remove('hidden');
 			document.getElementById('endLoopButton').classList.remove('hidden');
 			document.getElementById('pause').classList.remove('hidden');
@@ -597,6 +737,7 @@
 			document.getElementById('game-board').classList.remove('hidden');
 			document.getElementById('volumeButton').classList.remove('hidden');
 			document.getElementById('InfoButton').classList.remove('hidden');
+
 		}
 
 		//Function to skip videos when called 
@@ -666,7 +807,7 @@
 					// Use the theme's pieceFormat function for regular pieces (This Should fix it)
 					imagePath = THEMES[currentTheme].pieces.pieceFormat(value, isWhite, baseType);
 
-				
+
 				}
 
 				fabric.Image.fromURL(imagePath, function (img) {
