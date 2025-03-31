@@ -362,6 +362,7 @@
 					</li>
 				</ul>
 			</form>
+			<button id="saveVictoriesBtn">Save Changes</button>
 			<button id="ContinueToGame">Continue</button>
 		</div>
 		<div class="game-controls">
@@ -391,7 +392,7 @@
 	<input id="gameId" type="text" readonly size="40" />
 
 	<script>
-
+		let activeVictoryConditions = {};
 		let isMuted = false;
 		let currentFileReader = null;
 		let currentTheme = "Daniel_Hunt";
@@ -712,6 +713,61 @@
 				$("#gameId").toggle();
 			}
 		});
+
+		// Initialize with all victory conditions active
+		    document.addEventListener('DOMContentLoaded', function() {
+		      updateActiveVictories();
+		    });
+		    
+		    // Add event listener to the save button
+		    document.getElementById('saveVictoriesBtn').addEventListener('click', function() {
+		      updateActiveVictories();
+		      showSaveConfirmation();
+		    });
+		    
+		    // Add event listeners to all checkboxes to track changes in real-time
+		    const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+		    checkboxes.forEach(checkbox => {
+		      checkbox.addEventListener('change', function() {
+		        // Automatically update active victories when a checkbox changes
+		        updateActiveVictories();
+		      });
+		    });
+		    
+		    // Function to update the active victory conditions without displaying them
+		    function updateActiveVictories() {
+		      const form = document.getElementById('victoryForm');
+		      activeVictoryConditions = {};
+		      
+		      // Loop through all checkboxes
+		      for (const checkbox of form.elements) {
+		        if (checkbox.type === 'checkbox') {
+		          // Store the checkbox state in the global object
+		          activeVictoryConditions[checkbox.name] = checkbox.checked;
+		        }
+		      }
+		      
+		      // For debugging - you can remove this in production
+		      console.log('Active Victory Conditions:', activeVictoryConditions);
+		      
+		      return activeVictoryConditions;
+		    }
+		    
+		    // Function to show save confirmation message
+		    function showSaveConfirmation() {
+		      const confirmation = document.getElementById('saveConfirmation');
+		      confirmation.classList.add('show');
+		      
+		      // Hide the confirmation after 2 seconds
+		      setTimeout(() => {
+		        confirmation.classList.remove('show');
+		      }, 2000);
+		    }
+		    
+		    // Function to get victory status programmatically (for your game code)
+		    function getVictoryStatus() {
+		      return activeVictoryConditions;
+		    }
 
 		//Plays preloaded intro video, initializes game, and unhides all elements that were previously hidden that are needed for the game. -Darin
 		function StartGame() {
