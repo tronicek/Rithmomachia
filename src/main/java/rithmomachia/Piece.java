@@ -187,8 +187,11 @@ public class Piece {
         Set<Piece> pieces = new HashSet<>();
         for (Piece neighbor : board.findClosestNeighbors(this.row, this.col)) {
             for (Piece pieceInSet : neighbor.getPieceAsSet()) {
-               if(board.deceitCaptureHelper(, pieceInSet)){
-                   pieces.add(pieceInSet);
+                for(Piece piece : board.getPiece(this.row,this.col).getPieceAsSet()){
+                    System.out.println(piece);
+                    if(board.deceitCaptureHelper(piece, pieceInSet)){
+                        pieces.add(pieceInSet);
+                    }
                 }
             }
         }

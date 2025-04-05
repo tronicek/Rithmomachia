@@ -449,9 +449,7 @@ public class Board {
                     return false;
                 }
                 for(Piece piece: allyPiece.getPieceAsSet()){
-                    //System.out.println("Capturing Value: " + capturingPiece.getValue());
-                    //System.out.println("Ally Value " + allyPiece.getValue());
-                    if(capturingPiece.getValue() + allyPiece.getValue() == opponentPiece.getValue()) {
+                    if(capturingPiece.getValue() + piece.getValue() == opponentPiece.getValue()) {
                         return true;
                     }
                 }

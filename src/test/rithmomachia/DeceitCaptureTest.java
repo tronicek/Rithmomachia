@@ -244,4 +244,50 @@ public class DeceitCaptureTest {
         assertEquals("BT7", t);
     }
 
+    @Test
+    public void test17() {
+        String[] s = {
+                "P,W,C5,S9,T10 --- ---",
+                "--- BT7 ---",
+                "--- --- WT2",
+        };
+        Board b = new Board(3, 3, s);
+        b.printBoard();
+        Piece p = b.getPiece(2, 2);
+        Set<Piece> pp = p.captureByDeceit(b);
+        String t = toString(pp);
+        assertEquals("BT7", t);
+    }
+
+    @Test
+    public void test18() {
+        String[] s = {
+                "P,W,C5,S9,T10 --- ---",
+                "--- P,B,T7,C15 ---",
+                "--- --- WT2",
+        };
+        Board b = new Board(3, 3, s);
+        b.printBoard();
+        Piece p = b.getPiece(2, 2);
+        Set<Piece> pp = p.captureByDeceit(b);
+        String t = toString(pp);
+        assertEquals("BT7", t);
+    }
+
+    @Test
+    public void test19() {
+        String[] s = {
+                "P,W,C5,S9,T10 --- ---",
+                "--- P,B,T7,C11,C12 ---",
+                "--- --- WT2",
+        };
+        Board b = new Board(3, 3, s);
+        b.printBoard();
+        Piece p = b.getPiece(2, 2);
+        Set<Piece> pp = p.captureByDeceit(b);
+        assertEquals(3, pp.size());
+    }
+
+
+
 }
