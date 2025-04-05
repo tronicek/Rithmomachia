@@ -183,15 +183,13 @@ public class Piece {
         return posECaps;
     }
 
-    public Set<Piece> capturebyDeceit(Board board) {
+    public Set<Piece> captureByDeceit(Board board) {
         Set<Piece> pieces = new HashSet<>();
         for (Piece neighbor : board.findClosestNeighbors(this.row, this.col)) {
             for (Piece pieceInSet : neighbor.getPieceAsSet()) {
-               if(pieceInSet.getColor() != this.color) {
-                    if(board.deceitCaptureHelper(row,col,pieceInSet.getRow(), pieceInSet.getCol(), 2 * pieceInSet.getRow() - row, 2 * pieceInSet.getCol() - col,board)){
-                        pieces.add(pieceInSet);//Add Capturable Piece to Set
-                    }
-               }
+               if(board.deceitCaptureHelper(, pieceInSet)){
+                   pieces.add(pieceInSet);
+                }
             }
         }
         return pieces;//Return Set of Pieces

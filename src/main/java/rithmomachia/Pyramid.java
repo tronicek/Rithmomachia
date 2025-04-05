@@ -199,4 +199,16 @@ public class Pyramid extends Piece {
 
     // Will need to override deceipt
     // Other big problem: How to handle Pyramid BEING captured because it can be whole value, even if not complete
+
+    public Set<Piece> captureByDeceit(Board board) {
+        Set<Piece> deceits = new HashSet<>();
+        for (int value : this.getValuesForMakingCaptures()) {
+            System.out.println("Value found: " + value);
+            Piece virtualPiece = new Circle(this.getColor(), value, this.getRow(), this.getCol());
+            deceits.addAll(virtualPiece.captureByDeceit(board));
+        }
+        return deceits;
+    }
+
+
 }

@@ -431,16 +431,32 @@ public class Board {
         return totalSquares;
     }
 
-    public boolean deceitCaptureHelper(int row, int col, int row1, int col1, int row2, int col2, Board board) {
-        Piece capturingPiece = getPiece(row, col);
-        if (board.isValidPos(row1, col1) && board.isValidPos(row2, col2)) {
-            Piece captured = board.getPiece(row1, col1);
-            Piece ally = board.getPiece(row2, col2);
-
-            if (captured != null && ally != null && ally.color == capturingPiece.getColor() && captured.color != capturingPiece.getColor() &&
-                    captured.getValue() == capturingPiece.getValue() + ally.getValue()) {
-                return true;
+    public boolean deceitCaptureHelper(Piece capturingPiece, Piece opponentPiece) {
+        if(distanceBetween(capturingPiece, opponentPiece) > 2) {
+            return false;
+        }
+        else{
+            int capturingRow = capturingPiece.getRow();
+            int capturingCol = capturingPiece.getCol();
+            int opponentRow = opponentPiece.getRow();
+            int opponentCol = opponentPiece.getCol();
+            if(isValidPos(2 * opponentRow - capturingRow, 2 * opponentCol  - capturingCol)){
+                Piece allyPiece = getPiece(2 * opponentRow - capturingRow, 2 * opponentCol  - capturingCol);
+                if(allyPiece == null) {
+                    return false;
+                }
+                if(allyPiece.getColor() != capturingPiece.getColor()) {
+                    return false;
+                }
+                for(Piece piece: allyPiece.getPieceAsSet()){
+                    //System.out.println("Capturing Value: " + capturingPiece.getValue());
+                    //System.out.println("Ally Value " + allyPiece.getValue());
+                    if(capturingPiece.getValue() + allyPiece.getValue() == opponentPiece.getValue()) {
+                        return true;
+                    }
+                }
             }
+
         }
         return false;
     }
