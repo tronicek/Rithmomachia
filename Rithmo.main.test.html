@@ -185,11 +185,11 @@
 		}
 
 		.victory-list {
-		      list-style-type: none;
-		      padding: 0;
-		      display: grid;
-		      grid-template-columns: 1fr 1fr;
-		      gap: 10px;
+			list-style-type: none;
+			padding: 0;
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			gap: 10px;
 		}
 
 		.victory-item {
@@ -212,16 +212,16 @@
 		}
 
 		.save-confirmation {
-		    color: #4CAF50;
-		    font-weight: bold;
-		    opacity: 0;
-		    transition: opacity 0.3s ease;
-		    margin: 10px 0;
-		    text-align: center;
+			color: #4CAF50;
+			font-weight: bold;
+			opacity: 0;
+			transition: opacity 0.3s ease;
+			margin: 10px 0;
+			text-align: center;
 		}
-		
+
 		.save-confirmation.show {
-		    opacity: 1;
+			opacity: 1;
 		}
 
 		/* Added to flip background without flipping the entire start screen Darin */
@@ -328,6 +328,7 @@
 				<option value="Jessie_Reed">Jessie Theme</option>
 			</select>
 		</div>
+
 		<div id="SetupScreen" class="hidden">
 			<!-- //These Dont do anything for now but are here for in the future -->
 			<h2>Victory Conditions</h2>
@@ -379,25 +380,44 @@
 			<p id="saveConfirmation" class="save-confirmation">Victory conditions saved!</p>
 			<button id="ContinueToGame">Continue</button>
 		</div>
-		<div class="game-controls">
-			<label id="fileLabel" for="moveFileInput" class="custom-file-label hidden">Open File</label>
-			<input type="file" id="moveFileInput" accept=".txt" style="display:none;" />
-			<button id="endLoopButton" class="hidden" onclick="handleReset()">Reset</button>
-			<button id="pause" onclick="PauseButton()" class="hidden">Pause</button>
-			<button class="hidden" id="volumeButton">Volume</button>
-			<button class="hidden infoButton" id="InfoButton">Game Info</button>
+
+		<div id="GameScreen" class="hidden">
+			<div class="game-controls">
+				<label id="fileLabel" for="moveFileInput" class="custom-file-label hidden">Open File</label>
+				<input type="file" id="moveFileInput" accept=".txt" style="display:none;" />
+				<button id="endLoopButton" class="hidden" onclick="handleReset()">Reset</button>
+				<button id="pause" onclick="PauseButton()" class="hidden">Pause</button>
+				<button class="hidden" id="volumeButton">Volume</button>
+				<button class="hidden infoButton" id="InfoButton">Game Info</button>
+			</div>
+			<div class="game-container">
+				<div id="black-pyramid" class="hidden">
+					<h3>Black<br />Pyramid</h3>
+				</div>
+				<div id="game-board" class="hidden">
+					<canvas id="gameCanvas"></canvas>
+				</div>
+				<div id="white-pyramid" class="hidden">
+					<h3>White<br />Pyramid</h3>
+				</div>
+			</div>
 		</div>
-		<div class="game-container">
-			<div id="black-pyramid" class="hidden">
-				<h3>Black<br />Pyramid</h3>
-			</div>
-			<div id="game-board" class="hidden">
-				<canvas id="gameCanvas"></canvas>
-			</div>
-			<div id="white-pyramid" class="hidden">
-				<h3>White<br />Pyramid</h3>
-			</div>
+	</div>
+
+	<div id="GameInfo" class="hidden">
+		<div class="infoSlide">
+			<h1>Welcome to Rithmomachia!</h1>
+			<p>In Rithmomachia, players choose a victory condition at the start—Bodies, Goods, Quarrel, Honor, or
+				Honor + Quarrel.
+				Victory is achieved by capturing opponent pieces using one of four methods: Siege, Encounter,
+				Eruption, or Deceit. Each
+				capture requires specific mathematical calculations based on the pieces' values and movement
+				patterns. Finally, there are
+				also special victories named glorious victories-Victoria magna, Victoria major and Victoria
+				excellentissima. Each of these
+				concepts will be explained in the upcoming slides starting with piece values and movement rules.</p>
 		</div>
+		<button id="backButton"></button>
 	</div>
 	<!--Preload Intro video Darin-->
 	<video id="introVideo" preload="auto" style="display: none;">
@@ -700,10 +720,38 @@
 		});
 
 		document.querySelectorAll(".infoButton").forEach(button => {
+			InfoTab = document.getElementById("GameInfo");
+			GameScreen = document.getElementById('GameScreen');
+			StartScreen = document.getElementById("StartScreen");
+			Back = document.getElementById("backButton");
 			button.addEventListener("click", function () {
 				window.open("Images/Rithmomachia_Booklet/Rithmomachia_Booklet.pdf", "_blank");
+				if (StartScreen.classList.contains("hidden")) {
+					Back.innerHTML = "Back to Game"
+					GameScreen.classList.add("hidden");
+
+				}
+				else if (GameScreen.classList.contains("hidden")) {
+					Back.innerHTML = "Back to Start Screen"
+					StartScreen.classList.add("hidden");
+				}
+				InfoTab.classList.remove("hidden");
 			});
 		});
+
+		document.getElementById('backButton').addEventListener("click", function () {
+			InfoTab = document.getElementById("GameInfo");
+			StartScreen = document.getElementById('StartScreen');
+			GameScreen = document.getElementById("GameScreen");
+			if (StartScreen.classList.contains("hidden")) {
+				GameScreen.classList.remove("hidden");
+			}
+			else if (GameScreen.classList.contains("hidden")) {
+				StartScreen.classList.remove("hidden");
+			}
+			InfoTab.classList.add("hidden")
+
+		})
 
 		//Can also mute and unmute audio by pressing m on the keyboard
 		document.addEventListener("keydown", function (event) {
@@ -729,59 +777,59 @@
 		});
 
 		// Initialize with all victory conditions active
-		    document.addEventListener('DOMContentLoaded', function() {
-		      updateActiveVictories();
-		    });
-		    
-		    // Add event listener to the save button
-		    document.getElementById('saveVictoriesBtn').addEventListener('click', function() {
-		      updateActiveVictories();
-		      showSaveConfirmation();
-		    });
-		    
-		    // Add event listeners to all checkboxes to track changes in real-time
-		    const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-		    checkboxes.forEach(checkbox => {
-		      checkbox.addEventListener('change', function() {
-		        // Automatically update active victories when a checkbox changes
-		        updateActiveVictories();
-		      });
-		    });
-		    
-		    // Function to update the active victory conditions without displaying them
-		    function updateActiveVictories() {
-		      const form = document.getElementById('victoryForm');
-		      activeVictoryConditions = {};
-		      
-		      // Loop through all checkboxes
-		      for (const checkbox of form.elements) {
-		        if (checkbox.type === 'checkbox') {
-		          // Store the checkbox state in the global object
-		          activeVictoryConditions[checkbox.name] = checkbox.checked;
-		        }
-		      }
-		      
-		      // For debugging - you can remove this in production
-		      console.log('Active Victory Conditions:', activeVictoryConditions);
-		      
-		      return activeVictoryConditions;
-		    }
-		    
-		    // Function to show save confirmation message
-		    function showSaveConfirmation() {
-		      const confirmation = document.getElementById('saveConfirmation');
-		      confirmation.classList.add('show');
-		      
-		      // Hide the confirmation after 2 seconds
-		      setTimeout(() => {
-		        confirmation.classList.remove('show');
-		      }, 2000);
-		    }
-		    
-		    // Function to get victory status programmatically (for your game code)
-		    function getVictoryStatus() {
-		      return activeVictoryConditions;
-		    }
+		document.addEventListener('DOMContentLoaded', function () {
+			updateActiveVictories();
+		});
+
+		// Add event listener to the save button
+		document.getElementById('saveVictoriesBtn').addEventListener('click', function () {
+			updateActiveVictories();
+			showSaveConfirmation();
+		});
+
+		// Add event listeners to all checkboxes to track changes in real-time
+		const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+		checkboxes.forEach(checkbox => {
+			checkbox.addEventListener('change', function () {
+				// Automatically update active victories when a checkbox changes
+				updateActiveVictories();
+			});
+		});
+
+		// Function to update the active victory conditions without displaying them
+		function updateActiveVictories() {
+			const form = document.getElementById('victoryForm');
+			activeVictoryConditions = {};
+
+			// Loop through all checkboxes
+			for (const checkbox of form.elements) {
+				if (checkbox.type === 'checkbox') {
+					// Store the checkbox state in the global object
+					activeVictoryConditions[checkbox.name] = checkbox.checked;
+				}
+			}
+
+			// For debugging - you can remove this in production
+			console.log('Active Victory Conditions:', activeVictoryConditions);
+
+			return activeVictoryConditions;
+		}
+
+		// Function to show save confirmation message
+		function showSaveConfirmation() {
+			const confirmation = document.getElementById('saveConfirmation');
+			confirmation.classList.add('show');
+
+			// Hide the confirmation after 2 seconds
+			setTimeout(() => {
+				confirmation.classList.remove('show');
+			}, 2000);
+		}
+
+		// Function to get victory status programmatically (for your game code)
+		function getVictoryStatus() {
+			return activeVictoryConditions;
+		}
 
 		//Plays preloaded intro video, initializes game, and unhides all elements that were previously hidden that are needed for the game. -Darin
 		function StartGame() {
@@ -802,6 +850,7 @@
 					alert('Network communication error');
 				}
 			});
+			document.getElementById("GameScreen").classList.remove("hidden");
 			document.getElementById('fileLabel').classList.remove('hidden');
 			document.getElementById('endLoopButton').classList.remove('hidden');
 			document.getElementById('pause').classList.remove('hidden');
