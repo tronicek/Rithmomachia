@@ -383,21 +383,21 @@
 
 		<div id="GameScreen" class="hidden">
 			<div class="game-controls">
-				<label id="fileLabel" for="moveFileInput" class="custom-file-label hidden">Open File</label>
+				<label id="fileLabel" for="moveFileInput" class="custom-file-label">Open File</label>
 				<input type="file" id="moveFileInput" accept=".txt" style="display:none;" />
-				<button id="endLoopButton" class="hidden" onclick="handleReset()">Reset</button>
-				<button id="pause" onclick="PauseButton()" class="hidden">Pause</button>
-				<button class="hidden" id="volumeButton">Volume</button>
-				<button class="hidden infoButton" id="InfoButton">Game Info</button>
+				<button id="endLoopButton" onclick="handleReset()">Reset</button>
+				<button id="pause" onclick="PauseButton()">Pause</button>
+				<button id="volumeButton">Volume</button>
+				<button class="infoButton" id="InfoButton">Game Info</button>
 			</div>
 			<div class="game-container">
-				<div id="black-pyramid" class="hidden">
+				<div id="black-pyramid">
 					<h3>Black<br />Pyramid</h3>
 				</div>
-				<div id="game-board" class="hidden">
+				<div id="game-board">
 					<canvas id="gameCanvas"></canvas>
 				</div>
-				<div id="white-pyramid" class="hidden">
+				<div id="white-pyramid">
 					<h3>White<br />Pyramid</h3>
 				</div>
 			</div>
@@ -643,7 +643,6 @@
 		//When start button is clicked it hides itself and calls start game -Darin
 		document.getElementById('startButton').addEventListener('click', function () {
 			document.getElementById('StartScreen').classList.add('hidden');
-			document.getElementById('muteButton').classList.add('hidden');
 			document.getElementById('SetupScreen').classList.remove('hidden');
 			//StartGame();
 		});
@@ -856,15 +855,6 @@
 				}
 			});
 			document.getElementById("GameScreen").classList.remove("hidden");
-			document.getElementById('fileLabel').classList.remove('hidden');
-			document.getElementById('endLoopButton').classList.remove('hidden');
-			document.getElementById('pause').classList.remove('hidden');
-			document.getElementById('black-pyramid').classList.remove('hidden');
-			document.getElementById('white-pyramid').classList.remove('hidden');
-			document.getElementById('game-board').classList.remove('hidden');
-			document.getElementById('volumeButton').classList.remove('hidden');
-			document.getElementById('InfoButton').classList.remove('hidden');
-
 		}
 
 		//Function to skip videos when called 
