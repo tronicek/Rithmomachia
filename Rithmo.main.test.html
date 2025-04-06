@@ -439,6 +439,8 @@
 		let length;
 		let height;
 
+		let hidden;
+
 		const THEMES = {
 			Lulu_Burkowski: {
 				board: 'Images/Rithmomachia/Board and pieces/Board-Rotate.png',
@@ -729,11 +731,13 @@
 				if (StartScreen.classList.contains("hidden")) {
 					Back.innerHTML = "Back to Game"
 					GameScreen.classList.add("hidden");
+					hidden = "GameScreen";
 
 				}
 				else if (GameScreen.classList.contains("hidden")) {
 					Back.innerHTML = "Back to Start Screen"
 					StartScreen.classList.add("hidden");
+					hidden = "StartScreen";
 				}
 				InfoTab.classList.remove("hidden");
 			});
@@ -743,13 +747,14 @@
 			InfoTab = document.getElementById("GameInfo");
 			StartScreen = document.getElementById('StartScreen');
 			GameScreen = document.getElementById("GameScreen");
-			if (StartScreen.classList.contains("hidden")) {
+			if (hidden === "GameScreen") {
 				GameScreen.classList.remove("hidden");
 			}
-			else if (GameScreen.classList.contains("hidden")) {
+			else if (hidden === "StartScreen") {
 				StartScreen.classList.remove("hidden");
 			}
-			InfoTab.classList.add("hidden")
+			InfoTab.classList.add("hidden");
+			hidden = "";
 
 		})
 
