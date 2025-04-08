@@ -30,6 +30,8 @@ public class Board {
 
             }
         }
+        this.whiteEnemyTerritoryStartColumn = 0;
+        this.blackEnemyTerritoryStartColumn = numCols-1;
         victoryManager = new VictoryManager(this, null, 0, 0, 0);
     }
 
