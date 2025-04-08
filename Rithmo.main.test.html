@@ -853,22 +853,20 @@
 		
 		// Function to save victory conditions to the backend
 		function saveVictoryConditionsToBackend() {
-		    // Send data to the backend
-		    fetch('/api/victory/save', {
-		        method: 'POST',
-		        headers: {
-		            'Content-Type': 'application/json',
+		// Send data to the backend using jQuery AJAX
+		    $.ajax({
+		        url: '/api/victory/save',
+		        type: 'POST',
+		        contentType: 'application/json',
+		        data: JSON.stringify({ conditions: activeVictoryConditions }),
+		        success: function(data) {
+		            console.log('Backend save success:', data);
+		            // Success is handled by showSaveConfirmation() if called together
 		        },
-		        body: JSON.stringify({ conditions: activeVictoryConditions })
-		    })
-		    .then(response => response.json())
-		    .then(data => {
-		        console.log('Backend save success:', data);
-		        // Success is handled by showSaveConfirmation() if called together
-		    })
-		    .catch(error => {
-		        console.error('Error saving victory conditions to backend:', error);
-		        // You might want to show an error message to the user
+		        error: function(xhr, status, error) {
+		            console.error('Error saving victory conditions to backend:', error);
+		            // You might want to show an error message to the user
+		        }
 		    });
 		}
 		
