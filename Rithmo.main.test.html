@@ -383,21 +383,21 @@
 
 		<div id="GameScreen" class="hidden">
 			<div class="game-controls">
-				<label id="fileLabel" for="moveFileInput" class="custom-file-label hidden">Open File</label>
+				<label id="fileLabel" for="moveFileInput" class="custom-file-label">Open File</label>
 				<input type="file" id="moveFileInput" accept=".txt" style="display:none;" />
-				<button id="endLoopButton" class="hidden" onclick="handleReset()">Reset</button>
-				<button id="pause" onclick="PauseButton()" class="hidden">Pause</button>
-				<button class="hidden" id="volumeButton">Volume</button>
-				<button class="hidden infoButton" id="InfoButton">Game Info</button>
+				<button id="endLoopButton" onclick="handleReset()">Reset</button>
+				<button id="pause" onclick="PauseButton()">Pause</button>
+				<button id="volumeButton">Volume</button>
+				<button class="infoButton" id="InfoButton">Game Info</button>
 			</div>
 			<div class="game-container">
-				<div id="black-pyramid" class="hidden">
+				<div id="black-pyramid">
 					<h3>Black<br />Pyramid</h3>
 				</div>
-				<div id="game-board" class="hidden">
+				<div id="game-board">
 					<canvas id="gameCanvas"></canvas>
 				</div>
-				<div id="white-pyramid" class="hidden">
+				<div id="white-pyramid">
 					<h3>White<br />Pyramid</h3>
 				</div>
 			</div>
@@ -438,6 +438,8 @@
 		//Not in original main file but breaks code if removed.
 		let length;
 		let height;
+
+		let hidden;
 
 		const THEMES = {
 			Lulu_Burkowski: {
@@ -641,7 +643,6 @@
 		//When start button is clicked it hides itself and calls start game -Darin
 		document.getElementById('startButton').addEventListener('click', function () {
 			document.getElementById('StartScreen').classList.add('hidden');
-			document.getElementById('muteButton').classList.add('hidden');
 			document.getElementById('SetupScreen').classList.remove('hidden');
 			//StartGame();
 		});
@@ -729,11 +730,13 @@
 				if (StartScreen.classList.contains("hidden")) {
 					Back.innerHTML = "Back to Game"
 					GameScreen.classList.add("hidden");
+					hidden = "GameScreen";
 
 				}
 				else if (GameScreen.classList.contains("hidden")) {
 					Back.innerHTML = "Back to Start Screen"
 					StartScreen.classList.add("hidden");
+					hidden = "StartScreen";
 				}
 				InfoTab.classList.remove("hidden");
 			});
@@ -743,13 +746,14 @@
 			InfoTab = document.getElementById("GameInfo");
 			StartScreen = document.getElementById('StartScreen');
 			GameScreen = document.getElementById("GameScreen");
-			if (StartScreen.classList.contains("hidden")) {
+			if (hidden === "GameScreen") {
 				GameScreen.classList.remove("hidden");
 			}
-			else if (GameScreen.classList.contains("hidden")) {
+			else if (hidden === "StartScreen") {
 				StartScreen.classList.remove("hidden");
 			}
-			InfoTab.classList.add("hidden")
+			InfoTab.classList.add("hidden");
+			hidden = "";
 
 		})
 
@@ -776,59 +780,134 @@
 			}
 		});
 
-		// Initialize with all victory conditions active
+		// Initialize with all victory conditions active and load from backend if available
 		document.addEventListener('DOMContentLoaded', function () {
-			updateActiveVictories();
+		    // First try to load from backend
+		    loadVictoryConditions();
+		    
+		    // Set up event listeners
+		    setupEventListeners();
 		});
-
-		// Add event listener to the save button
-		document.getElementById('saveVictoriesBtn').addEventListener('click', function () {
-			updateActiveVictories();
-			showSaveConfirmation();
-		});
-
-		// Add event listeners to all checkboxes to track changes in real-time
-		const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-		checkboxes.forEach(checkbox => {
-			checkbox.addEventListener('change', function () {
-				// Automatically update active victories when a checkbox changes
-				updateActiveVictories();
-			});
-		});
-
+		
+		// Function to set up all event listeners
+		function setupEventListeners() {
+		    // Add event listener to the save button
+		    const saveButton = document.getElementById('saveVictoriesBtn');
+		    if (saveButton) {
+		        saveButton.addEventListener('click', function () {
+		            updateActiveVictories();
+		            saveVictoryConditionsToBackend();
+		            showSaveConfirmation();
+		        });
+		    }
+		    
+		    // Add event listeners to all checkboxes to track changes in real-time
+		    const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+		    checkboxes.forEach(checkbox => {
+		        checkbox.addEventListener('change', function () {
+		            // Automatically update active victories when a checkbox changes
+		            updateActiveVictories();
+		            
+		            // If you want to save automatically on every change, uncomment this:
+		            // saveVictoryConditionsToBackend();
+		        });
+		    });
+		}
+		
 		// Function to update the active victory conditions without displaying them
 		function updateActiveVictories() {
-			const form = document.getElementById('victoryForm');
-			activeVictoryConditions = {};
-
-			// Loop through all checkboxes
-			for (const checkbox of form.elements) {
-				if (checkbox.type === 'checkbox') {
-					// Store the checkbox state in the global object
-					activeVictoryConditions[checkbox.name] = checkbox.checked;
-				}
-			}
-
-			// For debugging - you can remove this in production
-			console.log('Active Victory Conditions:', activeVictoryConditions);
-
-			return activeVictoryConditions;
+		    const form = document.getElementById('victoryForm');
+		    activeVictoryConditions = {};
+		    
+		    // Loop through all checkboxes
+		    for (const checkbox of form.elements) {
+		        if (checkbox.type === 'checkbox') {
+		            // Store the checkbox state in the global object
+		            activeVictoryConditions[checkbox.name] = checkbox.checked;
+		        }
+		    }
+		    
+		    // For debugging - you can remove this in production
+		    console.log('Active Victory Conditions:', activeVictoryConditions);
+		    return activeVictoryConditions;
 		}
-
+		
 		// Function to show save confirmation message
 		function showSaveConfirmation() {
-			const confirmation = document.getElementById('saveConfirmation');
-			confirmation.classList.add('show');
-
-			// Hide the confirmation after 2 seconds
-			setTimeout(() => {
-				confirmation.classList.remove('show');
-			}, 2000);
+		    const confirmation = document.getElementById('saveConfirmation');
+		    if (confirmation) {
+		        confirmation.classList.add('show');
+		        // Hide the confirmation after 2 seconds
+		        setTimeout(() => {
+		            confirmation.classList.remove('show');
+		        }, 2000);
+		    }
 		}
-
+		
 		// Function to get victory status programmatically (for your game code)
 		function getVictoryStatus() {
-			return activeVictoryConditions;
+		    return activeVictoryConditions;
+		}
+		
+		// NEW FUNCTIONS FOR BACKEND INTEGRATION
+		
+		// Function to save victory conditions to the backend
+		function saveVictoryConditionsToBackend() {
+		    // Send data to the backend
+		    fetch('/api/victory/save', {
+		        method: 'POST',
+		        headers: {
+		            'Content-Type': 'application/json',
+		        },
+		        body: JSON.stringify({ conditions: activeVictoryConditions })
+		    })
+		    .then(response => response.json())
+		    .then(data => {
+		        console.log('Backend save success:', data);
+		        // Success is handled by showSaveConfirmation() if called together
+		    })
+		    .catch(error => {
+		        console.error('Error saving victory conditions to backend:', error);
+		        // You might want to show an error message to the user
+		    });
+		}
+		
+		// Function to load saved victory conditions from the backend
+		function loadVictoryConditions() {
+		    fetch('/api/victory/get')
+		    .then(response => response.json())
+		    .then(data => {
+		        const form = document.getElementById('victoryForm');
+		        
+		        if (Object.keys(data).length > 0) {
+		            // We have saved data, update checkboxes
+		            for (const [conditionName, enabled] of Object.entries(data)) {
+		                const checkbox = form.querySelector(`input[name="${conditionName}"]`);
+		                if (checkbox) {
+		                    checkbox.checked = enabled;
+		                }
+		            }
+		            
+		            // Update our active conditions object with loaded data
+		            activeVictoryConditions = data;
+		            console.log('Loaded victory conditions from backend:', activeVictoryConditions);
+		        } else {
+		            // No saved data, initialize with current form values
+		            updateActiveVictories();
+		        }
+		    })
+		    .catch(error => {
+		        console.error('Error loading victory conditions from backend:', error);
+		        // Fall back to using the current form values
+		        updateActiveVictories();
+		    });
+		}
+		
+		// Optional: Function to check if backend is available
+		function isBackendAvailable() {
+		    return fetch('/api/victory/health', { method: 'GET' })
+		        .then(response => response.ok)
+		        .catch(() => false);
 		}
 
 		//Plays preloaded intro video, initializes game, and unhides all elements that were previously hidden that are needed for the game. -Darin
@@ -851,15 +930,6 @@
 				}
 			});
 			document.getElementById("GameScreen").classList.remove("hidden");
-			document.getElementById('fileLabel').classList.remove('hidden');
-			document.getElementById('endLoopButton').classList.remove('hidden');
-			document.getElementById('pause').classList.remove('hidden');
-			document.getElementById('black-pyramid').classList.remove('hidden');
-			document.getElementById('white-pyramid').classList.remove('hidden');
-			document.getElementById('game-board').classList.remove('hidden');
-			document.getElementById('volumeButton').classList.remove('hidden');
-			document.getElementById('InfoButton').classList.remove('hidden');
-
 		}
 
 		//Function to skip videos when called 
