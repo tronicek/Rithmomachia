@@ -256,6 +256,26 @@ public class Board {
         return neighbors;
     }
 
+    public Set<Piece> findClosestOrthogonals(int row, int col){
+        Set<Piece> neighbors = new HashSet<>();
+        neighbors.add(findClosestRight(row, col));
+        neighbors.add(findClosestLeft(row, col));
+        neighbors.add(findClosestUp(row, col));
+        neighbors.add(findClosestDown(row, col));
+        neighbors.remove(null);
+        return neighbors;
+    }
+
+    public Set<Piece> findClosestDiagonals(int row, int col){
+        Set<Piece> neighbors = new HashSet<>();
+        neighbors.add(findClosestUpRight(row, col));
+        neighbors.add(findClosestUpLeft(row, col));
+        neighbors.add(findClosestDownRight(row, col));
+        neighbors.add(findClosestDownLeft(row, col));
+        neighbors.remove(null);
+        return neighbors;
+    }
+
     public Piece findClosestRight(int row, int col) {
         for (int i = col+1; i<this.cols; i++){
             if (!this.isEmpty(row, i)) {
@@ -458,6 +478,91 @@ public class Board {
         }
         return false;
     }
+
+    public boolean isSurroundedOrthogonally(Piece capturedPiece) {
+        int row = capturedPiece.getRow();
+        int col = capturedPiece.getCol();
+        Color color = capturedPiece.getColor();
+
+
+        if (isValidPos(row - 1, col)) {
+            Piece neighbor = getPiece(row - 1, col);
+            if (neighbor == null || neighbor.getColor().equals(color)) return false;
+        }
+
+
+        if (isValidPos(row + 1, col)) {
+            Piece neighbor = getPiece(row + 1, col);
+            if (neighbor == null || neighbor.getColor().equals(color)) return false;
+        }
+
+
+        if (isValidPos(row, col - 1)) {
+            Piece neighbor = getPiece(row, col - 1);
+            if (neighbor == null || neighbor.getColor().equals(color)) return false;
+        }
+
+
+        if (isValidPos(row, col + 1)) {
+            Piece neighbor = getPiece(row, col + 1);
+            if (neighbor == null || neighbor.getColor().equals(color)) return false;
+        }
+
+        return true;
+    }
+
+
+
+    //This can be edited depending on whether we want to have sieges that occur on the 4 corners of the board or not
+    public boolean isSurroundedDiagonally(Piece capturedPiece) {
+        int row = capturedPiece.getRow();
+        int col = capturedPiece.getCol();
+        Color color = capturedPiece.getColor();
+        //With these values we can dictate that a piece is "Surrounded" if there are two or more enemy pieces at the diagonals
+
+        //If we want to make capture by siege work with only 1 attacking piece change siegeMinimumPiecesRequired to 1
+        int siegeMinimumPiecesRequired = 2;
+        int siegeCurrentPiecesUsed = 0;
+
+
+        if (isValidPos(row - 1, col - 1)) {
+            Piece neighbor = getPiece(row - 1, col - 1);
+            siegeCurrentPiecesUsed++;
+            if (neighbor == null || neighbor.getColor().equals(color)) return false;
+        }
+
+
+        if (isValidPos(row - 1, col + 1)) {
+            Piece neighbor = getPiece(row - 1, col + 1);
+            siegeCurrentPiecesUsed++;
+            if (neighbor == null || neighbor.getColor().equals(color)) return false;
+        }
+
+
+        if (isValidPos(row + 1, col - 1)) {
+            Piece neighbor = getPiece(row + 1, col - 1);
+            siegeCurrentPiecesUsed++;
+            if (neighbor == null || neighbor.getColor().equals(color)) return false;
+        }
+
+
+        if (isValidPos(row + 1, col + 1)) {
+            Piece neighbor = getPiece(row + 1, col + 1);
+            siegeCurrentPiecesUsed++;
+            if (neighbor == null || neighbor.getColor().equals(color)) return false;
+        }
+
+        return siegeCurrentPiecesUsed >= siegeMinimumPiecesRequired;
+    }
+
+
+
+    public boolean isSurrounded(Piece capturedPiece) {
+        return isSurroundedOrthogonally(capturedPiece) || isSurroundedDiagonally(capturedPiece);
+    }
+
+
+
 
     public void setPiece(int row, int col, Piece piece) {
         if (piece != null) {

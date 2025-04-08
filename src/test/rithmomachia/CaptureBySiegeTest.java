@@ -7,22 +7,20 @@ import java.util.Set;
 import org.junit.Test;
 import org.junit.Assert;
 
+import static org.junit.Assert.assertEquals;
+
 public class CaptureBySiegeTest {
 
-    private String toString(Set<Pos> pp) {
+    private String toString(Set<Piece> pp) {
         StringBuilder sb = new StringBuilder();
-        for (Pos p : pp) {
-            sb.append(p);  // Append each Pos object (which calls Pos.toString())
+        for (Piece p : pp) {
+            sb.append(p);
         }
         return sb.toString();
     }
 
-    private void printResults(Set<Pos> actual, Set<Pos> expected) {
-        System.out.println("Expected: " + toString(expected) + " | Actual: " + toString(actual));
-    }
-
     @Test
-    public void testEdgeCase() {
+    public void test1() {
         String[] s = {
                 "--- --- ---",
                 "--- BC1 ---",
@@ -31,17 +29,13 @@ public class CaptureBySiegeTest {
         Board b = new Board(3, 3, s);
         b.printBoard();
         Piece p = b.getPiece(1, 1);
-        Set<Pos> actual = p.captureBySiege(b);
-
-        Set<Pos> expected = new HashSet<>(); // No capture
-
-        printResults(actual, expected);
-        Assert.assertEquals(expected, actual);
+        Set<Piece> pp = p.captureBySiege(b);
+        assertEquals(0,pp.size());
     }
 
 
     @Test
-    public void testCaptureWithFullBlock() {
+    public void test2() {
         String[] s = {
                 "BC1 BC1 BC1",
                 "BC1 WC1 BC1",
@@ -49,18 +43,14 @@ public class CaptureBySiegeTest {
         };
         Board b = new Board(3, 3, s);
         b.printBoard();
-        Piece p = b.getPiece(1, 1);
-        Set<Pos> actual = p.captureBySiege(b);
-
-        Set<Pos> expected = new HashSet<>();
-        expected.add(new Pos(1, 1));
-
-        printResults(actual, expected);
-        Assert.assertEquals(toString(expected), toString(actual));
+        Piece p = b.getPiece(0, 0);
+        Set<Piece> pp = p.captureBySiege(b);
+        String t = toString(pp);
+        assertEquals("WC1", t);
     }
 
     @Test
-    public void testOrthogonalCapture() {
+    public void test3() {
         String[] s = {
                 "--- BT5 --- ---",
                 "BT5 WT5 BT5 ---",
@@ -68,19 +58,48 @@ public class CaptureBySiegeTest {
         };
         Board b = new Board(3, 4, s);
         b.printBoard();
-
         Piece p = b.getPiece(1, 1);
-        Set<Pos> actual = p.captureBySiege(b);
+        Set<Piece> pp = p.captureBySiege(b);
+        assertEquals(0,pp.size());
 
-        Set<Pos> expected = new HashSet<>();
-        expected.add(new Pos(1, 1));
-
-        printResults(actual, expected);
-        Assert.assertEquals(toString(expected), toString(actual));
     }
 
     @Test
-    public void testDiagonalCapture() {
+    public void test4() {
+        String[] s = {
+                "WC1 --- WC1",
+                "--- BC1 ---",
+                "WC1 --- WC1"
+        };
+        Board b = new Board(3, 3, s);
+        b.printBoard();
+        Piece p = b.getPiece(0, 0);
+        Set<Piece> pp = p.captureBySiege(b);
+        assertEquals(1,pp.size());
+
+
+
+    }
+
+    @Test
+    public void test5() {
+        String[] s = {
+                "WC1 --- ---",
+                "--- BC1 ---",
+                "WC1 --- WC1"
+        };
+        Board b = new Board(3, 3, s);
+        b.printBoard();
+        Piece p = b.getPiece(0, 0);
+        Set<Piece> pp = p.captureBySiege(b);
+        assertEquals(0,pp.size());
+
+
+
+    }
+
+    @Test
+    public void test6() {
         String[] s = {
                 "WC1 --- WC1",
                 "--- BC1 ---",
@@ -89,27 +108,28 @@ public class CaptureBySiegeTest {
         Board b = new Board(3, 3, s);
         b.printBoard();
         Piece p = b.getPiece(1, 1);
-        Set<Pos> actual = p.captureBySiege(b);
+        Set<Piece> pp = p.captureBySiege(b);
+        assertEquals(0,pp.size());
 
-        Set<Pos> expected = new HashSet<>();
-        expected.add(new Pos(1, 1));
 
-        printResults(actual, expected);
-        Assert.assertEquals(toString(expected), toString(actual));
+
     }
+
     @Test
-    public void testNotCaptured() {
+    public void test7() {
         String[] s = {
-                "--- WT5 --- BT5"
+                "WC1 --- WC1",
+                "--- P,B,C50,S10,T70 ---",
+                "WC1 --- WC1"
         };
-        Board b = new Board(1, 4, s);
+        Board b = new Board(3, 3, s);
         b.printBoard();
-        Piece p = b.getPiece(0, 1);
-        Set<Pos> actual = p.captureBySiege(b);
+        Piece p = b.getPiece(0, 2);
+        Set<Piece> pp = p.captureBySiege(b);
+        assertEquals(1,pp.size());
 
-        Set<Pos> expected = new HashSet<>(); // No capture
 
-        printResults(actual, expected);
-        Assert.assertEquals(expected, actual);
+
     }
+
 }

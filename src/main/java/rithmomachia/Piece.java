@@ -78,7 +78,7 @@ public class Piece {
     }
 
 
-    public Set<Pos> captureBySiege(Board board) {
+   /* public Set<Pos> captureBySiege(Board board) {
         Set<Pos> capturedPositions = new HashSet<>();
         boolean orthogonalBlocked = true;
         boolean diagonalBlocked = true;
@@ -117,7 +117,19 @@ public class Piece {
         }
         return capturedPositions;
     }
+*/
 
+    public Set<Piece> captureBySiege(Board board) {
+        Set<Piece> pieces = new HashSet<>();
+        for (Piece neighbor : board.findClosestNeighbors(this.row, this.col)) {
+            if(neighbor.color != this.color){
+                if(board.isSurrounded(neighbor)){
+                    pieces.add(neighbor);
+                }
+            }
+        }
+        return pieces;//Return Set of Pieces
+    }
 
     // What is row col? The piece's current row and col??? Do we need this??
     // Have to rework this so it can capture pyramids as either a whole or a part.
