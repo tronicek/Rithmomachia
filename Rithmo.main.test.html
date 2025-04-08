@@ -726,7 +726,6 @@
 			StartScreen = document.getElementById("StartScreen");
 			Back = document.getElementById("backButton");
 			button.addEventListener("click", function () {
-				window.open("Images/Rithmomachia_Booklet/Rithmomachia_Booklet.pdf", "_blank");
 				if (StartScreen.classList.contains("hidden")) {
 					Back.innerHTML = "Back to Game"
 					GameScreen.classList.add("hidden");
@@ -782,132 +781,130 @@
 
 		// Initialize with all victory conditions active and load from backend if available
 		document.addEventListener('DOMContentLoaded', function () {
-		    // First try to load from backend
-		    loadVictoryConditions();
-		    
-		    // Set up event listeners
-		    setupEventListeners();
+			// First try to load from backend
+			loadVictoryConditions();
+
+			// Set up event listeners
+			setupEventListeners();
 		});
-		
+
 		// Function to set up all event listeners
 		function setupEventListeners() {
-		    // Add event listener to the save button
-		    const saveButton = document.getElementById('saveVictoriesBtn');
-		    if (saveButton) {
-		        saveButton.addEventListener('click', function () {
-		            updateActiveVictories();
-		            saveVictoryConditionsToBackend();
-		            showSaveConfirmation();
-		        });
-		    }
-		    
-		    // Add event listeners to all checkboxes to track changes in real-time
-		    const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-		    checkboxes.forEach(checkbox => {
-		        checkbox.addEventListener('change', function () {
-		            // Automatically update active victories when a checkbox changes
-		            updateActiveVictories();
-		            
-		            // If you want to save automatically on every change, uncomment this:
-		            // saveVictoryConditionsToBackend();
-		        });
-		    });
+			// Add event listener to the save button
+			const saveButton = document.getElementById('saveVictoriesBtn');
+			if (saveButton) {
+				saveButton.addEventListener('click', function () {
+					updateActiveVictories();
+					saveVictoryConditionsToBackend();
+					showSaveConfirmation();
+				});
+			}
+
+			// Add event listeners to all checkboxes to track changes in real-time
+			const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+			checkboxes.forEach(checkbox => {
+				checkbox.addEventListener('change', function () {
+					// Automatically update active victories when a checkbox changes
+					updateActiveVictories();
+
+					// If you want to save automatically on every change, uncomment this:
+					// saveVictoryConditionsToBackend();
+				});
+			});
 		}
-		
+
 		// Function to update the active victory conditions without displaying them
 		function updateActiveVictories() {
-		    const form = document.getElementById('victoryForm');
-		    activeVictoryConditions = {};
-		    
-		    // Loop through all checkboxes
-		    for (const checkbox of form.elements) {
-		        if (checkbox.type === 'checkbox') {
-		            // Store the checkbox state in the global object
-		            activeVictoryConditions[checkbox.name] = checkbox.checked;
-		        }
-		    }
-		    
-		    // For debugging - you can remove this in production
-		    console.log('Active Victory Conditions:', activeVictoryConditions);
-		    return activeVictoryConditions;
+			const form = document.getElementById('victoryForm');
+			activeVictoryConditions = {};
+
+			// Loop through all checkboxes
+			for (const checkbox of form.elements) {
+				if (checkbox.type === 'checkbox') {
+					// Store the checkbox state in the global object
+					activeVictoryConditions[checkbox.name] = checkbox.checked;
+				}
+			}
+
+			// For debugging - you can remove this in production
+			console.log('Active Victory Conditions:', activeVictoryConditions);
+			return activeVictoryConditions;
 		}
-		
+
 		// Function to show save confirmation message
 		function showSaveConfirmation() {
-		    const confirmation = document.getElementById('saveConfirmation');
-		    if (confirmation) {
-		        confirmation.classList.add('show');
-		        // Hide the confirmation after 2 seconds
-		        setTimeout(() => {
-		            confirmation.classList.remove('show');
-		        }, 2000);
-		    }
+			const confirmation = document.getElementById('saveConfirmation');
+			if (confirmation) {
+				confirmation.classList.add('show');
+				// Hide the confirmation after 2 seconds
+				setTimeout(() => {
+					confirmation.classList.remove('show');
+				}, 2000);
+			}
 		}
-		
+
 		// Function to get victory status programmatically (for your game code)
 		function getVictoryStatus() {
-		    return activeVictoryConditions;
+			return activeVictoryConditions;
 		}
-		
+
 		// NEW FUNCTIONS FOR BACKEND INTEGRATION
-		
+
 		// Function to save victory conditions to the backend
 		function saveVictoryConditionsToBackend() {
-		    // Send data to the backend
-		    fetch('/api/victory/save', {
-		        method: 'POST',
-		        headers: {
-		            'Content-Type': 'application/json',
-		        },
-		        body: JSON.stringify({ conditions: activeVictoryConditions })
-		    })
-		    .then(response => response.json())
-		    .then(data => {
-		        console.log('Backend save success:', data);
-		        // Success is handled by showSaveConfirmation() if called together
-		    })
-		    .catch(error => {
-		        console.error('Error saving victory conditions to backend:', error);
-		        // You might want to show an error message to the user
-		    });
+			// Send data to the backend using jQuery AJAX
+			$.ajax({
+				url: '/api/victory/save',
+				type: 'POST',
+				contentType: 'application/json',
+				data: JSON.stringify({ conditions: activeVictoryConditions }),
+				success: function (data) {
+					console.log('Backend save success:', data);
+					// Success is handled by showSaveConfirmation() if called together
+				},
+				error: function (xhr, status, error) {
+					console.error('Error saving victory conditions to backend:', error);
+					// You might want to show an error message to the user
+				}
+			});
 		}
-		
+
 		// Function to load saved victory conditions from the backend
 		function loadVictoryConditions() {
-		    fetch('/api/victory/get')
-		    .then(response => response.json())
-		    .then(data => {
-		        const form = document.getElementById('victoryForm');
-		        
-		        if (Object.keys(data).length > 0) {
-		            // We have saved data, update checkboxes
-		            for (const [conditionName, enabled] of Object.entries(data)) {
-		                const checkbox = form.querySelector(`input[name="${conditionName}"]`);
-		                if (checkbox) {
-		                    checkbox.checked = enabled;
-		                }
-		            }
-		            
-		            // Update our active conditions object with loaded data
-		            activeVictoryConditions = data;
-		            console.log('Loaded victory conditions from backend:', activeVictoryConditions);
-		        } else {
-		            // No saved data, initialize with current form values
-		            updateActiveVictories();
-		        }
-		    })
-		    .catch(error => {
-		        console.error('Error loading victory conditions from backend:', error);
-		        // Fall back to using the current form values
-		        updateActiveVictories();
-		    });
+			fetch('/api/victory/get')
+				.then(response => response.json())
+				.then(data => {
+					const form = document.getElementById('victoryForm');
+
+					if (Object.keys(data).length > 0) {
+						// We have saved data, update checkboxes
+						for (const [conditionName, enabled] of Object.entries(data)) {
+							const checkbox = form.querySelector(`input[name="${conditionName}"]`);
+							if (checkbox) {
+								checkbox.checked = enabled;
+							}
+						}
+
+						// Update our active conditions object with loaded data
+						activeVictoryConditions = data;
+						console.log('Loaded victory conditions from backend:', activeVictoryConditions);
+					} else {
+						// No saved data, initialize with current form values
+						updateActiveVictories();
+					}
+				})
+				.catch(error => {
+					console.error('Error loading victory conditions from backend:', error);
+					// Fall back to using the current form values
+					updateActiveVictories();
+				});
 		}
-		
+
 		// Optional: Function to check if backend is available
 		function isBackendAvailable() {
-		    return fetch('/api/victory/health', { method: 'GET' })
-		        .then(response => response.ok)
-		        .catch(() => false);
+			return fetch('/api/victory/health', { method: 'GET' })
+				.then(response => response.ok)
+				.catch(() => false);
 		}
 
 		//Plays preloaded intro video, initializes game, and unhides all elements that were previously hidden that are needed for the game. -Darin
