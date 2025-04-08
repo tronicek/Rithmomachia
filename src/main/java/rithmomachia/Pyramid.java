@@ -87,7 +87,6 @@ public class Pyramid extends Piece {
         for (String pieceType : this.pieces.keySet()) {
             piecesSet.addAll(this.pieces.get(pieceType));
         }
-
         return piecesSet;
     }
 
@@ -209,6 +208,4 @@ public class Pyramid extends Piece {
         }
         return deceits;
     }
-
-
 }

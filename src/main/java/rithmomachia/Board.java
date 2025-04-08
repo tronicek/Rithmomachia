@@ -256,26 +256,6 @@ public class Board {
         return neighbors;
     }
 
-    public Set<Piece> findClosestOrthogonals(int row, int col){
-        Set<Piece> neighbors = new HashSet<>();
-        neighbors.add(findClosestRight(row, col));
-        neighbors.add(findClosestLeft(row, col));
-        neighbors.add(findClosestUp(row, col));
-        neighbors.add(findClosestDown(row, col));
-        neighbors.remove(null);
-        return neighbors;
-    }
-
-    public Set<Piece> findClosestDiagonals(int row, int col){
-        Set<Piece> neighbors = new HashSet<>();
-        neighbors.add(findClosestUpRight(row, col));
-        neighbors.add(findClosestUpLeft(row, col));
-        neighbors.add(findClosestDownRight(row, col));
-        neighbors.add(findClosestDownLeft(row, col));
-        neighbors.remove(null);
-        return neighbors;
-    }
-
     public Piece findClosestRight(int row, int col) {
         for (int i = col+1; i<this.cols; i++){
             if (!this.isEmpty(row, i)) {

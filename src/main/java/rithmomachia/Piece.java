@@ -162,7 +162,6 @@ public class Piece {
         return pp;
     }
 
-
     // This checks for all possible eruption captures and returns as a Set of Pos.
     // If there are no captures, it will return an empty set.
     public Set<Piece> captureByEruption(Board board) {
