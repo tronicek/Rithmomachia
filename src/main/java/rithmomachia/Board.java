@@ -53,6 +53,26 @@ public class Board {
         victoryManager = new VictoryManager(this, victory, bodies, digits, values);
     }
 
+    // TODO: complete this method
+    public Board makeVirtualBoard(Piece pieceToMove, Move moveToMake){
+        return null;
+    }
+
+    // TODO: complete this method
+    public Set<Piece> getAllCapturesForColor(Color color){
+        return null;
+    }
+
+    // TODO: complete this method
+    public Set<Piece> getAllCapturesForPiece(Piece piece){
+        return null;
+    }
+
+    // TODO: complete this method
+    public Set<Move> getAllMovesForColor(Color color){
+        return null;
+    }
+
     private Piece fromString(String s, int row, int col) {
         if (s.charAt(0) == 'P') {
             Color pyramidColor = s.charAt(2) == 'W' ? Color.W : Color.B;
@@ -218,6 +238,13 @@ public class Board {
         //System.out.print("isValidPos called: ");
         return row >= 0 && row < rows && col >= 0 && col < cols;
 
+    }
+
+    public void makeMove(Piece piece, Pos newPosition) {
+        this.pieces[piece.getRow()][piece.getCol()] = null;
+        this.pieces[newPosition.getRow()][newPosition.getCol()] = piece;
+        piece.setRow(newPosition.getRow());
+        piece.setCol(newPosition.getCol());
     }
 
     // Gets all pieces of the specified color on the board

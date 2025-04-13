@@ -11,6 +11,19 @@ public class Move {
         this.endCol = endCol;
     }
 
+    public int getStartRow() {
+        return startRow;
+    }
+    public int getStartCol() {
+        return startCol;
+    }
+    public int getEndRow() {
+        return endRow;
+    }
+    public int getEndCol() {
+        return endCol;
+    }
+
     @Override
     public String toString() {
         return String.format("Move from (%d, %d) to (%d, %d)", startRow, startCol, endRow, endCol);
