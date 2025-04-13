@@ -149,7 +149,7 @@ public class VictoryManager {
     // Must be positioned in enemy territory: spaces forward from your own first row
 
     // Requires only 3 pieces in one of the progressions
-    private boolean checkVictoriaMagna(Color colorToCheck) {
+    public boolean checkVictoriaMagna(Color colorToCheck) {
         // Pull the set of valid tuples from the board
         Set<List<Piece>> triplesToCheck = board.getTriplesForColor(colorToCheck).keySet();
         // Loop through each list of pieces in the tuple
@@ -170,7 +170,7 @@ public class VictoryManager {
     }
 
     // Requires 4 total pieces that includes 2 different 3 piece progressions.
-    private boolean checkVictoriaMayor(Color colorToCheck) {
+    public boolean checkVictoriaMayor(Color colorToCheck) {
         Set<List<Piece>> quadruplesToCheck = board.getQuadruplesForColor(colorToCheck);
         for (List<Piece> pieces : quadruplesToCheck) {
             List<Integer> sortedPieceValues = this.sortTriple(pieces);
@@ -206,7 +206,7 @@ public class VictoryManager {
     // There are 4 different arrangements of [a, b, c, d] that can be put into each of three different progressions.
     // So fundamental theorem of counting says the total is 4*3*2 = 24
     @SuppressWarnings("DuplicatedCode")
-    private boolean checkVictoriaExcelentisma(Color colorToCheck) {
+    public boolean checkVictoriaExcelentisma(Color colorToCheck) {
         Set<List<Piece>> quadruplesToCheck = board.getQuadruplesForColor(colorToCheck);
         for (List<Piece> pieces : quadruplesToCheck) {
             List<Integer> sortedPieceValues = this.sortTriple(pieces);
