@@ -20,7 +20,10 @@ public class Minimax {
     }
 
     public Turn findBestMove(int depth){
-
+// Must be able to create nodes or turns that know which color move
+        // Computer is creating a dummy best value and a null Turn.
+        // For each piece it can move, it must run minimax on the child node
+        // If that child node beats the current max, that becomes the new node that is returned
         return null;
     }
 

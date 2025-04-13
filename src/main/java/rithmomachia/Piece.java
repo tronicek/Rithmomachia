@@ -276,6 +276,15 @@ public class Piece {
         return pieceAsSet;
     }
 
+    public Set<Piece> getAllCaptures(Board boardToCheck) {
+        Set<Piece> allCaptures = new HashSet<>();
+        allCaptures.addAll(this.captureByEncounter(boardToCheck));
+        allCaptures.addAll(this.captureByDeceit(boardToCheck));
+        allCaptures.addAll(this.captureByEruption(boardToCheck));
+        allCaptures.addAll(this.captureBySiege(boardToCheck));
+        return allCaptures;
+    }
+
     public String nullToString() {
         return "   ";
     }

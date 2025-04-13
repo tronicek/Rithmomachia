@@ -54,7 +54,7 @@ public class Board {
     }
 
     // TODO: complete this method
-    public Board makeVirtualBoard(Piece pieceToMove, Move moveToMake){
+    public Board makeVirtualBoard(Piece pieceToMove, Pos newPosition) {
         return null;
     }
 
