@@ -596,15 +596,15 @@ public class Board {
         Set<Piece> piecesToCheck = this.getPiecesOfColor(color);
         // Pick a piece to be the first anchor
         for (Piece firstAnchor : piecesToCheck){
-            // make a new list to hold the triple
-            List<Piece> tripleCandidate1 = new ArrayList<>();
-            tripleCandidate1.add(firstAnchor);
             int row1 = firstAnchor.getRow();
             int col1 = firstAnchor.getCol();
             // Find all of the first anchor's neighbors.
             Set<Piece> firstAnchorNeighbors = findClosestNeighbors(firstAnchor.getRow(), firstAnchor.getCol());
             // Pick second anchor piece
             for (Piece secondAnchor : firstAnchorNeighbors){
+                // make a new list to hold the triple
+                List<Piece> tripleCandidate1 = new ArrayList<>();
+                tripleCandidate1.add(firstAnchor);
                 tripleCandidate1.add(secondAnchor);
                 int row2 = secondAnchor.getRow();
                 int col2 = secondAnchor.getCol();
@@ -659,7 +659,7 @@ public class Board {
                     }
                 }else {
                     // Downwards diagonals
-                    boolean isRightward = col2 < col1;
+                    boolean isRightward = col2 > col1;
                     tripleCandidate1.add(isRightward ? findClosestDownRight(row2, col2) : findClosestDownLeft(row2, col2));
                     if (isViableTriple(tripleCandidate1)){
                         triples.put(tripleCandidate1, isRightward ? TripleShape.DOWNRIGHT : TripleShape.DOWNLEFT);
