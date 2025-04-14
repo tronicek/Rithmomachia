@@ -1,22 +1,464 @@
 package rithmomachia;
 
 import org.junit.Test;
+
+import java.util.Set;
+
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertFalse;
 
 public class GloriousVictoryTest {
 
+
     @Test
     public void testVictoriaMagna() {
         String[] s = {
-                "--- --- --- ---",
-                "--- WC3 WC5 WC7" // Arithmetic: 3,5,7
+                "--- --- ---",
+                "WC3 WC5 WC7",
+                "--- --- ---", // Arithmetic: 3,5,7
         };
-        Board board = new Board(2, 4, s);
+        Board board = new Board(3, 3, s);
         VictoryManager vm = new VictoryManager(board, Victory.NONE, 0, 0, 0);
         boolean triggered = vm.checkVictoriaMagna(Color.W);
         assertTrue("Victoria Magna should be triggered", triggered);
     }
+
+    @Test
+    public void testVictoriaMagna0() {
+        String[] s = {
+                "--- --- ---",
+                "WC7 WC5 WC3",
+                "--- --- ---", // Arithmetic: 3,5,7
+        };
+        Board board = new Board(3, 3, s);
+        VictoryManager vm = new VictoryManager(board, Victory.NONE, 0, 0, 0);
+        boolean triggered = vm.checkVictoriaMagna(Color.W);
+        assertTrue("Victoria Magna should be triggered", triggered);
+    }
+
+    @Test
+    public void testVictoriaMagna1() {
+        String[] s = {
+                "--- WC7 ---",
+                "--- WC5 ---",
+                "--- WC3 ---", // Arithmetic: 3,5,7
+        };
+        Board board = new Board(3, 3, s);
+        VictoryManager vm = new VictoryManager(board, Victory.NONE, 0, 0, 0);
+        boolean triggered = vm.checkVictoriaMagna(Color.W);
+        assertTrue("Victoria Magna should be triggered", triggered);
+    }
+
+    @Test
+    public void testVictoriaMagna1A() {
+        String[] s = {
+                "--- WC3 ---",
+                "--- WC5 ---",
+                "--- WC7 ---", // Arithmetic: 3,5,7
+        };
+        Board board = new Board(3, 3, s);
+        VictoryManager vm = new VictoryManager(board, Victory.NONE, 0, 0, 0);
+        boolean triggered = vm.checkVictoriaMagna(Color.W);
+        assertTrue("Victoria Magna should be triggered", triggered);
+    }
+
+
+
+    @Test
+    public void testVictoriaMagna2() {
+        String[] s = {
+                "--- --- WC7",
+                "--- WC5 ---",
+                "WC3 --- ---", // Arithmetic: 3,5,7
+        };
+        Board board = new Board(3, 3, s);
+        VictoryManager vm = new VictoryManager(board, Victory.NONE, 0, 0, 0);
+        boolean triggered = vm.checkVictoriaMagna(Color.W);
+        assertTrue("Victoria Magna should be triggered", triggered);
+    }
+
+    @Test
+    public void testVictoriaMagna2A() {
+        String[] s = {
+                "--- --- WC3",
+                "--- WC5 ---",
+                "WC7 --- ---", // Arithmetic: 3,5,7
+        };
+        Board board = new Board(3, 3, s);
+        VictoryManager vm = new VictoryManager(board, Victory.NONE, 0, 0, 0);
+        boolean triggered = vm.checkVictoriaMagna(Color.W);
+        assertTrue("Victoria Magna should be triggered", triggered);
+    }
+
+
+
+    @Test
+    public void testVictoriaMagna3() {
+        String[] s = {
+                "--- --- ---",
+                "--- WC5 WC7",
+                "--- WC3 ---", // Arithmetic: 3,5,7
+        };
+        Board board = new Board(3, 3, s);
+        VictoryManager vm = new VictoryManager(board, Victory.NONE, 0, 0, 0);
+        boolean triggered = vm.checkVictoriaMagna(Color.W);
+        assertTrue("Victoria Magna should be triggered", triggered);
+    }
+
+    @Test
+    public void testVictoriaMagna3A() {
+        String[] s = {
+                "--- --- ---",
+                "--- WC5 WC3",
+                "--- WC7 ---", // Arithmetic: 3,5,7
+        };
+        Board board = new Board(3, 3, s);
+        VictoryManager vm = new VictoryManager(board, Victory.NONE, 0, 0, 0);
+        boolean triggered = vm.checkVictoriaMagna(Color.W);
+        assertTrue("Victoria Magna should be triggered", triggered);
+    }
+
+    @Test
+    public void testVictoriaMagna4() {
+        String[] s = {
+                "--- --- ---",
+                "WC3 WC5 ---",
+                "--- WC7 ---", // Arithmetic: 3,5,7
+        };
+        Board board = new Board(3, 3, s);
+        VictoryManager vm = new VictoryManager(board, Victory.NONE, 0, 0, 0);
+        boolean triggered = vm.checkVictoriaMagna(Color.W);
+        assertTrue("Victoria Magna should be triggered", triggered);
+    }
+
+    @Test
+    public void testVictoriaMagna4A() {
+        String[] s = {
+                "--- --- ---",
+                "WC7 WC5 ---",
+                "--- WC3 ---", // Arithmetic: 3,5,7
+        };
+        Board board = new Board(3, 3, s);
+        VictoryManager vm = new VictoryManager(board, Victory.NONE, 0, 0, 0);
+        boolean triggered = vm.checkVictoriaMagna(Color.W);
+        assertTrue("Victoria Magna should be triggered", triggered);
+    }
+
+    @Test
+    public void testVictoriaMagna5() {
+        String[] s = {
+                "--- --- WC7",
+                "--- WC5 ---",
+                "--- WC3 ---", // Arithmetic: 3,5,7
+        };
+        Board board = new Board(3, 3, s);
+        VictoryManager vm = new VictoryManager(board, Victory.NONE, 0, 0, 0);
+        boolean triggered = vm.checkVictoriaMagna(Color.W);
+        assertFalse("Victoria Magna should not be triggered", triggered);
+    }
+
+    @Test
+    public void testVictoriaMagna6() {
+        String[] s = {
+                "--- --- --- --- ---",
+                "--- --- --- --- ---",
+                "WC3 --- WC5 --- WC7",
+                "--- --- --- --- ---",
+                "--- --- --- --- ---",// Arithmetic: 3,5,7
+        };
+        Board board = new Board(5, 5, s);
+        VictoryManager vm = new VictoryManager(board, Victory.NONE, 0, 0, 0);
+        boolean triggered = vm.checkVictoriaMagna(Color.W);
+        assertTrue("Victoria Magna should be triggered", triggered);
+    }
+
+    @Test
+    public void testVictoriaMagna6A() {
+        String[] s = {
+                "--- --- --- --- ---",
+                "--- --- --- --- ---",
+                "WC7 --- WC5 --- WC3",
+                "--- --- --- --- ---",
+                "--- --- --- --- ---",// Arithmetic: 3,5,7
+        };
+        Board board = new Board(5, 5, s);
+        VictoryManager vm = new VictoryManager(board, Victory.NONE, 0, 0, 0);
+        boolean triggered = vm.checkVictoriaMagna(Color.W);
+        assertTrue("Victoria Magna should be triggered", triggered);
+    }
+
+    @Test
+    public void testVictoriaMagna7() {
+        String[] s = {
+                "--- --- WC3 --- ---",
+                "--- --- --- --- ---",
+                "--- --- WC5 --- ---",
+                "--- --- --- --- ---",
+                "--- --- WC7 --- ---",// Arithmetic: 3,5,7
+        };
+        Board board = new Board(5, 5, s);
+        VictoryManager vm = new VictoryManager(board, Victory.NONE, 0, 0, 0);
+        boolean triggered = vm.checkVictoriaMagna(Color.W);
+        assertTrue("Victoria Magna should be triggered", triggered);
+    }
+
+    @Test
+    public void testVictoriaMagna7A() {
+        String[] s = {
+                "--- --- WC7 --- ---",
+                "--- --- --- --- ---",
+                "--- --- WC5 --- ---",
+                "--- --- --- --- ---",
+                "--- --- WC3 --- ---",// Arithmetic: 3,5,7
+        };
+        Board board = new Board(5, 5, s);
+        VictoryManager vm = new VictoryManager(board, Victory.NONE, 0, 0, 0);
+        boolean triggered = vm.checkVictoriaMagna(Color.W);
+        assertTrue("Victoria Magna should be triggered", triggered);
+    }
+
+    @Test
+    public void testVictoriaMagna8() {
+        String[] s = {
+                "--- --- --- --- WC7",
+                "--- --- --- --- ---",
+                "--- --- WC5 --- ---",
+                "--- --- --- --- ---",
+                "WC3 --- --- --- ---",// Arithmetic: 3,5,7
+        };
+        Board board = new Board(5, 5, s);
+        VictoryManager vm = new VictoryManager(board, Victory.NONE, 0, 0, 0);
+        boolean triggered = vm.checkVictoriaMagna(Color.W);
+        assertTrue("Victoria Magna should be triggered", triggered);
+    }
+
+    @Test
+    public void testVictoriaMagna8A() {
+        String[] s = {
+                "--- --- --- --- WC3",
+                "--- --- --- --- ---",
+                "--- --- WC5 --- ---",
+                "--- --- --- --- ---",
+                "WC7 --- --- --- ---",// Arithmetic: 3,5,7
+        };
+        Board board = new Board(5, 5, s);
+        VictoryManager vm = new VictoryManager(board, Victory.NONE, 0, 0, 0);
+        boolean triggered = vm.checkVictoriaMagna(Color.W);
+        assertTrue("Victoria Magna should be triggered", triggered);
+    }
+
+    @Test
+    public void testVictoriaMagna9() {
+        String[] s = {
+                "--- --- --- --- ---",
+                "--- --- --- --- ---",
+                "--- --- WC5 --- WC7",
+                "--- --- --- --- ---",
+                "--- --- WC3 --- ---",// Arithmetic: 3,5,7
+        };
+        Board board = new Board(5, 5, s);
+        VictoryManager vm = new VictoryManager(board, Victory.NONE, 0, 0, 0);
+        boolean triggered = vm.checkVictoriaMagna(Color.W);
+        assertTrue("Victoria Magna should be triggered", triggered);
+    }
+
+    @Test
+    public void testVictoriaMagna9A() {
+        String[] s = {
+                "--- --- --- --- ---",
+                "--- --- --- --- ---",
+                "--- --- WC5 --- WC3",
+                "--- --- --- --- ---",
+                "--- --- WC7 --- ---",// Arithmetic: 3,5,7
+        };
+        Board board = new Board(5, 5, s);
+        VictoryManager vm = new VictoryManager(board, Victory.NONE, 0, 0, 0);
+        boolean triggered = vm.checkVictoriaMagna(Color.W);
+        assertTrue("Victoria Magna should be triggered", triggered);
+    }
+
+    @Test
+    public void testVictoriaMagna10() {
+        String[] s = {
+                "--- --- --- --- ---",
+                "--- --- --- --- ---",
+                "WC3 --- WC5 --- ---",
+                "--- --- --- --- ---",
+                "--- --- WC7 --- ---",// Arithmetic: 3,5,7
+        };
+        Board board = new Board(5, 5, s);
+        VictoryManager vm = new VictoryManager(board, Victory.NONE, 0, 0, 0);
+        boolean triggered = vm.checkVictoriaMagna(Color.W);
+        assertTrue("Victoria Magna should be triggered", triggered);
+    }
+
+    @Test
+    public void testVictoriaMagna10A() {
+        String[] s = {
+                "--- --- --- --- ---",
+                "--- --- --- --- ---",
+                "WC7 --- WC5 --- ---",
+                "--- --- --- --- ---",
+                "--- --- WC3 --- ---",// Arithmetic: 3,5,7
+        };
+        Board board = new Board(5, 5, s);
+        VictoryManager vm = new VictoryManager(board, Victory.NONE, 0, 0, 0);
+        boolean triggered = vm.checkVictoriaMagna(Color.W);
+        assertTrue("Victoria Magna should be triggered", triggered);
+    }
+
+    @Test
+    public void testVictoriaMagna11() {
+        String[] s = {
+                "--- --- --- --- WC7",
+                "--- --- --- --- ---",
+                "--- --- WC5 --- ---",
+                "--- --- --- --- ---",
+                "--- --- WC3 --- ---",// Arithmetic: 3,5,7
+        };
+        Board board = new Board(5, 5, s);
+        VictoryManager vm = new VictoryManager(board, Victory.NONE, 0, 0, 0);
+        boolean triggered = vm.checkVictoriaMagna(Color.W);
+        assertFalse("Victoria Magna should not be triggered", triggered);
+    }
+
+    @Test
+    public void testVictoriaMagna11A() {
+        String[] s = {
+                "--- --- --- --- WC3",
+                "--- --- --- --- ---",
+                "--- --- WC5 --- ---",
+                "--- --- --- --- ---",
+                "--- --- WC7 --- ---",// Arithmetic: 3,5,7
+        };
+        Board board = new Board(5, 5, s);
+        VictoryManager vm = new VictoryManager(board, Victory.NONE, 0, 0, 0);
+        boolean triggered = vm.checkVictoriaMagna(Color.W);
+        assertFalse("Victoria Magna should not be triggered", triggered);
+    }
+
+    @Test
+    public void testVictoriaMagna12() {
+        String[] s = {
+                "--- --- --- --- ---",
+                "--- --- --- --- ---",
+                "--- --- WC5 --- ---",
+                "--- --- --- --- ---",
+                "--- --- WC7 --- WC3",// Arithmetic: 3,5,7
+        };
+        Board board = new Board(5, 5, s);
+        VictoryManager vm = new VictoryManager(board, Victory.NONE, 0, 0, 0);
+        boolean triggered = vm.checkVictoriaMagna(Color.W);
+        assertFalse("Victoria Magna should not be triggered", triggered);
+    }
+
+    @Test
+    public void testVictoriaMagna12A() {
+        String[] s = {
+                "--- --- --- --- ---",
+                "--- --- --- --- ---",
+                "--- --- WC5 --- ---",
+                "--- --- --- --- ---",
+                "--- --- WC3 --- WC7",// Arithmetic: 3,5,7
+        };
+        Board board = new Board(5, 5, s);
+        VictoryManager vm = new VictoryManager(board, Victory.NONE, 0, 0, 0);
+        boolean triggered = vm.checkVictoriaMagna(Color.W);
+        assertFalse("Victoria Magna should not be triggered", triggered);
+    }
+
+    @Test
+    public void testVictoriaMagna13() {
+        String[] s = {
+                "--- --- --- --- ---",
+                "--- --- --- --- ---",
+                "--- --- WC5 --- ---",
+                "--- --- --- --- ---",
+                "WC7 --- WC3 --- ---",// Arithmetic: 3,5,7
+        };
+        Board board = new Board(5, 5, s);
+        VictoryManager vm = new VictoryManager(board, Victory.NONE, 0, 0, 0);
+        boolean triggered = vm.checkVictoriaMagna(Color.W);
+        assertFalse("Victoria Magna should not be triggered", triggered);
+    }
+
+    @Test
+    public void testVictoriaMagna13A() {
+        String[] s = {
+                "--- --- --- --- ---",
+                "--- --- --- --- ---",
+                "--- --- WC5 --- ---",
+                "--- --- --- --- ---",
+                "WC3 --- WC7 --- ---",// Arithmetic: 3,5,7
+        };
+        Board board = new Board(5, 5, s);
+        VictoryManager vm = new VictoryManager(board, Victory.NONE, 0, 0, 0);
+        boolean triggered = vm.checkVictoriaMagna(Color.W);
+        assertFalse("Victoria Magna should not be triggered", triggered);
+    }
+
+    @Test
+    public void testVictoriaMagna14() {
+        String[] s = {
+                "WC3 --- WC7 --- ---",
+                "--- --- --- --- ---",
+                "--- --- WC5 --- ---",
+                "--- --- --- --- ---",
+                "--- --- --- --- ---",// Arithmetic: 3,5,7
+        };
+        Board board = new Board(5, 5, s);
+        VictoryManager vm = new VictoryManager(board, Victory.NONE, 0, 0, 0);
+        boolean triggered = vm.checkVictoriaMagna(Color.W);
+        assertFalse("Victoria Magna should not be triggered", triggered);
+    }
+
+    @Test
+    public void testVictoriaMagna14A() {
+        String[] s = {
+                "WC7 --- WC3 --- ---",
+                "--- --- --- --- ---",
+                "--- --- WC5 --- ---",
+                "--- --- --- --- ---",
+                "--- --- --- --- ---",// Arithmetic: 3,5,7
+        };
+        Board board = new Board(5, 5, s);
+        VictoryManager vm = new VictoryManager(board, Victory.NONE, 0, 0, 0);
+        boolean triggered = vm.checkVictoriaMagna(Color.W);
+        assertFalse("Victoria Magna should not be triggered", triggered);
+    }
+
+    @Test
+    public void testVictoriaMagna15() {
+        String[] s = {
+                "--- --- WC3 --- WC7",
+                "--- --- --- --- ---",
+                "--- --- WC5 --- ---",
+                "--- --- --- --- ---",
+                "--- --- --- --- ---",// Arithmetic: 3,5,7
+        };
+        Board board = new Board(5, 5, s);
+        VictoryManager vm = new VictoryManager(board, Victory.NONE, 0, 0, 0);
+        boolean triggered = vm.checkVictoriaMagna(Color.W);
+        assertFalse("Victoria Magna should not be triggered", triggered);
+    }
+
+    @Test
+    public void testVictoriaMagna15A() {
+        String[] s = {
+                "--- --- WC7 --- WC3",
+                "--- --- --- --- ---",
+                "--- --- WC5 --- ---",
+                "--- --- --- --- ---",
+                "--- --- --- --- ---",// Arithmetic: 3,5,7
+        };
+        Board board = new Board(5, 5, s);
+        VictoryManager vm = new VictoryManager(board, Victory.NONE, 0, 0, 0);
+        boolean triggered = vm.checkVictoriaMagna(Color.W);
+        assertFalse("Victoria Magna should not be triggered", triggered);
+    }
+
+
+
 
     @Test
     public void testVictoriaMayor() {
