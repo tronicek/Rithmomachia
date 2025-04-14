@@ -336,42 +336,42 @@
 				<ul class="victory-list">
 					<li class="victory-item">
 						<label>
-							<input type="checkbox" name="victoryBodies" checked> Victory of Bodies
+							<input type="radio" name="victoryBodies" checked> Victory of Bodies
 						</label>
 					</li>
 					<li class="victory-item">
 						<label>
-							<input type="checkbox" name="victoryGoods" checked> Victory of Goods
+							<input type="radio" name="victoryGoods" checked> Victory of Goods
 						</label>
 					</li>
 					<li class="victory-item">
 						<label>
-							<input type="checkbox" name="victoryQuarrel" checked> Victory of Quarrel
+							<input type="radio" name="victoryQuarrel" checked> Victory of Quarrel
 						</label>
 					</li>
 					<li class="victory-item">
 						<label>
-							<input type="checkbox" name="victoryHonor" checked> Victory of Honor
+							<input type="radio" name="victoryHonor" checked> Victory of Honor
 						</label>
 					</li>
 					<li class="victory-item">
 						<label>
-							<input type="checkbox" name="victoryHonorQuarrel" checked> Victory of Honor and Quarrel
+							<input type="radio" name="victoryHonorQuarrel" checked> Victory of Honor and Quarrel
 						</label>
 					</li>
 					<li class="victory-item">
 						<label>
-							<input type="checkbox" name="victoriaMagna" checked> Victoria Magna
+							<input type="radio" name="victoriaMagna" checked> Victoria Magna
 						</label>
 					</li>
 					<li class="victory-item">
 						<label>
-							<input type="checkbox" name="victoriaMayor" checked> Victoria Mayor
+							<input type="radio" name="victoriaMayor" checked> Victoria Mayor
 						</label>
 					</li>
 					<li class="victory-item">
 						<label>
-							<input type="checkbox" name="victoriaExcelentisima" checked> Victoria Excelentisima
+							<input type="radio" name="victoriaExcelentisima" checked> Victoria Excelentisima
 						</label>
 					</li>
 				</ul>
@@ -800,105 +800,113 @@
 				});
 			}
 
-			// Add event listeners to all checkboxes to track changes in real-time
-			const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-			checkboxes.forEach(checkbox => {
-				checkbox.addEventListener('change', function () {
-					// Automatically update active victories when a checkbox changes
-					updateActiveVictories();
-
-					// If you want to save automatically on every change, uncomment this:
-					// saveVictoryConditionsToBackend();
-				});
+			// Add event listeners to all radio buttons to track changes in real-time
+			const radioButtons = document.querySelectorAll('input[type="radio"]');
+			radioButtons.forEach(radioButton => {
+			    radioButton.addEventListener('change', function () {
+			        // Automatically update active selection when a radio button changes
+			        updateActiveSelection();
+			        // If you want to save automatically on every change, uncomment this:
+			        // saveSelectionToBackend();
+			    });
 			});
 		}
 
-		// Function to update the active victory conditions without displaying them
-		function updateActiveVictories() {
-			const form = document.getElementById('victoryForm');
-			activeVictoryConditions = {};
-
-			// Loop through all checkboxes
-			for (const checkbox of form.elements) {
-				if (checkbox.type === 'checkbox') {
-					// Store the checkbox state in the global object
-					activeVictoryConditions[checkbox.name] = checkbox.checked;
-				}
+					// Function to update the active selection without displaying it
+			function updateActiveSelection() {
+			    const form = document.getElementById('victoryForm');
+			    activeSelection = {};
+			    
+			    // Get all radio button groups by name
+			    const radioGroups = {};
+			    for (const radio of form.elements) {
+			        if (radio.type === 'radio') {
+			            if (!radioGroups[radio.name]) {
+			                radioGroups[radio.name] = [];
+			            }
+			            radioGroups[radio.name].push(radio);
+			        }
+			    }
+			    
+			    // Store the selected option for each radio group
+			    for (const [groupName, radios] of Object.entries(radioGroups)) {
+			        // Find the selected radio button in this group
+			        const selectedRadio = radios.find(radio => radio.checked);
+			        // Store the value of the selected radio button
+			        activeSelection[groupName] = selectedRadio ? selectedRadio.value : null;
+			    }
+			    
+			    // For debugging - you can remove this in production
+			    console.log('Active Selection:', activeSelection);
+			    return activeSelection;
 			}
-
-			// For debugging - you can remove this in production
-			console.log('Active Victory Conditions:', activeVictoryConditions);
-			return activeVictoryConditions;
-		}
-
-		// Function to show save confirmation message
-		function showSaveConfirmation() {
-			const confirmation = document.getElementById('saveConfirmation');
-			if (confirmation) {
-				confirmation.classList.add('show');
-				// Hide the confirmation after 2 seconds
-				setTimeout(() => {
-					confirmation.classList.remove('show');
-				}, 2000);
+			
+			// Function to show save confirmation message
+			function showSaveConfirmation() {
+			    const confirmation = document.getElementById('saveConfirmation');
+			    if (confirmation) {
+			        confirmation.classList.add('show');
+			        // Hide the confirmation after 2 seconds
+			        setTimeout(() => {
+			            confirmation.classList.remove('show');
+			        }, 2000);
+			    }
 			}
-		}
-
-		// Function to get victory status programmatically (for your game code)
-		function getVictoryStatus() {
-			return activeVictoryConditions;
-		}
-
-		// NEW FUNCTIONS FOR BACKEND INTEGRATION
-
-		// Function to save victory conditions to the backend
-		function saveVictoryConditionsToBackend() {
-			// Send data to the backend using jQuery AJAX
-			$.ajax({
-				url: '/api/victory/save',
-				type: 'POST',
-				contentType: 'application/json',
-				data: JSON.stringify({ conditions: activeVictoryConditions }),
-				success: function (data) {
-					console.log('Backend save success:', data);
-					// Success is handled by showSaveConfirmation() if called together
-				},
-				error: function (xhr, status, error) {
-					console.error('Error saving victory conditions to backend:', error);
-					// You might want to show an error message to the user
-				}
-			});
-		}
-
-		// Function to load saved victory conditions from the backend
-		function loadVictoryConditions() {
-			fetch('/api/victory/get')
-				.then(response => response.json())
-				.then(data => {
-					const form = document.getElementById('victoryForm');
-
-					if (Object.keys(data).length > 0) {
-						// We have saved data, update checkboxes
-						for (const [conditionName, enabled] of Object.entries(data)) {
-							const checkbox = form.querySelector(`input[name="${conditionName}"]`);
-							if (checkbox) {
-								checkbox.checked = enabled;
-							}
-						}
-
-						// Update our active conditions object with loaded data
-						activeVictoryConditions = data;
-						console.log('Loaded victory conditions from backend:', activeVictoryConditions);
-					} else {
-						// No saved data, initialize with current form values
-						updateActiveVictories();
-					}
-				})
-				.catch(error => {
-					console.error('Error loading victory conditions from backend:', error);
-					// Fall back to using the current form values
-					updateActiveVictories();
-				});
-		}
+			
+			// Function to get selection status programmatically (for your game code)
+			function getSelectionStatus() {
+			    return activeSelection;
+			}
+			
+			// Function to save selection to the backend
+			function saveSelectionToBackend() {
+			    // Send data to the backend using jQuery AJAX
+			    $.ajax({
+			        url: '/api/selection/save',
+			        type: 'POST',
+			        contentType: 'application/json',
+			        data: JSON.stringify({ selection: activeSelection }),
+			        success: function (data) {
+			            console.log('Backend save success:', data);
+			            // Success is handled by showSaveConfirmation() if called together
+			        },
+			        error: function (xhr, status, error) {
+			            console.error('Error saving selection to backend:', error);
+			            // You might want to show an error message to the user
+			        }
+			    });
+			}
+			
+			// Function to load saved selection from the backend
+			function loadSelection() {
+			    fetch('/api/selection/get')
+			        .then(response => response.json())
+			        .then(data => {
+			            const form = document.getElementById('victoryForm');
+			            if (Object.keys(data).length > 0) {
+			                // We have saved data, update radio buttons
+			                for (const [groupName, selectedValue] of Object.entries(data)) {
+			                    if (selectedValue) {
+			                        const radio = form.querySelector(`input[name="${groupName}"][value="${selectedValue}"]`);
+			                        if (radio) {
+			                            radio.checked = true;
+			                        }
+			                    }
+			                }
+			                // Update our active selection object with loaded data
+			                activeSelection = data;
+			                console.log('Loaded selection from backend:', activeSelection);
+			            } else {
+			                // No saved data, initialize with current form values
+			                updateActiveSelection();
+			            }
+			        })
+			        .catch(error => {
+			            console.error('Error loading selection from backend:', error);
+			            // Fall back to using the current form values
+			            updateActiveSelection();
+			        });
+			}
 
 		// Optional: Function to check if backend is available
 		function isBackendAvailable() {
