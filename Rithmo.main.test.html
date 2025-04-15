@@ -799,6 +799,10 @@
 					showSaveConfirmation();
 				});
 			}
+		radioButton.addEventListener('change', function () {
+		    updateActiveSelection();
+		    // saveSelectionToBackend();
+		});
 
 			// Add event listeners to all radio buttons to track changes in real-time
 			const radioButtons = document.querySelectorAll('input[type="radio"]');
