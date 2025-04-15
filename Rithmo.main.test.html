@@ -359,21 +359,38 @@
 							<input type="radio" name="victoryCommon"> Victory of Honor and Quarrel
 						</label>
 					</li>
-					<li class="victory-item">
-						<label>
-							<input type="radio" name="victoryGlory"> Victoria Magna
-						</label>
-					</li>
-					<li class="victory-item">
-						<label>
-							<input type="radio" name="victoryGlory"> Victoria Mayor
-						</label>
-					</li>
-					<li class="victory-item">
-						<label>
-							<input type="radio" name="victoryGlory"> Victoria Excelentisima
-						</label>
-					</li>
+				</ul>
+				<ul>
+				        <li class="victory-item-tier" data-tier="1">
+				            	<label>
+				                	<div class="checkbox-container">
+				                    		<input type="checkbox" name="victoriaMagna" value="1">
+				                	</div>
+				                	<div>
+				                    		<div class="tier-name">Victoria Magna</div>
+				                	</div>
+				            	</label>
+				        </li>
+				        <li class="victory-item-tier" data-tier="2">
+				            	<label>
+				                	<div class="checkbox-container">
+				                    		<input type="checkbox" name="victoriaMayor" value="2">
+				                	</div>
+				                	<div>
+				                    		<div class="tier-name">Victoria Mayor</div>
+							</div>
+				            	</label>
+				        </li>
+				        <li class="victory-item-tier" data-tier="3">
+				            	<label>
+				                	<div class="checkbox-container">
+				                    		<input type="checkbox" name="victoriaExcelentisima" value="3">
+				                	</div>
+				                	<div>
+				                    		<div class="tier-name">Victoria Excelentisima</div>
+				                	</div>
+				            	</label>
+				        </li>
 				</ul>
 			</form>
 			<button id="saveVictoriesBtn">Save Changes</button>
