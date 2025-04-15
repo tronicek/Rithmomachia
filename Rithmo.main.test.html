@@ -799,10 +799,6 @@
 					showSaveConfirmation();
 				});
 			}
-		radioButton.addEventListener('change', function () {
-		    updateActiveSelection();
-		    // saveSelectionToBackend();
-		});
 
 			// Add event listeners to all radio buttons to track changes in real-time
 			const radioButtons = document.querySelectorAll('input[type="radio"]');
@@ -811,7 +807,7 @@
 			        // Automatically update active selection when a radio button changes
 			        updateActiveSelection();
 			        // If you want to save automatically on every change, uncomment this:
-			        // saveSelectionToBackend();
+			        saveSelectionToBackend();
 			    });
 			});
 		}
