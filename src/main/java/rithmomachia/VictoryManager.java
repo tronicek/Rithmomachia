@@ -274,4 +274,20 @@ public class VictoryManager {
         Collections.sort(sortedValues);
         return sortedValues;
     }
+
+    public Victory getVictory(){
+        return this.victory;
+    }
+
+    public int getBodiesGoal(){
+        return this.bodiesGoal;
+    }
+
+    public int getDigitsGoal(){
+        return this.digitsGoal;
+    }
+
+    public int getValueGoal(){
+        return this.valueGoal;
+    }
 }

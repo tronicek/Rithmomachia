@@ -35,7 +35,7 @@ public class Turn {
 
     private int determineValue() {
         int sum = 0;
-        Board boardToCheck = this.board.makeVirtualBoard(this.piece, this.newPosition);
+        Board boardToCheck = this.board.makeVirtualBoard(this);
         Set<Piece> captures = this.piece.getAllCaptures(boardToCheck);
         for (Piece capture : captures) {
             sum += capture.getValue();

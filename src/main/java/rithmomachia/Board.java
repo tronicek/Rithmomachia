@@ -54,7 +54,8 @@ public class Board {
     }
 
     // TODO: complete this method
-    public Board makeVirtualBoard(Piece pieceToMove, Pos newPosition) {
+    // This should return a deep copy of the board where the Turn has been taken
+    public Board makeVirtualBoard(Turn moveToMake) {
         return null;
     }
 
@@ -70,7 +71,25 @@ public class Board {
 
     // TODO: complete this method
     public List<Turn> getAllMovesForColor(Color color){
-        return null;
+    // Find all pieces that belong to the color, for each piece, find all the positions it can move to,
+    // Return all of these as a set of Turn, which are built with a piece, and where that piece is moving to
+         return null;
+    }
+
+    public Victory getVictoryCondition(){
+        return victoryManager.getVictory();
+    }
+
+    public int getBodiesGoal(){
+        return victoryManager.getBodiesGoal();
+    }
+
+    public int getValuesGoal(){
+        return victoryManager.getValueGoal();
+    }
+
+    public int getDigitsGoal(){
+        return victoryManager.getDigitsGoal();
     }
 
     private Piece fromString(String s, int row, int col) {
