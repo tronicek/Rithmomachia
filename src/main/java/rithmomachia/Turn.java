@@ -14,11 +14,11 @@ public class Turn {
     private Pos newPosition;
     private int value;
 
-    public Turn(Board board, Piece piece, Pos newPosition, int previousValue) {
+    public Turn(Board board, Piece piece, Pos newPosition) {
         this.board = board;
         this.piece = piece;
         this.newPosition = newPosition;
-        this.value = this.determineValue()+previousValue;
+        this.value = this.determineValue();
     }
 
     public Piece getPiece() {

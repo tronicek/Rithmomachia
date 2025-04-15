@@ -69,7 +69,7 @@ public class Board {
     }
 
     // TODO: complete this method
-    public Set<Move> getAllMovesForColor(Color color){
+    public List<Turn> getAllMovesForColor(Color color){
         return null;
     }
 

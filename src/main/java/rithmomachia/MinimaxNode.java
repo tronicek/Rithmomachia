@@ -8,10 +8,11 @@ public class MinimaxNode {
     private List<MinimaxNode> children;
     private final Turn turn;
     private final int depth;
+    final int nodeValue;
 
-    public MinimaxNode(Turn turn, int depth) {
+    public MinimaxNode(Turn turn, int depth, int previousValue) {
         this.turn = turn;
-
+        this.nodeValue = this.turn.getValue() + previousValue;
         this.depth = depth;
         this.children = this.createChildren(this.depth);
     }
