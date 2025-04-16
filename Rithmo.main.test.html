@@ -421,21 +421,81 @@
 		</div>
 	</div>
 
-	<div id="GameInfo" class="hidden">
-		<div class="infoSlide">
-			<h1>Welcome to Rithmomachia!</h1>
-			<p> In Rithmomachia, players choose a victory condition at the start—Bodies, Goods, Quarrel, Honor, or
-				Honor + Quarrel.
-				Victory is achieved by capturing opponent pieces using one of four methods: Siege, Encounter,
-				Eruption, or Deceit. Each
-				capture requires specific mathematical calculations based on the pieces' values and movement
-				patterns. Finally, there are
-				also special victories named glorious victories-Victoria magna, Victoria major and Victoria
-				excellentissima. Each of these
-				concepts will be explained in the upcoming slides starting with piece values and movement rules. </p>
+			<div id="GameInfo" class="hidden">
+		  <style>
+		    #GameInfo {
+		      position: relative;
+		      background-color: #fff;
+		      color: #333;
+		      font-family: 'Georgia', serif;
+		      padding: 40px;
+		      margin: 20px auto;
+		      max-width: 800px;
+		      border-radius: 16px;
+		      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+		      line-height: 1.6;
+		      font-size: 16px;
+		    }
+		
+		    #GameInfo h1 {
+		      font-size: 32px;
+		      color: #222;
+		      margin-bottom: 20px;
+		    }
+		
+		    #GameInfo p {
+		      margin-bottom: 20px;
+		    }
+		
+		    #backButton {
+		      position: absolute;
+		      top: 20px;
+		      right: 20px;
+		      background-color: #4A90E2;
+		      color: #fff;
+		      border: none;
+		      padding: 10px 16px;
+		      border-radius: 8px;
+		      font-size: 14px;
+		      cursor: pointer;
+		      transition: background-color 0.3s ease;
+		    }
+		
+		    #backButton:hover {
+		      background-color: #357ABD;
+		    }
+		  </style>
+		
+		  <div class="infoSlide">
+		    <h1>Welcome to Rithmomachia!</h1>
+		    <p>In Rithmomachia, players choose a victory condition at the start—Bodies, Goods, Quarrel, Honor, or Honor + Quarrel.
+		      Victory is achieved by capturing opponent pieces using one of four methods: Siege, Encounter, Eruption, or Deceit.
+		      Each capture requires specific mathematical calculations based on the pieces' values and movement patterns.
+		      Finally, there are also special victories named glorious victories—Victoria magna, Victoria major, and Victoria
+		      excellentissima. Each of these concepts will be explained in the upcoming slides starting with piece values and
+		      movement rules.</p>
+		
+		    <p><strong>Rhitomachia</strong>, also known as <em>Rithmomachia</em> or the "Battle of Numbers," is a medieval mathematical board game developed in the 11th century. Deeply rooted in classical and scholastic learning, it was designed as both an educational tool and an intellectual game. Played primarily by scholars, the game blends strategy with arithmetic, requiring players to use numbers, ratios, and progressions to outmaneuver their opponents.</p>
+		
+		    <p>The board usually consists of 8 rows and 16 columns. Each player begins with 24 pieces: circles, triangles, squares, and pyramids. These shapes are not merely decorative—each bears a number based on arithmetic, geometric, or harmonic progression. Pyramids are especially significant as they combine the values of the other shapes and represent the height of numerical harmony.</p>
+		
+		    <p>Movement is determined both by piece shape and value. Circles move straight (horizontally or vertically), triangles move diagonally, and squares leap according to specific numeric patterns. Pyramids may combine multiple movement types or have restricted movement depending on strategy. The numbers on the pieces often influence how far they move or interact with others.</p>
+		
+		    <p>Capturing in Rhitomachia is governed by mathematical logic rather than proximity alone. Players may capture using meeting (equal values on the same space), ambush (pieces forming a numerical progression around an enemy), assault (based on arithmetic operations like sums or products), and siege (immobilizing a piece). Special wins include forming visible progressions on the board, reflecting the game’s philosophical foundations.</p>
+		
+		    <p>Victory can be achieved through total capture, but more elegant paths include the formation of perfect progressions—considered philosophical victories. These outcomes were seen as the highest form of success, showcasing the player’s mastery not just of tactics but of mathematical harmony.</p>
+		
+		    <p>Ultimately, Rhitomachia was a reflection of a worldview where math and morality were intertwined. It taught arithmetic and logic through an elegant system of strategy and symbolism, celebrated for its intellectual depth and beauty.</p>
+		  </div>
+		  <button id="backButton" onclick="closeGameInfo()">Back to Game</button>
+		
+		  <script>
+		    function closeGameInfo() {
+		      document.getElementById("GameInfo").classList.add("hidden");
+		    }
+		  </script>
 		</div>
-		<button id="backButton"></button>
-	</div>
+
 	<!--Preload Intro video Darin-->
 	<video id="introVideo" preload="auto" style="display: none;">
 		<source src="Images/Rith/HUNTRithCutscene.mp4" type="video/mp4">
