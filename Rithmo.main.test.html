@@ -421,29 +421,44 @@
 		</div>
 	</div>
 
-			<div id="GameInfo" class="hidden">
+					<div id="GameInfo" class="hidden">
 		  <style>
 		    #GameInfo {
-		      position: relative;
+		      position: fixed;
+		      top: 0;
+		      left: 0;
+		      width: 100vw;
+		      height: 100vh;
+		      background-color: rgba(0, 0, 0, 0.6);
+		      display: flex;
+		      align-items: flex-start;
+		      justify-content: center;
+		      overflow-y: auto;
+		      padding: 40px 20px;
+		      z-index: 9999;
+		    }
+		
+		    .infoSlide {
 		      background-color: #fff;
 		      color: #333;
 		      font-family: 'Georgia', serif;
 		      padding: 40px;
-		      margin: 20px auto;
 		      max-width: 800px;
+		      width: 100%;
 		      border-radius: 16px;
-		      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+		      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
 		      line-height: 1.6;
 		      font-size: 16px;
+		      position: relative;
 		    }
 		
-		    #GameInfo h1 {
+		    .infoSlide h1 {
 		      font-size: 32px;
 		      color: #222;
 		      margin-bottom: 20px;
 		    }
 		
-		    #GameInfo p {
+		    .infoSlide p {
 		      margin-bottom: 20px;
 		    }
 		
@@ -463,6 +478,10 @@
 		
 		    #backButton:hover {
 		      background-color: #357ABD;
+		    }
+		
+		    .hidden {
+		      display: none;
 		    }
 		  </style>
 		
@@ -486,8 +505,9 @@
 		    <p>Victory can be achieved through total capture, but more elegant paths include the formation of perfect progressions—considered philosophical victories. These outcomes were seen as the highest form of success, showcasing the player’s mastery not just of tactics but of mathematical harmony.</p>
 		
 		    <p>Ultimately, Rhitomachia was a reflection of a worldview where math and morality were intertwined. It taught arithmetic and logic through an elegant system of strategy and symbolism, celebrated for its intellectual depth and beauty.</p>
+		
+		    <button id="backButton" onclick="closeGameInfo()">Back to Game</button>
 		  </div>
-		  <button id="backButton" onclick="closeGameInfo()">Back to Game</button>
 		
 		  <script>
 		    function closeGameInfo() {
