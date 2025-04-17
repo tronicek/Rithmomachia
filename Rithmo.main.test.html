@@ -307,6 +307,63 @@
 			height: 40px;
 			text-align: center;
 		}
+
+		#GameInfo {
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100vw;
+			height: 100vh;
+			background-color: rgba(0, 0, 0, 0.6);
+			display: flex;
+			align-items: flex-start;
+			justify-content: center;
+			overflow-y: auto;
+			padding: 40px 20px;
+			z-index: 9999;
+		}
+
+		.infoSlide {
+			background-color: #fff;
+			color: #333;
+			font-family: 'Georgia', serif;
+			padding: 40px;
+			max-width: 800px;
+			width: 100%;
+			border-radius: 16px;
+			box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+			line-height: 1.6;
+			font-size: 16px;
+			position: relative;
+		}
+
+		.infoSlide h1 {
+			font-size: 32px;
+			color: #222;
+			margin-bottom: 20px;
+		}
+
+		.infoSlide p {
+			margin-bottom: 20px;
+		}
+
+		#backButton {
+			position: absolute;
+			top: 20px;
+			right: 20px;
+			background-color: #4A90E2;
+			color: #fff;
+			border: none;
+			padding: 10px 16px;
+			border-radius: 8px;
+			font-size: 14px;
+			cursor: pointer;
+			transition: background-color 0.3s ease;
+		}
+
+		#backButton:hover {
+			background-color: #357ABD;
+		}
 	</style>
 </head>
 
@@ -361,36 +418,36 @@
 					</li>
 				</ul>
 				<ul>
-				        <li class="victory-item-tier" data-tier="1">
-				            	<label>
-				                	<div class="checkbox-container">
-				                    		<input type="checkbox" name="victoriaMagna" value="1">
-				                	</div>
-				                	<div>
-				                    		<div class="tier-name">Victoria Magna</div>
-				                	</div>
-				            	</label>
-				        </li>
-				        <li class="victory-item-tier" data-tier="2">
-				            	<label>
-				                	<div class="checkbox-container">
-				                    		<input type="checkbox" name="victoriaMayor" value="2">
-				                	</div>
-				                	<div>
-				                    		<div class="tier-name">Victoria Mayor</div>
+					<li class="victory-item-tier" data-tier="1">
+						<label>
+							<div class="checkbox-container">
+								<input type="checkbox" name="victoriaMagna" value="1">
 							</div>
-				            	</label>
-				        </li>
-				        <li class="victory-item-tier" data-tier="3">
-				            	<label>
-				                	<div class="checkbox-container">
-				                    		<input type="checkbox" name="victoriaExcelentisima" value="3">
-				                	</div>
-				                	<div>
-				                    		<div class="tier-name">Victoria Excelentisima</div>
-				                	</div>
-				            	</label>
-				        </li>
+							<div>
+								<div class="tier-name">Victoria Magna</div>
+							</div>
+						</label>
+					</li>
+					<li class="victory-item-tier" data-tier="2">
+						<label>
+							<div class="checkbox-container">
+								<input type="checkbox" name="victoriaMayor" value="2">
+							</div>
+							<div>
+								<div class="tier-name">Victoria Mayor</div>
+							</div>
+						</label>
+					</li>
+					<li class="victory-item-tier" data-tier="3">
+						<label>
+							<div class="checkbox-container">
+								<input type="checkbox" name="victoriaExcelentisima" value="3">
+							</div>
+							<div>
+								<div class="tier-name">Victoria Excelentisima</div>
+							</div>
+						</label>
+					</li>
 				</ul>
 			</form>
 			<button id="saveVictoriesBtn">Save Changes</button>
@@ -421,100 +478,55 @@
 		</div>
 	</div>
 
-					<div id="GameInfo" class="hidden">
-		  <style>
-		    #GameInfo {
-		      position: fixed;
-		      top: 0;
-		      left: 0;
-		      width: 100vw;
-		      height: 100vh;
-		      background-color: rgba(0, 0, 0, 0.6);
-		      display: flex;
-		      align-items: flex-start;
-		      justify-content: center;
-		      overflow-y: auto;
-		      padding: 40px 20px;
-		      z-index: 9999;
-		    }
-		
-		    .infoSlide {
-		      background-color: #fff;
-		      color: #333;
-		      font-family: 'Georgia', serif;
-		      padding: 40px;
-		      max-width: 800px;
-		      width: 100%;
-		      border-radius: 16px;
-		      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-		      line-height: 1.6;
-		      font-size: 16px;
-		      position: relative;
-		    }
-		
-		    .infoSlide h1 {
-		      font-size: 32px;
-		      color: #222;
-		      margin-bottom: 20px;
-		    }
-		
-		    .infoSlide p {
-		      margin-bottom: 20px;
-		    }
-		
-		    #backButton {
-		      position: absolute;
-		      top: 20px;
-		      right: 20px;
-		      background-color: #4A90E2;
-		      color: #fff;
-		      border: none;
-		      padding: 10px 16px;
-		      border-radius: 8px;
-		      font-size: 14px;
-		      cursor: pointer;
-		      transition: background-color 0.3s ease;
-		    }
-		
-		    #backButton:hover {
-		      background-color: #357ABD;
-		    }
-		
-		    .hidden {
-		      display: none;
-		    }
-		  </style>
-		
-		  <div class="infoSlide">
-		    <h1>Welcome to Rithmomachia!</h1>
-		    <p>In Rithmomachia, players choose a victory condition at the start—Bodies, Goods, Quarrel, Honor, or Honor + Quarrel.
-		      Victory is achieved by capturing opponent pieces using one of four methods: Siege, Encounter, Eruption, or Deceit.
-		      Each capture requires specific mathematical calculations based on the pieces' values and movement patterns.
-		      Finally, there are also special victories named glorious victories—Victoria magna, Victoria major, and Victoria
-		      excellentissima. Each of these concepts will be explained in the upcoming slides starting with piece values and
-		      movement rules.</p>
-		
-		    <p><strong>Rhitomachia</strong>, also known as <em>Rithmomachia</em> or the "Battle of Numbers," is a medieval mathematical board game developed in the 11th century. Deeply rooted in classical and scholastic learning, it was designed as both an educational tool and an intellectual game. Played primarily by scholars, the game blends strategy with arithmetic, requiring players to use numbers, ratios, and progressions to outmaneuver their opponents.</p>
-		
-		    <p>The board usually consists of 8 rows and 16 columns. Each player begins with 24 pieces: circles, triangles, squares, and pyramids. These shapes are not merely decorative—each bears a number based on arithmetic, geometric, or harmonic progression. Pyramids are especially significant as they combine the values of the other shapes and represent the height of numerical harmony.</p>
-		
-		    <p>Movement is determined both by piece shape and value. Circles move straight (horizontally or vertically), triangles move diagonally, and squares leap according to specific numeric patterns. Pyramids may combine multiple movement types or have restricted movement depending on strategy. The numbers on the pieces often influence how far they move or interact with others.</p>
-		
-		    <p>Capturing in Rhitomachia is governed by mathematical logic rather than proximity alone. Players may capture using meeting (equal values on the same space), ambush (pieces forming a numerical progression around an enemy), assault (based on arithmetic operations like sums or products), and siege (immobilizing a piece). Special wins include forming visible progressions on the board, reflecting the game’s philosophical foundations.</p>
-		
-		    <p>Victory can be achieved through total capture, but more elegant paths include the formation of perfect progressions—considered philosophical victories. These outcomes were seen as the highest form of success, showcasing the player’s mastery not just of tactics but of mathematical harmony.</p>
-		
-		    <p>Ultimately, Rhitomachia was a reflection of a worldview where math and morality were intertwined. It taught arithmetic and logic through an elegant system of strategy and symbolism, celebrated for its intellectual depth and beauty.</p>
-		
-		    <button id="backButton" onclick="closeGameInfo()">Back to Game</button>
-		  </div>
-		
-		  <script>
-		    function closeGameInfo() {
-		      document.getElementById("GameInfo").classList.add("hidden");
-		    }
-		  </script>
+	<div id="GameInfo" class="hidden">
+		<div class="infoSlide">
+			<h1>Welcome to Rithmomachia!</h1>
+			<p>In Rithmomachia, players choose a victory condition at the start—Bodies, Goods, Quarrel, Honor, or Honor
+				+ Quarrel.
+				Victory is achieved by capturing opponent pieces using one of four methods: Siege, Encounter, Eruption,
+				or Deceit.
+				Each capture requires specific mathematical calculations based on the pieces' values and movement
+				patterns.
+				Finally, there are also special victories named glorious victories—Victoria magna, Victoria major, and
+				Victoria
+				excellentissima. Each of these concepts will be explained in the upcoming slides starting with piece
+				values and
+				movement rules.</p>
+
+			<p><strong>Rhitomachia</strong>, also known as <em>Rithmomachia</em> or the "Battle of Numbers," is a
+				medieval mathematical board game developed in the 11th century. Deeply rooted in classical and
+				scholastic learning, it was designed as both an educational tool and an intellectual game. Played
+				primarily by scholars, the game blends strategy with arithmetic, requiring players to use numbers,
+				ratios, and progressions to outmaneuver their opponents.</p>
+
+			<p>The board usually consists of 8 rows and 16 columns. Each player begins with 24 pieces: circles,
+				triangles, squares, and pyramids. These shapes are not merely decorative—each bears a number based on
+				arithmetic, geometric, or harmonic progression. Pyramids are especially significant as they combine the
+				values of the other shapes and represent the height of numerical harmony.</p>
+
+			<p>Movement is determined both by piece shape and value. Circles move straight (horizontally or vertically),
+				triangles move diagonally, and squares leap according to specific numeric patterns. Pyramids may combine
+				multiple movement types or have restricted movement depending on strategy. The numbers on the pieces
+				often influence how far they move or interact with others.</p>
+
+			<p>Capturing in Rhitomachia is governed by mathematical logic rather than proximity alone. Players may
+				capture using meeting (equal values on the same space), ambush (pieces forming a numerical progression
+				around an enemy), assault (based on arithmetic operations like sums or products), and siege
+				(immobilizing a piece). Special wins include forming visible progressions on the board, reflecting the
+				game’s philosophical foundations.</p>
+
+			<p>Victory can be achieved through total capture, but more elegant paths include the formation of perfect
+				progressions—considered philosophical victories. These outcomes were seen as the highest form of
+				success, showcasing the player’s mastery not just of tactics but of mathematical harmony.</p>
+
+			<p>Ultimately, Rhitomachia was a reflection of a worldview where math and morality were intertwined. It
+				taught arithmetic and logic through an elegant system of strategy and symbolism, celebrated for its
+				intellectual depth and beauty.</p>
+
+			<button id="backButton">Back to Game</button>
 		</div>
+
+	</div>
 
 	<!--Preload Intro video Darin-->
 	<video id="introVideo" preload="auto" style="display: none;">
