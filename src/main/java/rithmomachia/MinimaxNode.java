@@ -2,17 +2,20 @@ package rithmomachia;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Set;
 
 // This is a node for minimax. It is constructed with the Turn that has been made.
+// Move goal declaration here?
 public class MinimaxNode {
     private List<MinimaxNode> children;
     private final Turn turn;
     private final int depth;
     final int nodeValue;
 
+
     public MinimaxNode(Turn turn, int depth, int previousValue) {
         this.turn = turn;
-        this.nodeValue = this.turn.getValue() + previousValue;
+        this.nodeValue =  previousValue;
         this.depth = depth;
         this.children = this.createChildren(this.depth);
     }
@@ -21,9 +24,9 @@ public class MinimaxNode {
         return children;
     }
 
-    public int getValue(){
-        return turn.getValue();
-    }
+//    public int getValue(){
+//        return this.nodeValue();
+//    }
 
     // This should create new nodes containing the NEXT turns (mainly new position for all pieces for the color that is
     // moving.
@@ -42,4 +45,14 @@ public class MinimaxNode {
         //else, fill nextmoves with new nodes with depth-1
         return nextMoves;
     }
+
+//    private int determineValue() {
+//        int sum = 0;
+//        Board boardToCheck = this.board.makeVirtualBoard(this);
+//        Set<Piece> captures = this.piece.getAllCaptures(boardToCheck);
+//        for (Piece capture : captures) {
+//            sum += capture.getValue();
+//        }
+//        return sum;
+//    }
 }

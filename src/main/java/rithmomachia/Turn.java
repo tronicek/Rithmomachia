@@ -9,16 +9,12 @@ import java.util.Set;
 // It should then figure out all the captures that can be made for that one piece at that one position and add that to
 // The previous value.
 public class Turn {
-    private Board board;
     private Piece piece;
     private Pos newPosition;
-    private int value;
 
-    public Turn(Board board, Piece piece, Pos newPosition) {
-        this.board = board;
+    public Turn(Piece piece, Pos newPosition) {
         this.piece = piece;
         this.newPosition = newPosition;
-        this.value = this.determineValue();
     }
 
     public Piece getPiece() {
@@ -27,19 +23,5 @@ public class Turn {
 
     public Pos getNewPosition() {
         return this.newPosition;
-    }
-
-    public int getValue() {
-        return this.value;
-    }
-
-    private int determineValue() {
-        int sum = 0;
-        Board boardToCheck = this.board.makeVirtualBoard(this);
-        Set<Piece> captures = this.piece.getAllCaptures(boardToCheck);
-        for (Piece capture : captures) {
-            sum += capture.getValue();
-        }
-        return sum;
     }
 }
