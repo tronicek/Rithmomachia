@@ -258,13 +258,15 @@ public class VictoryManager {
     private boolean isGeometricProgression(int a, int b, int c){
         // given ints a<b<c, geometric if b/a=c/b or b = sqrt(ac)
         // allow any type of ratio, account for division inaccuracies
-        return Math.abs(((b/a)-(c/b))) < 0.00001;
+        //return Math.abs((b/a)-(c/b)) < 0.00001;
+        return Math.sqrt(a*c) == b;
     }
 
     private boolean isHarmonicProgression(int a, int b, int c){
         // given ints a<b<c, harmonic if (c-b)/(b-a) = c/a
         // or b = (2ac)/(a+c)
-        return Math.abs(b - (2*a*c)/(a+c)) < 0.00001;
+        //return Math.abs(b - (2*a*c)/(a+c)) < 0.00001;
+        return  2 * (a * c) / (a + c) == b;
     }
 
     // This takes a tuple and returns it as a list of sorted integers. This makes it easier for victory checks.
