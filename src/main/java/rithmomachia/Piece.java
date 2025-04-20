@@ -22,7 +22,6 @@ public class Piece {
         //Board.setPiece(row, col, this);
     }
 
-    // What is row col? The piece's current row and col??? Do we need this??
     public Set<Move> findMoves(Board board) {
         Set<Move> mm = new HashSet<>();
         int distance = getMoveSpaces();
