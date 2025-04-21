@@ -123,6 +123,7 @@ public class MoveTest {
         b.printBoard();
         Piece p = b.getPiece(3, 3);
         Set<Move> pp = p.findMoves(b);
+        b.updateString();
         assertEquals(8, pp.size());
     }
 

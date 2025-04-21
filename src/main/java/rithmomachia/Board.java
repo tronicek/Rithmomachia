@@ -14,9 +14,11 @@ public class Board {
     private int whiteEnemyTerritoryStartColumn;
     private Piece[][] pieces;
     private final VictoryManager victoryManager;
+    private String[] boardLayout;
 
     public Board(int numRows, int numCols, String[] str) {
         initBoard(numRows,numCols);
+        boardLayout = str;
         //System.out.println("Start [0, 0]: " + pieces[0][0]);
         //System.out.println("After 'pieces' are added [0, 0]: " + pieces[0][0]);
         this.whiteEnemyTerritoryStartColumn = 1;
@@ -56,8 +58,22 @@ public class Board {
     // TODO: complete this method
     // This should return a deep copy of the board where the Turn has been taken
     public Board makeVirtualBoard(Turn moveToMake) {
-        return null;
+        // Create a copy of the initial state of the board
+        Board initialBoardState = new Board(rows,cols,boardLayout);
+        // Grab the piece that is being moved
+        Piece piece = moveToMake.getPiece();
+        // Grab the position the piece is being moved to
+        Pos newPosition = moveToMake.getNewPosition();
+        // Move the piece on the virtual board
+        initialBoardState.setPiece(newPosition.getRow(), newPosition.getCol(), piece);
+        // Update the string to match current state of the board
+        // TODO: debug "updateString" to handle Pyramid
+        String[] updatedString = initialBoardState.updateString();
+        // Return virtual board
+        return new Board(rows,cols,updatedString);
     }
+
+
 
     // TODO: complete this method
     public Set<Piece> getAllCapturesForColor(Color color){
@@ -135,7 +151,21 @@ public class Board {
     }
 
 
-
+    public String[] updateString(){
+        String[] str = new String[rows];
+        for(int row = 0; row < rows; row++){
+            StringBuilder s = new StringBuilder();
+            for(int col = 0; col < cols; col++){
+                if(pieces[row][col] == null){
+                    s.append("--- ");
+                }else{
+                    s.append(pieces[row][col].toString()).append(" ");
+                }
+            }
+            str[row] = s.toString().trim();
+        }
+        return str;
+    }
 
 
     private void initBoard(int numRows, int numCols) {
@@ -145,6 +175,7 @@ public class Board {
         this.whiteEnemyTerritoryStartColumn = numCols-2;
         pieces = new Piece[rows][cols];
     }
+
 
     public void printBoard() {
         // Print the numbers at the top for the columns

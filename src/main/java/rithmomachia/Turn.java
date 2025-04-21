@@ -24,4 +24,5 @@ public class Turn {
     public Pos getNewPosition() {
         return this.newPosition;
     }
+
 }
