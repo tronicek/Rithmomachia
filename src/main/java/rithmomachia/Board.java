@@ -59,7 +59,7 @@ public class Board {
     // This should return a deep copy of the board where the Turn has been taken
     public Board makeVirtualBoard(Turn moveToMake) {
         // Create a copy of the initial state of the board
-        Board initialBoardState = new Board(rows,cols,boardLayout);
+        Board initialBoardState = this;
         // Grab the piece that is being moved
         Piece piece = moveToMake.getPiece();
         // Grab the position the piece is being moved to
@@ -204,7 +204,30 @@ public class Board {
                 if(pieces[row][col] == null){
                     s.append("--- ");
                 }else{
-                    s.append(pieces[row][col].toString()).append(" ");
+                    Piece piece = getPiece(row,col);
+                    if(piece.toString().charAt(1) == 'P' ){
+                        switch(piece.toString().charAt(0)){
+                            case 'W':
+                                s.append("P,W,");
+                                for(int i = 5; i < piece.toString().length(); i++){
+                                    if(piece.toString().charAt(i) != 'W' && !Character.isWhitespace(piece.toString().charAt(i))){
+                                        s.append(piece.toString().charAt(i));
+                                    }
+                                }
+                                break;
+                            case 'B':
+                                s.append("P,B,");
+                                for(int i = 5; i < piece.toString().length(); i++){
+                                    if(piece.toString().charAt(i) != 'B' && !Character.isWhitespace(piece.toString().charAt(i))){
+                                        s.append(piece.toString().charAt(i));
+                                    }
+                                }
+                                break;
+                        }
+                    }else{
+                        s.append(pieces[row][col].toString()).append(" ");
+                    }
+
                 }
             }
             str[row] = s.toString().trim();

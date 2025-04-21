@@ -473,7 +473,18 @@ public class GloriousVictoryTest {
         assertTrue("Victoria Magna should be triggered", triggered);
     }
 
-
+    @Test
+    public void testVictoriaMagna17() {
+        String[] s = {
+                "--- --- ---",
+                "WC3 WC5 P,B,C20,C7",
+                "--- --- ---", 
+        };
+        Board board = new Board(3, 3, s);
+        VictoryManager vm = new VictoryManager(board, Victory.NONE, 0, 0, 0);
+        boolean triggered = vm.checkVictoriaMagna(Color.W);
+        assertTrue("Victoria Magna should be triggered", triggered);
+    }
 
 
     @Test

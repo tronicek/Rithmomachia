@@ -1,6 +1,7 @@
 package rithmomachia;
 import static org.junit.Assert.assertEquals;
 
+import java.util.Arrays;
 import java.util.Set;
 
 import org.junit.Test;
@@ -123,7 +124,7 @@ public class MoveTest {
         b.printBoard();
         Piece p = b.getPiece(3, 3);
         Set<Move> pp = p.findMoves(b);
-        b.updateString();
+        String[] ss = b.updateString();
         assertEquals(8, pp.size());
     }
 
