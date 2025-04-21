@@ -70,26 +70,71 @@ public class Board {
         // TODO: debug "updateString" to handle Pyramid
         String[] updatedString = initialBoardState.updateString();
         // Return virtual board
-        return new Board(rows,cols,updatedString);
+        return new Board(rows,cols,updatedString); //Return Virtual Board
     }
 
 
 
     // TODO: complete this method
     public Set<Piece> getAllCapturesForColor(Color color){
-        return null;
+        //Create HashSet
+        Set<Piece> captures = new HashSet<>();
+        //Search all spots on the board
+        for(int row = 0; row < rows; row++){
+            for(int col = 0; col < cols; col++){
+                //If piece is correct color add all its captures to HashSet
+                if(pieces[row][col].getColor() == color){
+                    Piece piece = getPiece(row, col);
+                    captures.addAll(piece.captureByDeceit(this));
+                    captures.addAll(piece.captureByEncounter(this));
+                    captures.addAll(piece.captureBySiege(this));
+                    captures.addAll(piece.captureByEruption(this));
+                }
+            }
+        }
+        return captures; //Return captures
     }
 
     // TODO: complete this method
     public Set<Piece> getAllCapturesForPiece(Piece piece){
-        return null;
+        //Create Captures HashSet
+        Set<Piece> captures = new HashSet<>();
+        //Add all captures piece can preform to HashSet
+        captures.addAll(piece.captureByDeceit(this));
+        captures.addAll(piece.captureByEncounter(this));
+        captures.addAll(piece.captureBySiege(this));
+        captures.addAll(piece.captureByEruption(this));
+        return captures; // Return captures
     }
 
     // TODO: complete this method
     public List<Turn> getAllMovesForColor(Color color){
     // Find all pieces that belong to the color, for each piece, find all the positions it can move to,
     // Return all of these as a set of Turn, which are built with a piece, and where that piece is moving to
-         return null;
+
+        //Create a List of Moves
+        List<Turn> moves = new ArrayList<>();
+        //Check each row
+        for(int row = 0; row < rows; row++){
+            //Check each col
+            for(int col = 0; col < cols; col++){
+                //Check color
+                if(pieces[row][col].getColor() == color){
+                    //Find moves for individual piece
+                    for(Move move :
+                        getPiece(row, col).findMoves(this)){
+                        //Find the position piece is being moved to
+                        Pos newPosition = new Pos(move.getEndRow(), move.getEndCol());
+                        //Create "turn" which represents a Piece and where it can move
+                        Turn turn = new Turn(getPiece(row,col),newPosition);
+                        //Add piece move to List
+                        moves.add(turn);
+                    }
+
+                }
+            }
+        }
+         return moves; //Return moves for all pieces found
     }
 
     public Victory getVictoryCondition(){
