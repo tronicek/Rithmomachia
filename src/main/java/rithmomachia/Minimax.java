@@ -1,4 +1,4 @@
-/*package rithmomachia;
+package rithmomachia;
 
 import java.util.HashSet;
 import java.util.List;
@@ -67,4 +67,4 @@ public class Minimax {
             return value;
         }
     }
-}*/
+}

@@ -478,7 +478,7 @@ public class GloriousVictoryTest {
         String[] s = {
                 "--- --- ---",
                 "WC3 WC5 P,B,C20,C7",
-                "--- --- ---", 
+                "--- --- ---",
         };
         Board board = new Board(3, 3, s);
         VictoryManager vm = new VictoryManager(board, Victory.NONE, 0, 0, 0);
