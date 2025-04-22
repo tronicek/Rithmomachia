@@ -211,6 +211,19 @@
 			cursor: pointer;
 		}
 
+		.dropdown-container {
+	            margin-top: 10px;
+	            margin-left: 25px;
+	            display: none;
+	            padding: 10px;
+	            background-color: #f5f5f5;
+	            border-radius: 4px;
+	        }
+	        
+	        .dropdown-container.active {
+	            display: block;
+	        }
+
 		.save-confirmation {
 			color: #4CAF50;
 			font-weight: bold;
@@ -389,67 +402,96 @@
 		<div id="SetupScreen" class="hidden">
 			<!-- //These Dont do anything for now but are here for in the future -->
 			<h2>Victory Conditions</h2>
-			<form id="victoryForm">
-				<ul class="victory-list">
-					<li class="victory-item">
-						<label>
-							<input type="radio" name="victoryCommon" checked> Victory of Bodies
-						</label>
-					</li>
-					<li class="victory-item">
-						<label>
-							<input type="radio" name="victoryCommon"> Victory of Goods
-						</label>
-					</li>
-					<li class="victory-item">
-						<label>
-							<input type="radio" name="victoryCommon"> Victory of Quarrel
-						</label>
-					</li>
-					<li class="victory-item">
-						<label>
-							<input type="radio" name="victoryCommon"> Victory of Honor
-						</label>
-					</li>
-					<li class="victory-item">
-						<label>
-							<input type="radio" name="victoryCommon"> Victory of Honor and Quarrel
-						</label>
-					</li>
-				</ul>
-				<ul>
-					<li class="victory-item-tier" data-tier="1">
-						<label>
-							<div class="checkbox-container">
-								<input type="checkbox" name="victoriaMagna" value="1">
-							</div>
-							<div>
-								<div class="tier-name">Victoria Magna</div>
-							</div>
-						</label>
-					</li>
-					<li class="victory-item-tier" data-tier="2">
-						<label>
-							<div class="checkbox-container">
-								<input type="checkbox" name="victoriaMayor" value="2">
-							</div>
-							<div>
-								<div class="tier-name">Victoria Mayor</div>
-							</div>
-						</label>
-					</li>
-					<li class="victory-item-tier" data-tier="3">
-						<label>
-							<div class="checkbox-container">
-								<input type="checkbox" name="victoriaExcelentisima" value="3">
-							</div>
-							<div>
-								<div class="tier-name">Victoria Excelentisima</div>
-							</div>
-						</label>
-					</li>
-				</ul>
-			</form>
+			    <form id="victoryForm">
+			        <ul class="victory-list">
+			            <li class="victory-item">
+			                <label>
+			                    <input type="radio" name="victoryCommon" value="bodies" checked> Victory of Bodies
+			                </label>
+			                <div class="dropdown-container" id="bodies-dropdown">
+			                    <label for="bodiesCount">Number of bodies required: 
+			                        <input type="number" id="bodiesCount" name="bodiesCount" min="1" value="3">
+			                    </label>
+			                </div>
+			            </li>
+			            <li class="victory-item">
+			                <label>
+			                    <input type="radio" name="victoryCommon" value="goods"> Victory of Goods
+			                </label>
+			                <div class="dropdown-container" id="goods-dropdown">
+			                    <label for="goodsCount">Value of goods required: 
+			                        <input type="number" id="goodsCount" name="goodsCount" min="1" value="500">
+			                    </label>
+			                </div>
+			            </li>
+			            <li class="victory-item">
+			                <label>
+			                    <input type="radio" name="victoryCommon" value="quarrel"> Victory of Quarrel
+			                </label>
+			                <div class="dropdown-container" id="quarrel-dropdown">
+			                    <label for="quarrelCount">Quarrel points required: 
+			                        <input type="number" id="quarrelCount" name="quarrelCount" min="1" value="10">
+			                    </label>
+			                </div>
+			            </li>
+			            <li class="victory-item">
+			                <label>
+			                    <input type="radio" name="victoryCommon" value="honor"> Victory of Honor
+			                </label>
+			                <div class="dropdown-container" id="honor-dropdown">
+			                    <label for="honorCount">Honor points required: 
+			                        <input type="number" id="honorCount" name="honorCount" min="1" value="15">
+			                    </label>
+			                </div>
+			            </li>
+			            <li class="victory-item">
+			                <label>
+			                    <input type="radio" name="victoryCommon" value="honorquarrel"> Victory of Honor and Quarrel
+			                </label>
+			                <div class="dropdown-container" id="honorquarrel-dropdown">
+			                    <label for="honorComboCount">Honor points required: 
+			                        <input type="number" id="honorComboCount" name="honorComboCount" min="1" value="8">
+			                    </label>
+			                    <br>
+			                    <label for="quarrelComboCount">Quarrel points required: 
+			                        <input type="number" id="quarrelComboCount" name="quarrelComboCount" min="1" value="5">
+			                    </label>
+			                </div>
+			            </li>
+			        </ul>
+			        <ul>
+			            <li class="victory-item-tier" data-tier="1">
+			                <label>
+			                    <div class="checkbox-container">
+			                        <input type="checkbox" name="victoriaMagna" value="1">
+			                    </div>
+			                    <div>
+			                        <div class="tier-name">Victoria Magna</div>
+			                    </div>
+			                </label>
+			            </li>
+			            <li class="victory-item-tier" data-tier="2">
+			                <label>
+			                    <div class="checkbox-container">
+			                        <input type="checkbox" name="victoriaMayor" value="2">
+			                    </div>
+			                    <div>
+			                        <div class="tier-name">Victoria Mayor</div>
+			                    </div>
+			                </label>
+			            </li>
+			            <li class="victory-item-tier" data-tier="3">
+			                <label>
+			                    <div class="checkbox-container">
+			                        <input type="checkbox" name="victoriaExcelentisima" value="3">
+			                    </div>
+			                    <div>
+			                        <div class="tier-name">Victoria Excelentisima</div>
+			                    </div>
+			                </label>
+			            </li>
+			        </ul>
+			    </form>
 			<button id="saveVictoriesBtn">Save Changes</button>
 			<p id="saveConfirmation" class="save-confirmation">Victory conditions saved!</p>
 			<button id="ContinueToGame">Continue</button>
