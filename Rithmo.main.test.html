@@ -964,6 +964,41 @@
 			}
 		});
 
+		document.addEventListener('DOMContentLoaded', function() {
+		    // Get all radio buttons in the victory conditions
+		    const radioButtons = document.querySelectorAll('input[name="victoryCommon"]');
+		    
+		    // Function to show the dropdown for the selected radio button and hide others
+		    function updateDropdowns() {
+		        // First, get all dropdown containers and hide them
+		        const dropdowns = document.querySelectorAll('.dropdown-container');
+		        dropdowns.forEach(dropdown => {
+		            dropdown.classList.remove('active');
+		        });
+		        
+		        // Find the selected radio button
+		        const selectedRadio = document.querySelector('input[name="victoryCommon"]:checked');
+		        if (selectedRadio) {
+		            // Get the selected value
+		            const selectedValue = selectedRadio.value;
+		            
+		            // Show the corresponding dropdown
+		            const selectedDropdown = document.getElementById(`${selectedValue}-dropdown`);
+		            if (selectedDropdown) {
+		                selectedDropdown.classList.add('active');
+		            }
+		        }
+		    }
+		    
+		    // Add change event listeners to all radio buttons
+		    radioButtons.forEach(radio => {
+		        radio.addEventListener('change', updateDropdowns);
+		    });
+		    
+		    // Initialize dropdowns based on the default selection
+		    updateDropdowns();
+		});
+
 		// Add this script to your document, preferably at the end before the closing body tag
 		document.addEventListener('DOMContentLoaded', function() {
 		    // Get all tier checkboxes
