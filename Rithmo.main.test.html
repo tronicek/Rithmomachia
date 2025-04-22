@@ -168,7 +168,8 @@
 			width: 1000px;
 			border-radius: 20px;
 			padding: 20px;
-			padding-top: 60px; /* Added extra padding at top for title */
+			padding-top: 60px;
+			/* Added extra padding at top for title */
 			background-color: rgba(83, 60, 60, 0.8);
 			box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
 		}
@@ -186,7 +187,8 @@
 		}
 
 		#victoryForm {
-			margin-top: 30px; /* Added space between title and form */
+			margin-top: 30px;
+			/* Added space between title and form */
 			width: 90%;
 			max-width: 800px;
 		}
@@ -246,17 +248,17 @@
 		}
 
 		.dropdown-container {
-	            margin-top: 10px;
-	            margin-left: 25px;
-	            display: none;
-	            padding: 10px;
-	            background-color: #f5f5f5;
-	            border-radius: 4px;
-	        }
-	        
-	        .dropdown-container.active {
-	            display: block;
-	        }
+			margin-top: 10px;
+			margin-left: 25px;
+			display: none;
+			padding: 10px;
+			background-color: #f5f5f5;
+			border-radius: 4px;
+		}
+
+		.dropdown-container.active {
+			display: block;
+		}
 
 		.save-confirmation {
 			color: #4CAF50;
@@ -436,99 +438,107 @@
 		<div id="SetupScreen" class="hidden">
 			<!-- //These Dont do anything for now but are here for in the future -->
 			<h2>Victory Conditions</h2>
-			    <form id="victoryForm">
-			        <ul class="victory-list">
-			            <li class="victory-item">
-			                <label>
-			                    <input type="radio" name="victoryCommon" value="bodies" checked> Victory of Bodies
-			                </label>
-			                <div class="dropdown-container" id="bodies-dropdown">
-			                    <label for="bodiesCount">Number of Pieces required: 
-			                        <input type="number" id="bodiesCount" name="bodiesCount" min="1" value="3">
-			                    </label>
-			                </div>
-			            </li>
-			            <li class="victory-item">
-			                <label>
-			                    <input type="radio" name="victoryCommon" value="goods"> Victory of Goods
-			                </label>
-			                <div class="dropdown-container" id="goods-dropdown">
-			                    <label for="goodsCount">Value of Pieces required (Total of Top Numbers): 
-			                        <input type="number" id="goodsCount" name="goodsCount" min="1" value="100">
-			                    </label>
-			                </div>
-			            </li>
-			            <li class="victory-item">
-			                <label>
-			                    <input type="radio" name="victoryCommon" value="quarrel"> Victory of Quarrel
-			                </label>
-			                <div class="dropdown-container" id="quarrel-dropdown">
-			                    <label for="quarrelCount">Quarrel points required: 
-			                        <input type="number" id="quarrelCount" name="quarrelCount" min="1" value="10">
-			                    </label>
-					    <label for="quarrelCount">Quarrel points required: 
-			                        <input type="number" id="quarrelCount" name="quarrelCount" min="1" value="10">
-			                    </label>
-			                </div>
-			            </li>
-			            <li class="victory-item">
-			                <label>
-			                    <input type="radio" name="victoryCommon" value="honor"> Victory of Honor
-			                </label>
-			                <div class="dropdown-container" id="honor-dropdown">
-			                    <label for="honorCount">Honor points required: 
-			                        <input type="number" id="honorCount" name="honorCount" min="1" value="15">
-			                    </label>
-			                </div>
-			            </li>
-			            <li class="victory-item">
-			                <label>
-			                    <input type="radio" name="victoryCommon" value="honorquarrel"> Victory of Honor and Quarrel
-			                </label>
-			                <div class="dropdown-container" id="honorquarrel-dropdown">
-			                    <label for="honorComboCount">Honor points required: 
-			                        <input type="number" id="honorComboCount" name="honorComboCount" min="1" value="8">
-			                    </label>
-			                    <br>
-			                    <label for="quarrelComboCount">Quarrel points required: 
-			                        <input type="number" id="quarrelComboCount" name="quarrelComboCount" min="1" value="5">
-			                    </label>
-			                </div>
-			            </li>
-			        </ul>
-			        <ul>
-			            <li class="victory-item-tier" data-tier="1">
-			                <label>
-			                    <div class="checkbox-container">
-			                        <input type="checkbox" name="victoriaMagna" value="1">
-			                    </div>
-			                    <div>
-			                        <div class="tier-name">Victoria Magna</div>
-			                    </div>
-			                </label>
-			            </li>
-			            <li class="victory-item-tier" data-tier="2">
-			                <label>
-			                    <div class="checkbox-container">
-			                        <input type="checkbox" name="victoriaMayor" value="2">
-			                    </div>
-			                    <div>
-			                        <div class="tier-name">Victoria Mayor</div>
-			                    </div>
-			                </label>
-			            </li>
-			            <li class="victory-item-tier" data-tier="3">
-			                <label>
-			                    <div class="checkbox-container">
-			                        <input type="checkbox" name="victoriaExcelentisima" value="3">
-			                    </div>
-			                    <div>
-			                        <div class="tier-name">Victoria Excelentisima</div>
-			                    </div>
-			                </label>
-			            </li>
-			        </ul>
-			    </form>
+			<form id="victoryForm">
+				<ul class="victory-list">
+					<li class="victory-item">
+						<label>
+							<input type="radio" name="victoryCommon" value="bodies" checked> Victory of Bodies
+						</label>
+						<div class="dropdown-container" id="bodies-dropdown">
+							<label for="bodiesCount">Number of Pieces required:
+								<input type="number" id="bodiesCount(Bodies)" name="bodiesCount" min="1" value="3">
+							</label>
+						</div>
+					</li>
+					<li class="victory-item">
+						<label>
+							<input type="radio" name="victoryCommon" value="goods"> Victory of Goods
+						</label>
+						<div class="dropdown-container" id="goods-dropdown">
+							<label for="goodsCount">Value of Pieces required (Total of Top Numbers):
+								<input type="number" class="goodsCount(Goods)" name="goodsCount" min="1" value="100">
+							</label>
+						</div>
+					</li>
+					<li class="victory-item">
+						<label>
+							<input type="radio" name="victoryCommon" value="quarrel"> Victory of Quarrel
+						</label>
+						<div class="dropdown-container" id="quarrel-dropdown">
+							<label for="goodsCount">Value of Pieces required (Total of Top Numbers):
+								<input type="number" id="goodsCount(Quarrel)" name="goodsCount" min="1" value="100">
+							</label>
+							<label for="digitCount">Total required digits captured between pieces:
+								<input type="number" id="digitCount(Quarrel)" name="digitCount" min="1" value="10">
+							</label>
+						</div>
+					</li>
+					<li class="victory-item">
+						<label>
+							<input type="radio" name="victoryCommon" value="honor"> Victory of Honor
+						</label>
+						<div class="dropdown-container" id="honor-dropdown">
+							<label for="bodiesCount">Number of Pieces required:
+								<input type="number" id="bodiesCount(Honor)" name="bodiesCount" min="1" value="3">
+							</label>
+							<label for="goodsCount">Value of Pieces required (Total of Top Numbers):
+								<input type="number" id="goodsCount(Honor)" name="goodsCount" min="1" value="100">
+							</label>
+						</div>
+					</li>
+					<li class="victory-item">
+						<label>
+							<input type="radio" name="victoryCommon" value="honorquarrel"> Victory of Honor and Quarrel
+						</label>
+						<div class="dropdown-container" id="honorquarrel-dropdown">
+							<label for="bodiesCount">Number of Pieces required:
+								<input type="number" id="bodiesCount(Honor_and_Quarrel)" name="bodiesCount" min="1"
+									value="3">
+							</label>
+							<label for="goodsCount">Value of Pieces required (Total of Top Numbers):
+								<input type="number" id="goodsCount(Honor_and_Quarrel)" name="goodsCount" min="1"
+									value="100">
+							</label>
+							<label for="digitCount">Total required digits captured between pieces:
+								<input type="number" id="digitCount(Honor_and_Quarrel)" name="digitCount" min="1"
+									value="10">
+							</label>
+						</div>
+					</li>
+				</ul>
+				<ul>
+					<li class="victory-item-tier" data-tier="1">
+						<label>
+							<div class="checkbox-container">
+								<input type="checkbox" name="victoriaMagna" value="1">
+							</div>
+							<div>
+								<div class="tier-name">Victoria Magna (Good Victory)</div>
+							</div>
+						</label>
+					</li>
+					<li class="victory-item-tier" data-tier="2">
+						<label>
+							<div class="checkbox-container">
+								<input type="checkbox" name="victoriaMayor" value="2">
+							</div>
+							<div>
+								<div class="tier-name">Victoria Mayor (Great Victory)</div>
+							</div>
+						</label>
+					</li>
+					<li class="victory-item-tier" data-tier="3">
+						<label>
+							<div class="checkbox-container">
+								<input type="checkbox" name="victoriaExcelentisima" value="3">
+							</div>
+							<div>
+								<div class="tier-name">Victoria Excelentisima (Excellent Victory)</div>
+							</div>
+						</label>
+					</li>
+				</ul>
+			</form>
 			<button id="saveVictoriesBtn">Save Changes</button>
 			<p id="saveConfirmation" class="save-confirmation">Victory conditions saved!</p>
 			<button id="ContinueToGame">Continue</button>
@@ -611,7 +621,7 @@
 	<video id="introVideo" preload="auto" style="display: none;">
 		<source src="Images/Rith/HUNTRithCutscene.mp4" type="video/mp4">
 	</video>
-	<input id="gameId" type="text" readonly size="40" class="hidden"/>
+	<input id="gameId" type="text" readonly size="40" class="hidden" />
 
 	<script>
 		let activeVictoryConditions = {};
@@ -967,70 +977,70 @@
 			}
 		});
 
-		document.addEventListener('DOMContentLoaded', function() {
-		    // Get all radio buttons in the victory conditions
-		    const radioButtons = document.querySelectorAll('input[name="victoryCommon"]');
-		    
-		    // Function to show the dropdown for the selected radio button and hide others
-		    function updateDropdowns() {
-		        // First, get all dropdown containers and hide them
-		        const dropdowns = document.querySelectorAll('.dropdown-container');
-		        dropdowns.forEach(dropdown => {
-		            dropdown.classList.remove('active');
-		        });
-		        
-		        // Find the selected radio button
-		        const selectedRadio = document.querySelector('input[name="victoryCommon"]:checked');
-		        if (selectedRadio) {
-		            // Get the selected value
-		            const selectedValue = selectedRadio.value;
-		            
-		            // Show the corresponding dropdown
-		            const selectedDropdown = document.getElementById(`${selectedValue}-dropdown`);
-		            if (selectedDropdown) {
-		                selectedDropdown.classList.add('active');
-		            }
-		        }
-		    }
-		    
-		    // Add change event listeners to all radio buttons
-		    radioButtons.forEach(radio => {
-		        radio.addEventListener('change', updateDropdowns);
-		    });
-		    
-		    // Initialize dropdowns based on the default selection
-		    updateDropdowns();
+		document.addEventListener('DOMContentLoaded', function () {
+			// Get all radio buttons in the victory conditions
+			const radioButtons = document.querySelectorAll('input[name="victoryCommon"]');
+
+			// Function to show the dropdown for the selected radio button and hide others
+			function updateDropdowns() {
+				// First, get all dropdown containers and hide them
+				const dropdowns = document.querySelectorAll('.dropdown-container');
+				dropdowns.forEach(dropdown => {
+					dropdown.classList.remove('active');
+				});
+
+				// Find the selected radio button
+				const selectedRadio = document.querySelector('input[name="victoryCommon"]:checked');
+				if (selectedRadio) {
+					// Get the selected value
+					const selectedValue = selectedRadio.value;
+
+					// Show the corresponding dropdown
+					const selectedDropdown = document.getElementById(`${selectedValue}-dropdown`);
+					if (selectedDropdown) {
+						selectedDropdown.classList.add('active');
+					}
+				}
+			}
+
+			// Add change event listeners to all radio buttons
+			radioButtons.forEach(radio => {
+				radio.addEventListener('change', updateDropdowns);
+			});
+
+			// Initialize dropdowns based on the default selection
+			updateDropdowns();
 		});
 
 		// Add this script to your document, preferably at the end before the closing body tag
-		document.addEventListener('DOMContentLoaded', function() {
-		    // Get all tier checkboxes
-		    const tierCheckboxes = document.querySelectorAll('.victory-item-tier input[type="checkbox"]');
-		    
-		    // Add event listeners to each checkbox
-		    tierCheckboxes.forEach(checkbox => {
-		        checkbox.addEventListener('change', function() {
-		            const currentTier = parseInt(this.closest('.victory-item-tier').dataset.tier);
-		            
-		            if (this.checked) {
-		                // If checked, also check all higher tiers (lower numbers)
-		                tierCheckboxes.forEach(cb => {
-		                    const cbTier = parseInt(cb.closest('.victory-item-tier').dataset.tier);
-		                    if (cbTier < currentTier) {
-		                        cb.checked = true;
-		                    }
-		                });
-		            } else {
-		                // If unchecked, also uncheck all lower tiers (higher numbers)
-		                tierCheckboxes.forEach(cb => {
-		                    const cbTier = parseInt(cb.closest('.victory-item-tier').dataset.tier);
-		                    if (cbTier > currentTier) {
-		                        cb.checked = false;
-		                    }
-		                });
-		            }
-		        });
-		    });
+		document.addEventListener('DOMContentLoaded', function () {
+			// Get all tier checkboxes
+			const tierCheckboxes = document.querySelectorAll('.victory-item-tier input[type="checkbox"]');
+
+			// Add event listeners to each checkbox
+			tierCheckboxes.forEach(checkbox => {
+				checkbox.addEventListener('change', function () {
+					const currentTier = parseInt(this.closest('.victory-item-tier').dataset.tier);
+
+					if (this.checked) {
+						// If checked, also check all higher tiers (lower numbers)
+						tierCheckboxes.forEach(cb => {
+							const cbTier = parseInt(cb.closest('.victory-item-tier').dataset.tier);
+							if (cbTier < currentTier) {
+								cb.checked = true;
+							}
+						});
+					} else {
+						// If unchecked, also uncheck all lower tiers (higher numbers)
+						tierCheckboxes.forEach(cb => {
+							const cbTier = parseInt(cb.closest('.victory-item-tier').dataset.tier);
+							if (cbTier > currentTier) {
+								cb.checked = false;
+							}
+						});
+					}
+				});
+			});
 		});
 
 		// Initialize with all victory conditions active and load from backend if available
