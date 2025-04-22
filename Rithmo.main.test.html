@@ -443,7 +443,7 @@
 			                    <input type="radio" name="victoryCommon" value="bodies" checked> Victory of Bodies
 			                </label>
 			                <div class="dropdown-container" id="bodies-dropdown">
-			                    <label for="bodiesCount">Number of bodies required: 
+			                    <label for="bodiesCount">Number of Pieces required: 
 			                        <input type="number" id="bodiesCount" name="bodiesCount" min="1" value="3">
 			                    </label>
 			                </div>
@@ -453,8 +453,8 @@
 			                    <input type="radio" name="victoryCommon" value="goods"> Victory of Goods
 			                </label>
 			                <div class="dropdown-container" id="goods-dropdown">
-			                    <label for="goodsCount">Value of goods required: 
-			                        <input type="number" id="goodsCount" name="goodsCount" min="1" value="500">
+			                    <label for="goodsCount">Value of Pieces required (Total of Top Numbers): 
+			                        <input type="number" id="goodsCount" name="goodsCount" min="1" value="100">
 			                    </label>
 			                </div>
 			            </li>
@@ -464,6 +464,9 @@
 			                </label>
 			                <div class="dropdown-container" id="quarrel-dropdown">
 			                    <label for="quarrelCount">Quarrel points required: 
+			                        <input type="number" id="quarrelCount" name="quarrelCount" min="1" value="10">
+			                    </label>
+					    <label for="quarrelCount">Quarrel points required: 
 			                        <input type="number" id="quarrelCount" name="quarrelCount" min="1" value="10">
 			                    </label>
 			                </div>
@@ -608,7 +611,7 @@
 	<video id="introVideo" preload="auto" style="display: none;">
 		<source src="Images/Rith/HUNTRithCutscene.mp4" type="video/mp4">
 	</video>
-	<input id="gameId" type="text" readonly size="40" />
+	<input id="gameId" type="text" readonly size="40" class="hidden"/>
 
 	<script>
 		let activeVictoryConditions = {};
