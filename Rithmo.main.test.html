@@ -166,10 +166,12 @@
 			justify-content: center;
 			position: relative;
 			width: 1000px;
-			height: 1200px;
+			height: 800px; /* Reduced from 1200px */
 			border-radius: 20px;
 			padding: 20px;
-			overflow: hidden;
+			overflow-y: auto; /* Added scroll for content overflow */
+			background-color: rgba(83, 60, 60, 0.8);
+			box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
 		}
 
 		#SetupScreen h2 {
