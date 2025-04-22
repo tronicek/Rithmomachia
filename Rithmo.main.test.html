@@ -964,6 +964,37 @@
 			}
 		});
 
+		// Add this script to your document, preferably at the end before the closing body tag
+		document.addEventListener('DOMContentLoaded', function() {
+		    // Get all tier checkboxes
+		    const tierCheckboxes = document.querySelectorAll('.victory-item-tier input[type="checkbox"]');
+		    
+		    // Add event listeners to each checkbox
+		    tierCheckboxes.forEach(checkbox => {
+		        checkbox.addEventListener('change', function() {
+		            const currentTier = parseInt(this.closest('.victory-item-tier').dataset.tier);
+		            
+		            if (this.checked) {
+		                // If checked, also check all higher tiers (lower numbers)
+		                tierCheckboxes.forEach(cb => {
+		                    const cbTier = parseInt(cb.closest('.victory-item-tier').dataset.tier);
+		                    if (cbTier < currentTier) {
+		                        cb.checked = true;
+		                    }
+		                });
+		            } else {
+		                // If unchecked, also uncheck all lower tiers (higher numbers)
+		                tierCheckboxes.forEach(cb => {
+		                    const cbTier = parseInt(cb.closest('.victory-item-tier').dataset.tier);
+		                    if (cbTier > currentTier) {
+		                        cb.checked = false;
+		                    }
+		                });
+		            }
+		        });
+		    });
+		});
+
 		// Initialize with all victory conditions active and load from backend if available
 		document.addEventListener('DOMContentLoaded', function () {
 			// First try to load from backend
