@@ -1186,11 +1186,38 @@
 			setLengthandHeight();
 			playIntroVideo();
 			initializeGame();
+
+			const selectedVictory = document.querySelector('input[name="victoryCommon"]:checked');
+			const victoryType = selectedVictory ? selectedVictory.value : null;
+
+			const inputData = {};
+			if (victoryType) {
+				const container = document.getElementById(victoryType + '-dropdown');
+				if (container) {
+					const inputs = container.querySelectorAll('input[type="number"]');
+					inputs.forEach(input => {
+						inputData[input.name] = parseInt(input.value);
+					});
+				}
+			}
+
+			const tiers = [];
+			document.querySelectorAll('input[type="checkbox"]:checked').forEach(checkbox => {
+				tiers.push(checkbox.name);
+			});
+
+			const requestData = {
+				victoryType: victoryType,
+				parameters: inputData,
+				selectedTiers: tiers
+			};
+
 			$.ajax({
 				url: 'api/games',
 				type: 'POST',
 				contentType: 'application/json',
 				dataType: 'text',
+				data: JSON.stringify(requestData),
 				success: function (resp) {
 					$('#gameId').val(resp);
 				},
@@ -1198,6 +1225,7 @@
 					alert('Network communication error');
 				}
 			});
+
 			document.getElementById("GameScreen").classList.remove("hidden");
 		}
 
