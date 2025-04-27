@@ -50,7 +50,9 @@ public class Minimax {
     }
 
     private int minimax(MinimaxNode currentNode, int depth, boolean maximizingPlayer) {
-        if (depth == 0) {
+        if (depth == 0) { // OR someone has won
+            // Integer.MAX_VALUE if computer's win
+            // Integer.MIN_VALUE if player's win
             return currentNode.getValue();
         }
         if (maximizingPlayer) {
