@@ -5,9 +5,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-// This class holds data for the minimax nodes. It is constructed with a Piece to move, and where to move it to
-// It should then figure out all the captures that can be made for that one piece at that one position and add that to
-// The previous value.
+// WE ARE NOT USING THIS CLASS PLEASE DO NOT MAKE EYE CONTACT. We are doing all this in minimax node and just keeping this so choas doesnt ensue
 public class Turn {
     private Piece piece;
     private Pos newPosition;
