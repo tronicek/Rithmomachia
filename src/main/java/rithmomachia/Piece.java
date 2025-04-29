@@ -275,14 +275,15 @@ public class Piece {
         return pieceAsSet;
     }
 
-    public Set<Piece> getAllCaptures(Board boardToCheck) {
-        Set<Piece> allCaptures = new HashSet<>();
-        allCaptures.addAll(this.captureByEncounter(boardToCheck));
-        allCaptures.addAll(this.captureByDeceit(boardToCheck));
-        allCaptures.addAll(this.captureByEruption(boardToCheck));
-        allCaptures.addAll(this.captureBySiege(boardToCheck));
-        return allCaptures;
-    }
+    //Commented this out as me and Dylan determined that asking the board to ask its pieces to then ask the board to check its captures was not in fact a good idea
+//    public Set<Piece> getAllCaptures(Board boardToCheck) {
+//        Set<Piece> allCaptures = new HashSet<>();
+//        allCaptures.addAll(this.captureByEncounter(boardToCheck));
+//        allCaptures.addAll(this.captureByDeceit(boardToCheck));
+//        allCaptures.addAll(this.captureByEruption(boardToCheck));
+//        allCaptures.addAll(this.captureBySiege(boardToCheck));
+//        return allCaptures;
+//    }
 
     public String nullToString() {
         return "   ";

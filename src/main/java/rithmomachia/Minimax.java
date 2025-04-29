@@ -11,9 +11,9 @@ public class Minimax {
     final int digitsGoal;
     final Board board;
     final Color computerColor;
-    private final int bodiesRemaining;
-    private final int valueRemaining;
-    private final int digitsRemaining;
+//    private final int bodiesRemaining;
+//    private final int valueRemaining;
+//    private final int digitsRemaining;
 
     public Minimax(Board board, Victory victory, Color color, int bodyGoal, int valueGoal, int digitsGoal) {
         this.computerColor = color;
@@ -23,9 +23,9 @@ public class Minimax {
         this.valueGoal = valueGoal;
         this.digitsGoal = digitsGoal;
         //Feed this as object into Minimax node?
-        this.bodiesRemaining = bodyGoal;
-        this.valueRemaining = valueGoal;
-        this.digitsRemaining = digitsGoal;
+//        this.bodiesRemaining = bodyGoal;
+//        this.valueRemaining = valueGoal;
+//        this.digitsRemaining = digitsGoal;
     }
 
     public Turn findBestMove(int depth) {
@@ -38,7 +38,8 @@ public class Minimax {
         int bestScore = Integer.MIN_VALUE;
         for (int i = 1; i < moves.size(); i++) {
             Turn move = moves.get(i);
-            MinimaxNode branch = new MinimaxNode(move, depth - 1, 0);
+            Board virtualBoard = board.makeVirtualBoard(move);
+            MinimaxNode branch = new MinimaxNode(move, depth - 1, 0, virtualBoard, this.bodyGoal, this.valueGoal, this.digitsGoal);
             int branchValue = minimax(branch, depth - 1, false);
             if (branchValue > bestScore) {
                 bestScore = branchValue;
@@ -49,13 +50,13 @@ public class Minimax {
         return bestMove;
     }
 
-    private int minimax(MinimaxNode currentNode, int depth, boolean maximizingPlayer) {
+    private int minimax(MinimaxNode currentNode, int depth, boolean isMaximizingPlayer) {
         if (depth == 0) { // OR someone has won
             // Integer.MAX_VALUE if computer's win
             // Integer.MIN_VALUE if player's win
             return currentNode.getValue();
         }
-        if (maximizingPlayer) {
+        if (isMaximizingPlayer) {
             int value = currentNode.getChildren().getFirst().getValue();
             for (MinimaxNode nextNode : currentNode.getChildren()) {
                 value = Math.max(value, minimax(nextNode, depth - 1, false));

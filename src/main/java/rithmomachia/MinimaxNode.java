@@ -11,22 +11,30 @@ public class MinimaxNode {
     private final Turn turn;
     private final int depth;
     final int nodeValue;
+    private Board virtualBoard;
+    private final int bodiesRemaining;
+    private final int valueRemaining;
+    private final int digitsRemaining;
 
 
-    public MinimaxNode(Turn turn, int depth, int previousValue) {
+    public MinimaxNode(Turn turn, int depth, int previousValue, Board board, int bodiesRemaining, int valueRemaining, int digitsRemaining) {
         this.turn = turn;
-        this.nodeValue =  previousValue;
+        this.virtualBoard = board;
+        this.bodiesRemaining = bodiesRemaining;
+        this.valueRemaining = valueRemaining;
+        this.digitsRemaining = digitsRemaining;
+        this.nodeValue = this.determineNodeValue(previousValue);
         this.depth = depth;
-        this.children = this.createChildren(this.depth);
+        this.children = this.createChildren();
     }
 
     public List<MinimaxNode> getChildren() {
         return children;
     }
 
-//    public int getValue(){
-//        return this.nodeValue();
-//    }
+    public int getValue(){
+        return this.nodeValue;
+    }
 
     // This should create new nodes containing the NEXT turns (mainly new position for all pieces for the color that is
     // moving.
@@ -38,21 +46,30 @@ public class MinimaxNode {
     // Feed the new nodes depth-1;
     // Create new nodes based off opposite color of the piece in this node. Ternary statement.
 
-    private List<MinimaxNode> createChildren(int currentDepth) {
+    private List<MinimaxNode> createChildren() {
         List<MinimaxNode> nextMoves = new ArrayList<>();
-        if (currentDepth == 0)
+        if (this.depth == 0)
             return nextMoves;
         //else, fill nextmoves with new nodes with depth-1
+
+        List<Turn> possibleMoves = this.virtualBoard.getAllMovesForColor(this.turn.getPiece().getColor() == Color.W ? Color.B : Color.W);
+        for (Turn possibleMove : possibleMoves) {
+            Board newVirtualBoard = this.virtualBoard.makeVirtualBoard(possibleMove);
+            MinimaxNode newChild = new MinimaxNode(possibleMove, this.depth -1, this.nodeValue, newVirtualBoard, this.bodiesRemaining, this.valueRemaining, this.digitsRemaining);
+        }
         return nextMoves;
     }
 
-//    private int determineValue() {
-//        int sum = 0;
-//        Board boardToCheck = this.board.makeVirtualBoard(this);
-//        Set<Piece> captures = this.piece.getAllCaptures(boardToCheck);
-//        for (Piece capture : captures) {
-//            sum += capture.getValue();
-//        }
-//        return sum;
-//    }
+    private int determineNodeValue(int previousValue) {
+        int sum = 0;
+        Set<Piece> captures = this.virtualBoard.getAllCapturesForPiece(this.turn.getPiece());
+        for (Piece capture : captures) {
+            sum += capture.getValue();
+        }
+        // sum is values
+        // captures.length is bodies
+        // loop through captures and determine digits and then compare to remaining goals
+        return sum;
+    }
+
 }
