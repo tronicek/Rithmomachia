@@ -39,7 +39,7 @@ public class Minimax {
         for (int i = 1; i < moves.size(); i++) {
             Turn move = moves.get(i);
             Board virtualBoard = board.makeVirtualBoard(move);
-            MinimaxNode branch = new MinimaxNode(move, depth - 1, 0, virtualBoard, this.bodyGoal, this.valueGoal, this.digitsGoal);
+            MinimaxNode branch = new MinimaxNode(move, depth - 1, 0, virtualBoard, this.bodyGoal, this.valueGoal, this.digitsGoal, false);
             int branchValue = minimax(branch, depth - 1, false);
             if (branchValue > bestScore) {
                 bestScore = branchValue;
