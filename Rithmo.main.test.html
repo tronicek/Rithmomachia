@@ -442,65 +442,66 @@
 				<ul class="victory-list">
 					<li class="victory-item">
 						<label>
-							<input type="radio" name="victoryCommon" value="bodies" checked> Victory of Bodies
+							<input type="radio" name="victoryCommon" value="BODIES" checked> Victory of Bodies
 						</label>
-						<div class="dropdown-container" id="bodies-dropdown">
-							<label for="bodiesCount">Number of Pieces required:
-								<input type="number" id="bodiesCount(Bodies)" name="bodiesCount" min="1" value="3">
+						<div class="dropdown-container" id="BODIES-dropdown">
+							<label for="bodiesGoal">Number of Pieces required:
+								<input type="number" id="bodiesGoal(BODIES)" name="bodiesGoal" min="1" value="3">
 							</label>
 						</div>
 					</li>
 					<li class="victory-item">
 						<label>
-							<input type="radio" name="victoryCommon" value="goods"> Victory of Goods
+							<input type="radio" name="victoryCommon" value="GOODS"> Victory of Goods
 						</label>
-						<div class="dropdown-container" id="goods-dropdown">
-							<label for="goodsCount">Value of Pieces required (Total of Top Numbers):
-								<input type="number" class="goodsCount(Goods)" name="goodsCount" min="1" value="100">
+						<div class="dropdown-container" id="GOODS-dropdown">
+							<label for="valueGoal">Value of Pieces required (Total of Top Numbers):
+								<input type="number" class="valueGoal(GOODS)" name="valueGoal" min="1" value="100">
 							</label>
 						</div>
 					</li>
 					<li class="victory-item">
 						<label>
-							<input type="radio" name="victoryCommon" value="quarrel"> Victory of Quarrel
+							<input type="radio" name="victoryCommon" value="QUARREL"> Victory of Quarrel
 						</label>
-						<div class="dropdown-container" id="quarrel-dropdown">
-							<label for="goodsCount">Value of Pieces required (Total of Top Numbers):
-								<input type="number" id="goodsCount(Quarrel)" name="goodsCount" min="1" value="100">
+						<div class="dropdown-container" id="QUARREL-dropdown">
+							<label for="valueGoal">Value of Pieces required (Total of Top Numbers):
+								<input type="number" id="valueGoal(QUARREL)" name="valueGoal" min="1" value="100">
 							</label>
-							<label for="digitCount">Total required digits captured between pieces:
-								<input type="number" id="digitCount(Quarrel)" name="digitCount" min="1" value="10">
+							<label for="digitsGoal">Total required digits captured between pieces:
+								<input type="number" id="digitsGoal(QUARREL)" name="digitsGoal" min="1" value="10">
 							</label>
 						</div>
 					</li>
 					<li class="victory-item">
 						<label>
-							<input type="radio" name="victoryCommon" value="honor"> Victory of Honor
+							<input type="radio" name="victoryCommon" value="HONOR"> Victory of Honor
 						</label>
-						<div class="dropdown-container" id="honor-dropdown">
-							<label for="bodiesCount">Number of Pieces required:
-								<input type="number" id="bodiesCount(Honor)" name="bodiesCount" min="1" value="3">
+						<div class="dropdown-container" id="HONOR-dropdown">
+							<label for="bodiesGoal">Number of Pieces required:
+								<input type="number" id="bodiesGoal(Honor)" name="bodiesGoal" min="1" value="3">
 							</label>
-							<label for="goodsCount">Value of Pieces required (Total of Top Numbers):
-								<input type="number" id="goodsCount(Honor)" name="goodsCount" min="1" value="100">
+							<label for="valueGoal">Value of Pieces required (Total of Top Numbers):
+								<input type="number" id="valueGoal(Honor)" name="valueGoal" min="1" value="100">
 							</label>
 						</div>
 					</li>
 					<li class="victory-item">
 						<label>
-							<input type="radio" name="victoryCommon" value="honorquarrel"> Victory of Honor and Quarrel
+							<input type="radio" name="victoryCommon" value="HONOR_AND_QUARREL"> Victory of Honor and
+							Quarrel
 						</label>
-						<div class="dropdown-container" id="honorquarrel-dropdown">
-							<label for="bodiesCount">Number of Pieces required:
-								<input type="number" id="bodiesCount(Honor_and_Quarrel)" name="bodiesCount" min="1"
+						<div class="dropdown-container" id="HONOR_AND_QUARREL-dropdown">
+							<label for="bodiesGoal">Number of Pieces required:
+								<input type="number" id="bodiesGoal(Honor_and_QUARREL)" name="bodiesGoal" min="1"
 									value="3">
 							</label>
-							<label for="goodsCount">Value of Pieces required (Total of Top Numbers):
-								<input type="number" id="goodsCount(Honor_and_Quarrel)" name="goodsCount" min="1"
+							<label for="valueGoal">Value of Pieces required (Total of Top Numbers):
+								<input type="number" id="valueGoal(Honor_and_QUARREL)" name="valueGoal" min="1"
 									value="100">
 							</label>
-							<label for="digitCount">Total required digits captured between pieces:
-								<input type="number" id="digitCount(Honor_and_Quarrel)" name="digitCount" min="1"
+							<label for="digitsGoal">Total required digits captured between pieces:
+								<input type="number" id="digitsGoal(Honor_and_QUARREL)" name="digitsGoal" min="1"
 									value="10">
 							</label>
 						</div>
@@ -574,9 +575,9 @@
 
 			<h1>Welcome to Rithmomachia!</h1>
 
-			<p>In Rithmomachia, players choose a victory condition at the start—<strong>Bodies</strong>,
-				<strong>Goods</strong>,
-				<strong>Quarrel</strong>, <strong>Honor</strong>, or <strong>Honor + Quarrel</strong>. Victory is
+			<p>In Rithmomachia, players choose a victory condition at the start—<strong>BODIES</strong>,
+				<strong>GOODS</strong>,
+				<strong>QUARREL</strong>, <strong>Honor</strong>, or <strong>Honor + QUARREL</strong>. Victory is
 				achieved by capturing opponent pieces using one of four
 				methods: <strong>Siege</strong>, <strong>Encounter</strong>, <strong>Eruption</strong>, or
 				<strong>Deceit</strong>.
@@ -634,16 +635,16 @@
 			<ul>
 				<li><strong>Standard Victory Types</strong> (These Have to be chosen before the game starts):
 					<ul>
-						<li><strong>Bodies Victory</strong>: Scoring is based on the number of pieces captured. Players
+						<li><strong>BODIES Victory</strong>: Scoring is based on the number of pieces captured. Players
 							earn or lose points depending on how many pieces they capture without exceeding the victory
 							goal.</li>
-						<li><strong>Goods Victory</strong>: Points are awarded or deducted based on the total numerical
+						<li><strong>GOODS Victory</strong>: Points are awarded or deducted based on the total numerical
 							value of the captured pieces, as long as the goal isn't surpassed.</li>
-						<li><strong>Quarrel Victory</strong>: Combines both the value of the pieces and the number of
+						<li><strong>QUARREL Victory</strong>: Combines both the value of the pieces and the number of
 							digits in those values to calculate score changes, without going over the target.</li>
 						<li><strong>Honor Victory</strong>: Mixes both the number of pieces and their values to
 							determine progress toward victory, ensuring totals stay below the limit.</li>
-						<li><strong>Honor and Quarrel Victory</strong>: A comprehensive goal that factors in piece
+						<li><strong>Honor and QUARREL Victory</strong>: A comprehensive goal that factors in piece
 							count, numerical value, and digit count of captured pieces, rewarding balanced and strategic
 							captures that remain under the goal threshold.</li>
 					</ul>
@@ -673,11 +674,11 @@
 				</li>
 				<li>Victory types must be declared at game start.</li>
 				<li>Players may win early by forming a visible mathematical progression of pieces.</li>
-				<li>Captured pieces are removed and contribute to calculating Goods or Honor totals.</li>
+				<li>Captured pieces are removed and contribute to calculating GOODS or Honor totals.</li>
 				<li>Game ends when a victory condition is achieved or one player concedes.</li>
 			</ul>
 
-			<!-- Separtate this into catagories of contribution and get the art students in here as well as Tronicek.-->
+			<!-- Separtate this into catagories of contribution (programmers/art/overseers/etc) and get the art students in here as well as Tronicek.-->
 			<!--Also ask tronicek who to credit here as im not sure who else contributed to this project.-->
 			<h2>Contributors</h2>
 			<ul>
@@ -1092,35 +1093,35 @@
 		});
 
 		// Add this script to your document, preferably at the end before the closing body tag
-		document.addEventListener('DOMContentLoaded', function () {
-			// Get all tier checkboxes
-			const tierCheckboxes = document.querySelectorAll('.victory-item-tier input[type="checkbox"]');
+		// document.addEventListener('DOMContentLoaded', function () {
+		// 	// Get all tier checkboxes
+		// 	const tierCheckboxes = document.querySelectorAll('.victory-item-tier input[type="checkbox"]');
 
-			// Add event listeners to each checkbox
-			tierCheckboxes.forEach(checkbox => {
-				checkbox.addEventListener('change', function () {
-					const currentTier = parseInt(this.closest('.victory-item-tier').dataset.tier);
+		// 	// Add event listeners to each checkbox
+		// 	tierCheckboxes.forEach(checkbox => {
+		// 		checkbox.addEventListener('change', function () {
+		// 			const currentTier = parseInt(this.closest('.victory-item-tier').dataset.tier);
 
-					if (this.checked) {
-						// If checked, also check all higher tiers (lower numbers)
-						tierCheckboxes.forEach(cb => {
-							const cbTier = parseInt(cb.closest('.victory-item-tier').dataset.tier);
-							if (cbTier < currentTier) {
-								cb.checked = true;
-							}
-						});
-					} else {
-						// If unchecked, also uncheck all lower tiers (higher numbers)
-						tierCheckboxes.forEach(cb => {
-							const cbTier = parseInt(cb.closest('.victory-item-tier').dataset.tier);
-							if (cbTier > currentTier) {
-								cb.checked = false;
-							}
-						});
-					}
-				});
-			});
-		});
+		// 			if (this.checked) {
+		// 				// If checked, also check all higher tiers (lower numbers)
+		// 				tierCheckboxes.forEach(cb => {
+		// 					const cbTier = parseInt(cb.closest('.victory-item-tier').dataset.tier);
+		// 					if (cbTier < currentTier) {
+		// 						cb.checked = true;
+		// 					}
+		// 				});
+		// 			} else {
+		// 				// If unchecked, also uncheck all lower tiers (higher numbers)
+		// 				tierCheckboxes.forEach(cb => {
+		// 					const cbTier = parseInt(cb.closest('.victory-item-tier').dataset.tier);
+		// 					if (cbTier > currentTier) {
+		// 						cb.checked = false;
+		// 					}
+		// 				});
+		// 			}
+		// 		});
+		// 	});
+		// });
 
 		// Initialize with all victory conditions active and load from backend if available
 		document.addEventListener('DOMContentLoaded', function () {
