@@ -1441,6 +1441,19 @@
 				['S289', 'S153', 'T81', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', 't16', 's28', 's49']
 			];
 
+			$.ajax({
+				url: 'api/games',
+				type: 'POST',
+				contentType: 'application/json',
+				dataType: 'text',
+				data: JSON.stringify(initialBoardState),
+				success: function (resp) {
+					$('#gameId').val(resp);
+				},
+				error: function () {
+					alert('Network communication error');
+			}
+
 			const pieceLoadPromises = [];
 
 			for (let rowIndex = 0; rowIndex < initialBoardState.length; rowIndex++) {
