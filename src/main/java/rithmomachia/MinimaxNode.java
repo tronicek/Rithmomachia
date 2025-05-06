@@ -4,8 +4,6 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Set;
 
-// This is a node for minimax. It is constructed with the Turn that has been made.
-// Move goal declaration here?
 public class MinimaxNode {
     private List<MinimaxNode> children;
     private final Turn turn;
@@ -15,20 +13,22 @@ public class MinimaxNode {
     private final boolean isMaximizingPlayer;
     private final GoalHolder maximizerGoals;
     private final GoalHolder minimizerGoals;
+    private final VictoryManager victoryManager;
+    private final Color nodeColor;
 
-
-    public MinimaxNode(Turn turn, int depth, int previousValue, Board virtualBoard, GoalHolder maximizerGoals, GoalHolder minimizerGoals, boolean isMaximizingPlayer) {
+    public MinimaxNode(Turn turn, int depth, int previousValue, Board virtualBoard, GoalHolder maximizerGoals, GoalHolder minimizerGoals, boolean isMaximizingPlayer, VictoryManager victoryManager) {
         this.turn = turn;
+        this.nodeColor = this.turn.getPiece().getColor() == Color.W ? Color.B : Color.W;
+        this.victoryManager = victoryManager;
         this.virtualBoard = virtualBoard;
         this.isMaximizingPlayer = isMaximizingPlayer;
         this.maximizerGoals = maximizerGoals;
         this.minimizerGoals = minimizerGoals;
         this.children = new ArrayList<MinimaxNode>();
         this.depth = depth;
-        if (maximizerGoals.hasWon()) {
-            this.nodeValue = Integer.MAX_VALUE;
-        } else if (minimizerGoals.hasWon()) {
-            this.nodeValue = Integer.MIN_VALUE;
+        Victory victory = victoryManager.checkForVictory(turn.getPiece().getColor());
+        if (victory != Victory.NONE) {
+            this.nodeValue = isMaximizingPlayer ? Integer.MIN_VALUE : Integer.MAX_VALUE;
         } else {
             this.nodeValue = this.determineNodeValue(previousValue);
             this.createChildren();
@@ -91,23 +91,13 @@ public class MinimaxNode {
         return previousValue + (isMaximizingPlayer ? totalScore : -totalScore);
     }
 
-    // This should create new nodes containing the NEXT turns (mainly new position for all pieces for the color that is
-    // moving.
-    // TODO: Think about possibility that captures can be made without making a move first. This is a new turn where the piece is given it's current position.
-    // Need to make a set of all pieces for that color, iterate, find all movement positions for each piece, and create a bunch of
-    // new nodes with those positions as well as one for if no pieces have moved (pick one piece and create Turn with that piece's current position
-    // Each node on creation makes a bunch of new nodes, each of those nodes makes more nodes, etc.
-    // TODO: Account for color. I feel like the turn data holds the color because it has a piece???
-    // Feed the new nodes depth-1;
-    // Create new nodes based off opposite color of the piece in this node. Ternary statement.
-
     private void createChildren() {
-        //else, fill nextmoves with new nodes with depth-1
-
-        List<Turn> possibleMoves = this.virtualBoard.getAllMovesForColor(this.turn.getPiece().getColor() == Color.W ? Color.B : Color.W);
+        List<Turn> possibleMoves = this.virtualBoard.getAllMovesForColor(this.nodeColor);
+        Piece randomPiece = (Piece) virtualBoard.getPiecesOfColor(nodeColor).toArray()[0];
+        possibleMoves.add(new Turn(randomPiece, new Pos(randomPiece.getRow(), randomPiece.getCol())));
         for (Turn possibleMove : possibleMoves) {
             Board newVirtualBoard = this.virtualBoard.makeVirtualBoard(possibleMove);
-            MinimaxNode newChild = new MinimaxNode(possibleMove, this.depth -1, this.nodeValue, newVirtualBoard, this.maximizerGoals, this.minimizerGoals, !this.isMaximizingPlayer);
+            MinimaxNode newChild = new MinimaxNode(possibleMove, this.depth -1, this.nodeValue, newVirtualBoard, this.maximizerGoals, this.minimizerGoals, !this.isMaximizingPlayer, victoryManager);
             this.children.add(newChild);
         }
     }

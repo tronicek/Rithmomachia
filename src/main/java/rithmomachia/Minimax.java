@@ -1,18 +1,12 @@
 package rithmomachia;
 
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public class Minimax {
     final Victory victory;
     final Board board;
     final Color computerColor;
     private VictoryManager victoryManager;
-//    private final int bodiesRemaining;
-//    private final int valueRemaining;
-//    private final int digitsRemaining;
 
     public Minimax(Board board, Victory victory, VictoryManager victoryManager, Color color) {
         this.computerColor = color;
@@ -22,10 +16,6 @@ public class Minimax {
     }
 
     public Turn findBestMove(int depth) {
-        // Must be able to create nodes or turns that know which color move
-        // Computer is creating a dummy best value and a null Turn.
-        // For each piece it can move, it must run minimax on the child node
-        // If that child node beats the current max, that becomes the new node that is returned
         List<Turn> moves = board.getAllMovesForColor(computerColor);
         Turn bestMove = moves.getFirst();
         int bestScore = Integer.MIN_VALUE;
@@ -41,7 +31,7 @@ public class Minimax {
             int minimizerDigitsRemaining = victoryManager.getDigitsRemainingForColor(playerColor);
             GoalHolder maximizerGoals = new GoalHolder(maximizerBodiesRemaining, maximizerValueRemaining, maximizerDigitsRemaining, true);
             GoalHolder minimizerGoals = new GoalHolder(minimizerBodiesRemaining, minimizerValueRemaining, minimizerDigitsRemaining, false);
-            MinimaxNode branch = new MinimaxNode(move, depth - 1, 0, virtualBoard, maximizerGoals, minimizerGoals, false);
+            MinimaxNode branch = new MinimaxNode(move, depth - 1, 0, virtualBoard, maximizerGoals, minimizerGoals, false, victoryManager);
             int branchValue = minimax(branch, depth - 1, false);
             if (branchValue > bestScore) {
                 bestScore = branchValue;
@@ -54,8 +44,6 @@ public class Minimax {
 
     private int minimax(MinimaxNode currentNode, int depth, boolean isMaximizingPlayer) {
         if (depth == 0) { // OR someone has won
-            // Integer.MAX_VALUE if computer's win
-            // Integer.MIN_VALUE if player's win
             return currentNode.getValue();
         }
         if (isMaximizingPlayer) {
