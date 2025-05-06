@@ -23,14 +23,16 @@ public class MinimaxNode {
         this.isMaximizingPlayer = isMaximizingPlayer;
         this.maximizerGoals = maximizerGoals;
         this.minimizerGoals = minimizerGoals;
-        if (bodiesRemaining == 0 && valueRemaining == 0 && digitsRemaining == 0) {
-            this.nodeValue = previousValue;
-        }
-        else {
-            this.nodeValue = this.determineNodeValue(previousValue);
-        }
+        this.children = new ArrayList<MinimaxNode>();
         this.depth = depth;
-        this.children = this.createChildren();
+        if (maximizerGoals.hasWon()) {
+            this.nodeValue = Integer.MAX_VALUE;
+        } else if (minimizerGoals.hasWon()) {
+            this.nodeValue = Integer.MIN_VALUE;
+        } else {
+            this.nodeValue = this.determineNodeValue(previousValue);
+            this.createChildren();
+        }
     }
 
     public List<MinimaxNode> getChildren() {
@@ -63,19 +65,28 @@ public class MinimaxNode {
             }
         }
 
-        if (newValueTotal > this.valueRemaining) {
-            newValueTotal = this.valueRemaining;
+        GoalHolder holderToCheck = this.isMaximizingPlayer ? this.maximizerGoals : this.minimizerGoals;
+        int valueRemaining = holderToCheck.getValueRemaining();
+        int bodiesRemaining = holderToCheck.getBodiesRemaining();
+        int digitsRemaining = holderToCheck.getDigitsRemaining();
+        if (newValueTotal > valueRemaining) {
+            newValueTotal = valueRemaining;
+            holderToCheck.setValueRemaining(0);
         }
 
         int newBodiesTotal = captures.size();
-        if (newBodiesTotal > this.bodiesRemaining) {
-            newBodiesTotal = this.bodiesRemaining;
+        if (newBodiesTotal > bodiesRemaining) {
+            newBodiesTotal = bodiesRemaining;
+            holderToCheck.setBodiesRemaining(0);
         }
 
-        if (newDigitsTotal > this.digitsRemaining) {
-            newDigitsTotal = this.digitsRemaining;
+        if (newDigitsTotal > digitsRemaining) {
+            newDigitsTotal = digitsRemaining;
+            holderToCheck.setDigitsRemaining(0);
         }
-
+        holderToCheck.setValueRemaining(valueRemaining-newValueTotal);
+        holderToCheck.setBodiesRemaining(bodiesRemaining-newBodiesTotal);
+        holderToCheck.setDigitsRemaining(digitsRemaining-newDigitsTotal);
         int totalScore = newValueTotal + newDigitsTotal + newBodiesTotal;
         return previousValue + (isMaximizingPlayer ? totalScore : -totalScore);
     }
@@ -90,18 +101,14 @@ public class MinimaxNode {
     // Feed the new nodes depth-1;
     // Create new nodes based off opposite color of the piece in this node. Ternary statement.
 
-    private List<MinimaxNode> createChildren() {
-        List<MinimaxNode> nextMoves = new ArrayList<>();
-        if (this.depth == 0 || (this.bodiesRemaining == 0 && this.valueRemaining == 0 && this.digitsRemaining == 0))
-            return nextMoves;
+    private void createChildren() {
         //else, fill nextmoves with new nodes with depth-1
 
         List<Turn> possibleMoves = this.virtualBoard.getAllMovesForColor(this.turn.getPiece().getColor() == Color.W ? Color.B : Color.W);
         for (Turn possibleMove : possibleMoves) {
             Board newVirtualBoard = this.virtualBoard.makeVirtualBoard(possibleMove);
-            MinimaxNode newChild = new MinimaxNode(possibleMove, this.depth -1, this.nodeValue, newVirtualBoard, this.bodiesRemaining, this.valueRemaining, this.digitsRemaining, !this.isMaximizingPlayer);
-            nextMoves.add(newChild);
+            MinimaxNode newChild = new MinimaxNode(possibleMove, this.depth -1, this.nodeValue, newVirtualBoard, this.maximizerGoals, this.minimizerGoals, !this.isMaximizingPlayer);
+            this.children.add(newChild);
         }
-        return nextMoves;
     }
 }
