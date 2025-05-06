@@ -99,6 +99,15 @@ public class VictoryManager {
     }
 
     public Victory checkForVictory(Color colorToCheck) { // Checks given victory condition for color that is being checked and returns either that condition or NONE
+        if (this.checkVictoriaExcelentisma(colorToCheck)){
+            return Victory.EXCELENTISMA;
+        }
+        if (this.checkVictoriaMayor(colorToCheck)){
+            return Victory.MAYOR;
+        }
+        if (this.checkVictoriaMayor(colorToCheck)){
+            return Victory.MAGNA;
+        }
         switch (this.victory) {
             case BODIES:
                 if (this.checkVictoryBodies(colorToCheck)) {
@@ -291,5 +300,24 @@ public class VictoryManager {
 
     public int getValueGoal(){
         return this.valueGoal;
+    }
+
+    public int getBodiesRemainingForColor(Color color){
+        int bodiesCaptured = color == Color.W ? whiteCaptures.get("bodies") : blackCaptures.get("bodies");
+        return this.bodiesGoal - bodiesCaptured;
+    }
+
+    public int getValueRemainingForColor(Color color){
+        int valueCaptured = color == Color.W ? whiteCaptures.get("value") : blackCaptures.get("value");
+        return this.valueGoal - valueCaptured;
+    }
+
+    public int getDigitsRemainingForColor(Color color){
+        int digitsCaptured = color == Color.W ? whiteCaptures.get("digits") : blackCaptures.get("digits");
+        return this.digitsGoal - digitsCaptured;
+    }
+
+    public HashMap<String, Integer> getCapturesMapForColor(Color color){
+        return color == Color.B ? blackCaptures : whiteCaptures;
     }
 }
